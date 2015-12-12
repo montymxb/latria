@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Latria.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>Latria_All.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Latria_Compiler.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Latria_Decompiler.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>A92E34A41C09276800BDA2D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A948595C1A679A9A0011BA8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A96B5AF11BEAE9E200ABFC9D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9DB7A231BE9D1170055B0E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9DB7A381BE9D3090055B0E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

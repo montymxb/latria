@@ -1,0 +1,796 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A92A24451C095F28007020F5 /* Latria_ControlFlow.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24231C095F28007020F5 /* Latria_ControlFlow.c */; };
+		A92A24461C095F28007020F5 /* Latria_Function.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24251C095F28007020F5 /* Latria_Function.c */; };
+		A92A24471C095F28007020F5 /* Latria_GarbageCollection.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24271C095F28007020F5 /* Latria_GarbageCollection.c */; };
+		A92A24481C095F28007020F5 /* Latria_InLang.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24291C095F28007020F5 /* Latria_InLang.c */; };
+		A92A24491C095F28007020F5 /* Latria_IO.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A242B1C095F28007020F5 /* Latria_IO.c */; };
+		A92A244A1C095F28007020F5 /* Latria_Jumps.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A242D1C095F28007020F5 /* Latria_Jumps.c */; };
+		A92A244B1C095F28007020F5 /* Latria_Lexical.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A242F1C095F28007020F5 /* Latria_Lexical.c */; };
+		A92A244C1C095F28007020F5 /* Latria_Libs.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24311C095F28007020F5 /* Latria_Libs.c */; };
+		A92A244D1C095F28007020F5 /* Latria_Math.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24331C095F28007020F5 /* Latria_Math.c */; };
+		A92A244E1C095F28007020F5 /* Latria_OPCodes.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24351C095F28007020F5 /* Latria_OPCodes.c */; };
+		A92A244F1C095F28007020F5 /* Latria_Operators.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24371C095F28007020F5 /* Latria_Operators.c */; };
+		A92A24501C095F28007020F5 /* Latria_ReferenceStack.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24391C095F28007020F5 /* Latria_ReferenceStack.c */; };
+		A92A24511C095F28007020F5 /* Latria_Regex.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A243B1C095F28007020F5 /* Latria_Regex.c */; };
+		A92A24521C095F28007020F5 /* Latria_Sys.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A243D1C095F28007020F5 /* Latria_Sys.c */; };
+		A92A24531C095F28007020F5 /* Latria_Tests.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A243F1C095F28007020F5 /* Latria_Tests.c */; };
+		A92A24541C095F28007020F5 /* Latria_Vars.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24411C095F28007020F5 /* Latria_Vars.c */; };
+		A92A24551C095F28007020F5 /* Latria.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24431C095F28007020F5 /* Latria.c */; };
+		A92A24621C095F89007020F5 /* Latria_C_IO.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24561C095F89007020F5 /* Latria_C_IO.c */; };
+		A92A24631C095F89007020F5 /* Latria_C_Lexical.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24581C095F89007020F5 /* Latria_C_Lexical.c */; };
+		A92A24641C095F89007020F5 /* Latria_C_Libs.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A245A1C095F89007020F5 /* Latria_C_Libs.c */; };
+		A92A24651C095F89007020F5 /* Latria_C_OpCodes.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A245C1C095F89007020F5 /* Latria_C_OpCodes.c */; };
+		A92A24661C095F89007020F5 /* Latria_C_StateStack.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A245E1C095F89007020F5 /* Latria_C_StateStack.c */; };
+		A92A24671C095F89007020F5 /* Latria_Compiler.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24601C095F89007020F5 /* Latria_Compiler.c */; };
+		A92A24961C095FA1007020F5 /* Latria_C_IO.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24681C095FA1007020F5 /* Latria_C_IO.c */; };
+		A92A24971C095FA1007020F5 /* Latria_C_Lexical.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A246A1C095FA1007020F5 /* Latria_C_Lexical.c */; };
+		A92A24981C095FA1007020F5 /* Latria_C_Libs.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A246C1C095FA1007020F5 /* Latria_C_Libs.c */; };
+		A92A24991C095FA1007020F5 /* Latria_C_OpCodes.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A246E1C095FA1007020F5 /* Latria_C_OpCodes.c */; };
+		A92A249A1C095FA1007020F5 /* Latria_C_StateStack.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24701C095FA1007020F5 /* Latria_C_StateStack.c */; };
+		A92A249C1C095FA1007020F5 /* Latria_ControlFlow.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24741C095FA1007020F5 /* Latria_ControlFlow.c */; };
+		A92A249D1C095FA1007020F5 /* Latria_Function.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24761C095FA1007020F5 /* Latria_Function.c */; };
+		A92A249E1C095FA1007020F5 /* Latria_GarbageCollection.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24781C095FA1007020F5 /* Latria_GarbageCollection.c */; };
+		A92A249F1C095FA1007020F5 /* Latria_InLang.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A247A1C095FA1007020F5 /* Latria_InLang.c */; };
+		A92A24A01C095FA1007020F5 /* Latria_IO.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A247C1C095FA1007020F5 /* Latria_IO.c */; };
+		A92A24A11C095FA1007020F5 /* Latria_Jumps.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A247E1C095FA1007020F5 /* Latria_Jumps.c */; };
+		A92A24A21C095FA1007020F5 /* Latria_Lexical.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24801C095FA1007020F5 /* Latria_Lexical.c */; };
+		A92A24A31C095FA1007020F5 /* Latria_Libs.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24821C095FA1007020F5 /* Latria_Libs.c */; };
+		A92A24A41C095FA1007020F5 /* Latria_Math.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24841C095FA1007020F5 /* Latria_Math.c */; };
+		A92A24A51C095FA1007020F5 /* Latria_OPCodes.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24861C095FA1007020F5 /* Latria_OPCodes.c */; };
+		A92A24A61C095FA1007020F5 /* Latria_Operators.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24881C095FA1007020F5 /* Latria_Operators.c */; };
+		A92A24A71C095FA1007020F5 /* Latria_ReferenceStack.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A248A1C095FA1007020F5 /* Latria_ReferenceStack.c */; };
+		A92A24A81C095FA1007020F5 /* Latria_Regex.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A248C1C095FA1007020F5 /* Latria_Regex.c */; };
+		A92A24A91C095FA1007020F5 /* Latria_Sys.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A248E1C095FA1007020F5 /* Latria_Sys.c */; };
+		A92A24AA1C095FA1007020F5 /* Latria_Tests.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24901C095FA1007020F5 /* Latria_Tests.c */; };
+		A92A24AB1C095FA1007020F5 /* Latria_Vars.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24921C095FA1007020F5 /* Latria_Vars.c */; };
+		A92A24AC1C095FA1007020F5 /* Latria.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24941C095FA1007020F5 /* Latria.c */; };
+		A92A24AF1C095FBE007020F5 /* Latria_Decompiler.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24AD1C095FBE007020F5 /* Latria_Decompiler.c */; };
+		A92A24B81C0987E5007020F5 /* Latria_C_Dup_Libs.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24B61C0987E5007020F5 /* Latria_C_Dup_Libs.c */; };
+		A92A24BE1C098AA0007020F5 /* Latria_Compiler_Interface.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24BC1C098AA0007020F5 /* Latria_Compiler_Interface.c */; };
+		A92A24C11C098AB2007020F5 /* Latria_Compiler_Interface.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24BF1C098AB2007020F5 /* Latria_Compiler_Interface.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A92E34A31C09276800BDA2D7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		A948595B1A679A9A0011BA8C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		A96B5AF01BEAE9E200ABFC9D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		A9DB7A371BE9D3090055B0E2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A92A24231C095F28007020F5 /* Latria_ControlFlow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_ControlFlow.c; path = src/Latria_ControlFlow.c; sourceTree = "<group>"; };
+		A92A24241C095F28007020F5 /* Latria_ControlFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_ControlFlow.h; path = src/Latria_ControlFlow.h; sourceTree = "<group>"; };
+		A92A24251C095F28007020F5 /* Latria_Function.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Function.c; path = src/Latria_Function.c; sourceTree = "<group>"; };
+		A92A24261C095F28007020F5 /* Latria_Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Function.h; path = src/Latria_Function.h; sourceTree = "<group>"; };
+		A92A24271C095F28007020F5 /* Latria_GarbageCollection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_GarbageCollection.c; path = src/Latria_GarbageCollection.c; sourceTree = "<group>"; };
+		A92A24281C095F28007020F5 /* Latria_GarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_GarbageCollection.h; path = src/Latria_GarbageCollection.h; sourceTree = "<group>"; };
+		A92A24291C095F28007020F5 /* Latria_InLang.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_InLang.c; path = src/Latria_InLang.c; sourceTree = "<group>"; };
+		A92A242A1C095F28007020F5 /* Latria_InLang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_InLang.h; path = src/Latria_InLang.h; sourceTree = "<group>"; };
+		A92A242B1C095F28007020F5 /* Latria_IO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_IO.c; path = src/Latria_IO.c; sourceTree = "<group>"; };
+		A92A242C1C095F28007020F5 /* Latria_IO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_IO.h; path = src/Latria_IO.h; sourceTree = "<group>"; };
+		A92A242D1C095F28007020F5 /* Latria_Jumps.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Jumps.c; path = src/Latria_Jumps.c; sourceTree = "<group>"; };
+		A92A242E1C095F28007020F5 /* Latria_Jumps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Jumps.h; path = src/Latria_Jumps.h; sourceTree = "<group>"; };
+		A92A242F1C095F28007020F5 /* Latria_Lexical.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Lexical.c; path = src/Latria_Lexical.c; sourceTree = "<group>"; };
+		A92A24301C095F28007020F5 /* Latria_Lexical.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Lexical.h; path = src/Latria_Lexical.h; sourceTree = "<group>"; };
+		A92A24311C095F28007020F5 /* Latria_Libs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Libs.c; path = src/Latria_Libs.c; sourceTree = "<group>"; };
+		A92A24321C095F28007020F5 /* Latria_Libs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Libs.h; path = src/Latria_Libs.h; sourceTree = "<group>"; };
+		A92A24331C095F28007020F5 /* Latria_Math.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Math.c; path = src/Latria_Math.c; sourceTree = "<group>"; };
+		A92A24341C095F28007020F5 /* Latria_Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Math.h; path = src/Latria_Math.h; sourceTree = "<group>"; };
+		A92A24351C095F28007020F5 /* Latria_OPCodes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_OPCodes.c; path = src/Latria_OPCodes.c; sourceTree = "<group>"; };
+		A92A24361C095F28007020F5 /* Latria_OPCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_OPCodes.h; path = src/Latria_OPCodes.h; sourceTree = "<group>"; };
+		A92A24371C095F28007020F5 /* Latria_Operators.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Operators.c; path = src/Latria_Operators.c; sourceTree = "<group>"; };
+		A92A24381C095F28007020F5 /* Latria_Operators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Operators.h; path = src/Latria_Operators.h; sourceTree = "<group>"; };
+		A92A24391C095F28007020F5 /* Latria_ReferenceStack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_ReferenceStack.c; path = src/Latria_ReferenceStack.c; sourceTree = "<group>"; };
+		A92A243A1C095F28007020F5 /* Latria_ReferenceStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_ReferenceStack.h; path = src/Latria_ReferenceStack.h; sourceTree = "<group>"; };
+		A92A243B1C095F28007020F5 /* Latria_Regex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Regex.c; path = src/Latria_Regex.c; sourceTree = "<group>"; };
+		A92A243C1C095F28007020F5 /* Latria_Regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Regex.h; path = src/Latria_Regex.h; sourceTree = "<group>"; };
+		A92A243D1C095F28007020F5 /* Latria_Sys.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Sys.c; path = src/Latria_Sys.c; sourceTree = "<group>"; };
+		A92A243E1C095F28007020F5 /* Latria_Sys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Sys.h; path = src/Latria_Sys.h; sourceTree = "<group>"; };
+		A92A243F1C095F28007020F5 /* Latria_Tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Tests.c; path = src/Latria_Tests.c; sourceTree = "<group>"; };
+		A92A24401C095F28007020F5 /* Latria_Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Tests.h; path = src/Latria_Tests.h; sourceTree = "<group>"; };
+		A92A24411C095F28007020F5 /* Latria_Vars.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Vars.c; path = src/Latria_Vars.c; sourceTree = "<group>"; };
+		A92A24421C095F28007020F5 /* Latria_Vars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Vars.h; path = src/Latria_Vars.h; sourceTree = "<group>"; };
+		A92A24431C095F28007020F5 /* Latria.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria.c; path = src/Latria.c; sourceTree = "<group>"; };
+		A92A24441C095F28007020F5 /* Latria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria.h; path = src/Latria.h; sourceTree = "<group>"; };
+		A92A24561C095F89007020F5 /* Latria_C_IO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_IO.c; path = Latria/src/Latria_C_IO.c; sourceTree = SOURCE_ROOT; };
+		A92A24571C095F89007020F5 /* Latria_C_IO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_IO.h; path = Latria/src/Latria_C_IO.h; sourceTree = SOURCE_ROOT; };
+		A92A24581C095F89007020F5 /* Latria_C_Lexical.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_Lexical.c; path = Latria/src/Latria_C_Lexical.c; sourceTree = SOURCE_ROOT; };
+		A92A24591C095F89007020F5 /* Latria_C_Lexical.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_Lexical.h; path = Latria/src/Latria_C_Lexical.h; sourceTree = SOURCE_ROOT; };
+		A92A245A1C095F89007020F5 /* Latria_C_Libs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_Libs.c; path = Latria/src/Latria_C_Libs.c; sourceTree = SOURCE_ROOT; };
+		A92A245B1C095F89007020F5 /* Latria_C_Libs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_Libs.h; path = Latria/src/Latria_C_Libs.h; sourceTree = SOURCE_ROOT; };
+		A92A245C1C095F89007020F5 /* Latria_C_OpCodes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_OpCodes.c; path = Latria/src/Latria_C_OpCodes.c; sourceTree = SOURCE_ROOT; };
+		A92A245D1C095F89007020F5 /* Latria_C_OpCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_OpCodes.h; path = Latria/src/Latria_C_OpCodes.h; sourceTree = SOURCE_ROOT; };
+		A92A245E1C095F89007020F5 /* Latria_C_StateStack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_StateStack.c; path = Latria/src/Latria_C_StateStack.c; sourceTree = SOURCE_ROOT; };
+		A92A245F1C095F89007020F5 /* Latria_C_StateStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_StateStack.h; path = Latria/src/Latria_C_StateStack.h; sourceTree = SOURCE_ROOT; };
+		A92A24601C095F89007020F5 /* Latria_Compiler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Compiler.c; path = Latria/src/Latria_Compiler.c; sourceTree = SOURCE_ROOT; };
+		A92A24611C095F89007020F5 /* Latria_Compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Compiler.h; path = Latria/src/Latria_Compiler.h; sourceTree = SOURCE_ROOT; };
+		A92A24681C095FA1007020F5 /* Latria_C_IO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_IO.c; path = Latria/src/Latria_C_IO.c; sourceTree = SOURCE_ROOT; };
+		A92A24691C095FA1007020F5 /* Latria_C_IO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_IO.h; path = Latria/src/Latria_C_IO.h; sourceTree = SOURCE_ROOT; };
+		A92A246A1C095FA1007020F5 /* Latria_C_Lexical.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_Lexical.c; path = Latria/src/Latria_C_Lexical.c; sourceTree = SOURCE_ROOT; };
+		A92A246B1C095FA1007020F5 /* Latria_C_Lexical.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_Lexical.h; path = Latria/src/Latria_C_Lexical.h; sourceTree = SOURCE_ROOT; };
+		A92A246C1C095FA1007020F5 /* Latria_C_Libs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_Libs.c; path = Latria/src/Latria_C_Libs.c; sourceTree = SOURCE_ROOT; };
+		A92A246D1C095FA1007020F5 /* Latria_C_Libs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_Libs.h; path = Latria/src/Latria_C_Libs.h; sourceTree = SOURCE_ROOT; };
+		A92A246E1C095FA1007020F5 /* Latria_C_OpCodes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_OpCodes.c; path = Latria/src/Latria_C_OpCodes.c; sourceTree = SOURCE_ROOT; };
+		A92A246F1C095FA1007020F5 /* Latria_C_OpCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_OpCodes.h; path = Latria/src/Latria_C_OpCodes.h; sourceTree = SOURCE_ROOT; };
+		A92A24701C095FA1007020F5 /* Latria_C_StateStack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_StateStack.c; path = Latria/src/Latria_C_StateStack.c; sourceTree = SOURCE_ROOT; };
+		A92A24711C095FA1007020F5 /* Latria_C_StateStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_StateStack.h; path = Latria/src/Latria_C_StateStack.h; sourceTree = SOURCE_ROOT; };
+		A92A24741C095FA1007020F5 /* Latria_ControlFlow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_ControlFlow.c; path = Latria/src/Latria_ControlFlow.c; sourceTree = SOURCE_ROOT; };
+		A92A24751C095FA1007020F5 /* Latria_ControlFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_ControlFlow.h; path = Latria/src/Latria_ControlFlow.h; sourceTree = SOURCE_ROOT; };
+		A92A24761C095FA1007020F5 /* Latria_Function.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Function.c; path = Latria/src/Latria_Function.c; sourceTree = SOURCE_ROOT; };
+		A92A24771C095FA1007020F5 /* Latria_Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Function.h; path = Latria/src/Latria_Function.h; sourceTree = SOURCE_ROOT; };
+		A92A24781C095FA1007020F5 /* Latria_GarbageCollection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_GarbageCollection.c; path = Latria/src/Latria_GarbageCollection.c; sourceTree = SOURCE_ROOT; };
+		A92A24791C095FA1007020F5 /* Latria_GarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_GarbageCollection.h; path = Latria/src/Latria_GarbageCollection.h; sourceTree = SOURCE_ROOT; };
+		A92A247A1C095FA1007020F5 /* Latria_InLang.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_InLang.c; path = Latria/src/Latria_InLang.c; sourceTree = SOURCE_ROOT; };
+		A92A247B1C095FA1007020F5 /* Latria_InLang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_InLang.h; path = Latria/src/Latria_InLang.h; sourceTree = SOURCE_ROOT; };
+		A92A247C1C095FA1007020F5 /* Latria_IO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_IO.c; path = Latria/src/Latria_IO.c; sourceTree = SOURCE_ROOT; };
+		A92A247D1C095FA1007020F5 /* Latria_IO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_IO.h; path = Latria/src/Latria_IO.h; sourceTree = SOURCE_ROOT; };
+		A92A247E1C095FA1007020F5 /* Latria_Jumps.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Jumps.c; path = Latria/src/Latria_Jumps.c; sourceTree = SOURCE_ROOT; };
+		A92A247F1C095FA1007020F5 /* Latria_Jumps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Jumps.h; path = Latria/src/Latria_Jumps.h; sourceTree = SOURCE_ROOT; };
+		A92A24801C095FA1007020F5 /* Latria_Lexical.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Lexical.c; path = Latria/src/Latria_Lexical.c; sourceTree = SOURCE_ROOT; };
+		A92A24811C095FA1007020F5 /* Latria_Lexical.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Lexical.h; path = Latria/src/Latria_Lexical.h; sourceTree = SOURCE_ROOT; };
+		A92A24821C095FA1007020F5 /* Latria_Libs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Libs.c; path = Latria/src/Latria_Libs.c; sourceTree = SOURCE_ROOT; };
+		A92A24831C095FA1007020F5 /* Latria_Libs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Libs.h; path = Latria/src/Latria_Libs.h; sourceTree = SOURCE_ROOT; };
+		A92A24841C095FA1007020F5 /* Latria_Math.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Math.c; path = Latria/src/Latria_Math.c; sourceTree = SOURCE_ROOT; };
+		A92A24851C095FA1007020F5 /* Latria_Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Math.h; path = Latria/src/Latria_Math.h; sourceTree = SOURCE_ROOT; };
+		A92A24861C095FA1007020F5 /* Latria_OPCodes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_OPCodes.c; path = Latria/src/Latria_OPCodes.c; sourceTree = SOURCE_ROOT; };
+		A92A24871C095FA1007020F5 /* Latria_OPCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_OPCodes.h; path = Latria/src/Latria_OPCodes.h; sourceTree = SOURCE_ROOT; };
+		A92A24881C095FA1007020F5 /* Latria_Operators.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Operators.c; path = Latria/src/Latria_Operators.c; sourceTree = SOURCE_ROOT; };
+		A92A24891C095FA1007020F5 /* Latria_Operators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Operators.h; path = Latria/src/Latria_Operators.h; sourceTree = SOURCE_ROOT; };
+		A92A248A1C095FA1007020F5 /* Latria_ReferenceStack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_ReferenceStack.c; path = Latria/src/Latria_ReferenceStack.c; sourceTree = SOURCE_ROOT; };
+		A92A248B1C095FA1007020F5 /* Latria_ReferenceStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_ReferenceStack.h; path = Latria/src/Latria_ReferenceStack.h; sourceTree = SOURCE_ROOT; };
+		A92A248C1C095FA1007020F5 /* Latria_Regex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Regex.c; path = Latria/src/Latria_Regex.c; sourceTree = SOURCE_ROOT; };
+		A92A248D1C095FA1007020F5 /* Latria_Regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Regex.h; path = Latria/src/Latria_Regex.h; sourceTree = SOURCE_ROOT; };
+		A92A248E1C095FA1007020F5 /* Latria_Sys.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Sys.c; path = Latria/src/Latria_Sys.c; sourceTree = SOURCE_ROOT; };
+		A92A248F1C095FA1007020F5 /* Latria_Sys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Sys.h; path = Latria/src/Latria_Sys.h; sourceTree = SOURCE_ROOT; };
+		A92A24901C095FA1007020F5 /* Latria_Tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Tests.c; path = Latria/src/Latria_Tests.c; sourceTree = SOURCE_ROOT; };
+		A92A24911C095FA1007020F5 /* Latria_Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Tests.h; path = Latria/src/Latria_Tests.h; sourceTree = SOURCE_ROOT; };
+		A92A24921C095FA1007020F5 /* Latria_Vars.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Vars.c; path = Latria/src/Latria_Vars.c; sourceTree = SOURCE_ROOT; };
+		A92A24931C095FA1007020F5 /* Latria_Vars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Vars.h; path = Latria/src/Latria_Vars.h; sourceTree = SOURCE_ROOT; };
+		A92A24941C095FA1007020F5 /* Latria.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria.c; path = Latria/src/Latria.c; sourceTree = SOURCE_ROOT; };
+		A92A24951C095FA1007020F5 /* Latria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria.h; path = Latria/src/Latria.h; sourceTree = SOURCE_ROOT; };
+		A92A24AD1C095FBE007020F5 /* Latria_Decompiler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Decompiler.c; path = Latria/src/Latria_Decompiler.c; sourceTree = SOURCE_ROOT; };
+		A92A24AE1C095FBE007020F5 /* Latria_Decompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Decompiler.h; path = Latria/src/Latria_Decompiler.h; sourceTree = SOURCE_ROOT; };
+		A92A24B61C0987E5007020F5 /* Latria_C_Dup_Libs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_Dup_Libs.c; path = Latria/src/Latria_C_Dup_Libs.c; sourceTree = SOURCE_ROOT; };
+		A92A24B71C0987E5007020F5 /* Latria_C_Dup_Libs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_Dup_Libs.h; path = Latria/src/Latria_C_Dup_Libs.h; sourceTree = SOURCE_ROOT; };
+		A92A24BC1C098AA0007020F5 /* Latria_Compiler_Interface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Compiler_Interface.c; path = Latria/src/Latria_Compiler_Interface.c; sourceTree = SOURCE_ROOT; };
+		A92A24BD1C098AA0007020F5 /* Latria_Compiler_Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Compiler_Interface.h; path = Latria/src/Latria_Compiler_Interface.h; sourceTree = SOURCE_ROOT; };
+		A92A24BF1C098AB2007020F5 /* Latria_Compiler_Interface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Compiler_Interface.c; path = Latria/src/Latria_Compiler_Interface.c; sourceTree = SOURCE_ROOT; };
+		A92A24C01C098AB2007020F5 /* Latria_Compiler_Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Compiler_Interface.h; path = Latria/src/Latria_Compiler_Interface.h; sourceTree = SOURCE_ROOT; };
+		A92E34A51C09276800BDA2D7 /* Latria_All */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Latria_All; sourceTree = BUILT_PRODUCTS_DIR; };
+		A948595D1A679A9A0011BA8C /* Latria */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Latria; sourceTree = BUILT_PRODUCTS_DIR; };
+		A96B5AF21BEAE9E200ABFC9D /* Latria_Decompiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Latria_Decompiler; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9DB7A391BE9D3090055B0E2 /* Latria_Compiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Latria_Compiler; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A92E34A21C09276800BDA2D7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A948595A1A679A9A0011BA8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A96B5AEF1BEAE9E200ABFC9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9DB7A361BE9D3090055B0E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A92E34A61C09276800BDA2D7 /* Latria_All */ = {
+			isa = PBXGroup;
+			children = (
+				A92A24681C095FA1007020F5 /* Latria_C_IO.c */,
+				A92A24691C095FA1007020F5 /* Latria_C_IO.h */,
+				A92A246A1C095FA1007020F5 /* Latria_C_Lexical.c */,
+				A92A246B1C095FA1007020F5 /* Latria_C_Lexical.h */,
+				A92A246C1C095FA1007020F5 /* Latria_C_Libs.c */,
+				A92A246D1C095FA1007020F5 /* Latria_C_Libs.h */,
+				A92A246E1C095FA1007020F5 /* Latria_C_OpCodes.c */,
+				A92A246F1C095FA1007020F5 /* Latria_C_OpCodes.h */,
+				A92A24701C095FA1007020F5 /* Latria_C_StateStack.c */,
+				A92A24711C095FA1007020F5 /* Latria_C_StateStack.h */,
+				A92A24741C095FA1007020F5 /* Latria_ControlFlow.c */,
+				A92A24751C095FA1007020F5 /* Latria_ControlFlow.h */,
+				A92A24761C095FA1007020F5 /* Latria_Function.c */,
+				A92A24771C095FA1007020F5 /* Latria_Function.h */,
+				A92A24781C095FA1007020F5 /* Latria_GarbageCollection.c */,
+				A92A24791C095FA1007020F5 /* Latria_GarbageCollection.h */,
+				A92A247A1C095FA1007020F5 /* Latria_InLang.c */,
+				A92A247B1C095FA1007020F5 /* Latria_InLang.h */,
+				A92A247C1C095FA1007020F5 /* Latria_IO.c */,
+				A92A247D1C095FA1007020F5 /* Latria_IO.h */,
+				A92A247E1C095FA1007020F5 /* Latria_Jumps.c */,
+				A92A247F1C095FA1007020F5 /* Latria_Jumps.h */,
+				A92A24801C095FA1007020F5 /* Latria_Lexical.c */,
+				A92A24811C095FA1007020F5 /* Latria_Lexical.h */,
+				A92A24821C095FA1007020F5 /* Latria_Libs.c */,
+				A92A24831C095FA1007020F5 /* Latria_Libs.h */,
+				A92A24841C095FA1007020F5 /* Latria_Math.c */,
+				A92A24851C095FA1007020F5 /* Latria_Math.h */,
+				A92A24861C095FA1007020F5 /* Latria_OPCodes.c */,
+				A92A24871C095FA1007020F5 /* Latria_OPCodes.h */,
+				A92A24881C095FA1007020F5 /* Latria_Operators.c */,
+				A92A24891C095FA1007020F5 /* Latria_Operators.h */,
+				A92A248A1C095FA1007020F5 /* Latria_ReferenceStack.c */,
+				A92A248B1C095FA1007020F5 /* Latria_ReferenceStack.h */,
+				A92A248C1C095FA1007020F5 /* Latria_Regex.c */,
+				A92A248D1C095FA1007020F5 /* Latria_Regex.h */,
+				A92A248E1C095FA1007020F5 /* Latria_Sys.c */,
+				A92A248F1C095FA1007020F5 /* Latria_Sys.h */,
+				A92A24901C095FA1007020F5 /* Latria_Tests.c */,
+				A92A24911C095FA1007020F5 /* Latria_Tests.h */,
+				A92A24921C095FA1007020F5 /* Latria_Vars.c */,
+				A92A24931C095FA1007020F5 /* Latria_Vars.h */,
+				A92A24941C095FA1007020F5 /* Latria.c */,
+				A92A24951C095FA1007020F5 /* Latria.h */,
+				A92A24BF1C098AB2007020F5 /* Latria_Compiler_Interface.c */,
+				A92A24C01C098AB2007020F5 /* Latria_Compiler_Interface.h */,
+			);
+			path = Latria_All;
+			sourceTree = "<group>";
+		};
+		A94859541A679A9A0011BA8C = {
+			isa = PBXGroup;
+			children = (
+				A948595F1A679A9A0011BA8C /* Latria */,
+				A9DB7A3A1BE9D3090055B0E2 /* Latria_Compiler */,
+				A96B5AF31BEAE9E200ABFC9D /* Latria_Decompiler */,
+				A92E34A61C09276800BDA2D7 /* Latria_All */,
+				A948595E1A679A9A0011BA8C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A948595E1A679A9A0011BA8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A948595D1A679A9A0011BA8C /* Latria */,
+				A9DB7A391BE9D3090055B0E2 /* Latria_Compiler */,
+				A96B5AF21BEAE9E200ABFC9D /* Latria_Decompiler */,
+				A92E34A51C09276800BDA2D7 /* Latria_All */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A948595F1A679A9A0011BA8C /* Latria */ = {
+			isa = PBXGroup;
+			children = (
+				A92A24231C095F28007020F5 /* Latria_ControlFlow.c */,
+				A92A24241C095F28007020F5 /* Latria_ControlFlow.h */,
+				A92A24251C095F28007020F5 /* Latria_Function.c */,
+				A92A24261C095F28007020F5 /* Latria_Function.h */,
+				A92A24271C095F28007020F5 /* Latria_GarbageCollection.c */,
+				A92A24281C095F28007020F5 /* Latria_GarbageCollection.h */,
+				A92A24291C095F28007020F5 /* Latria_InLang.c */,
+				A92A242A1C095F28007020F5 /* Latria_InLang.h */,
+				A92A242B1C095F28007020F5 /* Latria_IO.c */,
+				A92A242C1C095F28007020F5 /* Latria_IO.h */,
+				A92A242D1C095F28007020F5 /* Latria_Jumps.c */,
+				A92A242E1C095F28007020F5 /* Latria_Jumps.h */,
+				A92A242F1C095F28007020F5 /* Latria_Lexical.c */,
+				A92A24301C095F28007020F5 /* Latria_Lexical.h */,
+				A92A24311C095F28007020F5 /* Latria_Libs.c */,
+				A92A24321C095F28007020F5 /* Latria_Libs.h */,
+				A92A24331C095F28007020F5 /* Latria_Math.c */,
+				A92A24341C095F28007020F5 /* Latria_Math.h */,
+				A92A24351C095F28007020F5 /* Latria_OPCodes.c */,
+				A92A24361C095F28007020F5 /* Latria_OPCodes.h */,
+				A92A24371C095F28007020F5 /* Latria_Operators.c */,
+				A92A24381C095F28007020F5 /* Latria_Operators.h */,
+				A92A24391C095F28007020F5 /* Latria_ReferenceStack.c */,
+				A92A243A1C095F28007020F5 /* Latria_ReferenceStack.h */,
+				A92A243B1C095F28007020F5 /* Latria_Regex.c */,
+				A92A243C1C095F28007020F5 /* Latria_Regex.h */,
+				A92A243D1C095F28007020F5 /* Latria_Sys.c */,
+				A92A243E1C095F28007020F5 /* Latria_Sys.h */,
+				A92A243F1C095F28007020F5 /* Latria_Tests.c */,
+				A92A24401C095F28007020F5 /* Latria_Tests.h */,
+				A92A24411C095F28007020F5 /* Latria_Vars.c */,
+				A92A24421C095F28007020F5 /* Latria_Vars.h */,
+				A92A24431C095F28007020F5 /* Latria.c */,
+				A92A24441C095F28007020F5 /* Latria.h */,
+			);
+			path = Latria;
+			sourceTree = "<group>";
+		};
+		A96B5AF31BEAE9E200ABFC9D /* Latria_Decompiler */ = {
+			isa = PBXGroup;
+			children = (
+				A92A24AD1C095FBE007020F5 /* Latria_Decompiler.c */,
+				A92A24AE1C095FBE007020F5 /* Latria_Decompiler.h */,
+			);
+			path = Latria_Decompiler;
+			sourceTree = "<group>";
+		};
+		A9DB7A3A1BE9D3090055B0E2 /* Latria_Compiler */ = {
+			isa = PBXGroup;
+			children = (
+				A92A24561C095F89007020F5 /* Latria_C_IO.c */,
+				A92A24571C095F89007020F5 /* Latria_C_IO.h */,
+				A92A24581C095F89007020F5 /* Latria_C_Lexical.c */,
+				A92A24591C095F89007020F5 /* Latria_C_Lexical.h */,
+				A92A245A1C095F89007020F5 /* Latria_C_Libs.c */,
+				A92A245B1C095F89007020F5 /* Latria_C_Libs.h */,
+				A92A245C1C095F89007020F5 /* Latria_C_OpCodes.c */,
+				A92A245D1C095F89007020F5 /* Latria_C_OpCodes.h */,
+				A92A245E1C095F89007020F5 /* Latria_C_StateStack.c */,
+				A92A245F1C095F89007020F5 /* Latria_C_StateStack.h */,
+				A92A24601C095F89007020F5 /* Latria_Compiler.c */,
+				A92A24611C095F89007020F5 /* Latria_Compiler.h */,
+				A92A24B61C0987E5007020F5 /* Latria_C_Dup_Libs.c */,
+				A92A24B71C0987E5007020F5 /* Latria_C_Dup_Libs.h */,
+				A92A24BC1C098AA0007020F5 /* Latria_Compiler_Interface.c */,
+				A92A24BD1C098AA0007020F5 /* Latria_Compiler_Interface.h */,
+			);
+			path = Latria_Compiler;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A92E34A41C09276800BDA2D7 /* Latria_All */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A92E34AB1C09276800BDA2D7 /* Build configuration list for PBXNativeTarget "Latria_All" */;
+			buildPhases = (
+				A92E34A11C09276800BDA2D7 /* Sources */,
+				A92E34A21C09276800BDA2D7 /* Frameworks */,
+				A92E34A31C09276800BDA2D7 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Latria_All;
+			productName = Latria_All;
+			productReference = A92E34A51C09276800BDA2D7 /* Latria_All */;
+			productType = "com.apple.product-type.tool";
+		};
+		A948595C1A679A9A0011BA8C /* Latria */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A94859641A679A9A0011BA8C /* Build configuration list for PBXNativeTarget "Latria" */;
+			buildPhases = (
+				A94859591A679A9A0011BA8C /* Sources */,
+				A948595A1A679A9A0011BA8C /* Frameworks */,
+				A948595B1A679A9A0011BA8C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Latria;
+			productName = Latria;
+			productReference = A948595D1A679A9A0011BA8C /* Latria */;
+			productType = "com.apple.product-type.tool";
+		};
+		A96B5AF11BEAE9E200ABFC9D /* Latria_Decompiler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A96B5AF61BEAE9E200ABFC9D /* Build configuration list for PBXNativeTarget "Latria_Decompiler" */;
+			buildPhases = (
+				A96B5AEE1BEAE9E200ABFC9D /* Sources */,
+				A96B5AEF1BEAE9E200ABFC9D /* Frameworks */,
+				A96B5AF01BEAE9E200ABFC9D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Latria_Decompiler;
+			productName = Latria_Decompiler;
+			productReference = A96B5AF21BEAE9E200ABFC9D /* Latria_Decompiler */;
+			productType = "com.apple.product-type.tool";
+		};
+		A9DB7A381BE9D3090055B0E2 /* Latria_Compiler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9DB7A3D1BE9D3090055B0E2 /* Build configuration list for PBXNativeTarget "Latria_Compiler" */;
+			buildPhases = (
+				A9DB7A351BE9D3090055B0E2 /* Sources */,
+				A9DB7A361BE9D3090055B0E2 /* Frameworks */,
+				A9DB7A371BE9D3090055B0E2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Latria_Compiler;
+			productName = Latria_Compiler;
+			productReference = A9DB7A391BE9D3090055B0E2 /* Latria_Compiler */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A94859551A679A9A0011BA8C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Benjamin W Friedman";
+				TargetAttributes = {
+					A92E34A41C09276800BDA2D7 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+					A948595C1A679A9A0011BA8C = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					A96B5AF11BEAE9E200ABFC9D = {
+						CreatedOnToolsVersion = 7.1;
+					};
+					A9DB7A381BE9D3090055B0E2 = {
+						CreatedOnToolsVersion = 7.1;
+					};
+				};
+			};
+			buildConfigurationList = A94859581A679A9A0011BA8C /* Build configuration list for PBXProject "Latria" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A94859541A679A9A0011BA8C;
+			productRefGroup = A948595E1A679A9A0011BA8C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A948595C1A679A9A0011BA8C /* Latria */,
+				A9DB7A381BE9D3090055B0E2 /* Latria_Compiler */,
+				A96B5AF11BEAE9E200ABFC9D /* Latria_Decompiler */,
+				A92E34A41C09276800BDA2D7 /* Latria_All */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A92E34A11C09276800BDA2D7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A92A24961C095FA1007020F5 /* Latria_C_IO.c in Sources */,
+				A92A24A41C095FA1007020F5 /* Latria_Math.c in Sources */,
+				A92A249A1C095FA1007020F5 /* Latria_C_StateStack.c in Sources */,
+				A92A24AC1C095FA1007020F5 /* Latria.c in Sources */,
+				A92A24971C095FA1007020F5 /* Latria_C_Lexical.c in Sources */,
+				A92A24991C095FA1007020F5 /* Latria_C_OpCodes.c in Sources */,
+				A92A24A61C095FA1007020F5 /* Latria_Operators.c in Sources */,
+				A92A249D1C095FA1007020F5 /* Latria_Function.c in Sources */,
+				A92A249C1C095FA1007020F5 /* Latria_ControlFlow.c in Sources */,
+				A92A24A11C095FA1007020F5 /* Latria_Jumps.c in Sources */,
+				A92A24A21C095FA1007020F5 /* Latria_Lexical.c in Sources */,
+				A92A24C11C098AB2007020F5 /* Latria_Compiler_Interface.c in Sources */,
+				A92A24A31C095FA1007020F5 /* Latria_Libs.c in Sources */,
+				A92A24A51C095FA1007020F5 /* Latria_OPCodes.c in Sources */,
+				A92A24981C095FA1007020F5 /* Latria_C_Libs.c in Sources */,
+				A92A24AB1C095FA1007020F5 /* Latria_Vars.c in Sources */,
+				A92A24A01C095FA1007020F5 /* Latria_IO.c in Sources */,
+				A92A24AA1C095FA1007020F5 /* Latria_Tests.c in Sources */,
+				A92A24A71C095FA1007020F5 /* Latria_ReferenceStack.c in Sources */,
+				A92A24A91C095FA1007020F5 /* Latria_Sys.c in Sources */,
+				A92A24A81C095FA1007020F5 /* Latria_Regex.c in Sources */,
+				A92A249E1C095FA1007020F5 /* Latria_GarbageCollection.c in Sources */,
+				A92A249F1C095FA1007020F5 /* Latria_InLang.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A94859591A679A9A0011BA8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A92A244E1C095F28007020F5 /* Latria_OPCodes.c in Sources */,
+				A92A244A1C095F28007020F5 /* Latria_Jumps.c in Sources */,
+				A92A24461C095F28007020F5 /* Latria_Function.c in Sources */,
+				A92A24481C095F28007020F5 /* Latria_InLang.c in Sources */,
+				A92A244B1C095F28007020F5 /* Latria_Lexical.c in Sources */,
+				A92A244C1C095F28007020F5 /* Latria_Libs.c in Sources */,
+				A92A24541C095F28007020F5 /* Latria_Vars.c in Sources */,
+				A92A24511C095F28007020F5 /* Latria_Regex.c in Sources */,
+				A92A24451C095F28007020F5 /* Latria_ControlFlow.c in Sources */,
+				A92A24471C095F28007020F5 /* Latria_GarbageCollection.c in Sources */,
+				A92A244F1C095F28007020F5 /* Latria_Operators.c in Sources */,
+				A92A24501C095F28007020F5 /* Latria_ReferenceStack.c in Sources */,
+				A92A244D1C095F28007020F5 /* Latria_Math.c in Sources */,
+				A92A24531C095F28007020F5 /* Latria_Tests.c in Sources */,
+				A92A24521C095F28007020F5 /* Latria_Sys.c in Sources */,
+				A92A24551C095F28007020F5 /* Latria.c in Sources */,
+				A92A24491C095F28007020F5 /* Latria_IO.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A96B5AEE1BEAE9E200ABFC9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A92A24AF1C095FBE007020F5 /* Latria_Decompiler.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9DB7A351BE9D3090055B0E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A92A24B81C0987E5007020F5 /* Latria_C_Dup_Libs.c in Sources */,
+				A92A24621C095F89007020F5 /* Latria_C_IO.c in Sources */,
+				A92A24661C095F89007020F5 /* Latria_C_StateStack.c in Sources */,
+				A92A24BE1C098AA0007020F5 /* Latria_Compiler_Interface.c in Sources */,
+				A92A24631C095F89007020F5 /* Latria_C_Lexical.c in Sources */,
+				A92A24651C095F89007020F5 /* Latria_C_OpCodes.c in Sources */,
+				A92A24641C095F89007020F5 /* Latria_C_Libs.c in Sources */,
+				A92A24671C095F89007020F5 /* Latria_Compiler.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A92E34A91C09276800BDA2D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"INCLUDECOMPILER=1",
+					"$(inherited)",
+					"LAT_TESTS=1",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A92E34AA1C09276800BDA2D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A94859621A679A9A0011BA8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"MACOSX=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A94859631A679A9A0011BA8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A94859651A679A9A0011BA8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A94859661A679A9A0011BA8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A96B5AF71BEAE9E200ABFC9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A96B5AF81BEAE9E200ABFC9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A9DB7A3E1BE9D3090055B0E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"LAT_DEBUG=1",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A9DB7A3F1BE9D3090055B0E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A92E34AB1C09276800BDA2D7 /* Build configuration list for PBXNativeTarget "Latria_All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A92E34A91C09276800BDA2D7 /* Debug */,
+				A92E34AA1C09276800BDA2D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A94859581A679A9A0011BA8C /* Build configuration list for PBXProject "Latria" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A94859621A679A9A0011BA8C /* Debug */,
+				A94859631A679A9A0011BA8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A94859641A679A9A0011BA8C /* Build configuration list for PBXNativeTarget "Latria" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A94859651A679A9A0011BA8C /* Debug */,
+				A94859661A679A9A0011BA8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A96B5AF61BEAE9E200ABFC9D /* Build configuration list for PBXNativeTarget "Latria_Decompiler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A96B5AF71BEAE9E200ABFC9D /* Debug */,
+				A96B5AF81BEAE9E200ABFC9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9DB7A3D1BE9D3090055B0E2 /* Build configuration list for PBXNativeTarget "Latria_Compiler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9DB7A3E1BE9D3090055B0E2 /* Debug */,
+				A9DB7A3F1BE9D3090055B0E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A94859551A679A9A0011BA8C /* Project object */;
+}
