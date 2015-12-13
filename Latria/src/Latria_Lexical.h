@@ -42,7 +42,7 @@ void setTailCall(char *tc);
 
 char didAllocatePrePerform();
 
-//void fastForwardToLabel();
+/* void fastForwardToLabel(); */
 
 /*** NEW VM FUNCTIONS ****/
 

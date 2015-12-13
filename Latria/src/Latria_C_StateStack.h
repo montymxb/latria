@@ -54,7 +54,7 @@ typedef struct {
 
 #define JUMP_STACK_SIZE 200
 
-//void pushGoto(unsigned int index);
+/* void pushGoto(unsigned int index); */
 void pushForGoto(unsigned int index, unsigned char *finishingSequence, unsigned int finishingSequenceSize);
 void pushIncompleteJump(unsigned int originalAddr, JumpType type);
 JumpInstance *getJumpType();

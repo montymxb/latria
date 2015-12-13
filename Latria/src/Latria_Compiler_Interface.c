@@ -126,7 +126,7 @@ void compileLatria(char *fn) {
     fclose(out);
     
     /* Print out what we compiled */
-    ////printf("compiled %s\n",nf);
+    /* printf("compiled %s\n",nf); */
     
     /* free */
     freeByteCodes();

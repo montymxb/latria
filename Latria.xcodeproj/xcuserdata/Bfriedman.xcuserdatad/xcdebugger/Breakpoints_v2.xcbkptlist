@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2360"
             endingLineNumber = "2360"
-            landmarkName = "ftest_SingleRelational()"
+            landmarkName = "ftest_CompoundRelationals()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -111,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2363"
             endingLineNumber = "2363"
-            landmarkName = "ftest_SingleRelational()"
+            landmarkName = "ftest_CompoundRelationals()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -127,7 +127,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2362"
             endingLineNumber = "2362"
-            landmarkName = "ftest_SingleRelational()"
+            landmarkName = "ftest_CompoundRelationals()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -175,7 +175,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2343"
             endingLineNumber = "2343"
-            landmarkName = "ftest_CompoundRelationals()"
+            landmarkName = "ftest_NestedRelationals()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -207,7 +207,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "186"
             endingLineNumber = "186"
-            landmarkName = "runFunctionalTests()"
+            landmarkName = "runAllTests()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -223,7 +223,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2309"
             endingLineNumber = "2309"
-            landmarkName = "ftest_NestedRelationals()"
+            landmarkName = "ftest_FileIO()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -239,7 +239,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2371"
             endingLineNumber = "2371"
-            landmarkName = "ftest_SingleRelational()"
+            landmarkName = "ftest_CompoundRelationals()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -335,7 +335,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2438"
             endingLineNumber = "2438"
-            landmarkName = "prepareWhile()"
+            landmarkName = "analyzeForEnd()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -351,7 +351,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
             endingLineNumber = "52"
-            landmarkName = "pushIncompleteJump()"
+            landmarkName = "pushForGoto()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -367,7 +367,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "87"
             endingLineNumber = "87"
-            landmarkName = "popJumpType()"
+            landmarkName = "pushIncompleteJump()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -383,7 +383,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2527"
             endingLineNumber = "2527"
-            landmarkName = "analyzeWhileStart()"
+            landmarkName = "analyzeWhile()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -399,7 +399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2528"
             endingLineNumber = "2528"
-            landmarkName = "analyzeWhileStart()"
+            landmarkName = "analyzeWhile()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -415,7 +415,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2389"
             endingLineNumber = "2389"
-            landmarkName = "analyzeForEnd()"
+            landmarkName = "analyzeForStart()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -431,7 +431,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2394"
             endingLineNumber = "2394"
-            landmarkName = "analyzeForEnd()"
+            landmarkName = "analyzeForStart()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -447,7 +447,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2388"
             endingLineNumber = "2388"
-            landmarkName = "analyzeForEnd()"
+            landmarkName = "analyzeForStart()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -462,9 +462,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "pushForGoto()"
-            landmarkType = "7">
+            endingLineNumber = "28">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -527,7 +525,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2539"
             endingLineNumber = "2539"
-            landmarkName = "ftest_ChainedIfs()"
+            landmarkName = "ftest_BasicFor()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -542,9 +540,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "361"
-            endingLineNumber = "361"
-            landmarkName = "handleInput()"
-            landmarkType = "7">
+            endingLineNumber = "361">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -559,7 +555,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1888"
             endingLineNumber = "1888"
-            landmarkName = "analyzeIfPost()"
+            landmarkName = "analyzeIfEnd()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -607,7 +603,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "118"
             endingLineNumber = "118"
-            landmarkName = "pushJumpUpdate()"
+            landmarkName = "popJumpType()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -702,9 +698,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "analyzeInputToCompile()"
-            landmarkType = "7">
+            endingLineNumber = "72">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -814,9 +808,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "pushFuncLabel()"
-            landmarkType = "7">
+            endingLineNumber = "22">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -911,7 +903,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3022"
             endingLineNumber = "3022"
-            landmarkName = "ftest_returnArrayFunction()"
+            landmarkName = "ftest_returnBooleanFunction()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -943,7 +935,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "867"
             endingLineNumber = "867"
-            landmarkName = "_updateCoreObjectWithVal()"
+            landmarkName = "setValueForKey()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -959,7 +951,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "878"
             endingLineNumber = "878"
-            landmarkName = "_updateCoreObjectWithVal()"
+            landmarkName = "setValueForKey()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -991,7 +983,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "241"
             endingLineNumber = "241"
-            landmarkName = "setArrayValue()"
+            landmarkName = "setFileValueForArrayKey()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1087,7 +1079,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2678"
             endingLineNumber = "2678"
-            landmarkName = "ftest_ExecSimpleEcho()"
+            landmarkName = "ftest_NestedWhiles()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1198,9 +1190,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "stack_pushStack()"
-            landmarkType = "7">
+            endingLineNumber = "30">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1231,7 +1221,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "532"
             endingLineNumber = "532"
-            landmarkName = "setArrayRegister()"
+            landmarkName = "setFileRegister()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1247,7 +1237,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1201"
             endingLineNumber = "1201"
-            landmarkName = "copyArrayCoreObject()"
+            landmarkName = "freeArrayObjectWithNameKey()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1263,7 +1253,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1200"
             endingLineNumber = "1200"
-            landmarkName = "copyArrayCoreObject()"
+            landmarkName = "freeArrayObjectWithNameKey()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1278,9 +1268,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "681"
-            endingLineNumber = "681"
-            landmarkName = "pushRegister()"
-            landmarkType = "7">
+            endingLineNumber = "681">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1326,9 +1314,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "stack_pushStack()"
-            landmarkType = "7">
+            endingLineNumber = "20">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1343,7 +1329,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "111"
             endingLineNumber = "111"
-            landmarkName = "stack_popStack()"
+            landmarkName = "getFunctionBlockName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1359,7 +1345,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1224"
             endingLineNumber = "1224"
-            landmarkName = "__copyArrayCoreObject()"
+            landmarkName = "copyArrayCoreObject()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1374,9 +1360,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "stack_pushStack()"
-            landmarkType = "7">
+            endingLineNumber = "19">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1391,7 +1375,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1208"
             endingLineNumber = "1208"
-            landmarkName = "copyArrayCoreObject()"
+            landmarkName = "freeArrayObjectWithNameKey()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1407,7 +1391,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3014"
             endingLineNumber = "3014"
-            landmarkName = "ftest_returnArrayFunction()"
+            landmarkName = "ftest_returnBooleanFunction()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1423,7 +1407,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3020"
             endingLineNumber = "3020"
-            landmarkName = "ftest_returnArrayFunction()"
+            landmarkName = "ftest_returnBooleanFunction()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1470,9 +1454,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "682"
-            endingLineNumber = "682"
-            landmarkName = "pushRegister()"
-            landmarkType = "7">
+            endingLineNumber = "682">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1503,7 +1485,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1611"
             endingLineNumber = "1611"
-            landmarkName = "analyzeReturn()"
+            landmarkName = "analyzeFunctionDefinitionEnd()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1743,7 +1725,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1543"
             endingLineNumber = "1543"
-            landmarkName = "analyzeFunctionDefinitionStart()"
+            landmarkName = "analyzeFunctionDefinitionArgs()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1951,7 +1933,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3785"
             endingLineNumber = "3785"
-            landmarkName = "getCapturedInput()"
+            landmarkName = "resetCapturedInput()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1967,7 +1949,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4264"
             endingLineNumber = "4264"
-            landmarkName = "freeLexicalAllocations()"
+            landmarkName = "handleControlFlowTransfer()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2222,9 +2204,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "startInstructions()"
-            landmarkType = "7">
+            endingLineNumber = "30">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2286,9 +2266,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "main()"
-            landmarkType = "7">
+            endingLineNumber = "63">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2303,7 +2281,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
             endingLineNumber = "76"
-            landmarkName = "freeAllLabels()"
+            landmarkName = "getPositionFromFuncLabel()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2319,7 +2297,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "835"
             endingLineNumber = "835"
-            landmarkName = "__freeAllRegisterValues()"
+            landmarkName = "popStackRegisterString()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2335,7 +2313,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2536"
             endingLineNumber = "2536"
-            landmarkName = "ftest_ChainedIfs()"
+            landmarkName = "ftest_BasicFor()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2351,7 +2329,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "364"
             endingLineNumber = "364"
-            landmarkName = "dispatchInstructions()"
+            landmarkName = "writeOut4ByteAddress()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2366,9 +2344,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "346"
-            endingLineNumber = "346"
-            landmarkName = "writeOut4ByteAddress()"
-            landmarkType = "7">
+            endingLineNumber = "346">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2383,7 +2359,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "286"
             endingLineNumber = "286"
-            landmarkName = "writeRAW()"
+            landmarkName = "writeOutHexAddress()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2399,7 +2375,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "221"
             endingLineNumber = "221"
-            landmarkName = "writeOutHexAddress()"
+            landmarkName = "writeOutCharacters()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2415,7 +2391,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "159"
             endingLineNumber = "159"
-            landmarkName = "writeOutCharacters()"
+            landmarkName = "writeOutCharacter()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2431,7 +2407,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "103"
             endingLineNumber = "103"
-            landmarkName = "writeOutCharacter()"
+            landmarkName = "writeOutCode()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2446,9 +2422,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "writeOutCode()"
-            landmarkType = "7">
+            endingLineNumber = "47">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2463,7 +2437,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2675"
             endingLineNumber = "2675"
-            landmarkName = "ftest_ExecSimpleEcho()"
+            landmarkName = "ftest_NestedWhiles()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2495,7 +2469,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2612"
             endingLineNumber = "2612"
-            landmarkName = "analyzeExecEnd()"
+            landmarkName = "analyzeWhileEnd()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2511,7 +2485,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2616"
             endingLineNumber = "2616"
-            landmarkName = "analyzeExecEnd()"
+            landmarkName = "analyzeWhileEnd()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2620,9 +2594,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3836"
-            endingLineNumber = "3836"
-            landmarkName = "freeLeftHandValue()"
-            landmarkType = "7">
+            endingLineNumber = "3836">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2749,7 +2721,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "499"
             endingLineNumber = "499"
-            landmarkName = "analyzeValue()"
+            landmarkName = "analyzeStart()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2765,7 +2737,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "490"
             endingLineNumber = "490"
-            landmarkName = "analyzeValue()"
+            landmarkName = "analyzeStart()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2781,7 +2753,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "504"
             endingLineNumber = "504"
-            landmarkName = "analyzeValue()"
+            landmarkName = "analyzeStart()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2829,7 +2801,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "552"
             endingLineNumber = "552"
-            landmarkName = "setNullRegister()"
+            landmarkName = "setArrayRegister()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3017,7 +2989,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "629"
             endingLineNumber = "629"
-            landmarkName = "setFileValueForKey()"
+            landmarkName = "_setArrayObjectForKey()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3033,7 +3005,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "626"
             endingLineNumber = "626"
-            landmarkName = "setFileValueForKey()"
+            landmarkName = "_setArrayObjectForKey()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3159,7 +3131,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1921"
             endingLineNumber = "1921"
-            landmarkName = "setVarFromRegister()"
+            landmarkName = "checkForReturnValue()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3255,7 +3227,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4275"
             endingLineNumber = "4275"
-            landmarkName = "freeLexicalAllocations()"
+            landmarkName = "handleControlFlowTransfer()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3335,7 +3307,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "488"
             endingLineNumber = "488"
-            landmarkName = "analyzeValue()"
+            landmarkName = "analyzeStart()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3367,7 +3339,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "415"
             endingLineNumber = "415"
-            landmarkName = "analyzeStart()"
+            landmarkName = "analyzeInputToCompile()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3382,9 +3354,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "430"
-            endingLineNumber = "430"
-            landmarkName = "analyzeStart()"
-            landmarkType = "7">
+            endingLineNumber = "430">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3415,7 +3385,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "416"
             endingLineNumber = "416"
-            landmarkName = "analyzeStart()"
+            landmarkName = "analyzeInputToCompile()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3431,7 +3401,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "426"
             endingLineNumber = "426"
-            landmarkName = "analyzeStart()"
+            landmarkName = "analyzeInputToCompile()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3446,9 +3416,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "428"
-            endingLineNumber = "428"
-            landmarkName = "analyzeStart()"
-            landmarkType = "7">
+            endingLineNumber = "428">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3767,7 +3735,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2251"
             endingLineNumber = "2251"
-            landmarkName = "ftest_FileIO()"
+            landmarkName = "ftest_ChangeAllArrayElements()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3783,7 +3751,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4017"
             endingLineNumber = "4017"
-            landmarkName = "fetchSystemFunctionCall()"
+            landmarkName = "writeOutRegisterNumAssign()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3799,7 +3767,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "479"
             endingLineNumber = "479"
-            landmarkName = "setBoolValueForKey()"
+            landmarkName = "setArrayValueForKey()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3815,7 +3783,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "543"
             endingLineNumber = "543"
-            landmarkName = "_setArrayObjectForKey()"
+            landmarkName = "setArrayObject()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3830,9 +3798,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "637"
-            endingLineNumber = "637"
-            landmarkName = "setFileValueForKey()"
-            landmarkType = "7">
+            endingLineNumber = "637">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3846,9 +3812,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "703"
-            endingLineNumber = "703"
-            landmarkName = "setConnectionValueForKey()"
-            landmarkType = "7">
+            endingLineNumber = "703">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3909,7 +3873,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "573"
             endingLineNumber = "573"
-            landmarkName = "setConnectionRegister()"
+            landmarkName = "setNullRegister()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3924,9 +3888,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "664"
-            endingLineNumber = "664"
-            landmarkName = "pushRegister()"
-            landmarkType = "7">
+            endingLineNumber = "664">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

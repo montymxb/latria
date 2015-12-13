@@ -336,12 +336,14 @@ void openDynamicInterpreterFile() {
         
     }
     
-    //if(runFile != NULL) {
-    //    fclose(runFile);
-    //}
+    /*
+    if(runFile != NULL) {
+        fclose(runFile);
+    }
+    */
     
     runFile = tmpfile();
-    //runFile = fopen("lastsession.lrac", "wb+");
+    /* runFile = fopen("lastsession.lrac", "wb+"); */
 }
 
 /* Closes a file opened up for dynamic interpretation */

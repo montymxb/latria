@@ -356,8 +356,8 @@ void runInstructions() {
                         } else {
                             /* null reference */
                             setNullRegister(d0);
-                            ////printf("Attempted to assign register to an unset variable %s\n", variable);
-                            ////exit(76213);
+                            /* printf("Attempted to assign register to an unset variable %s\n", variable); */
+                            /* exit(76213); */
                             
                         }
                         
@@ -652,7 +652,7 @@ void runInstructions() {
                     }
                     variable[incrementCounter] = (char)hc;
                     pushFuncLabel(getCurrentFileIndex(), variable);
-                    //pushFunctionRevertState(-1);
+                    /* pushFunctionRevertState(-1); */
                     
                 }
                 
@@ -672,7 +672,7 @@ void runInstructions() {
                         }
                         variable[incrementCounter] = (char)hc;
                         pushFuncLabel(getCurrentFileIndex(), variable);
-                        //pushFunctionRevertState(-1);
+                        /* pushFunctionRevertState(-1); */
                         interpreterState[++interpreterIndex] = ISTATE_FUNC;
                         funcCounter++;
                         
@@ -1496,11 +1496,11 @@ void runInstructions() {
             default:
                 /* Read something that was not a registered op code! */
                 printf("Failed on Instruction # %d\n", instructionCounter);
-                //printf("0x%02x\n",getCharByOffsetFromCurrent(-2));
-                //printf("0x%02x\n",(unsigned char)getCurrentChar());
+                /* printf("0x%02x\n",getCharByOffsetFromCurrent(-2)); */
+                /* printf("0x%02x\n",(unsigned char)getCurrentChar()); */
                 printf("Unrecognized OP Code: 0x%02x\n", (unsigned char)getCharByOffsetFromCurrent(-1));
-                //printf("0x%02x\n",(unsigned char)getCurrentChar());
-                //printf("0x%02x\n",(unsigned char)getCurrentChar());
+                /* printf("0x%02x\n",(unsigned char)getCurrentChar()); */
+                /* printf("0x%02x\n",(unsigned char)getCurrentChar()); */
                 exit(1490);
                 break;
                 

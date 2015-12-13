@@ -23,10 +23,10 @@ SOFTWARE.
 */
 
 /*
-//  Latria_Regex.c
-//  Latria
-//
-//  Created by Benjamin Friedman on 10/27/15.
+  Latria_Regex.c
+  Latria
+
+  Created by Benjamin Friedman on 10/27/15.
 */
 
 #include "Latria_Regex.h"

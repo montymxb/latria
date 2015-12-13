@@ -1772,7 +1772,7 @@ char *analyzeIf(char *i) {
         /* (save this for later, solo true)
          dispatchRelationalExpression(OP_EQUAL);
          
-         // Shorthand TRUE condition, push operator, push operand
+        // Shorthand TRUE condition, push operator, push operand
         pushRelationalOperator(OP_EQUAL, 0);
         pushOperand("true", OP_TRUE, 0);
         
@@ -1940,8 +1940,10 @@ char *analyzeIfPost(char *i) {
             pushJumpUpdate(ji->jumpIndex, (unsigned int)getProgramByteCount());
             
             /* Continue jump from prior failure, from here we have nothing more to do */
-            //ji = popJumpType();
-            //pushJumpUpdate(ji->jumpIndex, (unsigned int)getProgramByteCount());
+            /*
+             ji = popJumpType();
+             pushJumpUpdate(ji->jumpIndex, (unsigned int)getProgramByteCount());
+             */
             
             /* pop */
             popCompilerState();
@@ -2594,13 +2596,13 @@ char *analyzeWhileEnd(char *i) {
         
         /* Write out jump to loop back (account for op code and 4 bytes composing it) */
         writeOutCode((char)OP_JUMP);
-        //writeOut4ByteAddress((unsigned int)((getProgramByteCount()-5) - whileEnd->jumpIndex));
+        /* writeOut4ByteAddress((unsigned int)((getProgramByteCount()-5) - whileEnd->jumpIndex)); */
         writeOut4ByteAddress((unsigned int)whileEnd->jumpIndex);
         
         /* Write out the exit label */
         pushJumpUpdate(exitLabel->jumpIndex, (unsigned int)getProgramByteCount());
-        //writeOutCode((char)OP_LABEL);
-        //writeOut4ByteAddress(exitLabel->jumpIndex);
+        /* writeOutCode((char)OP_LABEL); */
+        /* writeOut4ByteAddress(exitLabel->jumpIndex); */
         
         /* End of While */
         popCompilerState();
@@ -2970,8 +2972,8 @@ char *analyzeOperator(char *input) {
                 if(ji != NULL) {
                     pushJumpUpdate(ji->jumpIndex, (unsigned int)getProgramByteCount());
                 }
-                //writeOutCode((char)OP_LABEL);
-                //writeOut4ByteAddress(getJumpNum());
+                /* writeOutCode((char)OP_LABEL); */
+                /* writeOut4ByteAddress(getJumpNum()); */
             }
             
             input++;

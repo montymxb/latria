@@ -704,7 +704,7 @@ void pushRegister(unsigned char registerNum) {
             /* Create a deep copy of our array ref, leaving our old ref behind */
             pushArrayStackRegister(r.value.array, r.type);
             #warning Thought this was need to prevent references to freed arrays when, say, stacks are popped 'off'. Apparently not the case.
-            ////pushArrayStackRegister(copyArrayCoreObject(r.value.array), r.type);
+            /* pushArrayStackRegister(copyArrayCoreObject(r.value.array), r.type); */
             
         } else if(r.type == RegisterNull) {
             /* null */
