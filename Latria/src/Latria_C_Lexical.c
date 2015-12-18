@@ -500,6 +500,37 @@ char *analyzeStart(char *in) {
         popCompilerState();
         return in;
         
+    } else if(*in == '#' && *(in+1) && *(in+1) == '#') {
+        /* Start of inlang execution (write left hand value to batched queue) */
+        
+        /*
+        // Set Batched 
+        setWriteMode(WRITE_MODE_BATCHED);
+        
+        // Write assignment to register 0
+        writeOutCode((char)OP_SET);
+        writeOutCharacters(getCapturedInput(in));
+        writeOutCode((char)1);
+        
+        // Set normal write
+        setWriteMode(WRITE_MODE_NORMAL);
+        */
+        
+        in+=2;
+        
+        if(*in) {
+            setCompileError(":>> Syntax Error. You may not follow an xlang declaration with anything other than a line break. Use the following lines to put xlang data in.", in, originalInput);
+            
+        }
+        
+        popCompilerState();
+        pushCompilerState(LATC_EXEC_END);
+        
+        /* Write out an exec op code */
+        writeOutCode((char)OP_EXEC);
+        
+        return in;
+        
     } else {
         setCompileError("Unrecognized start character provided",in, originalInput);
         return NULL;
@@ -1254,7 +1285,9 @@ char *analyzeFunctionCallArg(char *i) {
     printf("Analyzing Function Call Arg : %s\n\n",i);
     #endif
     
+    /* Check for captures other than string, which are already pushed */
     if(*capIn) {
+        /* Check to extract a num or var */
         if(isNumeric(capIn)) {
             pushOperand(getCapturedInput(i), OP_NUM, 0);
         } else {
@@ -1274,11 +1307,20 @@ char *analyzeFunctionCallArg(char *i) {
     } else {
         /* Manual register assignment */
         ExpressionElement *ee = popOperand();
-        /* write out register (not really string, misnomer) */
-        writeOutRegisterStrAssign(2, ee->precedence, ee->element);
-        /* push it onto our last used stack */
-        pushLastRegisterUsed(2);
-        free(ee->element);
+        
+        if(ee != NULL) {
+            /* write out register (not really string, misnomer) */
+            writeOutRegisterStrAssign(2, ee->precedence, ee->element);
+            /* push it onto our last used stack */
+            pushLastRegisterUsed(2);
+            free(ee->element);
+            
+        } else {
+            /* Empty string args provided, push as empty string */
+            writeOutRegisterStrAssign(2, OP_STRING, "");
+            pushLastRegisterUsed(2);
+            
+        }
         
     }
     

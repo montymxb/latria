@@ -255,7 +255,7 @@ install: iinstall cinstall dinstall
 	
 #interpreter install
 iinstall:
-	@- sudo cp $(NAME_INTERPRETER) $(DESTDIR)
+	@- sudo cp $(NAME_INTERPRETER_COMPILER) $(DESTDIR)
 	
 #compiler install
 cinstall:

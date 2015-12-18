@@ -115,6 +115,9 @@ int main( int argc, char* argv[]) {
                         #ifdef INCLUDECOMPILER
                         case 'c':
                             /* Compile option, we're compiling all files passed in */
+                            if(argI == argc-1) {
+                                printf("\n\nNothing passed to compile!\n\n");
+                            }
                             shouldCompile = 1;
                             break;
                         #endif
