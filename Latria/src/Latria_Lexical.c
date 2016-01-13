@@ -1453,7 +1453,7 @@ void runInstructions() {
                     
                     if(getStackRegisterType() == RegisterNum) {
                         /* Perform Bit XOR */
-                        setNumRegister(0, Sys_bit_and(popStackRegisterNum(), dd0), RegisterNum);
+                        setNumRegister(0, Sys_bit_xor(popStackRegisterNum(), dd0), RegisterNum);
                     } else {
                         printf("Invalid value provided to xor. Takes two number arguments & returns the bitwise XOR result");
                         exit(1);

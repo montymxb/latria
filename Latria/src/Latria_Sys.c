@@ -537,8 +537,6 @@ unsigned long Sys_Time() {
     return (unsigned long)time(0);
 }
 
-#warning implement server/socket functionality, in the form of a callable function that can open and hold a server at any given time. Will require a NEW data type OR we can hook it into the existing 'file' functionality
-
 /* Starts a server */
 int Sys_StartServer(int port) {
     int optval = 1, err, connection;
@@ -547,7 +545,9 @@ int Sys_StartServer(int port) {
     memset( &serv_addr, '0', sizeof(serv_addr));
     
     serv_addr.sin_family = AF_INET;
+    /* Accept connection from any address */
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    /* Bind to given port */
     serv_addr.sin_port = htons(port);
     
     /* Allow this socket to be reusable, aka restart does not end up with you unable to reaccess your previous (and still running) spot */
@@ -570,12 +570,13 @@ int Sys_StartServer(int port) {
         
     }
     
-    /* Block until we receive a connection */
+    /* Blocks until we receive a connection */
     connection = accept( sock, (struct sockaddr*)NULL, NULL);
     
-    /* close our original sock */
+    /* close our original socket */
     close(sock);
     
+    /* return our newly established connection */
     return connection;
 }
 
