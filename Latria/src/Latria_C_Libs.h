@@ -37,9 +37,9 @@ SOFTWARE.
 #include <ctype.h>
 #include <string.h>
 
-#ifdef __unix__
+#ifndef _WIN32
 # include <unistd.h>
-#elif defined _WIN32
+#else
 #include <windows.h>
 #endif
 

@@ -555,6 +555,11 @@ unsigned long Sys_Time() {
 
 /* Starts a server */
 int Sys_StartServer(int port) {
+#ifdef _WIN32
+    printf("Server not available on windows yet.\n");
+    exit(1);
+    return -1;
+#else
     int optval = 1, err, connection;
     struct sockaddr_in serv_addr;
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -594,6 +599,7 @@ int Sys_StartServer(int port) {
     
     /* return our newly established connection */
     return connection;
+#endif
 }
 
 char commBuff[1024];
@@ -602,6 +608,7 @@ char commBuff[1024];
 int Sys_SendData(int connId, char *message) {
     #ifdef _WIN32
     size_t result = 0;
+    return 0;
     #else
     ssize_t result = 0;
     #endif
@@ -632,6 +639,7 @@ int Sys_SendData(int connId, char *message) {
 void Sys_ReadData(int connId) {
     #ifdef _WIN32
     size_t n;
+    return;
     #else
     ssize_t n;
     #endif
@@ -680,18 +688,22 @@ void Sys_ReadData(int connId) {
 
 /* Closes an established connection */
 void Sys_CloseConnection(int connId) {
+#ifdef _WIN32
+    printf("Server not yet implemented on widows.\n");
+#else
     close(connId);
+#endif
 }
 
 /* Attempts to create an established connection */
 int Sys_Connect(char *address, int port) {
+#ifdef _WIN32
+    printf("Client not yet implemented on Windows.\n");
+    return -1;
+#else
     struct sockaddr_in serv_addr;
     int sock;
-    #ifdef _WIN32
-    size_t err;
-    #else
     ssize_t err;
-    #endif
     
     memset( &serv_addr, '0', sizeof(serv_addr));
     
@@ -734,6 +746,7 @@ int Sys_Connect(char *address, int port) {
         return -1;
         
     }
+#endif
 }
 
 #pragma message("Set up coroutines in latria")

@@ -1876,7 +1876,11 @@ char * executeLang(char *xlangSource) {
         }
     }
     /* MAC/OSX piping */
+    #ifdef _WIN32
+    pipe = _popen(cmdlist, "r");
+    #else
     pipe = popen(cmdlist, "r");
+    #endif
     if(!pipe) {
         printf("Error occured attempting to execute another language!\n");
         
@@ -1925,7 +1929,11 @@ char * executeLang(char *xlangSource) {
     
     fflush(pipe);
     
+    #ifdef _WIN32
+    if(_pclose(pipe) == -1) {
+    #else
     if(pclose(pipe) == -1) {
+    #endif
         printf(">>: Soft Error closing pipe, '%s', continuing execution~\n", cmdlist);
     }
     

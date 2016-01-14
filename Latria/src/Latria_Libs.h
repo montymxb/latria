@@ -37,9 +37,9 @@ SOFTWARE.
 #include <ctype.h>
 #include <string.h>
 
-#ifdef __unix__ /* __unix__ is usually defined by compilers targeting Unix systems */
+#ifndef _WIN32
 #include <unistd.h>
-#elif defined _WIN32 /* _Win32 is usually defined by compilers targeting Windows. 32 is provided even when compiling on a 64 bit machine for backwards compatibility */
+#else /* _Win32 is usually defined by compilers targeting Windows. 32 is provided even when compiling on a 64 bit machine for backwards compatibility */
 #include <windows.h>
 #endif
 
@@ -49,9 +49,11 @@ SOFTWARE.
 #include <math.h>
 
 /* For sockets */
+#ifndef _WIN32
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#endif
 
 /* string comparison macro */
 
