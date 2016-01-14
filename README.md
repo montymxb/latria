@@ -36,3 +36,24 @@ Additionally I will make documentation available at <a href="http://latria.uphou
 
 In the meantime feel free to reach out to me at friedman.benjamin@gmail.com
 
+
+<h2>Building.</h2>
+
+Latria is capable of being built on linux, mac and windows from the same source. The methods vary however. For all of them you'll need to navigate to latria/Latria/src/ to start however.
+
+For building on mac you can invoke make as follows.
+```
+make mac
+```
+
+For linux you can invoke make the same way, but for linux.
+```
+make linux
+```
+
+Now for windows there is an alternate Makefile provided specially for nmake. You can invoke it and build for windows as follows (Note you will need to install VS and have access to a Developer Command Prompt to build from)
+```
+nmake /F NMakeFile latria
+```
+
+For building on the 'big 3' that's essentially all you have to do! If you have issues or questions regarding those platforms or any other platforms you can let me know or open an issue.
