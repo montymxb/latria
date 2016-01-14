@@ -653,7 +653,7 @@ FILE *getRegisterFile(unsigned char registerNum) {
 
 int getRegisterConnection(unsigned char registerNum) {
     if(registerNum <= 2) {
-        return currentVM->registers[registerNum].value.dvalue;
+        return (int)currentVM->registers[registerNum].value.dvalue;
         
     } else {
         printf("Attempted to access register num at index %d for a connection, beyond the max register stack size\n", registerNum);
@@ -703,7 +703,7 @@ void pushRegister(unsigned char registerNum) {
             /* array */
             /* Create a deep copy of our array ref, leaving our old ref behind */
             pushArrayStackRegister(r.value.array, r.type);
-            #warning Thought this was need to prevent references to freed arrays when, say, stacks are popped 'off'. Apparently not the case.
+            #pragma message("Thought this was need to prevent references to freed arrays when, say, stacks are popped 'off'. Apparently not the case.")
             /* pushArrayStackRegister(copyArrayCoreObject(r.value.array), r.type); */
             
         } else if(r.type == RegisterNull) {
@@ -712,7 +712,7 @@ void pushRegister(unsigned char registerNum) {
             
         } else if(r.type == RegisterConnection) {
             /* connection */
-            pushConnectionStackRegister(r.value.dvalue);
+            pushConnectionStackRegister((int)r.value.dvalue);
             
         } else {
             /* Unrecognized */
@@ -813,7 +813,7 @@ void __pushStackRegister() {
     /* Check */
     if(currentVM->argRegisterIndex >= currentVM->maxArgRegisterIndex-1) {
         /* Realloc Up to next size */
-        #warning this is a rather shitty bug. When this is called the program is dead, it will inevitably segfault due to the realloc not taking place, to some degree or another. As to 'why', I have a clue, but it continues to alude me. Reduce the constant stack size and fix this when i'm ready
+        #pragma message("this is a rather shitty bug. When this is called the program is dead, it will inevitably segfault due to the realloc not taking place, to some degree or another. As to 'why', I have a clue, but it continues to alude me. Reduce the constant stack size and fix this when i'm ready")
         currentVM->maxArgRegisterIndex+=LATRIA_ARG_REGISTER_STACK_INCREMENT;
         *(currentVM->argRegisters) = *(Register *)realloc(&currentVM->argRegisters, currentVM->maxArgRegisterIndex);
     }
@@ -850,7 +850,7 @@ void popStackRegisterNull() {
 }
 
 int popStackRegisterConnection() {
-    return currentVM->argRegisters[--currentVM->argRegisterIndex].value.dvalue;
+    return (int)currentVM->argRegisters[--currentVM->argRegisterIndex].value.dvalue;
 }
 
 /* Frees any strings on registers of string or var type */

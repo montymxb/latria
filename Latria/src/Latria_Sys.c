@@ -585,25 +585,26 @@ char commBuff[1024];
 /* Sends data over an established connection */
 int Sys_SendData(int connId, char *message) {
     ssize_t result = 0;
-    while(strlen(message) < 1024) {
-        /* Write out blocks of 1024 at a time */
-        snprintf( commBuff, sizeof(commBuff), "%s", message);
+    /*while(strlen(message) < 1024) {*/
+        
+        sprintf(commBuff, "%s", message);
         result = write( connId, commBuff, strlen(commBuff));
         if(result == -1) {
             /* Error, failed to write! */
             return 0;
         }
         
-        if(strlen(message) >= 1024) {
-            /* Increment message by 1024 */
-            message+=1024;
-            
-        } else {
-            /* End of message */
+        /* no longer 1024, whole message is sent at once
+        //if(strlen(message) >= 1024) {
+        //     Increment message by 1024
+        //    message+=1024;
+       //
+        //} else {
+             End of message
             break;
             
         }
-    }
+    }*/
     return (int)result;
 }
 
@@ -614,7 +615,7 @@ void Sys_ReadData(int connId) {
     char *data = NULL;
     while(( n = read(connId, commBuff, sizeof(commBuff)-1)) > 0) {
         
-        if(n <= sizeof(commBuff)-1 && data == NULL) {
+        if((size_t)n <= (size_t)sizeof(commBuff)-1 && data == NULL) {
             /* Fits in one run, simply set the result and leave */
             commBuff[n] = 0;
             setSysResult(commBuff);
@@ -624,7 +625,7 @@ void Sys_ReadData(int connId) {
         } else if(data != NULL) {
             /* Append */
             commBuff[n] = 0;
-            origData = LATAlloc(origData, sizeof(char) * strlen(origData), n+1 + strlen(origData));
+            origData = LATAlloc(origData, sizeof(char) * strlen(origData), (size_t)(n+1) + strlen(origData));
             data = LATstrcat(data, commBuff);
             
             if(n < 1024) {
@@ -638,7 +639,7 @@ void Sys_ReadData(int connId) {
             
         } else if(data == NULL) {
             /* Allocate, first run */
-            data = origData = LATAlloc(NULL, 0, n+1);
+            data = origData = LATAlloc(NULL, 0, (size_t)(n+1));
             data = LATstrcat(data, commBuff);
             
         }
@@ -707,7 +708,7 @@ int Sys_Connect(char *address, int port) {
     }
 }
 
-#warning Set up coroutines in latria
+#pragma message("Set up coroutines in latria")
 
 /* not */
 int Sys_bit_not(int i1) {

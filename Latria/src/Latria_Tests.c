@@ -37,7 +37,7 @@ SOFTWARE.
 
 void testFailedWithError(char *name,char *er);
 void utestFailedWithError(char *name,char *er);
-void testPassed(char *testName);
+void testPassed(char *testname);
 
 void runFunctionalTests();
 void runUnitTests();
@@ -195,7 +195,7 @@ void runUnitTests() {
     utest_noMathOpsPresent();
     utest_findUnquotedCharacter();
     utest_findUncontainedCharacter();
-    #warning removed this for now
+    #pragma message("removed this for now")
     /*///utest_getRelationalOperatorResult(); */
     /*//utest_fetchArg();*/
     utest_stripUnwantedSymbols();
@@ -225,7 +225,7 @@ void runFunctionalTests() {
     
     ftest_VarToVarAssign();
     ftest_BooleanAssign();
-    #warning holding off on relational assign for now
+    #pragma message("holding off on relational assign for now")
     /* ftest_RelationalAssign(); */
     
     ftest_PrintString();
@@ -2429,7 +2429,7 @@ void ftest_SingleRelational() {
 /* Tests various nested control flows */
 void ftest_NestedControlFlows() {
     char *rez;
-    char *checkAgainst = "f0:0:0\nf0:0:1\nf0:0:2\nresetting...\n0<\n1<\n2<\n3<\n4<\nf0:1:0\nf0:1:1\nf0:1:2\nresetting...\n0<\n1<\n2<\n3<\n4<\nf0:2:0\nf0:2:1\nf0:2:2\nresetting...\n0<\n1<\n2<\n3<\n4<\nf1:0:0\nf1:0:1\nf1:0:2\nresetting...\n0<\n1<\n2<\n3<\n4<\nf1:1:0\nf1:1:1\nf1:1:2\nresetting...\n0<\n1<\n2<\n3<\n4<\nf1:2:0\nf1:2:1\nf1:2:2\nresetting...\n0<\n1<\n2<\n3<\n4<\nf2:0:0\nx is now 2:2\nf2:0:1\nx is now 2:2\nf2:0:2\nresetting...\n0<\n1<\n2<\n3<\n4<\nf2:1:0\nx is now 2:2\nf2:1:1\nx is now 2:2\nf2:1:2\nresetting...\n0<\n1<\n2<\n3<\n4<\nf2:2:0\nx is now 2:2\nf2:2:1\nx is now 2:2\nf2:2:2\nresetting...\n0<\n1<\n2<\n3<\n4<\n";
+    char *checkAgainst = "f0:0:0\nf0:0:1\nf0:0:2\nresetting...\n0<\n1<\n2<\n3<\nf0:1:0\nf0:1:1\nf0:1:2\nresetting...\n0<\n1<\n2<\n3<\nf0:2:0\nf0:2:1\nf0:2:2\nresetting...\n0<\n1<\n2<\n3<\nf1:0:0\nf1:0:1\nf1:0:2\nresetting...\n0<\n1<\n2<\n3<\nf1:1:0\nf1:1:1\nf1:1:2\nresetting...\n0<\n1<\n2<\n3<\nf1:2:0\nf1:2:1\nf1:2:2\nresetting...\n0<\n1<\n2<\n3<\nf2:0:0\nx is now 2:2\nf2:0:1\nx is now 2:2\nf2:0:2\nresetting...\n0<\n1<\n2<\n3<\nf2:1:0\nx is now 2:2\nf2:1:1\nx is now 2:2\nf2:1:2\nresetting...\n0<\n1<\n2<\n3<\nf2:2:0\nx is now 2:2\nf2:2:1\nx is now 2:2\nf2:2:2\nresetting...\n0<\n1<\n2<\n3<\n";
     strcpy(testName, "nested control flows");
     
     strcpy(testLineHolder, "for(x=0,x<=2,x=x+1){");
@@ -2453,7 +2453,7 @@ void ftest_NestedControlFlows() {
     strcpy(testLineHolder, "m=0");
     handleInput(testLineHolder);
     
-    strcpy(testLineHolder, "while(m<5){");
+    strcpy(testLineHolder, "while(m<4){");
     handleInput(testLineHolder);
     
     strcpy(testLineHolder, "print(m+\"<\")");
@@ -3279,9 +3279,9 @@ void ftest_recursiveFunction() {
     }
 }
 
-#warning infinitely recursive functions leak and crash like a bull to bear market
+#pragma message("infinitely recursive functions leak and crash badly still")
 
-#warning returning a function value when there is nothing to be assigned causes a crash/leak/bug (needs to know to discard it's return value when there's nothing to tack it onto)
+#pragma message("returning a function value when there is nothing to be assigned causes a crash/leak/bug (needs to know to discard it's return value when there's nothing to tack it onto)")
 
 /* END FUNCTIONAL TESTS */
 
@@ -3298,8 +3298,8 @@ void utestFailedWithError(char *name,char *er) {
 }
 
 /* Generic test pass */
-void testPassed(char *testName) {
-    printf(KGRN "✔%s %s passed\n", RESET, testName);
+void testPassed(char *testname) {
+    printf(KGRN "✔%s %s passed\n", RESET, testname);
 }
 
 #endif

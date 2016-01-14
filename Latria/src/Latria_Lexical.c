@@ -43,7 +43,7 @@ SOFTWARE.
 #define CML 3
 
 
-#warning BACKBURNER For Tail call recursion we need to meet a few conditions. 1. We must be in a function (i.e we have a trace we can jump 'back' to that is not null). 2. We must have just read a 'call' and it's following name. 3. If the 2 following characters we are reading are a POP_STACK and a FUNC_END command. If these criteria are met we should pop our current stack and make the jump to our function. Do not push up another returning mark to get back from our function, the existing one will work just fine
+ #pragma message("BACKBURNER For Tail call recursion we need to meet a few conditions. 1. We must be in a function (i.e we have a trace we can jump 'back' to that is not null). 2. We must have just read a 'call' and it's following name. 3. If the 2 following characters we are reading are a POP_STACK and a FUNC_END command. If these criteria are met we should pop our current stack and make the jump to our function. Do not push up another returning mark to get back from our function, the existing one will work just fine")
 
 
 /*TODO most of this should be moved inside the Latria VM, otherwise it may get meddled up when we have multiple instances of Latria running, another note we should check for this kinda stuff EVERYWHERE, just to be sure that it's all nicely packed in the VM*/
@@ -205,7 +205,7 @@ void runInstructions() {
                                 
                             case 5:
                                 /* connection */
-                                setConnectionRegister(d0, co->data._fvalue);
+                                setConnectionRegister(d0, (int)co->data._fvalue);
                                 break;
                                 
                             default:
@@ -332,7 +332,7 @@ void runInstructions() {
                                     
                                 case 5:
                                     /* connection */
-                                    setConnectionRegister(d0, co->data._fvalue);
+                                    setConnectionRegister(d0, (int)co->data._fvalue);
                                     break;
                                     
                                 default:
@@ -557,7 +557,7 @@ void runInstructions() {
             case OP_CLOSE:
                 if(getStackRegisterType() == RegisterFile) {
                     Sys_Close(popStackRegisterFile());
-                    #warning By doing this we're leaving an invalid reference in our memory tree, to a non-existant file, may or may not be an issue
+                    #pragma message("By doing this we're leaving an invalid reference in our memory tree, to a non-existant file, may or may not be an issue")
                     
                 } else {
                     printf("Unexpected file close error, invalid first arg, must be a variable to an open file handle\n");
@@ -864,7 +864,7 @@ void runInstructions() {
                 
             case OP_GC_RATE:
                 if(getStackRegisterType() == RegisterNum) {
-                    Sys_GC(popStackRegisterNum());
+                    Sys_GC((float)popStackRegisterNum());
                     
                 } else {
                     printf("Incorrect value provided for altering the garbage collector rate, must pass a number!");
@@ -888,7 +888,7 @@ void runInstructions() {
                 
             case OP_RAND:
                 if(getStackRegisterType() == RegisterNum) {
-                    int result = Sys_Random(popStackRegisterNum());
+                    int result = Sys_Random((int)popStackRegisterNum());
                     setNumRegister(0, result, RegisterNum);
                     
                 } else {
@@ -955,7 +955,7 @@ void runInstructions() {
                 /* Retrieves the last regex capture and sets it to the given variable */
                 if(getStackRegisterType() == RegisterNum) {
                     /* Fetch the capture at the provided index */
-                    key = getCaptureByIndex(popStackRegisterNum());
+                    key = getCaptureByIndex((unsigned char)popStackRegisterNum());
                     if(key != NULL) {
                         /* valid capture */
                         setStringRegister(0, key, RegisterString);
@@ -1069,7 +1069,7 @@ void runInstructions() {
                     argNum2 = argNum1;
                     argNum1 = -1;
                     
-                    Sys_Substr(variable, argNum2, argNum1);
+                    Sys_Substr(variable, (int)argNum2, (int)argNum1);
                     
                     setStringRegister(0, getSysResult(), RegisterString);
                     pushRegister(0);
@@ -1091,7 +1091,7 @@ void runInstructions() {
                     
                 }
                 
-                Sys_Substr(variable, argNum2, argNum1);
+                Sys_Substr(variable, (int)argNum2, (int)argNum1);
                 
                 setStringRegister(0, getSysResult(), RegisterString);
                 pushRegister(0);
@@ -1124,7 +1124,7 @@ void runInstructions() {
                 break;
                 
             case OP_RETURN:
-                d1 = getCurrentChar();
+                d1 = (unsigned char)getCurrentChar();
                 pushRegister((unsigned char)d1);
                 if(d1 != 0) {
                     d0 = 0;
@@ -1189,7 +1189,7 @@ void runInstructions() {
                 
             case OP_SEED_RAND:
                 if(getStackRegisterType() == RegisterNum) {
-                    Sys_RandomSeed(popStackRegisterNum());
+                    Sys_RandomSeed((unsigned int)popStackRegisterNum());
                     
                 } else {
                     printf("Invalid value provided to seed. Expected a number\n");
@@ -1286,15 +1286,15 @@ void runInstructions() {
             case OP_TIME:
                 /* Returns the current system time in seconds */
                 setNumRegister(0, Sys_Time(), RegisterNum);
-                #warning some functions perform pushRegister(0) after called, does this help with inline calling (no)
+                #pragma message("some functions perform pushRegister(0) after called, does this help with inline calling (no)")
                 break;
                 
             case OP_STRT_SERV:
                 /* Starts a server */
                 if(getStackRegisterType() == RegisterNum) {
                     /* Start our server on this port */
-                    argNum1 = Sys_StartServer(popStackRegisterNum());
-                    setConnectionRegister(0, argNum1);
+                    argNum1 = Sys_StartServer((int)popStackRegisterNum());
+                    setConnectionRegister(0, (int)argNum1);
                     
                 } else {
                     /* Error */
@@ -1325,7 +1325,7 @@ void runInstructions() {
                 }
                 
                 /* Send Data using this connection */
-                argNum1 = Sys_SendData(argNum1, variable);
+                argNum1 = Sys_SendData((int)argNum1, variable);
                 /* Store the result */
                 setNumRegister(0, argNum1, RegisterNum);
                 break;
@@ -1342,7 +1342,7 @@ void runInstructions() {
                 }
                 
                 /* Read and store the string data */
-                Sys_ReadData(argNum1);
+                Sys_ReadData((int)argNum1);
                 variable = getSysResult();
                 if(variable != NULL) {
                     /* String return value */
@@ -1366,7 +1366,7 @@ void runInstructions() {
                 }
                 
                 /* Close this connection */
-                Sys_CloseConnection(argNum1);
+                Sys_CloseConnection((int)argNum1);
                 break;
                 
             case OP_CONNECT:
@@ -1390,14 +1390,14 @@ void runInstructions() {
                 }
                 
                 /* Attempt to connect to the given address, and store the result */
-                setConnectionRegister(0, Sys_Connect(variable, argNum1));
+                setConnectionRegister(0, Sys_Connect(variable, (int)argNum1));
                 break;
                 
             case OP_BITNOT:
                 /* Bitwise NOT */
                 if(getStackRegisterType() == RegisterNum) {
                     /* Perform Bit Not */
-                    setNumRegister(0, Sys_bit_not(popStackRegisterNum()), RegisterNum);
+                    setNumRegister(0, Sys_bit_not((int)popStackRegisterNum()), RegisterNum);
                     
                 } else {
                     printf("Invalid value provided to not. Takes one number argument & returns the bitwise NOT result");
@@ -1413,7 +1413,7 @@ void runInstructions() {
                     
                     if(getStackRegisterType() == RegisterNum) {
                         /* Perform Bit AND */
-                        setNumRegister(0, Sys_bit_and(popStackRegisterNum(), dd0), RegisterNum);
+                        setNumRegister(0, Sys_bit_and((int)popStackRegisterNum(), (int)dd0), RegisterNum);
                     } else {
                         printf("Invalid value provided to and. Takes two number arguments & returns the bitwise AND result");
                         exit(1);
@@ -1433,7 +1433,7 @@ void runInstructions() {
                     
                     if(getStackRegisterType() == RegisterNum) {
                         /* Perform Bit OR */
-                        setNumRegister(0, Sys_bit_or(popStackRegisterNum(), dd0), RegisterNum);
+                        setNumRegister(0, Sys_bit_or((int)popStackRegisterNum(), (int)dd0), RegisterNum);
                     } else {
                         printf("Invalid value provided to or. Takes two number arguments & returns the bitwise OR result");
                         exit(1);
@@ -1453,7 +1453,7 @@ void runInstructions() {
                     
                     if(getStackRegisterType() == RegisterNum) {
                         /* Perform Bit XOR */
-                        setNumRegister(0, Sys_bit_xor(popStackRegisterNum(), dd0), RegisterNum);
+                        setNumRegister(0, Sys_bit_xor((int)popStackRegisterNum(), (int)dd0), RegisterNum);
                     } else {
                         printf("Invalid value provided to xor. Takes two number arguments & returns the bitwise XOR result");
                         exit(1);
@@ -1569,7 +1569,7 @@ char* fetchXDeclaration(char *input) {
         return input;
     }
     
-#warning Another bug detected using IN{x} in a statement like ##echo IN{x}##> when INSIDE of a control flow is ends up terminating the control flow early, and killing all our work :/
+ #pragma message("Another bug detected using IN{x} in a statement like ##echo IN{x}##> when INSIDE of a control flow is ends up terminating the control flow early, and killing all our work :/")
     
     if(start != NULL && !InLang_isLangBlockActive()) {
         /* We have a start sequence & NOT in an active language block */
@@ -1748,7 +1748,7 @@ char * executeLang(char *xlangSource) {
             tmpChar = *tc;
             *tc = '\0';
             
-            #warning hmmm, in-line subs may need to be a bit tricky here...
+            #pragma message("hmmm, in-line subs may need to be a bit tricky here...")
             /*extractedVal = fetchFunctionDeclaration(extractedPV);*/
             
             *tc = tmpChar;

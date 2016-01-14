@@ -77,7 +77,7 @@ FILE *fileStack[10] = {NULL};
 unsigned char fileStackIndex = 0;
 #define LAT_INPUT_SIZE 1024
 
-#warning we have an issue passing functions to other functions (rather than assigning to a var and passing that) does NOT work at the moment. Need to make sure functions can be properly recognized as inputs to other functions (most likely will end up in requiring extra registers)
+#pragma message("we have an issue passing functions to other functions (rather than assigning to a var and passing that) does NOT work at the moment. Need to make sure functions can be properly recognized as inputs to other functions (most likely will end up in requiring extra registers)")
 
 int main( int argc, char* argv[]) {
     
@@ -384,7 +384,7 @@ int handleInput(char *input) {
         returned = readByteCodes();
         
         /* Write out */
-        fwrite(returned, sizeof(unsigned char), retSize, runFile);
+        fwrite(returned, sizeof(unsigned char), (size_t)retSize, runFile);
         
     }
     

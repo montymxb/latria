@@ -134,7 +134,7 @@ SOFTWARE.
  • Match, but for .
  */
 
-#warning introduce GREEDY quantifiers (like + and *)
+#pragma message("introduce GREEDY quantifiers (like + and *)")
 
 /***** START GROUPING STACK *******/
 typedef struct {
@@ -1031,7 +1031,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                     
                 }
                 
-                #warning There is some wierd shit going on here...Alternation doesn't work so well when we have a few or more alternating statements
+                #pragma message("There is some wierd stuff going on here...Alternation doesn't work so well when we have a few or more alternating statements")
                 
                 /* Rewind LAT_REGEX_INSTRUCTION_SIZE * instructionsSinceLastGrouping */
                 regex->regexFwd-=(LAT_REGEX_INSTRUCTION_SIZE*(lastGrouping->instructionsSinceLastGrouping));
@@ -1532,7 +1532,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                                 }
                                 
                                 /* Perform a jump for this successful instance */
-#warning maybe this isn't safe to remove????
+#pragma message("Possible this isn't safe to remove")
                                 /*///////performJumpOnStateMatchine(state, JUMP_FORWARD_ONE, input);*/
                                 
                                 /* Reset our state regex engine */
@@ -1621,7 +1621,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                                 }
                                 
                                 /* Perform a jump for this successful instance */
-#warning if this is safe to remove, we should remove it from our MATCH LOOP as well above
+#pragma message("if this is safe to remove, we should remove it from our MATCH LOOP as well above")
                                 /*///////performJumpOnStateMatchine(state, JUMP_FORWARD_ONE, input);*/
                                 
                                 /* Reset our state regex engine */
@@ -1878,7 +1878,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
         
     }
     
-#warning TEMPORARILY removed THIS, not really sure if this is what we want however...
+#pragma message("TEMPORARILY removed THIS, not really sure if this is what we want however...")
     /* Reset to first active state */
     /*
      state = rootStateList;

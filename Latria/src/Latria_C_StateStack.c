@@ -144,7 +144,7 @@ void pushJumpUpdate(unsigned int bytecodeAddr, unsigned int jumpAddr) {
         if(jumpUpdateStack != NULL) {
             /* realloc */
             jumpUpdateStackSize += JUMP_UPDATE_INCREMENT;
-            jumpUpdateStack = realloc(jumpUpdateStack, sizeof(JumpUpdate) * jumpUpdateStackSize);
+            jumpUpdateStack = realloc(jumpUpdateStack, sizeof(JumpUpdate) * (unsigned long)jumpUpdateStackSize);
             
         } else {
             /* malloc */

@@ -190,10 +190,17 @@ char *analyzeExecEnd(char *i);
 
 
 /* Assign Functions */
-void assignNum(char *in);
-void assignVar(char *in);
-void assignString(char *in);
-void assignGeneric(char *in);
+#ifdef LAT_DEBUG
+void assignNum(char *i);
+void assignVar(char *i);
+void assignString(char *i);
+void assignGeneric(char *i);
+#else
+void assignNum();
+void assignVar();
+void assignString();
+void assignGeneric();
+#endif
 
 /* Additional functions */
 void exportSingleAssign(unsigned char type);
@@ -257,7 +264,11 @@ void freeFuncNames();
 void handleControlFlowTransfer(unsigned char shouldFetchExitJump);
 
 /* debugging */
+#ifdef LAT_DEBUG
 void setCompileError(char *error, char *instance, char *line);
+#else
+void setCompileError();
+#endif
 unsigned char getCompileError();
 void printCompilerStackState();
 

@@ -34,7 +34,7 @@ SOFTWARE.
 
 #include "Latria_Vars.h"
 
-#warning comment out the debugging for release
+#pragma message("comment out the debugging for release")
 /* #define LAT_REGEX_DEBUG 1 */
 
 /* General regex runner */

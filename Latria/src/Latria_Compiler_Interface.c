@@ -101,7 +101,7 @@ void compileLatria(char *fn) {
             /* Copy our bytes in */
             returned = readByteCodes();
             
-            fwrite(returned, sizeof(unsigned char), retSize, out);
+            fwrite(returned, sizeof(unsigned char), (size_t)retSize, out);
             
         }
         

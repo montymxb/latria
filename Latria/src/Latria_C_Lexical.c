@@ -173,22 +173,38 @@ void analyzeInputToCompile(char *input) {
                 
             case ASSIGN_NUM:
                 /* Done and Single Number to assign */
+                #ifdef LAT_DEBUG
                 assignNum(input);
+                #else
+                assignNum();
+                #endif
                 break;
                 
             case ASSIGN_STR:
                 /* Done and single string assign */
+                #ifdef LAT_DEBUG
                 assignString(input);
+                #else
+                assignString();
+                #endif
                 break;
                 
             case ASSIGN_VAR:
                 /* Done and Single Var to assign */
+                #ifdef LAT_DEBUG
                 assignVar(input);
+                #else
+                assignVar();
+                #endif
                 break;
                 
             case ASSIGN_GENERIC:
                 /* Generic assign */
+                #ifdef LAT_DEBUG
                 assignGeneric(input);
+                #else
+                assignGeneric();
+                #endif
                 break;
                 
             case LATC_LPOST:
@@ -377,7 +393,11 @@ void analyzeInputToCompile(char *input) {
                 break;
                 
             default:
+                #ifdef LAT_DEBUG
                 setCompileError("Unrecognized input on the following line","", originalInput);
+                #else
+                setCompileError();
+                #endif
                 break;
         }
         
@@ -483,7 +503,11 @@ char *analyzeStart(char *in) {
             
         } else {
             /* Function names can only start with alpha-only characters! */
+#ifdef LAT_DEBUG
             setCompileError("Function declaration started with non-alpha character", in, originalInput);
+#else
+            setCompileError();
+#endif
             
         }
         
@@ -519,7 +543,11 @@ char *analyzeStart(char *in) {
         in+=2;
         
         if(*in) {
+#ifdef LAT_DEBUG
             setCompileError(":>> Syntax Error. You may not follow an xlang declaration with anything other than a line break. Use the following lines to put xlang data in.", in, originalInput);
+#else
+            setCompileError();
+#endif
             
         }
         
@@ -532,7 +560,11 @@ char *analyzeStart(char *in) {
         return in;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized start character provided",in, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
     }
 }
@@ -647,7 +679,11 @@ char *analyzeValue(char *in) {
         
         if(leftElement == NULL && getLastOperator() == NULL && findParentCompilerState(LATC_RETURN) == 0) {
             /* Variable by itself with nothing to do! */
+#ifdef LAT_DEBUG
             setCompileError("A variable by itself is not a valid statement!", in, originalInput);
+#else
+            setCompileError();
+#endif
             
         }
         
@@ -694,7 +730,11 @@ char *analyzeValue(char *in) {
         in+=2;
         
         if(*in) {
+#ifdef LAT_DEBUG
             setCompileError(":>> Syntax Error. You may not follow an xlang declaration with anything other than a line break. Use the following lines to put xlang data in.", in, originalInput);
+#else
+            setCompileError();
+#endif
             
         }
         
@@ -707,7 +747,11 @@ char *analyzeValue(char *in) {
         return in;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized left value provided",in, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -739,7 +783,7 @@ char *analyzeRValueStart(char *in) {
     printf("Analyze Right Value Start:\n%s\n\n",in);
     #endif
     
-    if(isnumber(*in) || *in == '-' || *in == '+') {
+    if(isdigit(*in) || *in == '-' || *in == '+') {
         resetCapturedInput(in);
         if(*in == '-' || *in == '+') {
             in++;
@@ -828,7 +872,11 @@ char *analyzeRValueStart(char *in) {
         return in;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized right value provided",in, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -842,10 +890,14 @@ char *analyzeNum(char *in) {
     #endif
     
     if(isalpha(*in)) {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized digit",in, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
-    } else if(isnumber(*in) || *in == '.') {
+    } else if(isdigit(*in) || *in == '.') {
         /* continue */
         return ++in;
         
@@ -919,7 +971,11 @@ char *analyzeNum(char *in) {
         return in;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognied right number",in, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
     }
 }
@@ -955,7 +1011,11 @@ char *analyzeLPost(char *in) {
         return in;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized character after left name value",in, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
     }
 }
@@ -1011,7 +1071,7 @@ char *analyzeRPost(char *in) {
         pushCompilerState(LATC_OPERATOR);
         return in;
         
-    } else if(isnumber(*in)) {
+    } else if(isdigit(*in)) {
         /* A number */
         resetCapturedInput(in);
         pushCompilerState(LATC_NUM);
@@ -1049,7 +1109,11 @@ char *analyzeRPost(char *in) {
         return in;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized symbol after having read a right value",in, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
     }
 }
@@ -1092,7 +1156,7 @@ char *analyzeValArray(char *in) {
         popCompilerState();
         pushCompilerState(LATC_VAL_ARRAY_C);
         pushOperator(OP_PARENO, 0);
-        if(isnumber(*in)) {
+        if(isdigit(*in)) {
             pushCompilerState(LATC_NUM);
         } else {
             pushCompilerState(LATC_VAL);
@@ -1100,7 +1164,11 @@ char *analyzeValArray(char *in) {
         return in;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized character used in array reference",in, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
     }
 }
@@ -1166,7 +1234,11 @@ char *analyzeValArrayClose(char *in) {
         
     } else {
         /* Error */
+#ifdef LAT_DEBUG
         setCompileError("Found another symbol than expected array reference closer",in, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
     }
 }
@@ -1236,7 +1308,7 @@ char *analyzeFunctionCall(char *in) {
         /* Just whitespace */
         return ++in;
     
-    } else if(isnumber(*in)) {
+    } else if(isdigit(*in)) {
         /* Number of some sort */
         pushCompilerState(LATC_NUM);
         return in;
@@ -1269,7 +1341,11 @@ char *analyzeFunctionCall(char *in) {
         return ++in;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized item in function call",in, originalInput);
+#else
+        setCompileError();
+#endif
         
     }
     
@@ -1476,7 +1552,7 @@ char *analyzeArrayInit(char *i) {
         pushCompilerState(LATC_OPERATOR);
         return i;
         
-    } else if(isnumber(*i)) {
+    } else if(isdigit(*i)) {
         /* A number */
         resetCapturedInput(i);
         pushCompilerState(LATC_NUM);
@@ -1501,7 +1577,11 @@ char *analyzeArrayInit(char *i) {
         return i;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized symbol read inside array initializer",i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
     }
 }
@@ -1533,7 +1613,11 @@ char *analyzeFunctionDefinitionName(char *i) {
         return ++i;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized character in function definition name", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -1590,7 +1674,11 @@ char *analyzeFunctionDefinitionArgs(char *i) {
         return ++i;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized character in function definition arguments", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -1622,7 +1710,11 @@ char *analyzeFunctionDefinitionStart(char *i) {
         return i;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized character found instead of expected '{' for starting function body", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -1673,7 +1765,7 @@ char *analyzeReturn(char *i) {
     printf("Analyzing Return: %s\n\n",i);
     #endif
     
-#warning if this starts to build up (like for array refs) just export this functionality into another function, dub it condenseValuesToRegister, effectively takes any number of values and combinations and reduces it to the result at the last set register address
+    #pragma message("if this starts to build up (like for array refs) just export this functionality into another function, dub it condenseValuesToRegister, effectively takes any number of values and combinations and reduces it to the result at the last set register address")
     
     if(getLastOperator() != NULL) {
         dispatchInstructionsFromExpression(0);
@@ -1781,7 +1873,7 @@ char *analyzeIf(char *i) {
     printf("Analyzing If: %s\n\n", i);
     #endif
     
-    if(isnumber(*i)) {
+    if(isdigit(*i)) {
         /* Analyze this number */
         resetCapturedInput(i);
         pushCompilerState(LATC_NUM);
@@ -1870,7 +1962,11 @@ char *analyzeIf(char *i) {
         
     } else {
         /* Error */
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized input to analyzing an if statement", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -1911,7 +2007,11 @@ char *analyzeIfStart(char *i) {
         return i;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized character found instead of expected '{' for starting if body", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -2008,7 +2108,7 @@ char *analyzeElseIf(char *i) {
     printf("Analyzing ElseIf: %s\n\n", i);
 #endif
     
-    if(isnumber(*i)) {
+    if(isdigit(*i)) {
         /* Analyze this number */
         resetCapturedInput(i);
         pushCompilerState(LATC_NUM);
@@ -2077,7 +2177,11 @@ char *analyzeElseIf(char *i) {
         
     } else {
         /* Error */
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized input to analyzing an else if statement", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -2117,7 +2221,11 @@ char *analyzeElseIfStart(char *i) {
         return i;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized character found instead of expected '{' for starting else if body", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -2228,7 +2336,11 @@ char *analyzeElseStart(char *i) {
         return i;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized character found instead of expected '{' for starting else body", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -2286,7 +2398,11 @@ char *analyzeForDeclaration(char *i) {
         
     } else {
         /* Unrecognized for declaration element */
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized intialization statement in the passed for loop", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -2310,7 +2426,7 @@ char *analyzeForLimit(char *i) {
         pushCompilerState(LATC_FOR_INCREMENT);
         return i;
         
-    } else if(isnumber(*i)) {
+    } else if(isdigit(*i)) {
         /* Analyze this number */
         resetCapturedInput(i);
         pushCompilerState(LATC_NUM);
@@ -2363,7 +2479,11 @@ char *analyzeForLimit(char *i) {
         
     } else {
         /* Error */
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized input to analyzing an 'for' limit statement", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -2385,14 +2505,18 @@ char *analyzeForIncrement(char *i) {
         pushCompilerState(LATC_VAL);
         return i;
         
-    } else if(isnumber(*i)) {
+    } else if(isdigit(*i)) {
         /* Set write mode to batched */
         setWriteMode(WRITE_MODE_BATCHED);
         pushCompilerState(LATC_NUM);
         return i;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized input passed to increment statement in 'for' loop", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -2440,7 +2564,11 @@ char *analyzeForStart(char *i) {
         return i;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized character found instead of expected '{' for starting for body", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -2528,7 +2656,7 @@ char *analyzeWhile(char *i) {
         
         return i;
         
-    } else if(isnumber(*i)) {
+    } else if(isdigit(*i)) {
         /* Analyze this number */
         resetCapturedInput(i);
         pushCompilerState(LATC_NUM);
@@ -2581,7 +2709,11 @@ char *analyzeWhile(char *i) {
         
     } else {
         /* Error */
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized input to analyzing a 'while' limit statement", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -2619,7 +2751,11 @@ char *analyzeWhileStart(char *i) {
         return i;
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Unrecognized character found instead of expected '{' for starting while body", i, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     }
@@ -2701,48 +2837,61 @@ char *analyzeExecEnd(char *i) {
 /**** ASSIGN FUNCTIONS ****/
 
 /* Assign a single num to our value */
+#ifdef LAT_DEBUG
 void assignNum(char *in) {
-    
-    #ifdef LAT_DEBUG
     printf("Assign Single Num:\n%s\n\n",in);
-    #endif
-    
     exportSingleAssign(OP_NUM);
     
 }
+#else
+void assignNum() {
+    exportSingleAssign(OP_NUM);
+    
+}
+#endif
+
 
 /* Assign a single var to our value */
+#ifdef LAT_DEBUG
 void assignVar(char *in) {
-    
-    #ifdef LAT_DEBUG
     printf("Assign Var:\n%s\n\n",in);
-    #endif
-    
     exportSingleAssign(OP_VAR);
-    
 }
+#else
+void assignVar() {
+    exportSingleAssign(OP_VAR);
+}
+#endif
 
+
+/* Assign a single string to our value */
+#ifdef LAT_DEBUG
 void assignString(char *in) {
-    
-    #ifdef LAT_DEBUG
     printf("Assign String:\n%s\n\n",in);
-    #endif
-    
     exportSingleAssign(OP_STRING);
-    
 }
+#else
+void assignString() {
+    exportSingleAssign(OP_STRING);
+}
+#endif
+
 
 /* Generic Assign */
+#ifdef LAT_DEBUG
 void assignGeneric(char *in) {
-    
-    #ifdef LAT_DEBUG
     printf("Assign Generic:\n%s\n\n",in);
-    #endif
-    
     /* Dispatch existing instructs */
     dispatchInstructionsFromExpression(0);
     popCompilerState();
 }
+#else
+void assignGeneric() {
+    /* Dispatch existing instructs */
+    dispatchInstructionsFromExpression(0);
+    popCompilerState();
+}
+#endif
 
 /* Exports a single assignment (to var or bool) */
 void exportSingleAssign(unsigned char type) {
@@ -2823,7 +2972,11 @@ char *analyzeQuoted(char *in, char limit) {
         
     } else if (!*in) {
         /* We ran out of options! */
+#ifdef LAT_DEBUG
         setCompileError("Mismatched quotes",in, originalInput);
+#else
+        setCompileError();
+#endif
         return NULL;
         
     } else {
@@ -3004,7 +3157,10 @@ char *analyzeOperator(char *input) {
             dispatchRelationalExpression(0);
             
             if(*(input+1) == '|') {
-                JumpInstance *ji;
+                
+                #pragma message("bad logic here, the if below will always fail. before ji = NULL was not being set to anything")
+                
+                JumpInstance *ji = NULL;
                 /* Put a success jump here */
                 writeOutCode((char)OP_JUMP);
                 pushIncompleteJump((unsigned int)getProgramByteCount(), JUMP_TYPE_INCOMPLETE_JUMP);
@@ -3024,7 +3180,11 @@ char *analyzeOperator(char *input) {
             relationalOperatorParenCount--;
         } else {
             /* Error, unabalanced expression */
+#ifdef LAT_DEBUG
             setCompileError("Unbalanced expression found, parentheses did not match up", input, originalInput);
+#else
+            setCompileError();
+#endif
             
         }
         
@@ -3134,7 +3294,11 @@ char *analyzeOperator(char *input) {
         
     } else {
         /* Error */
+#ifdef LAT_DEBUG
         setCompileError("Unknown operand in compound expression",input, originalInput);
+#else
+        setCompileError();
+#endif
         
     }
     
@@ -3194,7 +3358,11 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
         
         if(poppedOperator == NULL && *poppedOperand1->element == '(') {
             /* This is an end ')' case () back to back with no way to connect what we just wrote, write a merge from 0 to 1 instead using ADD */
+#ifdef LAT_DEBUG
             setCompileError("Dead code, this is a net","", originalInput);
+#else
+            setCompileError();
+#endif
             return;
         }
         
@@ -3208,7 +3376,11 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
             #endif
             
             if(!*poppedOperand1->element) {
+#ifdef LAT_DEBUG
                 setCompileError("Operand 1 was null while compiling","", originalInput);
+#else
+                setCompileError();
+#endif
             }
             
         }
@@ -3222,7 +3394,11 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
         /*** Handle operand 2 ***/
         
         if(poppedOperand2->element == NULL) {
+#ifdef LAT_DEBUG
             setCompileError("Null second argument to expression analyzer","", originalInput);
+#else
+            setCompileError();
+#endif
         }
         
         if(*poppedOperand2->element != '(') {
@@ -3240,14 +3416,26 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
         #endif
         
         if(poppedOperator == NULL) {
+#ifdef LAT_DEBUG
             setCompileError("No operator found for the first expression","", originalInput);
+#else
+            setCompileError();
+#endif
         }
         
         if(poppedOperator->op == OP_PARENO) {
+#ifdef LAT_DEBUG
             setCompileError("We read an opening paren, something we should not be reading to start","", originalInput);
+#else
+            setCompileError();
+#endif
             
         } else if(poppedOperator->op == OP_PARENC) {
+#ifdef LAT_DEBUG
             setCompileError("We read a closing paren, something we should never be reading","", originalInput);
+#else
+            setCompileError();
+#endif
             
         } else {
             /* Write out the operation (ADD,SUB,DIVI,MULTI,EXP,MOD) */
@@ -3272,7 +3460,11 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
             
         } else {
             /* No first operand value! */
+#ifdef LAT_DEBUG
             setCompileError("First element not present","", originalInput);
+#else
+            setCompileError();
+#endif
             
         }
         
@@ -3294,7 +3486,11 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
             
         } else {
             /* No second operand value */
+#ifdef LAT_DEBUG
             setCompileError("Second element not present","", originalInput);
+#else
+            setCompileError();
+#endif
         }
         
         /* Push last register # */
@@ -3315,7 +3511,11 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
                 return;
             }
         } else if(poppedOperator->op == OP_PARENC) {
+#ifdef LAT_DEBUG
             setCompileError("We read a closing paren while looping, something we should never be reading","", originalInput);
+#else
+            setCompileError();
+#endif
         }
         
         /* Fetch next operand */
@@ -3395,7 +3595,11 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
             
         } else {
             /* No first operand value! */
+#ifdef LAT_DEBUG
             setCompileError("First element not present","", originalInput);
+#else
+            setCompileError();
+#endif
             
         }
         
@@ -3435,7 +3639,11 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
                 return;
             }
         } else if(poppedOperator->op == OP_PARENC) {
+#ifdef LAT_DEBUG
             setCompileError("We read a closing paren while looping, something we should never be reading","", originalInput);
+#else
+            setCompileError();
+#endif
         }
         
         /* Check for special array refs */
@@ -3542,7 +3750,11 @@ void pushOperator(unsigned short operand, unsigned short precedence) {
             break;
             
         default:
+#ifdef LAT_DEBUG
             setCompileError("Unrecognized operator added","", originalInput);
+#else
+            setCompileError();
+#endif
             break;
         
     }
@@ -3633,7 +3845,11 @@ void pushRelationalOperator(unsigned short operand, unsigned short precedence) {
             break;
             
         default:
+#ifdef LAT_DEBUG
             setCompileError("Unrecognized relational operator added","", originalInput);
+#else
+            setCompileError();
+#endif
             break;
             
     }
@@ -3756,7 +3972,7 @@ void dispatchRelationalExpression(unsigned short nextRelOPCode) {
             
             /* Complete the prior exit case */
             if(getJumpType() != NULL && getJumpType()->jumpType == JUMP_TYPE_INCOMPLETE_JUMP) {
-                JumpInstance *ji = popJumpType();
+                ji = popJumpType();
                 pushJumpUpdate(ji->jumpIndex, (unsigned int)getProgramByteCount());
             }
             
@@ -3817,7 +4033,11 @@ void dispatchArrayExpression(unsigned char mode) {
         free(name->element);
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Attempted to set mode to an undefined value %d. Only takes arg of 0 or 1 as an unsigned char", "", originalInput);
+#else
+        setCompileError();
+#endif
         
     }
 }
@@ -3920,7 +4140,11 @@ unsigned char getLastRegisterUsedAtIndex(unsigned char index) {
     if(index <= 1) {
         return _lastRegistersSet[index];
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Attempted to access last register used beyond 2 slot history","", originalInput);
+#else
+        setCompileError();
+#endif
         return 0;
     }
 }
@@ -4019,7 +4243,11 @@ void writeOutRegisterStrAssign(unsigned char regNum, unsigned short type, char *
         
     } else {
         /* Too far! */
+#ifdef LAT_DEBUG
         setCompileError("Attempted to set a register to string beyond the maximum of index 2",value,originalInput);
+#else
+        setCompileError();
+#endif
         
     }
 }
@@ -4046,7 +4274,11 @@ void writeOutRegisterArrayValueAssign(unsigned char regNum, unsigned short type,
         
     } else {
         /* Too far! */
+#ifdef LAT_DEBUG
         setCompileError("Attempted to set a register to string beyond the maximum of index 2",varName,originalInput);
+#else
+        setCompileError();
+#endif
         
     }
 }
@@ -4074,7 +4306,11 @@ void writeOutRegisterNumAssign(unsigned char regNum, unsigned short type, unsign
         }
     } else {
         /* Too far! */
+#ifdef LAT_DEBUG
         setCompileError("Attempted to set a register to num beyond the maximum of index 2","",originalInput);
+#else
+        setCompileError();
+#endif
         
     }
 }
@@ -4219,7 +4455,11 @@ unsigned short getCompilerState() {
         return _compilerState[(int)compilerStateIndex];
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Attempted to fetch a compiler state with no states on the stack.", "", originalInput);
+#else
+        setCompileError();
+#endif
         return LATC_NO_STATE;
         
     }
@@ -4263,7 +4503,11 @@ void pushCompilerState(unsigned short state) {
 #endif
     
     if(compilerStateIndex >= MAX_COMPILER_STACK_STATE-1) {
+#ifdef LAT_DEBUG
         setCompileError("Compiler State Stack Overflow\n","", originalInput);
+#else
+        setCompileError();
+#endif
         
     } else {
         compilerStateIndex++;
@@ -4290,7 +4534,11 @@ unsigned short popCompilerState() {
         return _compilerState[compilerStateIndex];
         
     } else {
+#ifdef LAT_DEBUG
         setCompileError("Compiler State Stack Underflow\n","", originalInput);
+#else
+        setCompileError();
+#endif
         return 0;
         
     }
@@ -4351,7 +4599,11 @@ void freeLexicalAllocations() {
 unsigned char compileError = 0;
 
 /* Sets a compile error and */
+#ifdef LAT_DEBUG
 void setCompileError(char *error, char *instance, char *line) {
+#else
+void setCompileError() {
+#endif
     #ifdef LAT_DEBUG
     printf("\n>>: %s at '%s' on line #%d\n %s\n\n",error,instance,lineNumber,line);
     #endif
