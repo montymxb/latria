@@ -8,7 +8,7 @@
 ################
 
 #General C Flags to compile latria with
-CFLAGS += -std=c90 -ansi -fno-common -fshort-enums -pedantic -W -Wall -fno-common -fshort-enums -O3 -Wcast-align -Wcast-qual -Wconversion -Wmissing-declarations -Wredundant-decls -Wnested-externs -Wpointer-arith -Wshadow -Wstrict-prototypes
+CFLAGS += -std=c90 -ansi -fno-common -fshort-enums -pedantic -W -Wall -fno-common -fshort-enums -O3 -Wcast-align -Wcast-qual -Wconversion -Wmissing-declarations -Wredundant-decls -Wnested-externs -Wpointer-arith -Wshadow
 
 #Generic Debug Flags
 DEBUG_FLAGS := -DLAT_TESTS=1 -g
@@ -17,13 +17,13 @@ DEBUG_FLAGS := -DLAT_TESTS=1 -g
 INCLUDE_COMPILER_FLAG := -DINCLUDECOMPILER=1
 
 #Linux Flags
-LINUX_FLAGS := $(CFLAGS) -DLINUXOS=1
+LINUX_FLAGS := -DLINUXOS=1
 LINUX_INCLUDE_COMPILER_FLAGS := $(LINUX_FLAGS) $(INCLUDE_COMPILER_FLAG)
 LINUX_DEBUG_FLAGS := $(LINUX_FLAGS) $(DEBUG_FLAGS)
 LINUX_DEBUG_INCLUDE_COMPILER_FLAGS := $(DEBUG_FLAGS) $(LINUX_FLAGS) $(INCLUDE_COMPILER_FLAG)
 
 #Mac Flags
-MAC_FLAGS := $(CFLAGS) -DMACOSX=1
+MAC_FLAGS := -DMACOSX=1 -Wstrict-prototypes
 MAC_INCLUDE_COMPILER_FLAGS := $(MAC_FLAGS) $(INCLUDE_COMPILER_FLAG)
 MAC_DEBUG_FLAGS := $(MAC_FLAGS) $(DEBUG_FLAGS)
 MAC_DEBUG_INCLUDE_COMPILER_FLAGS := $(MAC_FLAGS) $(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS)

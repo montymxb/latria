@@ -237,8 +237,20 @@ void Sys_RandomSeed(unsigned int input) {
 /* Reads a line of user input */
 void Sys_Input() {
     char userinput[1024];
-    scanf(" %[^\n]", userinput); /*fetch input*/
-    scanf("%*c");
+    int rez = scanf(" %[^\n]", userinput); /* fetch input */
+    
+    if(rez == EOF) {
+        setSysResult(NULL);
+        SysStatus = HAS_RESULT;
+    }
+    
+    rez = scanf("%*c");
+    
+    if(rez == EOF) {
+        setSysResult(NULL);
+        SysStatus = HAS_RESULT;
+    }
+    
     setSysResult(userinput);
     SysStatus = HAS_RESULT;
     

@@ -215,8 +215,18 @@ int main( int argc, char* argv[]) {
             printf("~~{");
             /* Using multiple scan f's (to compile on ARM specifically) */
             /* Specifically using an anti-class to take everything UP to \n */
-            scanf(" %[^\n]", input);
-            scanf("%*c");
+            rez = scanf(" %[^\n]", input);
+            
+            if(rez == EOF) {
+                break;
+            }
+            
+            rez = scanf("%*c");
+            
+            if(rez == EOF) {
+                break;
+            }
+            
             p = input;
             
             /* either no comment or all comment, nothing to run here though */
