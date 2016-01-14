@@ -682,7 +682,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DLAT_DEBUG=1",
+					"DLAT_TESTS=1",
+					"__unix__=1",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -691,6 +695,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DLAT_DEBUG=1",
+					"DLAT_TESTS=1",
+					"__unix__=1",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -36,11 +36,13 @@ SOFTWARE.
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+
 #ifdef __unix__ /* __unix__ is usually defined by compilers targeting Unix systems */
-# include <unistd.h>
-#elif defined _WIN32 /* _Win32 is usually defined by compilers targeting 32 or 64 bit Windows systems */
-# include <windows.h>
+#include <unistd.h>
+#elif defined _WIN32 /* _Win32 is usually defined by compilers targeting Windows. 32 is provided even when compiling on a 64 bit machine for backwards compatibility */
+#include <windows.h>
 #endif
+
 #include <time.h>
 
 /* Strictly for sqrt */

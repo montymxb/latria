@@ -1,0 +1,90 @@
+################################
+## Latria NMakefile (Windows) ##
+################################
+
+################
+#### MACROS ####
+################
+
+DEBUG_FLAGS = -DLAT_TESTS=1 -g
+
+#Generic Include Compiler Flag
+INCLUDE_COMPILER_FLAG = -DINCLUDECOMPILER=1
+
+######################
+#### Object Files ####
+######################
+
+#Interpreter Debug Object Files
+I_OBJS = Latria_ControlFlow.obj Latria_Function.obj Latria_GarbageCollection.obj Latria_InLang.obj Latria_Lexical.obj Latria_Libs.obj Latria_Math.obj Latria_Operators.obj Latria_ReferenceStack.obj Latria_Sys.obj Latria_Vars.obj Latria.obj Latria_OPCodes.obj Latria_Regex.obj Latria_Jumps.obj Latria_IO.obj Latria_OPCodes.obj Latria_Tests.obj
+
+#Compiler Object Files
+C_OBJS = Latria_C_IO.obj Latria_C_Lexical.obj Latria_C_Libs.obj Latria_C_OpCodes.obj Latria_C_StateStack.obj Latria_Compiler.obj Latria_Compiler_Interface.obj Latria_C_Dup_Libs.obj
+
+#Embedded Compiler Object Files
+C_E_OBJS = Latria_C_IO.obj Latria_C_Lexical.obj Latria_C_Libs.obj Latria_C_OpCodes.obj Latria_C_StateStack.obj Latria_Compiler_Interface.obj
+
+#disassembler objs
+DIS_OBJ = Latria_Decompiler.obj
+
+#disassembler name
+D_NAME = latriad.exe
+
+#interpreter name
+I_NAME = latria.exe
+
+#compiler name
+C_NAME = latriac.exe
+
+#linker
+link = link
+
+#compiler
+cc = cl
+
+#################
+#### TARGETS ####
+#################
+
+#build interpreter-compiler & disassembler
+all: latria disassembler
+
+.c.obj:
+	$(cc) /c $(cdebug) $(cflags) $(cvars) $*.c
+	
+#interpreter-compiler
+latria: $(I_OBJS) $(C_E_OBJS)
+	$(link) $(ldebug) $(INCLUDE_COMPILER_FLAG) $(conflags) $** $(conlibs) -out:$(I_NAME)
+	
+#interpreter-compiler debug
+latria-debug: $(I_OBJS) $(C_E_OBJS)
+	$(link) $(ldebug) $(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS) $(conflags) $** $(conlibs) -out:$(I_NAME)
+	
+#only interpreter
+interpreter: $(I_OBJS)
+	$(link) $(ldebug) $(conflags) $** $(conlibs) --out:$(I_NAME)
+	
+#only interpreter debug
+interpreter-debug: $(I_OBJS)
+	$(link) $(ldebug) $(conflags) $(DEBUG_FLAGS) $** $(conlibs) --out:$(I_NAME)
+
+#only compiler
+compiler: $(C_OBJS)
+	$(link) $(ldebug) $(conflags) $** $(conlibs) --out:$(C_NAME)
+	
+#only compiler debug
+compiler-debug: $(C_OBJS)
+	$(link) $(ldebug) $(conflags) $(DEBUG_FLAGS) $** $(conlibs) --out:$(C_NAME)
+	
+#disassembler
+disassembler: $(DIS_OBJ)
+	$(link) $(ldebug) $(conflags) $** $(conlibs) -out:$(D_NAME)
+	
+#disassembler debug
+disassembler-debug: $(DIS_OBJ)
+	$(link) $(ldebug) $(conflags) $(DEBUG_FLAGS) $** $(conlibs) -out:$(D_NAME)
+
+#clean
+clean: 
+	del *.obj
+	del *.exe

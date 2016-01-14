@@ -36,7 +36,12 @@ SOFTWARE.
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include <unistd.h>
+
+#ifdef __unix__
+# include <unistd.h>
+#elif defined _WIN32
+#include <windows.h>
+#endif
 
 #define LAT_ADDRESS_SIZE 4
 #define LAT_ADDRESS_FORMAT_STRING "%04x"

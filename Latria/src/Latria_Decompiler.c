@@ -31,7 +31,7 @@ SOFTWARE.
 
 #include "Latria_Decompiler.h"
 
-#define LATRIA_VERSION_NUMBER "0.0.24"
+#define LATRIA_VERSION_NUMBER "0.1.0"
 
 int main( int argc, char* argv[]) {
     int argI;

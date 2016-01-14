@@ -541,7 +541,11 @@ int findUncontainedChar(char c, char *s) {
 
 /* Sleep Call in Latria */
 void Sys_Sleep(unsigned int sleepVal) {
+    #ifdef _WIN32
+    Sleep(sleepVal);
+    #else
     sleep(sleepVal);
+    #endif
 }
 
 /* Time in latria */
@@ -596,7 +600,11 @@ char commBuff[1024];
 
 /* Sends data over an established connection */
 int Sys_SendData(int connId, char *message) {
+    #ifdef _WIN32
+    size_t result = 0;
+    #else
     ssize_t result = 0;
+    #endif
     /*while(strlen(message) < 1024) {*/
         
         sprintf(commBuff, "%s", message);
@@ -622,7 +630,11 @@ int Sys_SendData(int connId, char *message) {
 
 /* Reads data from an established connection */
 void Sys_ReadData(int connId) {
+    #ifdef _WIN32
+    size_t n;
+    #else
     ssize_t n;
+    #endif
     char *origData = NULL;
     char *data = NULL;
     while(( n = read(connId, commBuff, sizeof(commBuff)-1)) > 0) {
@@ -675,7 +687,11 @@ void Sys_CloseConnection(int connId) {
 int Sys_Connect(char *address, int port) {
     struct sockaddr_in serv_addr;
     int sock;
+    #ifdef _WIN32
+    size_t err;
+    #else
     ssize_t err;
+    #endif
     
     memset( &serv_addr, '0', sizeof(serv_addr));
     
