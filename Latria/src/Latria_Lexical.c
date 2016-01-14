@@ -94,6 +94,7 @@ void runInstructions() {
         int incrementCounter;
         long int priorFileIndex;
         char offset[5] = {0};
+        unsigned char h1,h2,h3;
         
         instructionCounter++;
         
@@ -459,7 +460,10 @@ void runInstructions() {
                 break;
                 
             case OP_MULTI:
-                performMultiOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performMultiOp(h1,h2,h3);
                 break;
                 
             case OP_UNSET:
@@ -509,27 +513,45 @@ void runInstructions() {
                 break;
                 
             case OP_EQUAL:
-                performEqualOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performEqualOp(h1,h2,h3);
                 break;
                 
             case OP_NOT_EQUAL:
-                performNotEqualOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performNotEqualOp(h1,h2,h3);
                 break;
                 
             case OP_LESST:
-                performLessThanOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performLessThanOp(h1,h2,h3);
                 break;
                 
             case OP_LESST_EQUAL:
-                performLessThanEqualToOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performLessThanEqualToOp(h1,h2,h3);
                 break;
             
             case OP_GREATRT:
-                performGreaterThanOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performGreaterThanOp(h1,h2,h3);
                 break;
                 
             case OP_GTRTHN_EQL:
-                performLessThanEqualToOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performLessThanEqualToOp(h1,h2,h3);
                 break;
                 
             case OP_CALL:
@@ -567,7 +589,10 @@ void runInstructions() {
                 break;
                 
             case OP_DIVI:
-                performDiviOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performDiviOp(h1,h2,h3);
                 break;
                 
             case OP_EXEC:
@@ -611,7 +636,10 @@ void runInstructions() {
                 break;
                 
             case OP_EXPONENT:
-                performExpOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performExpOp(h1,h2,h3);
                 break;
                 
             case OP_FIND:
@@ -744,11 +772,17 @@ void runInstructions() {
                 break;
                 
             case OP_SUB:
-                performSubOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performSubOp(h1,h2,h3);
                 break;
                 
             case OP_MODULUS:
-                performModOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performModOp(h1,h2,h3);
                 break;
                 
             case OP_PARENC:
@@ -762,7 +796,10 @@ void runInstructions() {
                 break;
                 
             case OP_ADD:
-                performAddOp((unsigned char)getCurrentChar(),(unsigned char)getCurrentChar(),(unsigned char)getCurrentChar());
+                h1 = (unsigned char)getCurrentChar();
+                h2 = (unsigned char)getCurrentChar();
+                h3 = (unsigned char)getCurrentChar();
+                performAddOp(h1,h2,h3);
                 break;
                 
             case OP_CONTINUE:
