@@ -226,14 +226,11 @@ void performLessThanOp(unsigned char i1, unsigned char i2, unsigned char i3) {
         
     } else if(getRegisterType(i2) == RegisterNum) {
         /* Numeric */
-        double n1,n2;
-        n1 = getRegisterNum(i3);
-        n2 = getRegisterNum(i2);
         setNumRegister(i1, getRegisterNum(i3) < getRegisterNum(i2) ? 1 : 0, RegisterBool);
         
     } else if(getRegisterType(i2) == RegisterString) {
         /* String compare */
-        setNumRegister(i1, strlen(getRegisterString(i3)) < strlen(getRegisterString(i2)) == 0 ? 1 : 0, RegisterBool);
+        setNumRegister(i1, (strlen(getRegisterString(i3)) < strlen(getRegisterString(i2))) == 0 ? 1 : 0, RegisterBool);
         
     } else {
         /* Unrecognized register type */
@@ -256,7 +253,7 @@ void performLessThanEqualToOp(unsigned char i1, unsigned char i2, unsigned char 
         
     } else if(getRegisterType(i2) == RegisterString) {
         /* String compare */
-        setNumRegister(i1, strlen(getRegisterString(i3)) <= strlen(getRegisterString(i2)) == 0 ? 1 : 0, RegisterBool);
+        setNumRegister(i1, (strlen(getRegisterString(i3)) <= strlen(getRegisterString(i2))) == 0 ? 1 : 0, RegisterBool);
         
     } else {
         /* Unrecognized register type */
@@ -279,7 +276,7 @@ void performGreaterThanOp(unsigned char i1, unsigned char i2, unsigned char i3) 
         
     } else if(getRegisterType(i2) == RegisterString) {
         /* String compare */
-        setNumRegister(i1, strlen(getRegisterString(i3)) > strlen(getRegisterString(i2)) == 0 ? 1 : 0, RegisterBool);
+        setNumRegister(i1, (strlen(getRegisterString(i3)) > strlen(getRegisterString(i2))) == 0 ? 1 : 0, RegisterBool);
         
     } else {
         /* Unrecognized register type */
@@ -302,7 +299,7 @@ void performGreaterThanEqualToOp(unsigned char i1, unsigned char i2, unsigned ch
         
     } else if(getRegisterType(i2) == RegisterString) {
         /* String compare */
-        setNumRegister(i1, strlen(getRegisterString(i3)) >= strlen(getRegisterString(i2)) == 0 ? 1 : 0, RegisterBool);
+        setNumRegister(i1, (strlen(getRegisterString(i3)) >= strlen(getRegisterString(i2))) == 0 ? 1 : 0, RegisterBool);
         
     } else {
         /* Unrecognized register type */

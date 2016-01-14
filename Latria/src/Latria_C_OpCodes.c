@@ -178,7 +178,7 @@ void writeOutCharacters(char *string) {
         if(instructionCount+(int)len+1 >= instructionSize-1) {
             
             /* realloc up */
-            instructionSize+=(INSTRUCTION_STEP > len ? INSTRUCTION_STEP : len + INSTRUCTION_STEP);
+            instructionSize+=(int)(INSTRUCTION_STEP > len ? INSTRUCTION_STEP : len + INSTRUCTION_STEP);
             instructions = realloc(instructions, (size_t)instructionSize);
             
         }
@@ -200,7 +200,7 @@ void writeOutCharacters(char *string) {
         if(batchedInstructionCount+(int)len+1 >= batchedInstructionSize-1) {
             
             /* realloc up */
-            batchedInstructionSize+=(INSTRUCTION_STEP > len ? INSTRUCTION_STEP : len + INSTRUCTION_STEP);
+            batchedInstructionSize+=(int)(INSTRUCTION_STEP > len ? INSTRUCTION_STEP : len + INSTRUCTION_STEP);
             if(batchedInstructions != NULL) {
                 /* realloc */
                 batchedInstructions = realloc(batchedInstructions, (size_t)batchedInstructionSize*sizeof(char));
@@ -212,7 +212,7 @@ void writeOutCharacters(char *string) {
             }
             
         } else if(batchedInstructions == NULL) {
-            batchedInstructionSize+=(INSTRUCTION_STEP > len ? INSTRUCTION_STEP : len + INSTRUCTION_STEP);
+            batchedInstructionSize+=(int)(INSTRUCTION_STEP > len ? INSTRUCTION_STEP : len + INSTRUCTION_STEP);
             /* malloc */
             batchedInstructions = malloc((size_t)batchedInstructionSize*sizeof(char));
             

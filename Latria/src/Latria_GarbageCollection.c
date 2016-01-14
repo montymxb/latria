@@ -79,6 +79,8 @@ typedef struct {
     
 } LATVM;
 
+LATVM *constructNewVM();
+
 /* Constructs a new VM instance */
 LATVM* constructNewVM() {
     int x = 0;
@@ -187,7 +189,7 @@ void *lmalloc(size_t sn) {
     }
     
     /* Bump the vm size */
-    currentVM->currentMemSize+=sn;
+    currentVM->currentMemSize+=(int)sn;
     
     /* Return this newly allocated memory */
     return ptr;
@@ -250,7 +252,7 @@ void *LATAlloc(void *ptr, size_t so, size_t sn) {
             printf("OOM error in Realloc\n");
             exit(115);
         }
-        currentVM->currentMemSize+=(sn-so);
+        currentVM->currentMemSize+=(int)(sn-so);
         return ptr;
     }
 }
@@ -277,7 +279,7 @@ void forceMemoryFree() {
                 
                 /* Found a valid pointer, let's free it & null it */
                 free(mb->blockPointer), mb->blockPointer = NULL;
-                currentVM->currentMemSize-=mb->blockSize;
+                currentVM->currentMemSize-=(int)mb->blockSize;
             }
         }
         /* Bump along to next block */
@@ -300,7 +302,7 @@ void forceALLMemoryFree() {
             if(mb->blockPointer != NULL) {
                 /* Found a valid pointer, let's free it & null it */
                 free(mb->blockPointer), mb->blockPointer = NULL;
-                currentVM->currentMemSize-=mb->blockSize;
+                currentVM->currentMemSize-=(int)mb->blockSize;
             }
         }
         tmpBlock = mb->nextBlock;

@@ -388,14 +388,16 @@ int LATF__printMem(struct LATFunction *node, int mem) {
     if(node != 0) {
         char *key, *stt;
         printf("%s\n",node->key);
-        mem+=sizeof(node);
+        mem+=(int)sizeof(node);
         key = node->key;
         stt = node->content;
-        mem+=(sizeof(key) * strlen(key));
-        if(stt != 0)
-            mem+=(sizeof(stt) * strlen(stt));
-        else
-            mem+=sizeof(stt);
+        mem+=(int)(sizeof(key) * strlen(key));
+        if(stt != 0) {
+            mem+=(int)(sizeof(stt) * strlen(stt));
+        } else {
+            mem+=(int)sizeof(stt);
+        }
+        
         mem+=LATF__printMem(node->lobj, 0);
         mem+=LATF__printMem(node->robj, 0);
         return mem;

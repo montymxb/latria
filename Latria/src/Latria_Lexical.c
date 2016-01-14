@@ -1285,7 +1285,7 @@ void runInstructions() {
                 
             case OP_TIME:
                 /* Returns the current system time in seconds */
-                setNumRegister(0, Sys_Time(), RegisterNum);
+                setNumRegister(0, (double)Sys_Time(), RegisterNum);
                 #pragma message("some functions perform pushRegister(0) after called, does this help with inline calling (no)")
                 break;
                 
@@ -1549,7 +1549,7 @@ void stripOutUnwantedSymbols(char *input) {
     
     finalSize = (int)strlen(tmp);
     
-    strncpy(input, tmp, finalSize);
+    strncpy(input, tmp, (size_t)finalSize);
     input[finalSize] = '\0';
 }
 
@@ -1876,7 +1876,7 @@ char * executeLang(char *xlangSource) {
             }
             
             /* Copy what we read into our tableRef */
-            tableRef = strncpy(tableRef, charBuff, charbuffLen);
+            tableRef = strncpy(tableRef, charBuff, (size_t)charbuffLen);
             tableRef[charbuffLen] = '\0';
             
             /* Bump tableRef by size of what we read */

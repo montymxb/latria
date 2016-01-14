@@ -42,6 +42,8 @@ short outputVMSize[OUTPUT_STACK_SIZE];
 /* Current index of the stack */
 short outputVMStackIndex = 0;
 
+void lat_io_writeOutput(unsigned char *output, int size);
+
 /* Writes to the output side of the IO module (called by interface, Latria.c) */
 void lat_io_writeOutput(unsigned char *output, int size) {
     

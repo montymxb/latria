@@ -1273,7 +1273,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 /* Increment jumpSize for each jump sequence */
                 struct JumpObject *jo = jumpStack;
                 while(jo) {
-                    jo->jumpSize+=(instructionsAdded-lastCountOfInstruction);
+                    jo->jumpSize+=(unsigned int)(instructionsAdded-lastCountOfInstruction);
                     jo = jo->next;
                 }
             }
@@ -1995,7 +1995,7 @@ void updateStateMachine(struct RegexState *state, unsigned char isAtBeginning, c
             }
             
             /* Indicate we are now capturing, +1 */
-            state->isCapturing = state->isCapturing+1;
+            state->isCapturing = state->isCapturing+(unsigned char)1;
             state->totalCaptures++;
             
         } else if(state->currentState == CODE_CAPTURE_END) {
@@ -2016,7 +2016,7 @@ void updateStateMachine(struct RegexState *state, unsigned char isAtBeginning, c
                 
                 /* Alloc, and copy */
                 captureAllocHolder = LATAlloc(NULL, 0, (size_t)(captureLen+1));
-                strncpy(captureAllocHolder, stepCapture->capture, captureLen);
+                strncpy(captureAllocHolder, stepCapture->capture, (size_t)captureLen);
                 captureAllocHolder[captureLen] = '\0';
                 
                 /* Replace, mark complete */
@@ -2024,7 +2024,7 @@ void updateStateMachine(struct RegexState *state, unsigned char isAtBeginning, c
                 stepCapture->isComplete = 1;
                 
                 /* Stop Capturing */
-                state->isCapturing = state->isCapturing>0?state->isCapturing-1:0;
+                state->isCapturing = state->isCapturing>0?state->isCapturing-(unsigned char)1:0;
             }
             
         } else if(state->currentState == CODE_START) {

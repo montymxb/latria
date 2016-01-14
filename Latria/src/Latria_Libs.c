@@ -93,7 +93,7 @@ char *str_replace(char *orig, char *rep, char *with, char removeAll) {
             /* Get the length from the front of the 'orig' string */
             len_front = ins - orig;
             /* Copy data from 'orig' to 'tmp' up to our front length, then fast forward that front length */
-            tmp = strncpy(tmp, orig, len_front) + len_front;
+            tmp = strncpy(tmp, orig, (size_t)len_front) + len_front;
             /* Copy our replacement string into 'tmp', and then fast forward the width of that replacement string */
             tmp = strncpy(tmp, with, len_with) + len_with;
             /* Fast forward our 'orig' pointer past this match */
@@ -105,7 +105,7 @@ char *str_replace(char *orig, char *rep, char *with, char removeAll) {
         /* Get the length from the front of the 'orig' string */
         len_front = ins - orig;
         /* Copy data from 'orig' to 'tmp' up to our front length, then fast forward that front length */
-        tmp = strncpy(tmp, orig, len_front) + len_front;
+        tmp = strncpy(tmp, orig, (size_t)len_front) + len_front;
         /* Copy our replacement string into 'tmp', and then fast forward the width of that replacement string */
         tmp = strncpy(tmp, with, len_with) + len_with;
         /* Fast forward our 'orig' pointer past this match */
@@ -162,7 +162,7 @@ char *str_replaceNCPY(char *orig, char*rep, char*with) {
     /* Get the length from the front of the 'orig' string */
     len_front = ins - orig;
     /* Copy data from 'orig' to 'tmp' up to our front length, then fast forward that front length */
-    tmp = strncpy(tmp, orig, len_front) + len_front;
+    tmp = strncpy(tmp, orig, (size_t)len_front) + len_front;
     /* Copy our replacement string into 'tmp', and then fast forward the width of that replacement string */
     tmp = strncpy(tmp, with, len_with) + len_with;
     /* Fast forward our 'orig' pointer past this match */
@@ -170,7 +170,7 @@ char *str_replaceNCPY(char *orig, char*rep, char*with) {
     
     /* Copy our new 'replaced' string into tmp from 'orig' */
     len_front = (long)strlen(orig);
-    strncpy(tmp, orig, len_front);
+    strncpy(tmp, orig, (size_t)len_front);
     tmp[len_front] = '\0';
     
     /* Reset orig back to the beginning */
@@ -178,7 +178,7 @@ char *str_replaceNCPY(char *orig, char*rep, char*with) {
     
     /* Copy our result into the original string */
     len_front = (long)strlen(result);
-    strncpy(orig, result, len_front);
+    strncpy(orig, result, (size_t)len_front);
     orig[len_front] = '\0';
     
     /* free result */

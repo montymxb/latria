@@ -155,8 +155,8 @@ void compileLine(char *line) {
     
     if(maxByteCodeLength == 0) {
         /* Read the len */
-        maxByteCodeLength = (*retVal++ * 256);
-        maxByteCodeLength+= *retVal++;
+        maxByteCodeLength = (short)(*retVal++ * 256);
+        maxByteCodeLength+= (short)*retVal++;
         currentByteCodeLength = maxByteCodeLength;
         size = currentByteCodeLength;
         
@@ -164,10 +164,10 @@ void compileLine(char *line) {
         
     } else {
         /* Read new byte code size and see what we have to do */
-        size = (*retVal++ * 256);
-        size += *retVal++;
+        size = (short)(*retVal++ * 256);
+        size += (short)*retVal++;
         
-        currentByteCodeLength+=size;
+        currentByteCodeLength+=(short)size;
         
         if(currentByteCodeLength > maxByteCodeLength) {
             /* realloc */

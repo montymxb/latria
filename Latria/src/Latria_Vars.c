@@ -1090,7 +1090,7 @@ char * convertFloatToString(double value) {
     int len = sprintf(str, "%g", value);
     /* Attempted to replace with a table pointer, caused system instability*/
     char *finalRez = LATAlloc(NULL, 0, (size_t)(len+1) * sizeof(char));
-    strncpy(finalRez, str, len);
+    strncpy(finalRez, str, (size_t)len);
     finalRez[len] = '\0';
     return finalRez;
 }
@@ -1352,9 +1352,9 @@ int Core__printMem(struct CoreObject *node, int mem) {
                 printf("    %s\n", node->data._svalue);
             }
         }
-        mem+=sizeof(node);
+        mem+=(int)sizeof(node);
         key = node->key;
-        mem+=(sizeof(key) * strlen(key));
+        mem+=(int)(sizeof(key) * strlen(key));
         mem+=Core__printMem(node->lobj, 0);
         mem+=Core__printMem(node->robj, 0);
         return mem;

@@ -134,7 +134,7 @@ float performOperationBetweenInputs(float lval, float rval, char opSymbol) {
         case '^':
             return local_pow((double)lval,(int)rval);
         case '%':
-            return (int)lval%(int)rval;
+            return (float)((int)lval%(int)rval);
         case '*':
             return lval*rval;
         case '/':
@@ -150,14 +150,14 @@ float performOperationBetweenInputs(float lval, float rval, char opSymbol) {
 
 /* Simple pow*/
 float local_pow(double base, int exp) {
-    int result = 1;
+    double result = 1;
     while (exp) {
         if (exp & 1)
             result *= base;
         exp >>= 1;
         base *= base;
     }
-    return result;
+    return (float)result;
 }
 
 /* C implementation of substring*/
