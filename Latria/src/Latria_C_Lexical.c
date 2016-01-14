@@ -3691,7 +3691,7 @@ void pushOperand(char *operand, unsigned short opValue, unsigned short arrayOpSt
         
     }
     
-    newOperand = strdup(operand);
+    newOperand = localCopy(operand);
     
     operandStackIndex++;
     
@@ -4087,7 +4087,7 @@ void pushFuncName(char *name) {
         exit(14901);
     }
     
-    funcNameStack[funcNameStackIndex++] = strdup(name);
+    funcNameStack[funcNameStackIndex++] = localCopy(name);
 }
 
 /* Pops function names */
@@ -4110,7 +4110,7 @@ void freeFuncNames() {
 /* Sets the left hand value */
 void assignLeftHandValue(char *cutIndex) {
     leftElement = getCapturedInput(cutIndex);
-    leftElement = strdup(leftElement);
+    leftElement = localCopy(leftElement);
     resetCapturedInput(cutIndex+1);
     #ifdef LAT_DEBUG
     printf("Assigned lefthand Value:\n%s\n\n",leftElement);
@@ -4235,7 +4235,7 @@ void writeOutRegisterStrAssign(unsigned char regNum, unsigned short type, char *
                 
             } else {
                 /* set new */
-                lastRegisterValues[regNum] = strdup(value);
+                lastRegisterValues[regNum] = localCopy(value);
                 lastRegisterValuesLen[regNum] = strlen(value);
                 
             }
@@ -4614,6 +4614,15 @@ void setCompileError() {
 /* */
 unsigned char getCompileError() {
     return compileError;
+}
+    
+/* Creates a copy of a passed string, allocating space for it in the process */
+char *localCopy(char *i) {
+    unsigned long len = strlen(i);
+    char *newOperand = malloc(sizeof(char) * (len+1));
+    strncpy(newOperand, i, len);
+    newOperand[len] = '\0';
+    return newOperand;
 }
 
 /* Prints out the current stack state visually */

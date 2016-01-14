@@ -260,6 +260,9 @@ void pushFuncName(char *name);
 char *popFuncName();
 void freeFuncNames();
 
+/* local copy */
+char *localCopy(char *i);
+
 /* Jump Group Dispatching */
 void handleControlFlowTransfer(unsigned char shouldFetchExitJump);
 
