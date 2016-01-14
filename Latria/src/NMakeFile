@@ -62,19 +62,19 @@ latria-debug: $(I_OBJS) $(C_E_OBJS)
 	
 #only interpreter
 interpreter: $(I_OBJS)
-	$(link) $(ldebug) $(conflags) $** $(conlibs) --out:$(I_NAME)
+	$(link) $(ldebug) $(conflags) $** $(conlibs) -out:$(I_NAME)
 	
 #only interpreter debug
 interpreter-debug: $(I_OBJS)
-	$(link) $(ldebug) $(conflags) $(DEBUG_FLAGS) $** $(conlibs) --out:$(I_NAME)
+	$(link) $(ldebug) $(conflags) $(DEBUG_FLAGS) $** $(conlibs) -out:$(I_NAME)
 
 #only compiler
 compiler: $(C_OBJS)
-	$(link) $(ldebug) $(conflags) $** $(conlibs) --out:$(C_NAME)
+	$(link) $(ldebug) $(conflags) $** $(conlibs) -out:$(C_NAME)
 	
 #only compiler debug
 compiler-debug: $(C_OBJS)
-	$(link) $(ldebug) $(conflags) $(DEBUG_FLAGS) $** $(conlibs) --out:$(C_NAME)
+	$(link) $(ldebug) $(conflags) $(DEBUG_FLAGS) $** $(conlibs) -out:$(C_NAME)
 	
 #disassembler
 disassembler: $(DIS_OBJ)

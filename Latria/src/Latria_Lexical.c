@@ -1521,10 +1521,15 @@ void runInstructions() {
             case OP_RUN:
                 /* Compiles and runs a line of latria code */
                 if(getStackRegisterType() == RegisterString) {
+                    
+                    #ifdef INCLUDECOMPILER
                     /* Handle this line as a dismissable dynamic session */
                     openDynamicInterpreterFile();
                     handleInput(popStackRegisterString());
                     closeDynamicInterpreterFile();
+                    #else
+                    printf("\n\nWarning!! Unable to run line of code '%s', compiler not present to handle input\n\n", popStackRegisterString());
+                    #endif
                     
                 } else {
                     printf("Invalid value provided to run. Takes a single string that is interpreted as latria code");

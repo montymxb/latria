@@ -194,7 +194,7 @@ int main( int argc, char* argv[]) {
             }
         }
     }
-    #if defined(INCLUDECOMPILER)
+    #ifdef INCLUDECOMPILER
     else {
         
         /* No args passed, run interactive prompt */
@@ -337,7 +337,7 @@ void executeLatriaFile(char *fileName) {
     
 }
 
-#if defined(INCLUDECOMPILER)
+#ifdef INCLUDECOMPILER
 
 /* Opens up a file to work with dynamic interpretation */
 void openDynamicInterpreterFile() {

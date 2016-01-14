@@ -58,7 +58,7 @@ void moveToNextChar();
 void resetCurrentFileIndex(long int newIndex);
 long int getCurrentFileIndex();
 
-#if defined(INCLUDECOMPILER)
+#ifdef INCLUDECOMPILER
 void openDynamicInterpreterFile();
 void closeDynamicInterpreterFile();
 int handleInput(char *input);
