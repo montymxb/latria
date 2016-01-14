@@ -1995,7 +1995,7 @@ void updateStateMachine(struct RegexState *state, unsigned char isAtBeginning, c
             }
             
             /* Indicate we are now capturing, +1 */
-            state->isCapturing = state->isCapturing+(unsigned char)1;
+            state->isCapturing = (unsigned char)(state->isCapturing+1);
             state->totalCaptures++;
             
         } else if(state->currentState == CODE_CAPTURE_END) {
@@ -2024,7 +2024,7 @@ void updateStateMachine(struct RegexState *state, unsigned char isAtBeginning, c
                 stepCapture->isComplete = 1;
                 
                 /* Stop Capturing */
-                state->isCapturing = state->isCapturing>0?state->isCapturing-(unsigned char)1:0;
+                state->isCapturing = state->isCapturing>0?(unsigned char)(state->isCapturing-1):0;
             }
             
         } else if(state->currentState == CODE_START) {

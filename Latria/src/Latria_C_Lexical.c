@@ -3700,11 +3700,11 @@ void pushOperand(char *operand, unsigned short opValue, unsigned short arrayOpSt
     #endif
     
     if(operandStack == NULL) {
-        operandStackMax+=(short)10;
+        operandStackMax = (short)(operandStackMax + 10);
         operandStack = malloc(sizeof(ExpressionElement) * 10);
         
     } else if (operandStackIndex > operandStackMax - 1) {
-        operandStackMax+=(short)10;
+        operandStackMax = (short)(operandStackMax + 10);
         operandStack = realloc(operandStack, sizeof(ExpressionElement) * (size_t)operandStackMax);
         
     }
@@ -3761,11 +3761,11 @@ void pushOperator(unsigned short operand, unsigned short precedence) {
     #endif
     
     if(operatorStack == NULL) {
-        operatorStackMax+=(short)10;
+        operatorStackMax = (short)(operatorStackMax + 10);
         operatorStack = malloc(sizeof(ExpressionElement) * 10);
         
     } else if (operatorStackIndex > operatorStackMax - 1) {
-        operatorStackMax+=(short)10;
+        operatorStackMax = (short)(operatorStackMax + 10);
         operatorStack = realloc(operatorStack, sizeof(ExpressionElement) * (size_t)operatorStackMax);
         
     }
@@ -3856,11 +3856,11 @@ void pushRelationalOperator(unsigned short operand, unsigned short precedence) {
     #endif
     
     if(relationalOperatorStack == NULL) {
-        relationalOperatorStackMax+=(short)10;
+        relationalOperatorStackMax = (short)(relationalOperatorStackMax + 10);
         relationalOperatorStack = malloc(sizeof(ExpressionElement) * 10);
         
     } else if (relationalOperatorStackIndex > relationalOperatorStackMax - 1) {
-        relationalOperatorStackMax+=(short)10;
+        relationalOperatorStackMax = (short)(relationalOperatorStackMax + 10);
         relationalOperatorStack = realloc(relationalOperatorStack, sizeof(ExpressionElement) * (size_t)relationalOperatorStackMax);
         
     }
