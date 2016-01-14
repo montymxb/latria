@@ -469,12 +469,13 @@ void runInstructions() {
             case OP_UNSET:
                 /* Unsets a given variable */
                 incrementCounter = 0;
+                
                 while((hc = (unsigned char)getCurrentChar())) {
                     variable[incrementCounter++] = (char)hc;
                 }
                 variable[incrementCounter] = (char)hc;
-                
                 unsetValue(variable);
+                
                 break;
                 
             case OP_UNSET_KEY:
@@ -1471,6 +1472,7 @@ void runInstructions() {
                     if(getStackRegisterType() == RegisterNum) {
                         /* Perform Bit OR */
                         setNumRegister(0, Sys_bit_or((int)popStackRegisterNum(), (int)dd0), RegisterNum);
+                        
                     } else {
                         printf("Invalid value provided to or. Takes two number arguments & returns the bitwise OR result");
                         exit(1);

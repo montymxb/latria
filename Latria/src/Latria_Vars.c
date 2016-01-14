@@ -493,7 +493,7 @@ void setBoolValueForKey(char *key, LATBool value, struct CoreObject **_node) {
                 (*_node)->lobj = NULL;
             } else if((*_node)->_state == 4) {
                 /* Active file, close & null */
-                fclose((*_node)->data._file);
+                /*fclose((*_node)->data._file);*/
                 (*_node)->data._file = NULL;
             } else if((*_node)->_state == 0 || (*_node)->_state == 2) {
                 /* Number or Bool, do nothing */
@@ -557,7 +557,7 @@ void _setArrayObjectForKey(char *key, struct CoreObject *array, struct CoreObjec
                 (*_node)->lobj = NULL;
             } else if((*_node)->_state == 4) {
                 /* Active file, close & null */
-                fclose((*_node)->data._file);
+                /*fclose((*_node)->data._file);*/
                 (*_node)->data._file = NULL;
             } else if((*_node)->_state == 0 || (*_node)->_state == 2) {
                 /* Number or Bool, do nothing */
@@ -649,7 +649,8 @@ void setFileValueForKey(char *key, FILE *value, struct CoreObject **_node) {
                 /* Active file, close & null */
                 if((*_node)->data._file != value) {
                     /* Non-conflicting files, safe to close */
-                    fclose((*_node)->data._file);
+                    #pragma message("files must be closed manually (they are not garbage collected) or they will be leaked out, for the moment at least")
+                    /*fclose((*_node)->data._file);*/
                     (*_node)->data._file = NULL;
                     
                 }
@@ -716,7 +717,7 @@ void setConnectionValueForKey(char *name, int val, struct CoreObject **_node) {
                 
             } else if((*_node)->_state == 4) {
                 /* Active file, close & null */
-                fclose((*_node)->data._file);
+                /*fclose((*_node)->data._file);*/
                 (*_node)->data._file = NULL;
                 
             } else if((*_node)->_state == 0 || (*_node)->_state == 2) {
@@ -891,7 +892,7 @@ void _updateCoreObjectWithVal(struct CoreObject **node, char *value) {
         (*node)->lobj = NULL;
     } else if((*node)->_state == 4) {
         /* Active file, close & null */
-        fclose((*node)->data._file);
+        /*fclose((*node)->data._file);*/
         (*node)->data._file = NULL;
     }
     
@@ -1123,7 +1124,7 @@ struct CoreObject * freeObjectWithKey(char *key, struct CoreObject *node) {
                     if(node->_state == 1)
                         LATDealloc(node->data._svalue);
                     else if(node->_state == 4) {
-                        fclose(node->data._file);
+                        /*fclose(node->data._file);*/
                         node->data._file = NULL;
                     }
                     LATDealloc(node->key);
@@ -1135,7 +1136,7 @@ struct CoreObject * freeObjectWithKey(char *key, struct CoreObject *node) {
                     if(node->_state == 1)
                         LATDealloc(node->data._svalue);
                     else if(node->_state == 4) {
-                        fclose(node->data._file);
+                        /*fclose(node->data._file);*/
                         node->data._file = NULL;
                     }
                     LATDealloc(node->key);
@@ -1148,7 +1149,7 @@ struct CoreObject * freeObjectWithKey(char *key, struct CoreObject *node) {
                     if(node->_state == 1)
                         LATDealloc(node->data._svalue);
                     else if(node->_state == 4) {
-                        fclose(node->data._file);
+                        /*fclose(node->data._file);*/
                         node->data._file = NULL;
                     }
                     LATDealloc(node->key);
@@ -1278,7 +1279,7 @@ void freeAllObjects( struct CoreObject *node) {
             
         } else if(node->_state == 4) {
             /* Open file to close */
-            fclose(node->data._file);
+            /*fclose(node->data._file);*/
             node->data._file = NULL;
             
         }
