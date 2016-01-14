@@ -39,7 +39,7 @@ In the meantime feel free to reach out to me at friedman.benjamin@gmail.com
 
 <h2>Building.</h2>
 
-Latria is capable of being built on linux, mac and windows from the same source. The methods vary however. For all of them you'll need to navigate to latria/Latria/src/ to start however.
+Latria is capable of being built on linux, mac and windows from the same source. The methods vary however, but for all of them you'll need to navigate to latria/Latria/src/ to start.
 
 For building on mac you can invoke make as follows.
 ```
