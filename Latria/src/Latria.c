@@ -209,7 +209,7 @@ int main( int argc, char* argv[]) {
         #define COPYRIGHT_SYMBOL ""
         #endif
         
-        printf("\nLatria (Lang Atria) \nv%s\nCopyright %s Benjamin Wilson Friedman - 2015\n\n\n", COPYRIGHT_SYMBOL, LATRIA_VERSION_NUMBER);
+        printf("\nLatria (Lang Atria) \nv%s\nCopyright %s Benjamin Wilson Friedman - 2016\n\n\n", COPYRIGHT_SYMBOL, LATRIA_VERSION_NUMBER);
         
         openDynamicInterpreterFile();
         
