@@ -6,7 +6,7 @@
 #### MACROS ####
 ################
 
-DEBUG_FLAGS = -DLAT_TESTS=1 -g
+DEBUG_FLAGS = -DLAT_TESTS=1 /DEBUG
 
 #Generic Include Compiler Flag
 INCLUDE_COMPILER_FLAG = -DINCLUDECOMPILER=1
@@ -37,10 +37,10 @@ I_NAME = latria.exe
 C_NAME = latriac.exe
 
 #linker
-link = link
+LINK = link
 
-#compiler
-cc = cl
+#NMake Invocation
+NMAKE_INVOCATION = nmake /F NMakeFile
 
 #################
 #### TARGETS ####
@@ -50,41 +50,55 @@ cc = cl
 all: latria disassembler
 
 .c.obj:
-	$(cc) /c $(cdebug) $(cflags) $(cvars) $*.c
+	$(CC) /c $(CDEBUG) $(CFLAGS) $(CVARS) $*.c
 	
 #interpreter-compiler
 latria: $(I_OBJS) $(C_E_OBJS)
-	$(link) $(ldebug) $(INCLUDE_COMPILER_FLAG) $(conflags) $** $(conlibs) -out:$(I_NAME)
+	$(LINK) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
 	
 #interpreter-compiler debug
-latria-debug: $(I_OBJS) $(C_E_OBJS)
-	$(link) $(ldebug) $(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS) $(conflags) $** $(conlibs) -out:$(I_NAME)
+latria-debug:
+	$(NMAKE_INVOCATION) latria COMP_FLAGS="$(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS)"
+	$(LINK) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
 	
 #only interpreter
 interpreter: $(I_OBJS)
-	$(link) $(ldebug) $(conflags) $** $(conlibs) -out:$(I_NAME)
+	$(LINK) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
 	
 #only interpreter debug
-interpreter-debug: $(I_OBJS)
-	$(link) $(ldebug) $(conflags) $(DEBUG_FLAGS) $** $(conlibs) -out:$(I_NAME)
+interpreter-debug:
+	$(NMAKE_INVOCATION) interpreter COMP_FLAGS=$(DEBUG_FLAGS)
 
 #only compiler
 compiler: $(C_OBJS)
-	$(link) $(ldebug) $(conflags) $** $(conlibs) -out:$(C_NAME)
+	$(LINK) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(C_NAME)
 	
 #only compiler debug
-compiler-debug: $(C_OBJS)
-	$(link) $(ldebug) $(conflags) $(DEBUG_FLAGS) $** $(conlibs) -out:$(C_NAME)
+compiler-debug:
+	$(NMAKE_INVOCATION) compiler COMP_FLAGS=$(DEBUG_FLAGS)
 	
 #disassembler
 disassembler: $(DIS_OBJ)
-	$(link) $(ldebug) $(conflags) $** $(conlibs) -out:$(D_NAME)
+	$(LINK) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(D_NAME)
 	
 #disassembler debug
-disassembler-debug: $(DIS_OBJ)
-	$(link) $(ldebug) $(conflags) $(DEBUG_FLAGS) $** $(conlibs) -out:$(D_NAME)
+disassembler-debug:
+	$(NMAKE_INVOCATION) disassembler COMP_FLAGS=$(DEBUG_FLAGS)
 
 #clean
 clean: 
 	del *.obj
 	del *.exe
+	
+#help
+help:
+	@echo ::Supported Targets::
+	@echo all
+	@echo latria
+	@echo latria-debug
+	@echo interpreter
+	@echo interpreter-debug
+	@echo compiler
+	@echo compiler-debug
+	@echo disassembler
+	@echo disassembler-debug
