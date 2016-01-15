@@ -3287,19 +3287,31 @@ void ftest_recursiveFunction() {
 
 /* Functional test failure */
 void testFailedWithError(char *name,char *er) {
+#ifdef _WIN32
+    printf(KRED "\n►%s %s Failed with Error: %s\n", RESET, name, er);
+#else
     printf(KRED "\n✘%s %s Failed with Error: %s\n", RESET, name, er);
+#endif
     failCount+=1;
 }
 
 /* Unit test failure */
 void utestFailedWithError(char *name,char *er) {
+#ifdef _WIN32
+    printf(KRED "\n►%s %s Failed with Error: %s\n\n", RESET, name, er);
+#else
     printf(KRED "\n✘%s %s Failed with Error: %s\n\n", RESET, name, er);
+#endif
     failCount+=1;
 }
 
 /* Generic test pass */
 void testPassed(char *testname) {
+#ifdef _WIN32
+    printf(KGRN "·%s %s passed\n", RESET, testname);
+#else
     printf(KGRN "✔%s %s passed\n", RESET, testname);
+#endif
 }
 
 #endif

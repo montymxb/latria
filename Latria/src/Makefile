@@ -60,10 +60,7 @@ LDFLAGS += $(foreach library,$(LATRIA_LIBRARIES),-l$(library))
 ######################
 
 #Interpreter Object Files
-#I_OBJS := Latria_ControlFlow.o Latria_Function.o Latria_GarbageCollection.o Latria_InLang.o Latria_Lexical.o Latria_Libs.o Latria_Math.o Latria_Operators.o Latria_ReferenceStack.o Latria_Sys.o Latria_Vars.o Latria.o Latria_OPCodes.o Latria_Regex.o Latria_Jumps.o Latria_IO.o Latria_OPCodes.o
-
-#Interpreter Debug Object Files
-I_OBJS := Latria_ControlFlow.o Latria_Function.o Latria_GarbageCollection.o Latria_InLang.o Latria_Lexical.o Latria_Libs.o Latria_Math.o Latria_Operators.o Latria_ReferenceStack.o Latria_Sys.o Latria_Vars.o Latria.o Latria_OPCodes.o Latria_Regex.o Latria_Jumps.o Latria_IO.o Latria_OPCodes.o Latria_Tests.o
+I_OBJS := Latria_ControlFlow.o Latria_Function.o Latria_GarbageCollection.o Latria_InLang.o Latria_Lexical.o Latria_Libs.o Latria_Math.o Latria_Operators.o Latria_ReferenceStack.o Latria_Sys.o Latria_Vars.o Latria.o Latria_OPCodes.o Latria_Regex.o Latria_Jumps.o Latria_IO.o Latria_Tests.o
 
 #Compiler Object Files
 C_OBJS := Latria_C_IO.o Latria_C_Lexical.o Latria_C_Libs.o Latria_C_OpCodes.o Latria_C_StateStack.o Latria_Compiler.o Latria_Compiler_Interface.o Latria_C_Dup_Libs.o
