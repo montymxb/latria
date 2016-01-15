@@ -203,13 +203,13 @@ int main( int argc, char* argv[]) {
         setPrintCacheMode(1);
         
         /* Copyright symbol not available in the windows command prompt, check to define as empty */
-        #ifdef _WIN32
-        #define COPYRIGHT_SYMBOL ©
+        #ifndef _WIN32
+        #define COPYRIGHT_SYMBOL "©"
         #else
         #define COPYRIGHT_SYMBOL ""
         #endif
         
-        printf("\nLatria (Lang Atria) \nv%s\nCopyright %s Benjamin Wilson Friedman - 2016\n\n\n", COPYRIGHT_SYMBOL, LATRIA_VERSION_NUMBER);
+        printf("\nLatria (Lang Atria) \nv%s\nCopyright %s Benjamin Wilson Friedman - 2016\n\n\n", LATRIA_VERSION_NUMBER, COPYRIGHT_SYMBOL);
         
         openDynamicInterpreterFile();
         

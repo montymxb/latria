@@ -50,7 +50,7 @@ NMAKE_INVOCATION = nmake /F NMakeFile
 all: latria disassembler
 
 .c.obj:
-	$(CC) /c $(CDEBUG) $(CFLAGS) $(CVARS) $*.c
+	$(CC) /c $(CDEBUG) $(COMP_FLAGS) $(CFLAGS) $(CVARS) $*.c
 	
 #interpreter-compiler
 latria: $(I_OBJS) $(C_E_OBJS)
@@ -59,7 +59,6 @@ latria: $(I_OBJS) $(C_E_OBJS)
 #interpreter-compiler debug
 latria-debug:
 	$(NMAKE_INVOCATION) latria COMP_FLAGS="$(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS)"
-	$(LINK) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
 	
 #only interpreter
 interpreter: $(I_OBJS)
