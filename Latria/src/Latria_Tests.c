@@ -2751,22 +2751,22 @@ void ftest_ExecMultiLine() {
     strcpy(testLineHolder, "g##");
     handleInput(testLineHolder);
     
-    strcpy(testLineHolder, "echo 'tesla nikola1 some very long'");
+    strcpy(testLineHolder, "echo tesla nikola1 some very long");
     handleInput(testLineHolder);
     
-    strcpy(testLineHolder, "echo 'tesla nikola2 also very long'");
+    strcpy(testLineHolder, "echo tesla nikola2 also very long");
     handleInput(testLineHolder);
     
-    strcpy(testLineHolder, "echo 'tesla nikola3 additionally long'");
+    strcpy(testLineHolder, "echo tesla nikola3 additionally long");
     handleInput(testLineHolder);
     
-    strcpy(testLineHolder, "echo 'tesla nikola4 quite long'");
+    strcpy(testLineHolder, "echo tesla nikola4 quite long");
     handleInput(testLineHolder);
     
-    strcpy(testLineHolder, "echo 'IN{v}'");
+    strcpy(testLineHolder, "echo IN{v}");
     handleInput(testLineHolder);
     
-    strcpy(testLineHolder, "echo 'eggs'");
+    strcpy(testLineHolder, "echo eggs");
     handleInput(testLineHolder);
     
     strcpy(testLineHolder, "#>");
@@ -2778,7 +2778,7 @@ void ftest_ExecMultiLine() {
     } else if(co->_state != 1) {
         testFailedWithError(testName, "Wrong data type");
         printf("%d\n\n", co->_state);
-    } else if(LAT_STRCMP(co->data._svalue, "tesla nikola1 some very long\ntesla nikola2 also very long\ntesla nikola3 additionally long\ntesla nikola4 quite long\nechoed this\n\neggs\n")) {
+    } else if(LAT_STRCMP(co->data._svalue, "tesla nikola1 some very long\ntesla nikola2 also very long\ntesla nikola3 additionally long\ntesla nikola4 quite long\nechoed this\neggs\n")) {
         testFailedWithError(testName, "Incorrect result value");
         printf("%s\n\n", co->data._svalue);
     } else {
@@ -3288,7 +3288,7 @@ void ftest_recursiveFunction() {
 /* Functional test failure */
 void testFailedWithError(char *name,char *er) {
 #ifdef _WIN32
-    printf(KRED "\n►%s %s Failed with Error: %s\n", RESET, name, er);
+    printf(KRED "\nX%s %s Failed with Error: %s\n", RESET, name, er);
 #else
     printf(KRED "\n✘%s %s Failed with Error: %s\n", RESET, name, er);
 #endif
@@ -3298,7 +3298,7 @@ void testFailedWithError(char *name,char *er) {
 /* Unit test failure */
 void utestFailedWithError(char *name,char *er) {
 #ifdef _WIN32
-    printf(KRED "\n►%s %s Failed with Error: %s\n\n", RESET, name, er);
+    printf(KRED "\nX%s %s Failed with Error: %s\n\n", RESET, name, er);
 #else
     printf(KRED "\n✘%s %s Failed with Error: %s\n\n", RESET, name, er);
 #endif
@@ -3308,7 +3308,7 @@ void utestFailedWithError(char *name,char *er) {
 /* Generic test pass */
 void testPassed(char *testname) {
 #ifdef _WIN32
-    printf(KGRN "·%s %s passed\n", RESET, testname);
+    printf(KGRN "-%s %s passed\n", RESET, testname);
 #else
     printf(KGRN "✔%s %s passed\n", RESET, testname);
 #endif
