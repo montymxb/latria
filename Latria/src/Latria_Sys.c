@@ -560,7 +560,7 @@ int Sys_StartServer(int port) {
     
     /* Init winsock */
     WSADATA wsaData;
-    int iResult = WSAStartup(MAKEWORD(2,2) &wsaData);
+    int iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
     if(iResult != NO_ERROR) {
         /* failed init */
         printf("\n\nWSAStartup failed with err: %ld\n\n", iResult);
@@ -581,7 +581,7 @@ int Sys_StartServer(int port) {
     }
     
     /* Setup the address family, ip, and port */
-    sockaddr_in serv_addr;
+    struct sockaddr_in serv_addr;
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     serv_addr.sin_port = htons(port);
@@ -714,6 +714,9 @@ int Sys_SendData(int connId, char *message) {
 /* Reads data from an established connection */
 void Sys_ReadData(int connId) {
     
+    char *origData = NULL;
+    char *data = NULL;
+    
     #ifdef _WIN32
     /* Windows implementation (nearly the same, considering merging their definitions as only 'n' and the 'read' function differ */
     
@@ -764,8 +767,6 @@ void Sys_ReadData(int connId) {
     
     
     ssize_t n;
-    char *origData = NULL;
-    char *data = NULL;
     while(( n = read(connId, commBuff, sizeof(commBuff)-1)) > 0) {
         
         if((size_t)n <= (size_t)sizeof(commBuff)-1 && data == NULL) {
@@ -820,7 +821,7 @@ void Sys_CloseConnection(int connId) {
         
     }
     
-    closeSocket(connId);
+    closesocket(connId);
     WSACleanup();
     
     
@@ -837,7 +838,7 @@ int Sys_Connect(char *address, int port) {
     #ifdef _WIN32
     /* Windows */
     
-    WSAData wsaData;
+    WSADATA wsaData;
     /* init winsock */
     int result = WSAStartup(MAKEWORD(2,2), &wsaData);
     
@@ -861,7 +862,7 @@ int Sys_Connect(char *address, int port) {
     }
     
     /* Specify address family, ip and port of server to connect to */
-    sockadd_in sock_addr;
+    struct sockaddr_in sock_addr;
     sock_addr.sin_family = AF_INET;
     sock_addr.sin_addr.s_addr = inet_addr(address);
     sock_addr.sin_port = htons(port);

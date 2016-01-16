@@ -39,10 +39,20 @@ SOFTWARE.
 
 #ifndef _WIN32
 #include <unistd.h>
-#else /* _Win32 is usually defined by compilers targeting Windows. 32 is provided even when compiling on a 64 bit machine for backwards compatibility */
+#else 
+/* _Win32 is usually defined by compilers targeting Windows. 32 is provided even when compiling on a 64 bit machine for backwards compatibility */
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+
+/* must link with ws2_32.lib */
+#pragma comment(lib,"ws2_32.lib")
+#endif
+
 #endif
 
 #include <time.h>

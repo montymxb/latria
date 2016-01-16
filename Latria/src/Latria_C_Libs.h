@@ -40,9 +40,18 @@ SOFTWARE.
 #ifndef _WIN32
 # include <unistd.h>
 #else
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+
+/* must link with Ws2_32.lib */
+#pragma comment(lib,"ws2_32.lib")
+#endif
+
 #endif
 
 #define LAT_ADDRESS_SIZE 4
