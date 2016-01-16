@@ -32,7 +32,7 @@ Latria is written in ANSI C, and is licensed under the MIT open source license. 
 
 If you have suggestions or improvements you may submit a pull request to have a feature or bug fix integrated into the language.
 
-Additionally I will make documentation available at <a href="http://latria.uphouseworks.com">latria.uphouseworks.com</a>, allowing anyone to get started with latria scripting.
+Additionally documentation in the form of a guide is available at <a href="http://latria.uphouseworks.com">latria.uphouseworks.com</a>, allowing anyone to get started with latria scripting.
 
 In the meantime feel free to reach out to me at friedman.benjamin@gmail.com
 
