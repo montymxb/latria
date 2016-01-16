@@ -41,6 +41,8 @@ SOFTWARE.
 #include <unistd.h>
 #else /* _Win32 is usually defined by compilers targeting Windows. 32 is provided even when compiling on a 64 bit machine for backwards compatibility */
 #include <windows.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #endif
 
 #include <time.h>

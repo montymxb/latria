@@ -555,11 +555,84 @@ unsigned long Sys_Time() {
 
 /* Starts a server */
 int Sys_StartServer(int port) {
-#ifdef _WIN32
-    printf("Server not available on windows yet.\n");
-    exit(1);
-    return -1;
-#else
+    #ifdef _WIN32
+    /* Windows Server (far back as Vista) */
+    
+    /* Init winsock */
+    WSADATA wsaData;
+    int iResult = WSAStartup(MAKEWORD(2,2) &wsaData);
+    if(iResult != NO_ERROR) {
+        /* failed init */
+        printf("\n\nWSAStartup failed with err: %ld\n\n", iResult);
+        return -1;
+        
+    }
+    
+    /* Create a socket to listen for incoming connections */
+    SOCKET listenSock;
+    listenSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    
+    if(listenSock == INVALID_SOCKET) {
+        /* Invalid socket */
+        printf("\n\nSocket failed with err: %ld\n\n", WSAGetLastError());
+        WSACleanup();
+        return -1;
+        
+    }
+    
+    /* Setup the address family, ip, and port */
+    sockaddr_in serv_addr;
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    serv_addr.sin_port = htons(port);
+    
+    if(bind(listenSock, (SOCKADDR *) &serv_addr, sizeof(serv_addr)) == SOCKET_ERROR) {
+        /* Failed to bind socket */
+        printf("\n\nBind failed with err: %ld\n\n", WSAGetLastError());
+        WSACleanup();
+        return -1;
+        
+    }
+    
+    /* Listen for incoming connection requests */
+    if(listen(listenSock, 1) == SOCKET_ERROR) {
+        printf("\n\nlisten failed with err: %ld\n\n", WSAGetLastError());
+        closesocket(listenSock);
+        WSACleanup();
+        return -1;
+        
+    }
+    
+    /* Create a sock for accepting incoming requests */
+    SOCKET acceptSock;
+    
+    /* accept a connection */
+    acceptSock = accept(listenSock, NULL, NULL);
+    
+    if(acceptSock == INVALID_SOCKET) {
+        /* accept failed */
+        printf("\n\naccept failed with error: %ld\n\n", WSAGetLastError());
+        closesocket(listenSock);
+        WSACleanup();
+        return -1;
+        
+    }
+    
+    /* Connected to client! */
+    
+    /* close our original server socket */
+    closesocket(listenSock);
+    
+    /* cleanup */
+    WSACleanup();
+    
+    /* return our newly established connection */
+    return acceptSock;
+    
+    #else
+    /* Linux/Mac Server */
+    
+    
     int optval = 1, err, connection;
     struct sockaddr_in serv_addr;
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -583,7 +656,7 @@ int Sys_StartServer(int port) {
     }
     
     /* listen for connections to this socket */
-    err = listen(sock, 10);
+    err = listen(sock, 1);
     if(err == -1) {
         /* error */
         printf("Error attempting to listen for connections on a socket\n");
@@ -599,50 +672,98 @@ int Sys_StartServer(int port) {
     
     /* return our newly established connection */
     return connection;
-#endif
+    #endif
 }
 
 char commBuff[1024];
 
 /* Sends data over an established connection */
 int Sys_SendData(int connId, char *message) {
+    
     #ifdef _WIN32
-    size_t result = 0;
-    return 0;
+    /* Windows implementation */
+    
+    int result = 0;
+    sprintf(commBuff, "%s", message);
+    result = send(connId, commBuff, strlen(commBuff), 0);
+    if(result == SOCKET_ERROR) {
+        /* Failed to send! */
+        return 0;
+        
+    }
+    
+    return result;
+    
+    
     #else
+    /* linux/mac implementation */
+    
+    
     ssize_t result = 0;
-    #endif
-    /*while(strlen(message) < 1024) {*/
         
-        sprintf(commBuff, "%s", message);
-        result = write( connId, commBuff, strlen(commBuff));
-        if(result == -1) {
-            /* Error, failed to write! */
-            return 0;
-        }
-        
-        /* no longer 1024, whole message is sent at once
-        //if(strlen(message) >= 1024) {
-        //     Increment message by 1024
-        //    message+=1024;
-       //
-        //} else {
-             End of message
-            break;
-            
-        }
-    }*/
+    sprintf(commBuff, "%s", message);
+    result = write( connId, commBuff, strlen(commBuff));
+    if(result == -1) {
+        /* Error, failed to write! */
+        return 0;
+    }
     return (int)result;
+    #endif
 }
 
 /* Reads data from an established connection */
 void Sys_ReadData(int connId) {
+    
     #ifdef _WIN32
-    size_t n;
-    return;
+    /* Windows implementation (nearly the same, considering merging their definitions as only 'n' and the 'read' function differ */
+    
+    int n;
+    while(n = recv(connId, commBuff, sizeof(commBuff)-1, 0) > 0) {
+        
+        if((size_t)n <= (size_t)sizeof(commBuff)-1 && data == NULL) {
+            /* Fits in one run, simply set the result and leave */
+            commBuff[n] = 0;
+            setSysResult(commBuff);
+            SysStatus = HAS_RESULT;
+            return;
+            
+        } else if(data != NULL) {
+            /* Append */
+            commBuff[n] = 0;
+            origData = LATAlloc(origData, sizeof(char) * strlen(origData), (size_t)(n+1) + strlen(origData));
+            data = LATstrcat(data, commBuff);
+            
+            if(n < 1024) {
+                /* Done, return */
+                setSysResult(origData);
+                SysStatus = HAS_RESULT;
+                LATDealloc(origData);
+                return;
+                
+            }
+            
+        } else if(data == NULL) {
+            /* Allocate, first run */
+            data = origData = LATAlloc(NULL, 0, (size_t)(n+1));
+            data = LATstrcat(data, commBuff);
+            
+        }
+    }
+    
+    if(origData != NULL) {
+        /* Indicate we have a result to return */
+        SysStatus = HAS_RESULT;
+        setSysResult(commBuff);
+        LATDealloc(origData);
+        
+    }
+    
+    
     #else
+    /* linux/mac implementation */
+    
+    
     ssize_t n;
-    #endif
     char *origData = NULL;
     char *data = NULL;
     while(( n = read(connId, commBuff, sizeof(commBuff)-1)) > 0) {
@@ -684,23 +805,93 @@ void Sys_ReadData(int connId) {
         LATDealloc(origData);
         
     }
+    #endif
 }
 
 /* Closes an established connection */
 void Sys_CloseConnection(int connId) {
-#ifdef _WIN32
-    printf("Server not yet implemented on widows.\n");
-#else
+    
+    #ifdef _WIN32
+    /* Windows */
+    
+    int result = shutdown(connId, SD_SEND);
+    if(result == SOCKET_ERROR) {
+        printf("\n\nShutdown failed with err: %d\n\n", WSAGetLastError());
+        
+    }
+    
+    closeSocket(connId);
+    WSACleanup();
+    
+    
+    #else
+    /* Mac/Linux */
+    
     close(connId);
-#endif
+    #endif
 }
 
 /* Attempts to create an established connection */
 int Sys_Connect(char *address, int port) {
-#ifdef _WIN32
-    printf("Client not yet implemented on Windows.\n");
-    return -1;
-#else
+    
+    #ifdef _WIN32
+    /* Windows */
+    
+    WSAData wsaData;
+    /* init winsock */
+    int result = WSAStartup(MAKEWORD(2,2), &wsaData);
+    
+    if(result != NO_ERROR) {
+        /* failed to init */
+        printf("\n\nWSAStartup function failed with err: %d\n\n", result);
+        return -1;
+        
+    }
+    
+    /* create socket to connect to server */
+    SOCKET connSock;
+    connSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    
+    if(connSock == INVALID_SOCKET) {
+        /* failed to create socket */
+        printf("\n\nsocket failed with err: %ld\n\n", WSAGetLastError());
+        WSACleanup();
+        return -1;
+        
+    }
+    
+    /* Specify address family, ip and port of server to connect to */
+    sockadd_in sock_addr;
+    sock_addr.sin_family = AF_INET;
+    sock_addr.sin_addr.s_addr = inet_addr(address);
+    sock_addr.sin_port = htons(port);
+    
+    /* attempt connect to server */
+    result = connect(connSock, (SOCKADDR *) &sock_addr, sizeof(sock_addr));
+    
+    if(result == SOCKET_ERROR) {
+        /* failed to connect */
+        printf("\n\nconnect failed with err: %ld\n\n", WSAGetLastError());
+        result = closesocket(connSock);
+        
+        if(result == SOCKET_ERROR) {
+            /* failed to close the socket */
+            printf("\n\nclosesocket failed with err: %ld\n\n", WSAGetLastError());
+            
+        }
+        
+        WSACleanup();
+        return -1;
+        
+    }
+    
+    /* Connected to server! Return our connected socket */
+    return connSock;
+    
+    
+    #else
+    
+    
     struct sockaddr_in serv_addr;
     int sock;
     ssize_t err;
@@ -746,7 +937,7 @@ int Sys_Connect(char *address, int port) {
         return -1;
         
     }
-#endif
+    #endif
 }
 
 #pragma message("Set up coroutines in latria")
