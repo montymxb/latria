@@ -11,6 +11,12 @@ DEBUG_FLAGS = -DLAT_TESTS=1 /DEBUG
 #Generic Include Compiler Flag
 INCLUDE_COMPILER_FLAG = -DINCLUDECOMPILER=1
 
+#Extra flags for cl, suppresses copyright and optimizes for speed
+CL_EXTRA_FLAGS = /nologo /O2
+
+#Extra flags for the linker
+LINK_EXTRA_FLAGS = /NOLOGO
+
 ######################
 #### Object Files ####
 ######################
@@ -50,11 +56,11 @@ NMAKE_INVOCATION = nmake /F NMakeFile
 all: latria disassembler
 
 .c.obj:
-	$(CC) /c $(CDEBUG) $(COMP_FLAGS) $(CFLAGS) $(CVARS) $*.c
+	$(CC) /c $(CDEBUG) $(COMP_FLAGS) $(CL_EXTRA_FLAGS) $(CFLAGS) $(CVARS) $*.c
 	
 #interpreter-compiler
 latria: $(I_OBJS) $(C_E_OBJS)
-	$(LINK) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
 	
 #interpreter-compiler debug
 latria-debug:
@@ -62,7 +68,7 @@ latria-debug:
 	
 #only interpreter
 interpreter: $(I_OBJS)
-	$(LINK) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
 	
 #only interpreter debug
 interpreter-debug:
@@ -70,7 +76,7 @@ interpreter-debug:
 
 #only compiler
 compiler: $(C_OBJS)
-	$(LINK) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(C_NAME)
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(C_NAME)
 	
 #only compiler debug
 compiler-debug:
@@ -78,7 +84,7 @@ compiler-debug:
 	
 #disassembler
 disassembler: $(DIS_OBJ)
-	$(LINK) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(D_NAME)
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(D_NAME)
 	
 #disassembler debug
 disassembler-debug:
