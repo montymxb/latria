@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_C_Lexical.c
-//  Latria
-//
-//  Created by Benjamin Friedman on 11/3/15.
-*/
+ *  Latria_C_Lexical.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 11/3/15.
+ */
 
 #include "Latria_C_Lexical.h"
 

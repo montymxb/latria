@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-*  Latria_Sys.c
-*  Latria
-*
-*  Created by Benjamin Friedman on 1/22/15.
-*/
+ *  Latria_Sys.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 1/22/15.
+ */
 
 #include "Latria_Sys.h"
 
@@ -718,56 +718,14 @@ void Sys_ReadData(int connId) {
     char *data = NULL;
     
     #ifdef _WIN32
-    /* Windows implementation (nearly the same, considering merging their definitions as only 'n' and the 'read' function differ */
-    
+    /* int for windows */
     int n;
-    while(n = recv(connId, commBuff, sizeof(commBuff)-1, 0) > 0) {
-        
-        if((size_t)n <= (size_t)sizeof(commBuff)-1 && data == NULL) {
-            /* Fits in one run, simply set the result and leave */
-            commBuff[n] = 0;
-            setSysResult(commBuff);
-            SysStatus = HAS_RESULT;
-            return;
-            
-        } else if(data != NULL) {
-            /* Append */
-            commBuff[n] = 0;
-            origData = LATAlloc(origData, sizeof(char) * strlen(origData), (size_t)(n+1) + strlen(origData));
-            data = LATstrcat(data, commBuff);
-            
-            if(n < 1024) {
-                /* Done, return */
-                setSysResult(origData);
-                SysStatus = HAS_RESULT;
-                LATDealloc(origData);
-                return;
-                
-            }
-            
-        } else if(data == NULL) {
-            /* Allocate, first run */
-            data = origData = LATAlloc(NULL, 0, (size_t)(n+1));
-            data = LATstrcat(data, commBuff);
-            
-        }
-    }
-    
-    if(origData != NULL) {
-        /* Indicate we have a result to return */
-        SysStatus = HAS_RESULT;
-        setSysResult(commBuff);
-        LATDealloc(origData);
-        
-    }
-    
-    
     #else
-    /* linux/mac implementation */
-    
-    
+    /*  ssize_t for linux/mac */
     ssize_t n;
-    while(( n = read(connId, commBuff, sizeof(commBuff)-1)) > 0) {
+    #endif
+    
+    while(( n = recv(connId, commBuff, sizeof(commBuff)-1, 0)) > 0) {
         
         if((size_t)n <= (size_t)sizeof(commBuff)-1 && data == NULL) {
             /* Fits in one run, simply set the result and leave */
@@ -806,7 +764,6 @@ void Sys_ReadData(int connId) {
         LATDealloc(origData);
         
     }
-    #endif
 }
 
 /* Closes an established connection */

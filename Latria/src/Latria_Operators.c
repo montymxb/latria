@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-  Latria_Operators.c
-  Latria
-
-  Created by Benjamin Friedman on 3/1/15.
-*/
+ * Latria_Operators.c
+ * Latria
+ *
+ * Created by Benjamin Friedman on 3/1/15.
+ */
 
 #include "Latria_Operators.h"
 

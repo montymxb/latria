@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_Tests.h
-//  Latria
-//
-//  Created by Benjamin Friedman on 9/29/15.
-*/
+ *  Latria_Tests.h
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 9/29/15.
+ */
 
 #ifndef Latria_Tests_h
 #define Latria_Tests_h

@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-*  Latria_ReferenceStack.h
-*  Latria
-*
-*  Created by Benjamin Friedman on 2/11/15.
-*/
+ *  Latria_ReferenceStack.h
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 2/11/15.
+ */
 
 #ifndef __Latria_ReferenceStack__
 #define __Latria_ReferenceStack__

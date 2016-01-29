@@ -24,45 +24,8 @@ SOFTWARE.
 
 /*
  *  Latria (Atria Lang)
- Created 12/9/14
- 
- This 'language' is designed to SUPPLEMENT other languages, and is designed to be light on it's own. VERY light, lighter than lua, but won't contain nearly as much functionality. You can dump this in with C code and use it as if it were a supplemental library even, there is no need to use the actual language portion of it. Features like the 'string' math, quick tree storage (that will be changed, works for now), the ability to have batched GC or to run other processes underneath and capture their 'return' values in ONE line may be desired on their own. This is perfectly fine and desired! Latria should be a nice supplement and a time saver to any project you add it to. This is a hacky language by nature, Latria can be extended within itself by writing functions around system calls (this is so you may import your own programs, assuming they will output the proper data). it will be licensed under the MIT soon enough so feel free to change it up to your heart's content.
- 
- 
- //comment
- 
- Variable declaration::
- x=2
- 
- Addition::
- x+y
- x+10
- 10+x
- 10+20
- 
- will execute the following file in place here (injected in a sense)
- result##lua filename.lua##>
- print(result) //prints the result
-
- //to declare a block utilize the following
- @aBlock(var1,var2) {
-    x = 32
-    y = 9 * 2
-    q=x+y
-    return q
- }
- 
- q=aBlock() //calls it and stores the result in 'q'
- print(q) //prints 'q' out to the screen
- 
- __purge() //flushes all contents in current GC batch
- 
- __printMem() //prints out memory system is currently using
- 
- __setGCRate(0.2) //sets the GC batching rate to a scale that you pass (2.0 for 2x, 0.0 for lowest possible are two things you could pass)
- 
- sleep(1) //sleeps for a second
- 
+ *  Created 12/9/14
+ *
  */
 
 #include "Latria.h"
@@ -79,6 +42,8 @@ unsigned char fileStackIndex = 0;
 
 #pragma message("we have an issue passing functions to other functions (rather than assigning to a var and passing that) does NOT work at the moment. Need to make sure functions can be properly recognized as inputs to other functions (most likely will end up in requiring extra registers)")
 
+
+#ifndef LATRIA_EMBEDDED
 int main( int argc, char* argv[]) {
     
     int argI;
@@ -267,15 +232,16 @@ int main( int argc, char* argv[]) {
     /* Always flush at end, just in case */
     Flush_Batched_Write();
     
-    freeRegexCache();
-    
     /* Free only when NOT defined, as atexit() is set to call this automatically for Mac & Linux */
     #if !defined(MACOSX) && !defined(LINUXOS)
     freeLatria();
+    #else
+    freeRegexCache();
     #endif
     
     return 0;
 }
+#endif
 
 /* Runs a passed in latria file, and if need be attempts to compile it beforehand */
 void executeLatriaFile(char *fileName) {

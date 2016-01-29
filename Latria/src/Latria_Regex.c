@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-  Latria_Regex.c
-  Latria
-
-  Created by Benjamin Friedman on 10/27/15.
-*/
+ * Latria_Regex.c
+ * Latria
+ *
+ *  Created by Benjamin Friedman on 10/27/15.
+ */
 
 #include "Latria_Regex.h"
 
@@ -134,7 +134,7 @@ SOFTWARE.
  • Match, but for .
  */
 
-#pragma message("introduce GREEDY quantifiers (like + and *)")
+#pragma message("introduce GREEDY quantifier behavior, for + * among others")
 
 /***** START GROUPING STACK *******/
 typedef struct {
@@ -1532,7 +1532,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                                 }
                                 
                                 /* Perform a jump for this successful instance */
-#pragma message("Possible this isn't safe to remove")
+                                #pragma message("Possible this isn't safe to remove below")
                                 /*///////performJumpOnStateMatchine(state, JUMP_FORWARD_ONE, input);*/
                                 
                                 /* Reset our state regex engine */
@@ -1621,7 +1621,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                                 }
                                 
                                 /* Perform a jump for this successful instance */
-#pragma message("if this is safe to remove, we should remove it from our MATCH LOOP as well above")
+                                #pragma message("if this is safe to remove, we should remove it from our MATCH LOOP as well above")
                                 /*///////performJumpOnStateMatchine(state, JUMP_FORWARD_ONE, input);*/
                                 
                                 /* Reset our state regex engine */
@@ -1878,7 +1878,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
         
     }
     
-#pragma message("TEMPORARILY removed THIS, not really sure if this is what we want however...")
+    #pragma message("TEMPORARILY removed THIS, not really sure if this is what we want however...")
     /* Reset to first active state */
     /*
      state = rootStateList;

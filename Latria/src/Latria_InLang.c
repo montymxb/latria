@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-  Latria_InLang.c
-  Latria
-
-  Created by Benjamin Friedman on 2/11/15.
-*/
+ * Latria_InLang.c
+ * Latria
+ *
+ * Created by Benjamin Friedman on 2/11/15.
+ */
 
 #include "Latria_InLang.h"
 

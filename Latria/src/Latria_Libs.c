@@ -25,16 +25,8 @@ SOFTWARE.
 /*
  *  Latria (Atria Lang)
  */
-#include "Latria_Libs.h"
 
-/*
- *Concatenates two char pointers together and returns a pointer to the end of it
- *char bigString[1000];
- *char *p = bigString;
- *bigString[0] = '\0';
- *p = LATstrcat(p,"John, ");
- *p = LATstrcat(p,"Paul, ");
- */
+#include "Latria_Libs.h"
 
 /*
  * You must free the result if result is non-NULL.

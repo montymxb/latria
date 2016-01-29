@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_C_StateStack.c
-//  Latria
-//
-//  Created by Benjamin Friedman on 11/5/15.
-*/
+ *  Latria_C_StateStack.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 11/5/15.
+ */
 
 #include "Latria_C_StateStack.h"
 

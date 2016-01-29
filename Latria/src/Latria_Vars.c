@@ -648,9 +648,12 @@ void setFileValueForKey(char *key, FILE *value, struct CoreObject **_node) {
             } else if((*_node)->_state == 4) {
                 /* Active file, close & null */
                 if((*_node)->data._file != value) {
-                    /* Non-conflicting files, safe to close */
-                    #pragma message("files must be closed manually (they are not garbage collected) or they will be leaked out, for the moment at least")
+                    
+                    /* (FORMER) Non-conflicting files, safe to close */
+                    
+                    #pragma message("files must be closed manually (they are not garbage collected) or they will be leaked out. This is a courtesy notice.")
                     /*fclose((*_node)->data._file);*/
+                    
                     (*_node)->data._file = NULL;
                     
                 }

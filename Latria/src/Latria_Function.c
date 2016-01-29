@@ -31,19 +31,6 @@ SOFTWARE.
 /*
  * latria function 'class'
  *
- //you may declare a function with the following syntax
- @function(arg1, arg2) {
-    contents...
-    x = arg1
-    return x
- }
- 
- //and you may later call it using
- function()
- 
- --can return a value
- --can pass in inputs, WILL have scope
- 
  */
 struct LATFunction *LATFreplacementObject = 0;
 

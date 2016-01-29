@@ -10,7 +10,39 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
+            landmarkName = "runFunctionalTests()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Latria/src/Latria_Tests.c"
+            timestampString = "475792214.707104"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "runFunctionalTests()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Latria/src/Latria_Tests.c"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "241"
@@ -26,23 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
-            landmarkName = "runFunctionalTests()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "236"
@@ -58,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,27 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
-            landmarkName = "runFunctionalTests()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2360"
-            endingLineNumber = "2360"
+            startingLineNumber = "2365"
+            endingLineNumber = "2365"
             landmarkName = "ftest_CompoundRelationals()"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2363"
-            endingLineNumber = "2363"
+            startingLineNumber = "2368"
+            endingLineNumber = "2368"
             landmarkName = "ftest_CompoundRelationals()"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2362"
-            endingLineNumber = "2362"
+            startingLineNumber = "2367"
+            endingLineNumber = "2367"
             landmarkName = "ftest_CompoundRelationals()"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2343"
-            endingLineNumber = "2343"
+            startingLineNumber = "2348"
+            endingLineNumber = "2348"
             landmarkName = "ftest_NestedRelationals()"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2309"
-            endingLineNumber = "2309"
+            startingLineNumber = "2314"
+            endingLineNumber = "2314"
             landmarkName = "ftest_FileIO()"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2371"
-            endingLineNumber = "2371"
+            startingLineNumber = "2376"
+            endingLineNumber = "2376"
             landmarkName = "ftest_CompoundRelationals()"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Compiler_Interface.c"
-            timestampString = "471144703.208494"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "compileLatria()"
             landmarkType = "7">
          </BreakpointContent>
@@ -472,11 +472,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -488,11 +488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2560"
-            endingLineNumber = "2560"
+            startingLineNumber = "2565"
+            endingLineNumber = "2565"
             landmarkName = "ftest_ChainedIfs()"
             landmarkType = "7">
          </BreakpointContent>
@@ -504,11 +504,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2559"
-            endingLineNumber = "2559"
+            startingLineNumber = "2564"
+            endingLineNumber = "2564"
             landmarkName = "ftest_ChainedIfs()"
             landmarkType = "7">
          </BreakpointContent>
@@ -520,11 +520,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2539"
-            endingLineNumber = "2539"
+            startingLineNumber = "2544"
+            endingLineNumber = "2544"
             landmarkName = "ftest_BasicFor()"
             landmarkType = "7">
          </BreakpointContent>
@@ -536,11 +536,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria.c"
-            timestampString = "474517523.204826"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
             landmarkName = "closeDynamicInterpreterFile()"
             landmarkType = "7">
          </BreakpointContent>
@@ -664,11 +664,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2600"
-            endingLineNumber = "2600"
+            startingLineNumber = "2605"
+            endingLineNumber = "2605"
             landmarkName = "ftest_NestedIfs()"
             landmarkType = "7">
          </BreakpointContent>
@@ -680,11 +680,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2463"
-            endingLineNumber = "2463"
+            startingLineNumber = "2468"
+            endingLineNumber = "2468"
             landmarkName = "ftest_NestedControlFlows()"
             landmarkType = "7">
          </BreakpointContent>
@@ -710,11 +710,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Compiler_Interface.c"
-            timestampString = "471144276.73522"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "compileLatria()"
             landmarkType = "7">
          </BreakpointContent>
@@ -742,11 +742,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -758,11 +758,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -820,11 +820,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -836,11 +836,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -852,11 +852,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Lexical.c"
-            timestampString = "474500699.924484"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2042"
-            endingLineNumber = "2042"
+            startingLineNumber = "2040"
+            endingLineNumber = "2040"
             landmarkName = "executeLang()"
             landmarkType = "7">
          </BreakpointContent>
@@ -868,11 +868,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Lexical.c"
-            timestampString = "474500699.924484"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2112"
-            endingLineNumber = "2112"
+            startingLineNumber = "2110"
+            endingLineNumber = "2110"
             landmarkName = "executeLang()"
             landmarkType = "7">
          </BreakpointContent>
@@ -884,11 +884,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Lexical.c"
-            timestampString = "474500699.924484"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2033"
-            endingLineNumber = "2033"
+            startingLineNumber = "2031"
+            endingLineNumber = "2031"
             landmarkName = "executeLang()"
             landmarkType = "7">
          </BreakpointContent>
@@ -900,11 +900,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3022"
-            endingLineNumber = "3022"
+            startingLineNumber = "3027"
+            endingLineNumber = "3027"
             landmarkName = "ftest_returnBooleanFunction()"
             landmarkType = "7">
          </BreakpointContent>
@@ -916,11 +916,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -932,11 +932,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Vars.c"
-            timestampString = "474443850.946825"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "868"
-            endingLineNumber = "868"
+            startingLineNumber = "871"
+            endingLineNumber = "871"
             landmarkName = "setValueForKey()"
             landmarkType = "7">
          </BreakpointContent>
@@ -948,11 +948,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Vars.c"
-            timestampString = "474443850.946825"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "879"
-            endingLineNumber = "879"
+            startingLineNumber = "882"
+            endingLineNumber = "882"
             landmarkName = "setValueForKey()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1028,11 +1028,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Vars.c"
-            timestampString = "474443850.946825"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "923"
-            endingLineNumber = "923"
+            startingLineNumber = "926"
+            endingLineNumber = "926"
             landmarkName = "_updateCoreObjectWithVal()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1044,11 +1044,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Libs.c"
-            timestampString = "471149489.485644"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "stripWhitespace()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1060,11 +1060,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Libs.c"
-            timestampString = "471149507.188599"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "stripWhitespace()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1076,11 +1076,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2678"
-            endingLineNumber = "2678"
+            startingLineNumber = "2683"
+            endingLineNumber = "2683"
             landmarkName = "ftest_NestedWhiles()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1234,11 +1234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Vars.c"
-            timestampString = "474443850.946825"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1202"
-            endingLineNumber = "1202"
+            startingLineNumber = "1205"
+            endingLineNumber = "1205"
             landmarkName = "freeArrayObjectWithNameKey()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1250,11 +1250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Vars.c"
-            timestampString = "474443850.946825"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1201"
-            endingLineNumber = "1201"
+            startingLineNumber = "1204"
+            endingLineNumber = "1204"
             landmarkName = "freeArrayObjectWithNameKey()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1342,11 +1342,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Vars.c"
-            timestampString = "474443850.946825"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1225"
-            endingLineNumber = "1225"
+            startingLineNumber = "1228"
+            endingLineNumber = "1228"
             landmarkName = "copyArrayCoreObject()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1372,11 +1372,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Vars.c"
-            timestampString = "474443850.946825"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1209"
-            endingLineNumber = "1209"
+            startingLineNumber = "1212"
+            endingLineNumber = "1212"
             landmarkName = "freeArrayObjectWithNameKey()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1388,11 +1388,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3014"
-            endingLineNumber = "3014"
+            startingLineNumber = "3019"
+            endingLineNumber = "3019"
             landmarkName = "ftest_returnBooleanFunction()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1404,11 +1404,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3020"
-            endingLineNumber = "3020"
+            startingLineNumber = "3025"
+            endingLineNumber = "3025"
             landmarkName = "ftest_returnBooleanFunction()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1466,11 +1466,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471165562.979301"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1578,11 +1578,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2899"
-            endingLineNumber = "2899"
+            startingLineNumber = "2904"
+            endingLineNumber = "2904"
             landmarkName = "ftest_chainedFunctions()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1866,11 +1866,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Lexical.c"
-            timestampString = "474500699.924484"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1826"
-            endingLineNumber = "1826"
+            startingLineNumber = "1824"
+            endingLineNumber = "1824"
             landmarkName = "executeLang()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1887,7 +1887,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
             endingLineNumber = "71"
-            landmarkName = "InLang_freeLangBlock()"
+            landmarkName = "InLang_appendToCMDList()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1903,7 +1903,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
             endingLineNumber = "46"
-            landmarkName = "InLang_appendToCMDList()"
+            landmarkName = "InLang_NULLLangBlock()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1914,11 +1914,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Lexical.c"
-            timestampString = "474500699.924484"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1916"
-            endingLineNumber = "1916"
+            startingLineNumber = "1914"
+            endingLineNumber = "1914"
             landmarkName = "executeLang()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1952,22 +1952,6 @@
             startingLineNumber = "4554"
             endingLineNumber = "4554"
             landmarkName = "handleControlFlowTransfer()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Latria/src/Latria_Compiler_Interface.c"
-            timestampString = "471165512.593974"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "compileLatria()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2042,11 +2026,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Lexical.c"
-            timestampString = "474500699.924484"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1993"
-            endingLineNumber = "1993"
+            startingLineNumber = "1991"
+            endingLineNumber = "1991"
             landmarkName = "executeLang()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2216,11 +2200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria.c"
-            timestampString = "474517523.204826"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "main()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2232,11 +2216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria.c"
-            timestampString = "472087705.412278"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "main()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2255,20 +2239,6 @@
             endingLineNumber = "160"
             landmarkName = "runAllTests()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Latria/src/Latria.c"
-            timestampString = "471303337.33895"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2310,11 +2280,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2536"
-            endingLineNumber = "2536"
+            startingLineNumber = "2541"
+            endingLineNumber = "2541"
             landmarkName = "ftest_BasicFor()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2434,11 +2404,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2675"
-            endingLineNumber = "2675"
+            startingLineNumber = "2680"
+            endingLineNumber = "2680"
             landmarkName = "ftest_NestedWhiles()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3020,11 +2990,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471303744.892629"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2289"
-            endingLineNumber = "2289"
+            startingLineNumber = "2294"
+            endingLineNumber = "2294"
             landmarkName = "ftest_FileIO()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3130,11 +3100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Lexical.c"
-            timestampString = "474500699.924484"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1973"
-            endingLineNumber = "1973"
+            startingLineNumber = "1971"
+            endingLineNumber = "1971"
             landmarkName = "executeLang()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3210,11 +3180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria.c"
-            timestampString = "474517523.204826"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "executeLatriaFile()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3538,38 +3508,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Latria/src/Latria_Sys.c"
-            timestampString = "474609992.620323"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "782"
-            endingLineNumber = "782"
-            landmarkName = "Sys_ReadData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Latria/src/Latria_Sys.c"
-            timestampString = "474609992.620323"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "777"
-            endingLineNumber = "777"
-            landmarkName = "Sys_ReadData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -3586,7 +3524,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Sys.c"
@@ -3622,11 +3560,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Lexical.c"
-            timestampString = "474500699.924484"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2038"
-            endingLineNumber = "2038"
+            startingLineNumber = "2036"
+            endingLineNumber = "2036"
             landmarkName = "executeLang()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3634,7 +3572,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Lexical.c"
@@ -3702,11 +3640,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471474724.403484"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "runFunctionalTests()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3718,11 +3656,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Tests.c"
-            timestampString = "471474806.377563"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2251"
-            endingLineNumber = "2251"
+            startingLineNumber = "2256"
+            endingLineNumber = "2256"
             landmarkName = "ftest_ChangeAllArrayElements()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3796,11 +3734,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Vars.c"
-            timestampString = "474443850.946825"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "704"
-            endingLineNumber = "704">
+            startingLineNumber = "707"
+            endingLineNumber = "707">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3888,11 +3826,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria.c"
-            timestampString = "472087705.412278"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "main()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3904,11 +3842,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria.c"
-            timestampString = "472087688.178209"
+            timestampString = "475792214.707104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "main()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3984,13 +3922,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Sys.c"
-            timestampString = "474609992.620323"
+            timestampString = "475703154.863997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "963"
-            endingLineNumber = "963"
-            landmarkName = "Sys_bit_xor()"
-            landmarkType = "7">
+            startingLineNumber = "1028"
+            endingLineNumber = "1028">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4000,13 +3936,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Sys.c"
-            timestampString = "474609992.620323"
+            timestampString = "475703154.863997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "957"
-            endingLineNumber = "957"
-            landmarkName = "Sys_bit_or()"
-            landmarkType = "7">
+            startingLineNumber = "1022"
+            endingLineNumber = "1022">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4016,13 +3950,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Sys.c"
-            timestampString = "474609992.620323"
+            timestampString = "475703154.863997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "958"
-            endingLineNumber = "958"
-            landmarkName = "Sys_bit_or()"
-            landmarkType = "7">
+            startingLineNumber = "1023"
+            endingLineNumber = "1023">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4032,13 +3964,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Sys.c"
-            timestampString = "474609992.620323"
+            timestampString = "475703154.863997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "953"
-            endingLineNumber = "953"
-            landmarkName = "Sys_bit_and()"
-            landmarkType = "7">
+            startingLineNumber = "1018"
+            endingLineNumber = "1018">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4048,13 +3978,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Latria/src/Latria_Sys.c"
-            timestampString = "474609992.620323"
+            timestampString = "475703154.863997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "948"
-            endingLineNumber = "948"
-            landmarkName = "Sys_bit_not()"
-            landmarkType = "7">
+            startingLineNumber = "1013"
+            endingLineNumber = "1013">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

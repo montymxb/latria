@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_C_Dup_Libs.c
-//  Latria
-//
-//  Created by Benjamin Friedman on 11/27/15.
-*/
+ *  Latria_C_Dup_Libs.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 11/27/15.
+ */
 
 #include "Latria_C_Dup_Libs.h"
 

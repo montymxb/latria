@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-*  Latria_ControlFlow.c
-*  Latria
-*
-*  Created by Benjamin Friedman on 3/2/15.
-*/
+ *  Latria_ControlFlow.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 3/2/15.
+ */
 
 #include "Latria_ControlFlow.h"
 

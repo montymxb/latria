@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/**
+/*
  *  Latria (Atria Lang)
  */
 
@@ -1324,7 +1324,7 @@ void runInstructions() {
             case OP_TIME:
                 /* Returns the current system time in seconds */
                 setNumRegister(0, (double)Sys_Time(), RegisterNum);
-                #pragma message("some functions perform pushRegister(0) after called, does this help with inline calling (no)")
+                #pragma message("Formerly some functions perform pushRegister(0) after called, does this help with inline calling")
                 break;
                 
             case OP_STRT_SERV:
@@ -1612,8 +1612,6 @@ char* fetchXDeclaration(char *input) {
         /* No start & no end & NOT in an active block, so we skip out */
         return input;
     }
-    
- #pragma message("Another bug detected using IN{x} in a statement like ##echo IN{x}##> when INSIDE of a control flow is ends up terminating the control flow early, and killing all our work :/")
     
     if(start != NULL && !InLang_isLangBlockActive()) {
         /* We have a start sequence & NOT in an active language block */

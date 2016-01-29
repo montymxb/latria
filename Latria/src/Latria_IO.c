@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_IO.c
-//  Latria
-//
-//  Created by Benjamin Friedman on 11/3/15.
-*/
+ *  Latria_IO.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 11/3/15.
+ */
 
 #include "Latria_IO.h"
 

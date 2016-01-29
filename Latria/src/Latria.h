@@ -22,24 +22,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/**
+/*
  *  Latria (Atria Lang)
- Created 12/9/14
+ *  Created 12/9/14
  */
 
 #ifndef __Latria__
 #define __Latria__
 
+/* Standard IO Layer of Latria */
 #include "Latria_IO.h"
 
-#if defined(INCLUDECOMPILER)
+#ifdef INCLUDECOMPILER
+/* Built int compiler interface */
 #include "Latria_Compiler_Interface.h"
 #endif
 
+#ifdef LAT_TESTS
+/* Built in test module */
 #include "Latria_Tests.h"
+#endif
 
 void freeLatria();
 char *getTailCall();
 void clearTailCall();
+
+#ifdef INCLUDECOMPILER
+/* Only usuable if the compiler is included */
+void openDynamicInterpreterFile();
+void closeDynamicInterpreterFile();
+int handleInput(char *input);
+#endif
 
 #endif /* defined(__Latria__) */

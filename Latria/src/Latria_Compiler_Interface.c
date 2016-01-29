@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_Compiler_Interface.c
-//  Latria
-//
-//  Created by Benjamin Friedman on 11/27/15.
-*/
+ *  Latria_Compiler_Interface.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 11/27/15.
+ */
 
 #include "Latria_Compiler_Interface.h"
 
@@ -41,14 +41,14 @@ SOFTWARE.
 
 char input[INPUT_SIZE];
 
-/* Takes given latria code & compiles it for increased efficiency (removes whitespace, tabs, comments, etc) */
-/* Takes latria code from a provided file to compile */
+/* Takes given latria code & compiles it for increased efficiency (removes whitespace, tabs, comments, etc)
+ * Takes latria code from a provided file to compile
+ */
 void compileLatria(char *fn) {
+    
     JumpUpdate *ju = NULL;
-    unsigned int lineNum = 0;
     FILE *in, *out;
     size_t len = strlen(fn);
-    unsigned char *returned;
     
     /* Create our output file name */
     char *nf = malloc(len+2);
@@ -56,7 +56,7 @@ void compileLatria(char *fn) {
     /* Copy the file name we were given */
     strncpy( nf, fn, len);
     
-    /* Append 'c' to the end and \0 */
+    /* Append 'c' to the end and \0 (compiled files have the extension .lrac) */
     nf[len] = 'c';
     nf[len+1] = '\0';
     
@@ -66,82 +66,96 @@ void compileLatria(char *fn) {
     /* Check we have an opened file */
     if(in == NULL) {
         
+        /* We did NOT open a file, fail and exit */
+        
+        /* free our output file name */
         free(nf);
         
         /* no file */
         printf("\nThe file you provided %s could not be found!\n\n", fn);
         exit(1026);
-        
-        
     }
     
+    /* Input file is good, open our new (compiled) file */
     out = fopen(nf, "wb");
     
+    /* Validate we actually opened a file */
     if(out == NULL) {
         
+        /* output file was not opened, cleanup and exit */
         free(nf);
-        
-        /* no file */
         printf("Tmp file file %s could not be opened/created to write to!\n\n", nf);
         exit(1027);
-        
-        
     }
+    
+    /* A files are good, start reading input and compiling */
     
     /* Read a line from our input */
     while(fgets( input, INPUT_SIZE, in)) {
         
         short retSize;
         
-        /* Compile this line */
+        /* Compile this line of latria */
         compileLine(input);
         
-        /* See if we read anything */
+        /* Check to see if this line created any bytecode to read */
         if((retSize = getByteCodeCount()) > 0) {
-            /* Copy our bytes in */
-            returned = readByteCodes();
             
-            fwrite(returned, sizeof(unsigned char), (size_t)retSize, out);
+            /* Bytecode available, write it into our output file */
+            fwrite(readByteCodes(), sizeof(unsigned char), (size_t)retSize, out);
             
         }
-        
-        lineNum++;
     }
     
-    /* Finish up any pending conditional jumps */
+    /* Dispatch up any pending conditional jumps */
     dispatchIfAndElseIf();
     
+    /* Create an array to hold our new jump instruction address (if we have any below) */
+    char jumpCode[LAT_ADDRESS_SIZE+1] = {0};
+    
+    /* Loop over any jump updates we need to process */
     while((ju = popJumpUpdate()) != NULL) {
-        char jumpCode[LAT_ADDRESS_SIZE+1] = {0};
+        
+        /* Seek to the indicated address to update */
         fseek( out, ju->bytecodeAddr, SEEK_SET);
         
-        /* Extract new jump address into a hex */
+        /* Convert our new jump address into a hexcode */
         sprintf(jumpCode, LAT_ADDRESS_FORMAT_STRING, ju->jumpAddr);
         
+        /* Update the address we are currently at with our new hex one */
         fwrite(jumpCode, sizeof(unsigned char), LAT_ADDRESS_SIZE, out);
+        
     }
     
-    /* Close the rest of our files */
+    /* Close our input and output files */
     fclose(in);
     fclose(out);
     
-    /* Print out what we compiled */
-    /* printf("compiled %s\n",nf); */
-    
-    /* free */
+    /* free underlying byte code allocations */
     freeByteCodes();
+    
+    /* free underlying lexical allocations */
     freeLexicalAllocations();
+    
+    /* deallocate the stack */
     deallocStackStates();
     
+    /* free our compiled file name */
     free(nf);
 }
 
+/* Holds a reference to bytecodes */
 unsigned char *byteCodes = NULL;
+
+/* maximum length of bytecodes */
 short maxByteCodeLength = 0;
+
+/* current length of bytecodes */
 short currentByteCodeLength = 0;
 
-/* Compiles a given line into latria bytecodes, and stores them locally */
+/* Compiles a given line into latria bytecodes, and stores it */
 void compileLine(char *line) {
+    
     unsigned char *retVal;
     short size = 0;
     short count = 0;

@@ -23,12 +23,12 @@ SOFTWARE.
 */
 
 /*
-*  Latria_Operators.h
-*  Latria
-*
-*  Created by Benjamin Friedman on 3/1/15.
-*  Copyright (c) 2015 Benjamin W Friedman. All rights reserved.
-*/
+ *  Latria_Operators.h
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 3/1/15.
+ *  Copyright (c) 2015 Benjamin W Friedman. All rights reserved.
+ */
 
 #ifndef __Latria_Operators__
 #define __Latria_Operators__

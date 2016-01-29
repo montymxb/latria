@@ -23,18 +23,17 @@ SOFTWARE.
 */
 
 /*
-//  Latria_Regex.h
-//  Latria
-//
-//  Created by Benjamin Friedman on 10/27/15.
-*/
+ *  Latria_Regex.h
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 10/27/15.
+ */
 
 #ifndef Latria_Regex_h
 #define Latria_Regex_h
 
 #include "Latria_Vars.h"
 
-#pragma message("comment out the debugging for release")
 /* #define LAT_REGEX_DEBUG 1 */
 
 /* General regex runner */

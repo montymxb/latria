@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_Compiler.h
-//  Latria
-//
-//  Created by Benjamin Friedman on 11/3/15.
-*/
+ *  Latria_Compiler.h
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 11/3/15.
+ */
 
 #ifndef Latria_Compiler_h
 #define Latria_Compiler_h

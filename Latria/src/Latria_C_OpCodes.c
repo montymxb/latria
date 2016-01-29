@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_C_OpCodes.c
-//  Latria
-//
-//  Created by Benjamin Friedman on 11/4/15.
-*/
+ *  Latria_C_OpCodes.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 11/4/15.
+ */
 
 #include "Latria_C_OpCodes.h"
 

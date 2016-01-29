@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-*  Latria_GarbageCollection.h
-*  Latria
-*
-*  Created by Benjamin Friedman on 3/1/15.
-*/
+ *  Latria_GarbageCollection.h
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 3/1/15.
+ */
 
 #ifndef __Latria_GarbageCollection__
 #define __Latria_GarbageCollection__

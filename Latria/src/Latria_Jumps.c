@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_Jumps.c
-//  Latria
-//
-//  Created by Benjamin Friedman on 11/8/15.
-*/
+ *  Latria_Jumps.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 11/8/15.
+ */
 
 #include "Latria_Jumps.h"
 

@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-*  Latria_GarbageCollection.c
-*  Latria
-*
-*  Created by Benjamin Friedman on 3/1/15.
-*/
+ *  Latria_GarbageCollection.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 3/1/15.
+ */
 
 #include "Latria_GarbageCollection.h"
 
@@ -815,7 +815,7 @@ void __pushStackRegister() {
     /* Check */
     if(currentVM->argRegisterIndex >= currentVM->maxArgRegisterIndex-1) {
         /* Realloc Up to next size */
-        #pragma message("this is a rather shitty bug. When this is called the program is dead, it will inevitably segfault due to the realloc not taking place, to some degree or another. As to 'why', I have a clue, but it continues to alude me. Reduce the constant stack size and fix this when i'm ready")
+        #pragma message("this is a rather nasty bug. When this is called the program is dead, it will inevitably segfault due to the realloc not taking place, to some degree or another. As to 'why', I have a clue, but it continues to alude me. Reduce the constant stack size and fix this when i'm ready")
         currentVM->maxArgRegisterIndex+=LATRIA_ARG_REGISTER_STACK_INCREMENT;
         *(currentVM->argRegisters) = *(Register *)realloc(&currentVM->argRegisters, currentVM->maxArgRegisterIndex);
     }

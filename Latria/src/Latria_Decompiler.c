@@ -23,16 +23,17 @@ SOFTWARE.
 */
 
 /*
-//  Latria_Decompiler.c
-//  Latria
-//
-//  Created by Benjamin Friedman on 11/4/15.
-*/
+ *  Latria_Decompiler.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 11/4/15.
+ */
 
 #include "Latria_Decompiler.h"
 
-#define LATRIA_VERSION_NUMBER "0.1.0"
+#define LATRIA_VERSION_NUMBER "0.1.1"
 
+#ifndef LATRIA_EMBEDDED
 int main( int argc, char* argv[]) {
     int argI;
     
@@ -96,6 +97,7 @@ int main( int argc, char* argv[]) {
     
     return 0;
 }
+#endif
 
 int instructionCounter;
 

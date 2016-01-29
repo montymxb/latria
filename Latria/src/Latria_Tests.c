@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_Tests.c
-//  Latria
-//
-//  Created by Benjamin Friedman on 9/29/15.
-*/
+ *  Latria_Tests.c
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 9/29/15.
+ */
 
 #include "Latria_Tests.h"
 
@@ -195,9 +195,14 @@ void runUnitTests() {
     utest_noMathOpsPresent();
     utest_findUnquotedCharacter();
     utest_findUncontainedCharacter();
-    #pragma message("removed this for now")
-    /*///utest_getRelationalOperatorResult(); */
-    /*//utest_fetchArg();*/
+    
+    /* 
+     Former design was a truly interpretive scripting approach where the below were useful. No longer the case
+     
+     utest_getRelationalOperatorResult();
+     utest_fetchArg();
+     */
+    
     utest_stripUnwantedSymbols();
     utest_stripWhitespace();
     utest_random();
@@ -3254,15 +3259,6 @@ void ftest_recursiveFunction() {
     
     strcpy(testLineHolder, "h=recursive(0)");
     handleInput(testLineHolder);
-    
-    /* HANDLE TAIL CALLS! Otherwise we're just going to crash out */
-    /*
-    while(getTailCall() != NULL) {
-        char *p = setCharTablePointer( 3, getTailCall());
-        clearTailCall();
-        handleInput(p);
-    }
-     */
 
     co = getValue("h");
     

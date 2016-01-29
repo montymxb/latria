@@ -23,11 +23,11 @@ SOFTWARE.
 */
 
 /*
-//  Latria_Compiler_Interface.h
-//  Latria
-//
-//  Created by Benjamin Friedman on 11/27/15.
-*/
+ *  Latria_Compiler_Interface.h
+ *  Latria
+ *
+ *  Created by Benjamin Friedman on 11/27/15.
+ */
 
 #ifndef Latria_Compiler_Interface_h
 #define Latria_Compiler_Interface_h
@@ -36,11 +36,11 @@ SOFTWARE.
 #include "Latria_C_StateStack.h"
 
 void compileLatria(char *fn);
-
 void compileLine(char *line);
-unsigned char *readByteCodes();
-short getByteCodeCount();
-
 void freeByteCodes();
+
+unsigned char *readByteCodes();
+
+short getByteCodeCount();
 
 #endif /* Latria_Compiler_Interface_h */
