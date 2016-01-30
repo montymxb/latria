@@ -181,7 +181,6 @@ void runInstructions() {
                     
                     /* Setting from an array variable */
                     struct CoreObject *co;
-                    regType = RegisterArrayVar;
                     
                     /* get variable */
                     incrementCounter = 0;
@@ -1952,168 +1951,6 @@ void runInstructions() {
 }
 
 
-/* Strips out undesired symbols from the given input, UNLESS they are enclosed in quotes */
-void stripOutUnwantedSymbols(char *input) {
-    
-    char *origI, *origT, *tmp = NULL;
-    int finalSize;
-    LATBool isInQuotes = false, first=true;
-    unsigned long inputLen = strlen(input);
-    
-    /* Check if we even need to do this first */
-    if(!strchr(input, '\t') && !strchr(input, '\r')) {
-        
-        return;
-    }
-    
-    origI=input;
-    
-    origT = tmp = setCharTablePointerByLEN( 10, inputLen*sizeof(char));
-    
-    /* Use our buffer to copy over our input WITHOUT the symbols we wish to cut out*/
-    
-    while(*input) {
-        
-        if(*input == '"' || *input=='\'') {
-            
-            if(first) {
-                
-                isInQuotes=true;
-            
-            } else if(*(input-1) != '\\') {
-                
-                isInQuotes = (isInQuotes)?false:true;
-            }
-            
-        }
-        
-        /* Omitted characters are included in the 'if' below*/
-        if((*input != '\t' && *input != '\r') || isInQuotes) {
-            
-            *tmp++ = *input;
-        }
-            
-        if(first) {
-            
-            first = false;
-        }
-        
-        input++;
-    }
-    
-    *tmp = '\0';
-    /* Copy our buffer back over to our input*/
-    input = origI;
-    tmp = origT;
-    
-    finalSize = (int)strlen(tmp);
-    
-    strncpy(input, tmp, (size_t)finalSize);
-    input[finalSize] = '\0';
-}
-
-
-char* fetchXDeclaration(char *input) {
-    
-    char *start,*end;
-    
-    if(input == NULL) {
-        
-        return NULL;
-    }
-    
-    start = strstr(input, OPENING_MARK);
-    /* Closing mark will be ##> */
-    end = strstr(input, CLOSING_MARK);
-    
-    if(start == NULL && end == NULL && !InLang_isLangBlockActive()) {
-        
-        /* No start & no end & NOT in an active block, so we skip out */
-        return input;
-    }
-    
-    if(start != NULL && !InLang_isLangBlockActive()) {
-        
-        /* We have a start sequence & NOT in an active language block */
-        
-        char *cmdlist = NULL;
-        /* extract varName */
-        char *varName = LATsubstring( input, 0, (int)(start-input));
-        
-        if(end == NULL) {
-            
-            /* Copy everything past our start sequence */
-            cmdlist = LATsubstring(start, OML, (int)strlen(start));
-        } else {
-            
-            /* strip away terminator sequence and copy what's left */
-            cmdlist = LATsubstring(start, OML, (int)strlen(start)-CML);
-        }
-        
-        InLang_startLangBlock(varName);
-        InLang_appendToCMDList(cmdlist);
-        
-        LATDealloc(cmdlist), cmdlist = NULL;
-        
-        if(end != NULL) {
-            
-            char *retVal = executeLang(InLang_getCMDList());
-            
-            /* Sets the output based on return value flag being set*/
-            if(stack_getReturnValue() == NULL) {
-                
-                char *inLangVarName = InLang_getVarName();
-                setValue(inLangVarName, retVal);
-            } else {
-                
-                stack_setReturnValue(retVal);
-            }
-            
-            InLang_freeLangBlock();
-        }
-        
-    } else if(InLang_isLangBlockActive()) {
-        
-        /* An active lang block */
-        
-        if(end != NULL) {
-            
-            /* End sequence found, let's wrap this up */
-            char *retVal;
-            
-            /* determine if there is a command piece on here*/
-            if(strlen(input) != 3) {
-                
-                /* Extract the additional items */
-                char *tmp = LATsubstring(input, 0, (int)strlen(input)-3);
-                InLang_appendToCMDList(tmp);
-                LATDealloc(tmp), tmp = NULL;
-            }
-            
-            retVal = executeLang(InLang_getCMDList());
-            
-            /* Sets the output based on return value flag being set*/
-            if(stack_getReturnValue() == NULL) {
-                
-                setValue(InLang_getVarName(), retVal);
-            } else {
-                
-                stack_setReturnValue(retVal);
-            }
-            
-            InLang_freeLangBlock();
-            
-        } else {
-            
-            /* No end or start sequence, simply append this command */
-            InLang_appendToCMDList(input);
-        }
-    }
-    
-    return NULL;
-}
-
-
 /* Strips comments from the input if they are present */
 void stripComments(char *input) {
     
@@ -2240,6 +2077,7 @@ char * executeLang(char *xlangSource) {
     char *tableRef = NULL, *origRef;
     cmdlist = LATstrdup(xlangSource);
     
+    /* Check for INJECTION sequences */
     if(strstr(cmdlist, INJECT_S) && strstr( cmdlist, INJECT_E)) {
         
         /* 1. There may be more than one...so we perform a while LOOP to the beginning of char[1] from INJECT_S (set a counter mark here as well)*/
@@ -2343,10 +2181,6 @@ char * executeLang(char *xlangSource) {
                 /* warning reallocation throws things off, again */
                 cmdlist = LATAlloc( cmdlist, z*sizeof(char), (z-x+y+1)*sizeof(char)); /* Realloc to a higher size!*/
                 reallocdCML = 1;
-                
-                /* NULLify our lang block, as we have messed it up by reallocating here*/
-                InLang_NULLLangBlock();
-                InLang_appendToCMDList(cmdlist);
                 
                 /* reset the following marks */
                 ssMark = strstr( cmdlist, INJECT_S);
@@ -2463,54 +2297,9 @@ char * executeLang(char *xlangSource) {
     /* free our command list */
     LATDealloc(cmdlist);
     
-    /* free our lang block */
-    InLang_freeLangBlock();
-    
     /* Return our table ref backed up to the start */
     return origRef;
 }
-
-    
-/*Checks for a return and/or a value specified in the input
- returns true if there is
- return false if there isn't*/
-LATBool checkForReturnValue(char *input) {
-    
-    char *se = strstr(input, "return");
-    if(se != NULL) {
-        
-        if(strlen(se)>5) { /* check to see if there is something after this return*/
-            
-            if(!isspace(*(se+6))) { /* if following character is not a space, this is not a return statement*/
-                
-                return false;
-            }
-        }
-        
-        if((se-input) > 0) { /* check to see if there is something before this return*/
-            
-            if(!isspace(*(se-1))) { /* if preceding character is not a space, this is not a return statement*/
-                
-                return false;
-            }
-        }
-        
-        input+=6;
-        
-        /* set this scope's return value if a valid num was passed in, otherwise simply kill line of execution*/
-        if(*input) {
-            
-            stack_setReturnValue(input);
-        }
-        
-        return true;
-    }
-    return false;
-}
-
-    
-/* Exteriorly referenced by prePerformMath for 'normal addition' */
-char additionOutput[25];
     
 
 /* Extracts and sets a register value to a variable */

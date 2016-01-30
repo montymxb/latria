@@ -59,37 +59,12 @@ void stack_pushStack() {
             stack->cop = 0;
         }
         
-        if(stack->latfp != 0) {
-            
-            /* Make sure to properly free all of this */
-            LATF_freeAllObjects(stack->latfp);
-            stack->latfp = 0;
-        }
-        
-        /* Free any func names left along, and null them out */
-        if(stack->curLATFuncList != NULL) {
-            
-            LATDealloc(stack->curLATFuncList);
-            stack->curLATFuncList = NULL;
-        }
-        
-        /* Zero out the bracket count, just in case */
-        stack->latfBrackCount = 0;
-        
-        /* set our return value to NULL for now, it is freed elsewhere*/
-        LATDealloc(stack->returnValue);
-        stack->returnValue = NULL;
         
     } else {
         
         /* Create a new reference stack */
         stack = LATAlloc(NULL, 0, sizeof(struct LATReference_Stack));
         stack->cop = NULL;
-        stack->latfp = 0;
-        stack->returnValue = 0;
-        stack->_tailCallAssociatedName = NULL;
-        stack->curLATFuncList = NULL;
-        stack->latfBrackCount = 0;
     }
     
     tmp = primaryRefStack;
@@ -103,55 +78,6 @@ void stack_setCoreObject(struct CoreObject *_cop) {
     
     primaryRefStack->cop = _cop;
 }
-
-
-/* Sets the lat function for the primary object*/
-void stack_setLATFunction(struct LATFunction *_latf) {
-    
-    if(_latf == 0 || _latf == NULL) {
-        
-        primaryRefStack->latfp = 0;
-    } else {
-        
-        primaryRefStack->latfp = _latf;
-    }
-}
-
-
-/* Returns whether a function is being constructed or not currently */
-LATBool getFunctionBlockActive() {
-    
-    return (primaryRefStack->curLATFuncList != NULL);
-}
-
-
-/* Returns the current function block name */
-char * getFunctionBlockName() {
-    
-    return primaryRefStack->curLATFuncList;
-}
-
-
-/* Sets the current function block name */
-void setFunctionBlockName(char *_in) {
-    
-    primaryRefStack->curLATFuncList = _in;
-}
-
-
-/* Sets the current bracket count */
-void setBracketCount(unsigned int i) {
-    
-    primaryRefStack->latfBrackCount = i;
-}
-
-
-/* Returns the current bracket count */
-unsigned int getBracketCount() {
-    
-    return primaryRefStack->latfBrackCount;
-}
-
 
 
 /* Pops the current Stack of the stack*/
@@ -182,24 +108,10 @@ struct CoreObject * stack_getCoreObject() {
 }
 
 
-/* Retrieves the top level function from the primary stack item*/
-struct LATFunction * stack_getLATFunction() {
-    
-    return primaryRefStack->latfp;
-}
-
-
 /* Gets the primary CoreObject for a specific stack*/
 struct CoreObject *_stack_getCoreObject(struct LATReference_Stack *stack) {
     
     return stack->cop;
-}
-
-
-/* Gets the primary LATFunction for a specific stack*/
-struct LATFunction *_stack_getLATFunction(struct LATReference_Stack *stack) {
-    
-    return stack->latfp;
 }
 
 
@@ -214,98 +126,6 @@ struct LATReference_Stack * getNextStack(struct LATReference_Stack *stack) {
 struct LATReference_Stack * getPrimaryStack() {
     
     return primaryRefStack;
-}
-
-
-/* Sets the return value for this scope*/
-void stack_setReturnValue(char *i) {
-    
-    if(primaryRefStack->returnValue != NULL) {
-        
-        /* We already have a return value, let's proceed appropriately */
-        
-        if(!strcmp( primaryRefStack->returnValue, i)) {
-            
-            /* DONT DO ANYTHING, these values are EXACTLY the same*/
-            return;
-        }
-        
-        LATDealloc(primaryRefStack->returnValue);
-        primaryRefStack->returnValue = LATstrdup(i);
-        
-    } else {
-        
-        /* Set a NEW return value*/
-        primaryRefStack->returnValue = LATstrdup(i);
-    }
-}
-
-
-/* Sets the return value for this scope without freeing the previous item (used exclusively for reallocation to a larger size) */
-void OVERRIDE_stack_setReturnValue(char *i) {
-    
-    primaryRefStack->returnValue = LATstrdup(i);
-}
-
-
-/* Gets the return value for this scope*/
-char *stack_getReturnValue() {
-    
-    return primaryRefStack->returnValue;
-}
-
-
-struct CoreObject *returnArrayObj = NULL;
-
-
-/* Sets this stack's return object */
-void stack_setReturnObject(struct CoreObject *co) {
-    
-    returnArrayObj = co;
-}
-
-
-/* Gets the current return object on this stack */
-struct CoreObject *stack_getReturnObject() {
-    
-    return returnArrayObj;
-}
-
-
-/* Sets the 'name' for this tail call to associate to*/
-void setTailCallName(char *tcn) {
-    
-    char *pp = primaryRefStack->_tailCallAssociatedName;
-    
-    if(pp != NULL) {
-        
-        if(!strcmp( pp, tcn)) {
-            
-            /* DONT DO ANYTHING, these values are EXACTLY the same*/
-            return;
-        }
-        
-        LATDealloc(primaryRefStack->_tailCallAssociatedName);
-    }
-    
-    primaryRefStack->_tailCallAssociatedName = LATstrdup(tcn);
-}
-
-
-/* Returns the name this tail call will associate to*/
-char *getTailCallName() {
-    
-    return primaryRefStack->_tailCallAssociatedName;
-}
-
-
-/* Clears the name this tail call will associate to*/
-void clearTailCallName() {
-    
-    if(primaryRefStack->_tailCallAssociatedName != NULL) {
-        
-        LATDealloc(primaryRefStack->_tailCallAssociatedName), primaryRefStack->_tailCallAssociatedName = NULL;
-    }
 }
 
 
@@ -325,27 +145,6 @@ void stack_freeHeapAndStack() {
         primaryRefStack->cop = 0;
     }
     
-    if(primaryRefStack->latfp != 0) {
-        
-        /* Make sure to properly free all of this*/
-        LATF_freeAllObjects(primaryRefStack->latfp);
-        primaryRefStack->latfp = 0;
-    }
-    
-    /* Free the tail call info if applicable*/
-    if(primaryRefStack->_tailCallAssociatedName != NULL)
-        LATDealloc(primaryRefStack->_tailCallAssociatedName);
-    
-    
-    /* Free return value if applicable */
-    if(primaryRefStack->returnValue != NULL)
-        LATDealloc(primaryRefStack->returnValue);
-    
-    
-    /* Free any function bits hanging on */
-    if(primaryRefStack->curLATFuncList != NULL)
-        LATDealloc(primaryRefStack->curLATFuncList);
-    
     
     tmpRS = primaryRefStack->cs;
     LATDealloc(primaryRefStack);
@@ -359,28 +158,6 @@ void stack_freeHeapAndStack() {
             freeAllObjects(primaryRefStack->cop);
             primaryRefStack->cop = 0;
         }
-        
-        if(primaryRefStack->latfp != 0) {
-            
-            /* Make sure to properly free all of this*/
-            LATF_freeAllObjects(primaryRefStack->latfp);
-            primaryRefStack->latfp = 0;
-        }
-        
-        
-        /* Free the tail call info if applicable*/
-        if(primaryRefStack->_tailCallAssociatedName != NULL)
-            LATDealloc(primaryRefStack->_tailCallAssociatedName);
-        
-        
-        /* Free return value if applicable */
-        if(primaryRefStack->returnValue != NULL)
-            LATDealloc(primaryRefStack->returnValue);
-        
-        
-        /* Free any function bits hanging on */
-        if(primaryRefStack->curLATFuncList != NULL)
-            LATDealloc(primaryRefStack->curLATFuncList);
         
         
         tmpRS = primaryRefStack->cs;
@@ -402,28 +179,6 @@ void stack_freeHeapAndStack() {
             primaryRefHeap->cop = 0;
         }
         
-        if(primaryRefHeap->latfp != 0) {
-            
-            /* Make sure to properly free all of this*/
-            LATF_freeAllObjects(primaryRefHeap->latfp);
-            primaryRefHeap->latfp = 0;
-        }
-        
-        
-        /* Free the tail call info if applicable*/
-        if(primaryRefHeap->_tailCallAssociatedName != NULL)
-            LATDealloc(primaryRefHeap->_tailCallAssociatedName);
-        
-        
-        /* Free return value if applicable */
-        if(primaryRefHeap->returnValue != NULL)
-            LATDealloc(primaryRefHeap->returnValue);
-        
-        
-        /* Free any function bits hanging on */
-        if(primaryRefHeap->curLATFuncList != NULL)
-            LATDealloc(primaryRefHeap->curLATFuncList);
-        
         
         tmpRS = primaryRefHeap->cs;
         LATDealloc(primaryRefHeap);
@@ -438,28 +193,6 @@ void stack_freeHeapAndStack() {
                 freeAllObjects(primaryRefHeap->cop);
                 primaryRefHeap->cop = 0;
             }
-            
-            if(primaryRefHeap->latfp != 0) {
-                
-                /* Make sure to properly free all of this*/
-                LATF_freeAllObjects(primaryRefHeap->latfp);
-                primaryRefHeap->latfp = 0;
-            }
-            
-            
-            /* Free the tail call info if applicable*/
-            if(primaryRefHeap->_tailCallAssociatedName != NULL)
-                LATDealloc(primaryRefHeap->_tailCallAssociatedName);
-            
-            
-            /* Free return value if applicable */
-            if(primaryRefHeap->returnValue != NULL)
-                LATDealloc(primaryRefHeap->returnValue);
-            
-            
-            /* Free any function bits hanging on */
-            if(primaryRefHeap->curLATFuncList != NULL)
-                LATDealloc(primaryRefHeap->curLATFuncList);
             
             
             tmpRS = primaryRefHeap->cs;

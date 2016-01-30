@@ -217,7 +217,7 @@ unsigned short getCompilerState();
 unsigned short getPriorCompilerState();
 unsigned short getRootCompilerState();
 unsigned short findParentCompilerState(unsigned short parentState);
-void pushCompilerState(unsigned short state);
+void           pushCompilerState(unsigned short state);
 unsigned short popCompilerState();
 
 /* For writing out register string & num assigments */

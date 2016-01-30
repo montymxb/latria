@@ -35,10 +35,8 @@
 		A92A24981C095FA1007020F5 /* Latria_C_Libs.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A246C1C095FA1007020F5 /* Latria_C_Libs.c */; };
 		A92A24991C095FA1007020F5 /* Latria_C_OpCodes.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A246E1C095FA1007020F5 /* Latria_C_OpCodes.c */; };
 		A92A249A1C095FA1007020F5 /* Latria_C_StateStack.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24701C095FA1007020F5 /* Latria_C_StateStack.c */; };
-		A92A249C1C095FA1007020F5 /* Latria_ControlFlow.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24741C095FA1007020F5 /* Latria_ControlFlow.c */; };
 		A92A249D1C095FA1007020F5 /* Latria_Function.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24761C095FA1007020F5 /* Latria_Function.c */; };
 		A92A249E1C095FA1007020F5 /* Latria_GarbageCollection.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24781C095FA1007020F5 /* Latria_GarbageCollection.c */; };
-		A92A249F1C095FA1007020F5 /* Latria_InLang.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A247A1C095FA1007020F5 /* Latria_InLang.c */; };
 		A92A24A01C095FA1007020F5 /* Latria_IO.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A247C1C095FA1007020F5 /* Latria_IO.c */; };
 		A92A24A11C095FA1007020F5 /* Latria_Jumps.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A247E1C095FA1007020F5 /* Latria_Jumps.c */; };
 		A92A24A21C095FA1007020F5 /* Latria_Lexical.c in Sources */ = {isa = PBXBuildFile; fileRef = A92A24801C095FA1007020F5 /* Latria_Lexical.c */; };
@@ -154,14 +152,10 @@
 		A92A246F1C095FA1007020F5 /* Latria_C_OpCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_OpCodes.h; path = Latria/src/Latria_C_OpCodes.h; sourceTree = SOURCE_ROOT; };
 		A92A24701C095FA1007020F5 /* Latria_C_StateStack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_C_StateStack.c; path = Latria/src/Latria_C_StateStack.c; sourceTree = SOURCE_ROOT; };
 		A92A24711C095FA1007020F5 /* Latria_C_StateStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_C_StateStack.h; path = Latria/src/Latria_C_StateStack.h; sourceTree = SOURCE_ROOT; };
-		A92A24741C095FA1007020F5 /* Latria_ControlFlow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_ControlFlow.c; path = Latria/src/Latria_ControlFlow.c; sourceTree = SOURCE_ROOT; };
-		A92A24751C095FA1007020F5 /* Latria_ControlFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_ControlFlow.h; path = Latria/src/Latria_ControlFlow.h; sourceTree = SOURCE_ROOT; };
 		A92A24761C095FA1007020F5 /* Latria_Function.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Function.c; path = Latria/src/Latria_Function.c; sourceTree = SOURCE_ROOT; };
 		A92A24771C095FA1007020F5 /* Latria_Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_Function.h; path = Latria/src/Latria_Function.h; sourceTree = SOURCE_ROOT; };
 		A92A24781C095FA1007020F5 /* Latria_GarbageCollection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_GarbageCollection.c; path = Latria/src/Latria_GarbageCollection.c; sourceTree = SOURCE_ROOT; };
 		A92A24791C095FA1007020F5 /* Latria_GarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_GarbageCollection.h; path = Latria/src/Latria_GarbageCollection.h; sourceTree = SOURCE_ROOT; };
-		A92A247A1C095FA1007020F5 /* Latria_InLang.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_InLang.c; path = Latria/src/Latria_InLang.c; sourceTree = SOURCE_ROOT; };
-		A92A247B1C095FA1007020F5 /* Latria_InLang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_InLang.h; path = Latria/src/Latria_InLang.h; sourceTree = SOURCE_ROOT; };
 		A92A247C1C095FA1007020F5 /* Latria_IO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_IO.c; path = Latria/src/Latria_IO.c; sourceTree = SOURCE_ROOT; };
 		A92A247D1C095FA1007020F5 /* Latria_IO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Latria_IO.h; path = Latria/src/Latria_IO.h; sourceTree = SOURCE_ROOT; };
 		A92A247E1C095FA1007020F5 /* Latria_Jumps.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Latria_Jumps.c; path = Latria/src/Latria_Jumps.c; sourceTree = SOURCE_ROOT; };
@@ -247,14 +241,10 @@
 				A92A246F1C095FA1007020F5 /* Latria_C_OpCodes.h */,
 				A92A24701C095FA1007020F5 /* Latria_C_StateStack.c */,
 				A92A24711C095FA1007020F5 /* Latria_C_StateStack.h */,
-				A92A24741C095FA1007020F5 /* Latria_ControlFlow.c */,
-				A92A24751C095FA1007020F5 /* Latria_ControlFlow.h */,
 				A92A24761C095FA1007020F5 /* Latria_Function.c */,
 				A92A24771C095FA1007020F5 /* Latria_Function.h */,
 				A92A24781C095FA1007020F5 /* Latria_GarbageCollection.c */,
 				A92A24791C095FA1007020F5 /* Latria_GarbageCollection.h */,
-				A92A247A1C095FA1007020F5 /* Latria_InLang.c */,
-				A92A247B1C095FA1007020F5 /* Latria_InLang.h */,
 				A92A247C1C095FA1007020F5 /* Latria_IO.c */,
 				A92A247D1C095FA1007020F5 /* Latria_IO.h */,
 				A92A247E1C095FA1007020F5 /* Latria_Jumps.c */,
@@ -509,7 +499,6 @@
 				A92A24991C095FA1007020F5 /* Latria_C_OpCodes.c in Sources */,
 				A92A24A61C095FA1007020F5 /* Latria_Operators.c in Sources */,
 				A92A249D1C095FA1007020F5 /* Latria_Function.c in Sources */,
-				A92A249C1C095FA1007020F5 /* Latria_ControlFlow.c in Sources */,
 				A92A24A11C095FA1007020F5 /* Latria_Jumps.c in Sources */,
 				A92A24A21C095FA1007020F5 /* Latria_Lexical.c in Sources */,
 				A92A24C11C098AB2007020F5 /* Latria_Compiler_Interface.c in Sources */,
@@ -523,7 +512,6 @@
 				A92A24A91C095FA1007020F5 /* Latria_Sys.c in Sources */,
 				A92A24A81C095FA1007020F5 /* Latria_Regex.c in Sources */,
 				A92A249E1C095FA1007020F5 /* Latria_GarbageCollection.c in Sources */,
-				A92A249F1C095FA1007020F5 /* Latria_InLang.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

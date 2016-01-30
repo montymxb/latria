@@ -230,7 +230,6 @@ void startInstructions();
 void writeOutCode(char code);
 void writeOutCharacter(char code);
 void writeOutCharacters(char *string);
-void writeOutHexAddress(unsigned char *address, int size);
 void writeRAW(unsigned char *string, int size);
 void dispatchInstructions();
 

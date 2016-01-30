@@ -333,13 +333,6 @@ void executeLatriaFile(char *fileName) {
     /* Open file in Read mode */
     runFile = fopen( fileName, "r");
     
-    /* Check if we created a compiled file */
-    if(newFileName != NULL) {
-        
-        /* We did, free the name we generated */
-        free(newFileName);
-    }
-    
     /* Validate the file was opened */
     if(runFile == NULL) {
         
@@ -347,6 +340,13 @@ void executeLatriaFile(char *fileName) {
         printf("\nThe file you provided, %s, could not be opened!\n\n", fileName);
         exit(1);
         
+    }
+    
+    /* Check if we created a compiled file */
+    if(newFileName != NULL) {
+        
+        /* We did, free the name we generated */
+        free(newFileName);
     }
     
     /* Call the VM to run over the given instruction set */

@@ -31,20 +31,13 @@ SOFTWARE.
 
 #include "Latria_Sys.h"
 
-float performOperationBetweenInputs(float lval, float rval, char opSymbol);
-char * replaceSectionMatchingExpressionWithValue(char *centerSpot, char * leader, char * ender, char * input, char * value);
 float local_pow(double base, int exp);
-LATBool isCharacterOperator(char c);
-LATBool currentBlockIsCompressable(char *i);
-LATBool plusIsOnlyOperatorBetween(char *i);
 
-LATBool didFailWithStringOperands();
-
-void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3);
-void performSubOp(unsigned char i1, unsigned char i2, unsigned char i3);
+void performAddOp  (unsigned char i1, unsigned char i2, unsigned char i3);
+void performSubOp  (unsigned char i1, unsigned char i2, unsigned char i3);
 void performMultiOp(unsigned char i1, unsigned char i2, unsigned char i3);
-void performDiviOp(unsigned char i1, unsigned char i2, unsigned char i3);
-void performModOp(unsigned char i1, unsigned char i2, unsigned char i3);
-void performExpOp(unsigned char i1, unsigned char i2, unsigned char i3);
+void performDiviOp (unsigned char i1, unsigned char i2, unsigned char i3);
+void performModOp  (unsigned char i1, unsigned char i2, unsigned char i3);
+void performExpOp  (unsigned char i1, unsigned char i2, unsigned char i3);
 
 #endif /* defined(__Latria_Math__) */

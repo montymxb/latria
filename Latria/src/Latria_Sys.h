@@ -71,7 +71,7 @@ void Sys_Substr(char *arg1, int arg2, int arg3);
 void Sys_Match(char *matchString, char *regexString);
 
 /* Random */
-int Sys_Random(int input);
+int  Sys_Random(int input);
 void Sys_RandomSeed(unsigned int input);
 
 /* Reads user input input for a line */
@@ -86,11 +86,11 @@ void Sys_Remove(char *fileName);
 void Sys_Sleep(unsigned int sleepVal);
 
 /* Server/Client */
-int Sys_StartServer(int port);
-int Sys_SendData(int connId, char *message);
+int  Sys_StartServer(int port);
+int  Sys_SendData(int connId, char *message);
 void Sys_ReadData(int connId);
 void Sys_CloseConnection(int connId);
-int Sys_Connect(char *address, int port);
+int  Sys_Connect(char *address, int port);
 
 int Sys_bit_not(int i1);
 int Sys_bit_and(int i1, int i2);

@@ -32,38 +32,16 @@ SOFTWARE.
 #ifndef __Latria_ReferenceStack__
 #define __Latria_ReferenceStack__
 
-#include "Latria_InLang.h"
+#include "Latria_GarbageCollection.h"
 
 struct CoreObject *stack_getCoreObject();
-struct LATFunction *stack_getLATFunction();
 
 void stack_setCoreObject(struct CoreObject *_cop);
-void stack_setLATFunction(struct LATFunction *_latf);
 
 struct CoreObject *_stack_getCoreObject(struct LATReference_Stack *stack);
-struct LATFunction *_stack_getLATFunction(struct LATReference_Stack *stack);
 
 struct LATReference_Stack * getPrimaryStack();
 struct LATReference_Stack * getNextStack(struct LATReference_Stack *stack);
-
-void setTailCallName(char *tcn);
-char *getTailCallName();
-void clearTailCallName();
-
-/* For regular return values */
-void stack_setReturnValue(char *i);
-void OVERRIDE_stack_setReturnValue(char *i);
-char *stack_getReturnValue();
-
-/* For returned objects (arrays) */
-void stack_setReturnObject(struct CoreObject *co);
-struct CoreObject *stack_getReturnObject();
-
-LATBool getFunctionBlockActive();
-char * getFunctionBlockName();
-void setFunctionBlockName(char *_in);
-void setBracketCount(unsigned int i);
-unsigned int getBracketCount();
 
 void stack_pushStack();
 void stack_popStack();
@@ -72,7 +50,5 @@ void stack_freeHeapAndStack();
 
 /* Forwardly declared*/
 void freeAllObjects( struct CoreObject *node);
-/* Forwardly declared*/
-void LATF_freeAllObjects( struct LATFunction *node);
 
 #endif /* defined(__Latria_ReferenceStack__) */

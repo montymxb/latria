@@ -59,7 +59,6 @@ struct MemoryBlock {
 
 /* Latria VM space */
 typedef struct {
-    struct ControlFlowBlock *_controlFlowBlock;
     
     struct MemoryBlock *memoryChain;
     struct MemoryBlock *lowFreeChain;
@@ -100,7 +99,6 @@ LATVM* constructNewVM() {
     
     latVM->latriaCurrentMaxMemSize = LATRIA_CURRENT_MAX_MEM_SIZE_BASELINE;
     latVM->currentMemSize          = 0;
-    latVM->_controlFlowBlock       = NULL;
     latVM->isCommentedOut          = 0;
     latVM->SYS_LastResult          = NULL;
     latVM->memoryChain             = NULL;
@@ -506,7 +504,6 @@ char *getSysResult() {
 
 void deconstructLATVM() {
     
-    struct ControlFlowBlock *cfb;
     int x = 0;
     /* Deconstruct our char table array*/
     
@@ -523,40 +520,7 @@ void deconstructLATVM() {
     
     forceALLMemoryFree();
     
-    cfb = currentVM->_controlFlowBlock;
-    
-    while(cfb != NULL) {
-        
-        if(cfb->content)
-            LATDealloc(cfb->content);
-        
-        if(cfb->initializer)
-            LATDealloc(cfb->initializer);
-        
-        if(cfb->limit)
-            LATDealloc(cfb->limit);
-        
-        if(cfb->step)
-            LATDealloc(cfb->step);
-        
-        cfb = cfb->nxtBlock;
-    }
-    
     free(currentVM);
-}
-
-
-/* Gets the current control flow block for this VM */
-struct ControlFlowBlock * getControlFlowBlock() {
-    
-    return currentVM->_controlFlowBlock;
-}
-
-
-/* Sets the current control flow block for this VM */
-void setControlFlowBlock(struct ControlFlowBlock *cfb) {
-    
-    currentVM->_controlFlowBlock = cfb;
 }
 
 

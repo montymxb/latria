@@ -32,9 +32,6 @@ SOFTWARE.
 #include "Latria_Math.h"
 
 char * executeLang(char *xlangSource);
-char * fetchXDeclaration(char *input);
-LATBool checkForReturnValue(char *input);
-void stripOutUnwantedSymbols(char *input);
 void setVarFromRegister(char *varName, unsigned char registerNum);
 void setArrayVarFromRegister(char *varName, char *key, unsigned char registerNum);
 

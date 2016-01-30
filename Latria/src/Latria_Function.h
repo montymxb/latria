@@ -35,26 +35,6 @@ SOFTWARE.
 void pushFunctionRevertState(long int index);
 long int popFunctionRevertState();
 
-/*Creates a block with given key*/
-struct LATFunction* createLATFunction(char * key);
-
-/*Appends given char * to a block*/
-void appendCharsToLATFunction(struct LATFunction *block, char *input);
-
-/*Destroys a given block*/
-void destroyLATFunction();
-
-struct LATFunction * LATF_findObject(char *key);
-struct LATFunction * LATF_findObjectWithStack(char *key, struct LATReference_Stack *stack);
-struct LATFunction * LATF_findObjectWithKey(char *key, struct LATFunction **node);
-struct LATFunction * LATF_generateReplacement(struct LATFunction *node);
-
-struct LATFunction * LATF_freeObjectWithKey(char *key, struct LATFunction *node);
 void LATF_freeObjects();
-
-int LATF__printMem(struct LATFunction *node, int mem);
-
-void LATF_setValue(char *name, char *val);
-void LATF_setValueForKey(char *key, char *value, struct LATFunction **node);
 
 #endif /* defined(__Latria_Function__) */

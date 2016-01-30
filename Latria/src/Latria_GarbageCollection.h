@@ -32,7 +32,7 @@ SOFTWARE.
 #ifndef __Latria_GarbageCollection__
 #define __Latria_GarbageCollection__
 
-#include "Latria_ControlFlow.h"
+#include "Latria_Operators.h"
 
 void forceMemoryFree();
 void forceALLMemoryFree();

@@ -41,8 +41,10 @@ typedef struct {
     
     /* Instruction index of this label */
     long int instructionIndex;
+    
     /* Func handle name */
     char *funcName;
+    
 }LATFuncLabel;
 
 void pushFuncLabel(long int instructionIndex, char *fname);

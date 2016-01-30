@@ -173,43 +173,17 @@ typedef struct {
 /*** REGISTER STRUCT END ***/
 
 
-/*Basic Latria Function object*/
-struct LATFunction {
-    struct LATFunction *lobj;
-    struct LATFunction *robj;
-    char * key;
-    char * content;
-    char * eol;
-};
-
-
 struct LATReference_Stack{
     
     /* CoreObject Primary */
     struct CoreObject *cop;
     
-    /* LATFunction Primary */
-    struct LATFunction *latfp;
-    
     /* Child Stack */
     struct LATReference_Stack *cs;
-    
-    /* Stack return value */
-    char *returnValue;
-    
-    /* Tail call return name (if applicable) for the current reference stack */
-    char *_tailCallAssociatedName;
-    
-    /* Used for building up functions */
-    char *curLATFuncList;
-    
-    /* Used to avoid confusion with brackets which may otherwise terminate a function too soon */
-    unsigned int latfBrackCount;
 };
 
 
 char *str_replace(char *orig, char *rep, char *with, char removeAll);
-char *str_replaceNCPY(char *orig, char*rep, char*with);
 LATBool isNumeric(char *val);
 char * stripWhitespace(char *input);
 

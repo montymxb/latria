@@ -84,8 +84,8 @@ void compileLatria(char *fn) {
     if(out == NULL) {
         
         /* output file was not opened, cleanup and exit */
-        free(nf);
         printf("Tmp file file %s could not be opened/created to write to!\n\n", nf);
+        free(nf);
         exit(1027);
     }
     

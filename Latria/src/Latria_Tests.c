@@ -44,11 +44,7 @@ void runUnitTests();
 
 /* START UNIT TESTS */
 
-void utest_noMathOpsPresent();
-void utest_findUnquotedCharacter();
-void utest_findUncontainedCharacter();
 void utest_getRelationalOperatorResult();
-void utest_stripUnwantedSymbols();
 void utest_stripWhitespace();
 void utest_random();
 void utest_regex();
@@ -191,9 +187,6 @@ void runAllTests() {
 /* Runs unit tests */
 void runUnitTests() {
     printf("================\nUNIT TESTS\n================\n");
-    utest_noMathOpsPresent();
-    utest_findUnquotedCharacter();
-    utest_findUncontainedCharacter();
     
     /* 
      Former design was a truly interpretive scripting approach where the below were useful. No longer the case
@@ -201,8 +194,6 @@ void runUnitTests() {
      utest_getRelationalOperatorResult();
      utest_fetchArg();
      */
-    
-    utest_stripUnwantedSymbols();
     utest_stripWhitespace();
     utest_random();
     utest_regex();
@@ -288,6 +279,7 @@ void runFunctionalTests() {
 /* START UNIT TESTS */
 
 /* Unit test for noMathOperatorsPresent function */
+/* DEPRECATED TEST : no longer relevant in the current version of latria
 void utest_noMathOpsPresent() {
     LATBool failed = false;
     strcpy(testName, "noMathOperatorsPresent unit test");
@@ -325,8 +317,11 @@ void utest_noMathOpsPresent() {
         testPassed(testName);
     }
 }
+ */
+
 
 /* Unit test for findUnquotedCharacter function */
+/*
 void utest_findUnquotedCharacter() {
     LATBool passed = true;
     strcpy(testName, "findUnquotedCharacter unit test");
@@ -359,8 +354,10 @@ void utest_findUnquotedCharacter() {
         testPassed(testName);
     }
 }
+ */
 
 /* Unit test for findUncontainedCharacter function */
+/*
 void utest_findUncontainedCharacter() {
     LATBool passed = true;
     strcpy(testName, "findUncontainedCharacter unit test");
@@ -418,6 +415,7 @@ void utest_findUncontainedCharacter() {
         testPassed(testName);
     }
 }
+ */
 
 /* Unit tests for getRelationalOperatorResult */
 void utest_getRelationalOperatorResult() {
@@ -560,6 +558,7 @@ void utest_getRelationalOperatorResult() {
 }
 
 /* Unit test for stripping unwanted symbols from input (\n, \r, \t, etc) */
+/*
 void utest_stripUnwantedSymbols() {
     
     int localFailCount = failCount;
@@ -617,6 +616,7 @@ void utest_stripUnwantedSymbols() {
         testPassed(testName);
     }
 }
+ */
 
 /* Unit tests for stripping whitespace, while avoiding altering quoted material */
 void utest_stripWhitespace() {

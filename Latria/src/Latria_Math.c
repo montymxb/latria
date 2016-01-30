@@ -28,168 +28,6 @@ SOFTWARE.
 
 #include "Latria_Math.h"
 
-unsigned char didDetectStringOperands;
-
-/* Checks to see if the next 'compressable' parenthese block is not a function, and thus can be compressed*/
-LATBool currentBlockIsCompressable(char *i) {
-    
-    char *iT = i;
-    int c=-1,ce=-1,counter=0;
-    
-    while(*iT) {
-        
-        if(*iT == '(') {
-            
-            c=counter;
-        } else if(*iT == ')') {
-            
-            ce=counter;
-            break;
-        }
-        
-        iT++;
-        counter++;
-    }
-    
-    if(c >= 0 && ce >= 0) {
-        
-        char lastChar;
-        char *s = LATstrdup(i);
-        char *si = s;
-        LATBool isCompressable = false;
-        s+=c;
-        lastChar=*s;
-        *s='\0';
-        
-        /* if we have something let's show for it */
-        if(--c > 1) {
-            
-            while(*--s) {
-                
-                if(--c < 1) {
-                    
-                    break;
-                }
-                
-                if(isCharacterOperator(*s)) {
-                    
-                    s++;
-                    break;
-                }
-            }
-            
-            if(LATF_findObject(s) == NULL) {
-                
-                isCompressable = true;
-            }
-            
-            LATDealloc(si), si = NULL;
-            
-        } else {
-            
-            /* nothing to do,free what we allocated and go on */
-            *s=lastChar;
-            LATDealloc(si), si = NULL;
-            return true;
-        }
-        
-        return isCompressable;
-    }
-    
-    return false;
-}
-
-
-LATBool isCharacterOperator(char c) {
-    
-    return (c=='+' || c=='-' || c=='*' || c=='/' || c=='^' || c=='%');
-}
-
-
-/*
- * centerSpot - location of current operator we are working around (+,-,* etc)
- * leader     - Left value we are working with for length
- * ender      - Right value we are working with for length
- * input      - Input we are replacing this expression in
- * value      - value we are using to replace indicated section
- */
-char * replaceSectionMatchingExpressionWithValue(char *centerSpot, char *leader, char *ender, char *input, char *value) {
-    
-    unsigned long leaderLen=0, enderLen=0, valueLen=0;
-    size_t eLen;
-    LATBool isValid = true;
-    char *llc = leader, *eec = ender, *vvc = value;
-    char *tmp, *replacementString;
-    
-    while(isValid) {
-        
-        isValid = false;
-        if(*llc) {
-            
-            leaderLen++;
-            llc++;
-            isValid = true;
-        }
-        
-        if(*eec) {
-            
-            enderLen++;
-            eec++;
-            isValid = true;
-        }
-        
-        if(*vvc) {
-            
-            valueLen++;
-            vvc++;
-            isValid = true;
-        }
-    }
-    
-    /*  warning this optimization may not be that great...*/
-    /* used to count by strlen for EACH ::strlen(leader)+strlen(ender)+strlen(value) */
-    replacementString = setCharTablePointerByLEN( 13, (leaderLen+enderLen+valueLen+1) * sizeof(char));
-    replacementString[0]='\0';
-    tmp = replacementString;
-    tmp = LATstrcat(tmp, leader);
-    tmp = LATstrcat(tmp, centerSpot);
-    
-    eLen = strlen(ender);
-    strncpy(tmp, ender, eLen);
-    tmp[eLen] = '\0';
-    
-    return str_replace(input, replacementString, value, 0);
-}
-
-
-float performOperationBetweenInputs(float lval, float rval, char opSymbol) {
-    
-    switch (opSymbol) {
-            
-        case '^':
-            return local_pow((double)lval,(int)rval);
-            
-        case '%':
-            return (float)((int)lval%(int)rval);
-            
-        case '*':
-            return lval*rval;
-            
-        case '/':
-            return lval/rval;
-            
-        case '+':
-            return lval+rval;
-            
-        case '-':
-            return lval-rval;
-            
-        default:
-            return 0;
-            
-    }
-}
-
 
 /* Simple pow*/
 float local_pow(double base, int exp) {
@@ -239,135 +77,7 @@ char * LATsubstring(char *input, int start, int end) {
 }
 
 
-/* Determines whether or not the plus sign is the only operator in the given input*/
-LATBool plusIsOnlyOperatorBetween(char *i) {
-    
-    unsigned int cc = 0;
-    
-    if(*i == '"') {
-        
-        cc++;
-        i++;
-    }
-    
-    while(*i) {
-        
-        if(*i == '"' && *(i-1) != '\\') {
-            cc++;
-        
-        } else if(cc%2==0) {
-            
-            switch (*i) {
-                    
-                case '-':
-                    return false;
-                    
-                case '*':
-                    return false;
-                    
-                case '/':
-                    return false;
-                    
-                case '^':
-                    return false;
-                    
-                case '%':
-                    return false;
-                    
-            }
-        }
-        
-        i++;
-    }
-    return true;
-}
-
-
-LATBool didFailWithStringOperands() {
-    
-    return didDetectStringOperands;
-}
-
-
-/* Checks to see if ANY math operators are present, NOT quoted */
-LATBool noMathOperatorsPresent(char *input) {
-    
-    char *s=input;
-    unsigned char passedFirst = 0;
-    
-    /* While loop over our input */
-    while(*s) {
-        
-        /* If tgt string found */
-        if(*s == '+' || *s == '-' || *s == '*' || *s == '/' || *s == '^' || *s == '%') {
-            
-            /* Found an unquoted mathematical expression, return true */
-            return false;
-            
-        } else if(*s == '"') {
-            
-            /* Double Quote */
-            if((passedFirst == 1 && *(s-1) != '\\') || passedFirst == 0) {
-                
-                /* Not escaped or first pass */
-                while(true) {
-                    
-                    /* Loop until we escape double quotes */
-                    char *yc=strchr(s+1, '"');
-                    
-                    if(yc) {
-                        
-                        /* We found double quotes */
-                        if(*(yc-1) != '\\') {
-                            
-                            /* Valid closing Double Quote, set out pointer to it and move along */
-                            s = yc;
-                            break;
-                        }
-                    } else {
-                        
-                        /* No closing single quote found, it is possible this is embedded, ignore it */
-                        break;
-                    }
-                }
-            }
-            
-        } else if(*s == '\'') {
-            
-            /* Single Quote */
-            if((passedFirst == 1 && *(s-1) != '\\') || passedFirst == 0) {
-                
-                /* Not escaped or first pass */
-                while(true) {
-                    
-                    /* Loop until we escape single quotes */
-                    char *yc=strchr(s+1, '\'');
-                    
-                    if(yc) {
-                        
-                        /* We found single quotes */
-                        if(*(yc-1) != '\\') {
-                            
-                            /* Valid closing Single Quote, set out pointer to it and move along */
-                            s = yc;
-                            break;
-                        }
-                    } else {
-                        /* No closing single quote found, it is possible this is embedded, ignore it */
-                        break;
-                    }
-                }
-            }
-        }
-        
-        passedFirst = 1;
-        s++;
-    }
-    
-    return true;
-}
-
-
+/* Performs an add operation with registers into another register */
 void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
     
     if((getRegisterType(i1) == RegisterString || getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
@@ -439,7 +149,14 @@ void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
                 sprintf(numString, "%g", getRegisterNum(i2));
                 
                 len1 = strlen(nsPointer);
-                len2 = strlen(s1);
+                
+                if(s1 != NULL) {
+                    
+                    len2 = strlen(s1);
+                } else {
+                    
+                    len2 = 0;
+                }
                 
                 s1 = LATAlloc(s1, len2*sizeof(char), (len1+len2+1)*sizeof(char));
                 
@@ -469,6 +186,7 @@ void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
 }
 
 
+/* Performs a subtraction operation */
 void performSubOp(unsigned char i1, unsigned char i2, unsigned char i3) {
     
     if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
@@ -487,6 +205,7 @@ void performSubOp(unsigned char i1, unsigned char i2, unsigned char i3) {
 }
 
 
+/* Performs a multiplicative operation */
 void performMultiOp(unsigned char i1, unsigned char i2, unsigned char i3) {
     
     if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
@@ -505,6 +224,7 @@ void performMultiOp(unsigned char i1, unsigned char i2, unsigned char i3) {
 }
 
 
+/* Performs a division operation */
 void performDiviOp(unsigned char i1, unsigned char i2, unsigned char i3) {
     
     if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
@@ -523,6 +243,7 @@ void performDiviOp(unsigned char i1, unsigned char i2, unsigned char i3) {
 }
 
 
+/* Performs a modolu operation */
 void performModOp(unsigned char i1, unsigned char i2, unsigned char i3) {
     
     if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
@@ -541,6 +262,7 @@ void performModOp(unsigned char i1, unsigned char i2, unsigned char i3) {
 }
 
 
+/* Perform an exponentation operation */
 void performExpOp(unsigned char i1, unsigned char i2, unsigned char i3) {
     
     if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
@@ -557,4 +279,3 @@ void performExpOp(unsigned char i1, unsigned char i2, unsigned char i3) {
         exit(2452);
     }
 }
-

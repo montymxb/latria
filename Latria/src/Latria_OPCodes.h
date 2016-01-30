@@ -255,9 +255,5 @@ SOFTWARE.
 #define OP_READ_DATA   0x4b
 #define OP_CLOSE_CONN  0x4c
 #define OP_CONNECT     0x4d
-
-/* Forwarded from Latria_Sys.h */
-int findUnquotedCharacter(char c, char *s);
-int findUncontainedChar(char c, char *s);
-
+ 
 #endif /* defined(__Latria__Latria_OPCodes__) */

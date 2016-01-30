@@ -35,11 +35,6 @@ SOFTWARE.
 
 #include "Latria_OPCodes.h"
 
-LATBool hasRelationalOperators(char *i);
-
-/* pre-declared*/
-LATBool noMathOperatorsPresent(char *input);
-
 char *setCharTablePointer(int index, char *ptr);
 
 struct CoreObject * getValue(char *name);
