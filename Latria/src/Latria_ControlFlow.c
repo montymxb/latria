@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -41,10 +41,14 @@ SOFTWARE.
 
 /* Returns whether or not there is a currently ACTIVE control block */
 LATBool isControlBlockActive() {
+    
     return getControlFlowBlock()?true:false;
 }
 
+
+/* Adds content to a control flow block */
 void appendContentToControlFlowBlock(struct ControlFlowBlock *cfb, char *input) {
+    
     int i2c;
     int i2 = 0;
     char *input2;
@@ -59,20 +63,25 @@ void appendContentToControlFlowBlock(struct ControlFlowBlock *cfb, char *input) 
     input2 = LATAlloc(NULL, 0, sizeof(char)*(size_t)(i2c+2)); /* HISTORY issue with the +2 just before this, used to be +1, not quite long enough for the \0 being addded about 6 lines down, massive memory issues there*/
     
     while(i2 < i2c) {
+        
         input2[i2] = input[i2];
         i2++;
     }
     
     input2[i2c] = '\n';
     input2[i2c+1] = '\0';
+    
     if(cfb->content == 0) {
+        
         char *ppt;
         /* memory not allocated, let's put it out there initially*/
         cfb->content = input2;
         ppt = cfb->content;
         ppt+=strlen(ppt);
         cfb->eol = ppt;
+        
     } else {
+        
         int fcLen,newLen;
         /* memory already exits,get existing size, LATAlloc to increase it up to the new desired bounds, and append our item using the Latria_Lib append function*/
         
@@ -87,13 +96,19 @@ void appendContentToControlFlowBlock(struct ControlFlowBlock *cfb, char *input) 
     }
 }
 
+
+/* Frees contents of control flow block */
 void freeContentsOfControlFlowBlock(struct ControlFlowBlock *cfb) {
+    
     if(cfb->content)
         LATDealloc(cfb->content);
+    
     if(cfb->initializer)
         LATDealloc(cfb->initializer);
+    
     if(cfb->limit)
         LATDealloc(cfb->limit);
+    
     if(cfb->step)
         LATDealloc(cfb->step);
 }

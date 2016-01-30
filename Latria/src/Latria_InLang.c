@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,29 +31,38 @@ SOFTWARE.
 
 #include "Latria_InLang.h"
 
+/* Ending for xlang command */
 #define CMD_ENDING '\n'
 
 char *langBlock = NULL;
 char *varName = NULL;
 
+
 /* Allocates a new lang block, frees the old one if necessary */
 void InLang_startLangBlock(char *_varName) {
+    
     varName = _varName;
 }
 
+
 /* Nulls out the current lang block */
 void InLang_NULLLangBlock() {
+    
     langBlock = NULL;
 }
+
 
 /* Appends a cmd to the CMDList, allocates if necessary*/
 void InLang_appendToCMDList(char *cmd) {
     
     size_t cmdLen = strlen(cmd);
+    
     if(cmdLen != 0) {
+        
         /* Not an empty line */
         
         if(langBlock != NULL) {
+            
             /* Append to existing block */
             char *mark;
             size_t len1 = strlen(langBlock);
@@ -62,7 +71,9 @@ void InLang_appendToCMDList(char *cmd) {
             /* use the ending we received to append the proper line terminator*/
             *mark = CMD_ENDING;
             *++mark = '\0';
+            
         } else {
+            
             /* Create a new block */
             langBlock = LATAlloc(langBlock, 0, cmdLen+2);
             
@@ -75,25 +86,38 @@ void InLang_appendToCMDList(char *cmd) {
     }
 }
 
+
+/* Returns whether an xlang block is currently active */
 LATBool InLang_isLangBlockActive() {
+    
     return(varName != NULL);
 }
 
+
 /* Returns the CMDList */
 char *InLang_getCMDList() {
+    
     return(langBlock != NULL)?langBlock:NULL;
 }
 
+
 /* Returns the varName this will be ultimately assigned to*/
 char *InLang_getVarName() {
+    
     return(varName != NULL)?varName:NULL;
 }
 
+
 /* Frees the entire lang block */
 void InLang_freeLangBlock() {
+    
     if(langBlock != NULL) {
+        
         LATDealloc( langBlock), langBlock = NULL;
     }
-    if(varName != NULL)
+    
+    if(varName != NULL) {
+        
         LATDealloc(varName), varName = NULL;
+    }
 }

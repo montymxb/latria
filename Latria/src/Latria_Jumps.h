@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -36,16 +36,6 @@ SOFTWARE.
 
 #define LAT_LABEL_STACK_INCREMENT 10
 
-
-/* Standard label definition */
-typedef struct {
-    
-    /* Instruction index of this label */
-    long int instructionIndex;
-    
-}LATLabel;
-
-
 /* Function 'label' definition */
 typedef struct {
     
@@ -54,14 +44,6 @@ typedef struct {
     /* Func handle name */
     char *funcName;
 }LATFuncLabel;
-
-typedef struct {
-    
-    LATLabel *labels;
-    int labelIndex;
-    int labelsMax;
-    
-}LATLabelStack;
 
 void pushFuncLabel(long int instructionIndex, char *fname);
 long int getPositionFromFuncLabel(char *fname);

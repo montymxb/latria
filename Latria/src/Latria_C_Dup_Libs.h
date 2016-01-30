@@ -32,6 +32,8 @@ SOFTWARE.
 #ifndef Latria_C_Dup_Libs_h
 #define Latria_C_Dup_Libs_h
 
+#ifndef INCLUDECOMPILER
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -46,5 +48,7 @@ unsigned char getBlockCommentState();
 LATBool isCharacterOperator(char c);
 char * stripWhitespace(char *input);
 LATBool isNumeric(char *val);
+
+#endif
 
 #endif /* Latria_C_Dup_Libs_h */

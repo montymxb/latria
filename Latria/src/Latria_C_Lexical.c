@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -525,21 +525,8 @@ char *analyzeStart(char *in) {
         return in;
         
     } else if(*in == '#' && *(in+1) && *(in+1) == '#') {
-        /* Start of inlang execution (write left hand value to batched queue) */
         
-        /*
-        // Set Batched 
-        setWriteMode(WRITE_MODE_BATCHED);
-        
-        // Write assignment to register 0
-        writeOutCode((char)OP_SET);
-        writeOutCharacters(getCapturedInput(in));
-        writeOutCode((char)1);
-        
-        // Set normal write
-        setWriteMode(WRITE_MODE_NORMAL);
-        */
-        
+        /* Start of inlang execution */
         in+=2;
         
         if(*in) {

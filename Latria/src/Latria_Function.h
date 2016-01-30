@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -56,14 +56,5 @@ int LATF__printMem(struct LATFunction *node, int mem);
 
 void LATF_setValue(char *name, char *val);
 void LATF_setValueForKey(char *key, char *value, struct LATFunction **node);
-
-void LATF_addParam(char *paramName, char *functionName);
-void _LATF_addParam(char *paramName, struct LATFParameter **parentParam);
-
-/* struct LATFParameter * LATF_getParam(char *functionName);*/
-/* struct LATFParameter * _LATF_getParam(struct LATFParameter *parentParam);*/
-
-void LATF_freeParams(char *functionName);
-void _LATF_freeParams(struct LATFParameter *parentParam);
 
 #endif /* defined(__Latria_Function__) */

@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,16 +31,20 @@ SOFTWARE.
 
 #include "Latria_C_IO.h"
 
-#define OUTPUT_STACK_SIZE 200
+#define OUTPUT_STACK_SIZE  200
+
+#define OUTPUT_CARRIER_LEN 1500
 
 
 /* Our output stack, holds anything we return from latria */
 char *outputStack[OUTPUT_STACK_SIZE];
+
 /* Our output stack size, specificies how long each entry is */
 short outputSize[OUTPUT_STACK_SIZE];
 
 /* Current index of the stack */
 short outputStackIndex = 0;
+
 
 /* Writes to the input side of the IO module */
 void lat_io_writeInput(char *input) {
@@ -50,6 +54,7 @@ void lat_io_writeInput(char *input) {
     
 }
 
+
 /* Writes to the output side of the IO module (called by interface, Latria.c) */
 void lat_io_compiler_writeOutput(unsigned char *output, int size) {
     
@@ -57,6 +62,7 @@ void lat_io_compiler_writeOutput(unsigned char *output, int size) {
     int count = 0;
     
     if(outputStackIndex > OUTPUT_STACK_SIZE-1) {
+        
         printf("\n:>> Latria Stack overflow, too many values accumulated in the output stack in the IO module\n\n");
         exit(111);
     }
@@ -66,7 +72,9 @@ void lat_io_compiler_writeOutput(unsigned char *output, int size) {
     
     /* write to output pointer */
     count = 0;
+    
     while(count < size) {
+        
         outputPointer[count] = (char)output[count];
         count++;
     }
@@ -76,8 +84,6 @@ void lat_io_compiler_writeOutput(unsigned char *output, int size) {
     outputStack[outputStackIndex++] = outputPointer;
 }
 
-
-#define OUTPUT_CARRIER_LEN 1500
 
 /* Holds values that are read externally from latria */
 unsigned char outputCarrier[OUTPUT_CARRIER_LEN];
@@ -117,6 +123,7 @@ unsigned char *lat_io_compiler_readOutput() {
     
     /* Copy into our carrier */
     while(count < outputLen) {
+        
         outputCarrier[count+2] = outputStackItem[count];
         count++;
     }
@@ -128,10 +135,3 @@ unsigned char *lat_io_compiler_readOutput() {
     return outputCarrier;
 
 }
-
-/* Reads the entire table list that our compiler has generated */
-/*
-unsigned char *lat_io_fetchCompilerTableList() {
-    return writeOutTableRefList();
-}
- */

@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ SOFTWARE.
  *  Latria
  *
  *  Created by Benjamin Friedman on 3/1/15.
- *  Copyright (c) 2015 Benjamin W Friedman. All rights reserved.
+ *  Copyright (c) 2016 Benjamin W Friedman. All rights reserved.
  */
 
 #ifndef __Latria_Operators__

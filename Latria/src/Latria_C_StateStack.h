@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -63,11 +63,15 @@ JumpInstance *popJumpType();
 unsigned int getJumpNum();
 
 /*** JUMP UPDATES ***/
+
 typedef struct {
+    
     /* address in bytecode to modify */
     unsigned int bytecodeAddr;
+    
     /* address to modify with */
     unsigned int jumpAddr;
+    
 }JumpUpdate;
 
 
@@ -82,8 +86,10 @@ unsigned int getJumpGroupNum();
 
 /* pushes a new jump start to the jump start stack (of JumpInstances) */
 void pushJumpStart(unsigned int bytecodeAddr);
+
 /* Peeks at the value at the top of the stack */
 JumpInstance *getJumpStartTop();
+
 /* pops jump instance of the jump start stack (of JumpInstances) */
 JumpInstance *popJumpStart();
 

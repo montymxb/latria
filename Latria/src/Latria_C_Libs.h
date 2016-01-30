@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -59,7 +59,7 @@ SOFTWARE.
 
 #define JUMP_UPDATE_INCREMENT 5
 
-#if defined(INCLUDECOMPILER)
+#ifdef INCLUDECOMPILER
 #include "Latria_Libs.h"
 #else
 #include "Latria_C_Dup_Libs.h"

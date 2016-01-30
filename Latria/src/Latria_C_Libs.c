@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,10 +31,15 @@ SOFTWARE.
 
 #include "Latria_C_Libs.h"
 
+/* Returns whether a sequence of chars is empty or not */
 LATBool isSequenceEmpty(char *input) {
+    
     char *tmp = stripWhitespace(input);
+    
     while(*tmp) {
+        
         if(*tmp != '\n' && *tmp != '\r' && *tmp != '\t') {
+            
             return false;
         }
         tmp++;
@@ -42,53 +47,67 @@ LATBool isSequenceEmpty(char *input) {
     return true;
 }
 
+
 /* Strips ALL \n's and \r's away from the end of our input */
 void stripLineEndings(char *input) {
     
     size_t len = strlen(input);
     input+=len-1;
+    
     while(*input == '\n' || *input == '\r') {
+        
         *input-- = '\0';
     }
     
 }
 
+
 /* Returns whether this char is an arithmetic op */
 char isArithmeticOperator(char i) {
+    
     return (i == '+' || i == '-' || i == '/' || i == '(' || i == ')' || i == '*' || i == '^' || i == '%') ? 1 : 0;
 }
 
-/* Returns whether the passed char * is a valid conditional op */
+/* Returns whether t
+ he passed char * is a valid conditional op */
 char isConditionalOperator(char *i) {
     
     if(!*i) {
+        
         return 0;
     }
     
     if(*i == '=') {
+        
         if(*(i+1) && *(i+1) == '=') {
+            
             /* == */
             return 1;
             
         }
         
     } else if(*i == '<') {
+        
         /* <? */
         return 1;
         
     } else if(*i == '>') {
+        
         /* >? */
         return 1;
         
     } else if(*i == '!' && *(i+1) && *(i+1) == '=') {
+        
         /* != */
         return 1;
         
     } else if(*i == '&' && *(i+1) && *(i+1) == '&') {
+        
         /* && */
         return 1;
         
     } else if(*i == '|' && *(i+1) && *(i+1) == '|') {
+        
         /* || */
         return 1;
         
@@ -97,7 +116,9 @@ char isConditionalOperator(char *i) {
     return 0;
 }
 
+
 /* Returns if what we read is whitespace */
 char isWhitespace(char c) {
+    
     return (c == ' ' || c == '\t') ? 1 : 0;
 }

@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,8 @@ SOFTWARE.
 
 #include "Latria_C_OpCodes.h"
 
+#define INSTRUCTION_STEP 100
+
 /* Normal instruction components */
 unsigned char *instructions = NULL;
 int instructionSize = 0;
@@ -46,9 +48,9 @@ long int programByteCount = 0;
 /* write mode NORMAL by default */
 CompilerWriteMode writeMode = WRITE_MODE_NORMAL;
 
-#define INSTRUCTION_STEP 100
 
 void startInstructions() {
+    
     instructionSize = INSTRUCTION_STEP;
     instructions = malloc((size_t)instructionSize*sizeof(char));
     *instructions = '\0';
@@ -61,10 +63,12 @@ void startInstructions() {
 void writeOutCode(char code) {
     
     if(writeMode == WRITE_MODE_NORMAL) {
+        
         /* Normal Mode */
         
         /* Check if too large */
         if(instructionCount+COMMAND_SEQUENCE_SIZE >= instructionSize-1) {
+            
             /* realloc up */
             instructionSize+=INSTRUCTION_STEP;
             instructions = realloc(instructions, (size_t)instructionSize);
@@ -78,24 +82,29 @@ void writeOutCode(char code) {
         instructions[instructionCount] = '\0';
         
     } else {
+        
         /* Batched Mode */
         
         /* Check if too large */
         if(batchedInstructionCount+COMMAND_SEQUENCE_SIZE >= batchedInstructionSize-1) {
+            
             /* realloc up */
             batchedInstructionSize+=INSTRUCTION_STEP;
             
             if(batchedInstructions != NULL) {
+                
                 /* realloc */
                 batchedInstructions = realloc(batchedInstructions, (size_t)batchedInstructionSize*sizeof(char));
                 
             } else {
+                
                 /* malloc */
                 batchedInstructions = malloc((size_t)batchedInstructionSize*sizeof(char));
                 
             }
             
         } else if(batchedInstructions == NULL) {
+            
             batchedInstructionSize+=INSTRUCTION_STEP;
             /* malloc */
             batchedInstructions = malloc((size_t)batchedInstructionSize*sizeof(char));
@@ -112,10 +121,12 @@ void writeOutCode(char code) {
     
 }
 
+
 /* Writes an arbitrary character */
 void writeOutCharacter(char code) {
     
     if(writeMode == WRITE_MODE_NORMAL) {
+        
         /* Normal Mode */
     
         /* Check if too large */
@@ -133,6 +144,7 @@ void writeOutCharacter(char code) {
         instructions[instructionCount] = '\0';
         
     } else {
+        
         /* Batched Mode */
         
         /* Check if too large */
@@ -140,17 +152,21 @@ void writeOutCharacter(char code) {
             
             /* realloc up */
             batchedInstructionSize+=INSTRUCTION_STEP;
+            
             if(batchedInstructions != NULL) {
+                
                 /* realloc */
                 batchedInstructions = realloc(batchedInstructions, (size_t)batchedInstructionSize*sizeof(char));
                 
             } else {
+                
                 /* malloc */
                 batchedInstructions = malloc((size_t)batchedInstructionSize*sizeof(char));
                 
             }
             
         } else if(batchedInstructions == NULL) {
+            
             batchedInstructionSize+=INSTRUCTION_STEP;
             /* malloc */
             batchedInstructions = malloc((size_t)batchedInstructionSize*sizeof(char));
@@ -165,6 +181,7 @@ void writeOutCharacter(char code) {
     
 }
 
+
 /* Writes out an array of characters */
 void writeOutCharacters(char *string) {
     
@@ -172,6 +189,7 @@ void writeOutCharacters(char *string) {
     int count = 0;
     
     if(writeMode == WRITE_MODE_NORMAL) {
+        
         /* Normal Mode */
         
         /* Check if too large */
@@ -185,6 +203,7 @@ void writeOutCharacters(char *string) {
         
         /* Copy in this instruction and bump */
         while(count < (int)len) {
+            
             instructions[instructionCount++] = (unsigned char)string[count];
             count++;
             
@@ -194,6 +213,7 @@ void writeOutCharacters(char *string) {
         instructions[instructionCount++] = 0;
         
     } else {
+        
         /* Batched Mode */
         
         /* Check if too large */
@@ -201,17 +221,21 @@ void writeOutCharacters(char *string) {
             
             /* realloc up */
             batchedInstructionSize+=(int)(INSTRUCTION_STEP > len ? INSTRUCTION_STEP : len + INSTRUCTION_STEP);
+            
             if(batchedInstructions != NULL) {
+                
                 /* realloc */
                 batchedInstructions = realloc(batchedInstructions, (size_t)batchedInstructionSize*sizeof(char));
                 
             } else {
+                
                 /* malloc */
                 batchedInstructions = malloc((size_t)batchedInstructionSize*sizeof(char));
                 
             }
             
         } else if(batchedInstructions == NULL) {
+            
             batchedInstructionSize+=(int)(INSTRUCTION_STEP > len ? INSTRUCTION_STEP : len + INSTRUCTION_STEP);
             /* malloc */
             batchedInstructions = malloc((size_t)batchedInstructionSize*sizeof(char));
@@ -220,6 +244,7 @@ void writeOutCharacters(char *string) {
         
         /* Copy in this instruction and bump */
         while(count < (int)len) {
+            
             batchedInstructions[batchedInstructionCount++] = (unsigned char)string[count];
             count++;
             
@@ -230,10 +255,12 @@ void writeOutCharacters(char *string) {
     }
 }
 
+
 /* Writes out a char as a hex address up to a given size */
 void writeOutHexAddress(unsigned char *address, int size) {
     
     if(writeMode == WRITE_MODE_NORMAL) {
+        
         /* Normal Mode */
         
         /* Check if too large */
@@ -247,6 +274,7 @@ void writeOutHexAddress(unsigned char *address, int size) {
         
         /* Write in hex */
         while(size > 0) {
+            
             instructions[instructionCount++] = *address;
             address++;
             size--;
@@ -257,6 +285,7 @@ void writeOutHexAddress(unsigned char *address, int size) {
         instructions[instructionCount] = '\0';
         
     } else {
+        
         /* Batched Mode */
         
         /* Check if too large */
@@ -264,17 +293,21 @@ void writeOutHexAddress(unsigned char *address, int size) {
             
             /* realloc up */
             batchedInstructionSize+=INSTRUCTION_STEP;
+            
             if(batchedInstructions != NULL) {
+                
                 /* realloc */
                 batchedInstructions = realloc(batchedInstructions, (size_t)batchedInstructionSize*sizeof(char));
                 
             } else {
+                
                 /* malloc */
                 batchedInstructions = malloc((size_t)batchedInstructionSize*sizeof(char));
                 
             }
             
         } else if(batchedInstructions == NULL) {
+            
             batchedInstructionSize+=INSTRUCTION_STEP;
             /* malloc */
             batchedInstructions = malloc((size_t)batchedInstructionSize*sizeof(char));
@@ -283,6 +316,7 @@ void writeOutHexAddress(unsigned char *address, int size) {
         
         /* Write in hex */
         while(size > 0) {
+            
             batchedInstructions[batchedInstructionCount++] = *address++;
             size--;
             
@@ -293,7 +327,6 @@ void writeOutHexAddress(unsigned char *address, int size) {
     }
     
 }
-
 
 
 /* Used to write out precompiled RAW instructions */
@@ -312,6 +345,7 @@ void writeRAW(unsigned char *string, int size) {
     
     /* Copy in this instruction and bump */
     while(x < size) {
+        
         instructions[instructionCount++] = string[x];
         x++;
         
@@ -320,9 +354,12 @@ void writeRAW(unsigned char *string, int size) {
     instructions[instructionCount] = '\0';
 }
 
+
+/* Changes the write mode */
 void setWriteMode(CompilerWriteMode mode) {
     
     if(mode == WRITE_MODE_BATCHED) {
+        
         /* reset */
         batchedInstructionCount = 0;
     }
@@ -330,33 +367,47 @@ void setWriteMode(CompilerWriteMode mode) {
     writeMode = mode;
 }
 
+
+/* Returns batched bytecodes */
 unsigned char *readBatchedData() {
+    
     return batchedInstructions;
 }
 
+
+/* Returns the size of batched bytecode instructions */
 int readBatchedDataSize() {
+    
     return batchedInstructionCount;
 }
 
+
 /* free and reset */
 void unsetBatchedData() {
+    
     free(batchedInstructions), batchedInstructions = NULL;
     batchedInstructionCount = 0;
 }
 
+
 /* null and reset */
 void nullifyBatchedData() {
+    
     batchedInstructions = NULL;
     batchedInstructionCount = 0;
 }
 
+
 /* Returns the number of bytes the program being written out is composed of currently */
 long int getProgramByteCount() {
+    
     return programByteCount+instructionCount;
 }
 
+
 /* Writes out a 4 byte address from an unsigned int */
 void writeOut4ByteAddress(unsigned int address) {
+    
     char hex[LAT_ADDRESS_SIZE+1];
     int size = LAT_ADDRESS_SIZE;
     int x = 0;
@@ -375,6 +426,7 @@ void writeOut4ByteAddress(unsigned int address) {
     
     /* Copy in this instruction and bump */
     while(x < size) {
+        
         instructions[instructionCount++] = (unsigned char)hex[x];
         x++;
         
@@ -382,6 +434,7 @@ void writeOut4ByteAddress(unsigned int address) {
     
     instructions[instructionCount] = '\0';
 }
+
 
 void dispatchInstructions() {
     

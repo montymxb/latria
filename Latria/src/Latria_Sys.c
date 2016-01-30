@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ SOFTWARE.
 #include "Latria_Sys.h"
 
 /* Holds the current system function status */
-static Latria_Sys_Status SysStatus;
+Latria_Sys_Status SysStatus;
 
 /* Carries output */
 char carrier[200];

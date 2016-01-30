@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,16 +46,19 @@ unsigned int jumpGroupingNum = 0;
 
 unsigned int currentJumpNum = 0;
 
+
 /* Used by for loop to push a GOTO with a finishing sequence (incrementor) that is added right before the GOTO */
 void pushForGoto(unsigned int index, unsigned char *finishingSequence, unsigned int finishingSequenceSize) {
     
     if(jumpStackIndex >= JUMP_STACK_SIZE-1) {
+        
         printf("jump stack overflow\n");
         exit(190);
         
     }
     
     if(jumpStack == NULL) {
+        
         jumpStack = origJumpStack = malloc(sizeof(JumpInstance) * JUMP_STACK_SIZE);
     }
     
@@ -70,6 +73,7 @@ void pushForGoto(unsigned int index, unsigned char *finishingSequence, unsigned 
     currentJumpNum++;
 }
 
+
 /* Adds a label to the jump stack */
 void pushIncompleteJump(unsigned int originalAddr, JumpType type) {
     
@@ -78,12 +82,14 @@ void pushIncompleteJump(unsigned int originalAddr, JumpType type) {
     #endif
     
     if(jumpStackIndex >= JUMP_STACK_SIZE-1) {
+        
         printf("jump stack overflow\n");
         exit(190);
         
     }
     
     if(jumpStack == NULL) {
+        
         jumpStack = origJumpStack = malloc(sizeof(JumpInstance) * JUMP_STACK_SIZE);
     }
     
@@ -96,19 +102,25 @@ void pushIncompleteJump(unsigned int originalAddr, JumpType type) {
     currentJumpNum++;
 }
 
+
 /* Returns the top most value on the stack without popping it, a regular jump to note as well */
 JumpInstance *getJumpType() {
+    
     if(jumpStackIndex >= 0) {
+        
         return jumpStack-1;
     } else {
+        
         return NULL;
     }
 }
+
 
 /* Pops a value off the stack and returns it */
 JumpInstance *popJumpType() {
     
     if(jumpStackIndex < 0) {
+        
         return NULL;
         
     }
@@ -119,34 +131,49 @@ JumpInstance *popJumpType() {
     return jumpStack;
 }
 
+
 /* Returns the current jump index */
 unsigned int getJumpNum() {
+    
     return currentJumpNum;
 }
+
 
 /* Jump Update Stack */
 JumpUpdate *jumpUpdateStack = NULL;
 int jumpUpdateStackIndex = 0;
 int jumpUpdateStackSize = 0;
 
+
+/* Removes and returns the top most jump update */
 JumpUpdate *popJumpUpdate() {
+    
     if(jumpUpdateStackIndex > 0) {
+        
         return &jumpUpdateStack[jumpUpdateStackIndex--];
     } else {
+        
         return NULL;
     }
 }
 
+
+/* Pushes a jump update */
 void pushJumpUpdate(unsigned int bytecodeAddr, unsigned int jumpAddr) {
+    
     jumpUpdateStackIndex++;
+    
     if(jumpUpdateStackIndex >= jumpUpdateStackSize) {
+        
         /* Too large */
         if(jumpUpdateStack != NULL) {
+            
             /* realloc */
             jumpUpdateStackSize += JUMP_UPDATE_INCREMENT;
             jumpUpdateStack = realloc(jumpUpdateStack, sizeof(JumpUpdate) * (unsigned long)jumpUpdateStackSize);
             
         } else {
+            
             /* malloc */
             jumpUpdateStackSize = JUMP_UPDATE_INCREMENT;
             jumpUpdateStack = malloc(sizeof(JumpUpdate) * JUMP_UPDATE_INCREMENT);
@@ -162,15 +189,20 @@ void pushJumpUpdate(unsigned int bytecodeAddr, unsigned int jumpAddr) {
 
 /* Pushes a new jump start to the jump start stack (of JumpInstances) */
 void pushJumpStart(unsigned int bytecodeAddr) {
+    
     jumpStartStackIndex++;
+    
     if(jumpStartStackIndex >= jumpStartStackSize) {
+        
         /* Too large */
         if(jumpStartStack != NULL) {
+            
             /* malloc */
             jumpStartStackSize = JUMP_UPDATE_INCREMENT;
             jumpStartStack = malloc(sizeof(JumpInstance) * JUMP_UPDATE_INCREMENT);
             
         } else {
+            
             /* realloc */
             jumpStartStackSize += JUMP_UPDATE_INCREMENT;
             jumpStartStack = realloc(jumpStartStack, sizeof(JumpInstance) * jumpStartStackSize);
@@ -183,38 +215,52 @@ void pushJumpStart(unsigned int bytecodeAddr) {
     jumpStartStack[jumpStartStackIndex].jumpGroup = jumpGroupingNum;
 }
 
+
 /* Look at the top value without popping it */
 JumpInstance *getJumpStartTop() {
+    
     if(jumpStartStackIndex > 0) {
+        
         return &jumpStartStack[jumpStartStackIndex];
     } else {
+        
         return NULL;
     }
 }
+
 
 /* Pops jump instance of the jump start stack (of JumpInstances) */
 JumpInstance *popJumpStart() {
+    
     if(jumpStartStackIndex > 0) {
+        
         return &jumpStartStack[jumpStartStackIndex--];
     } else {
+        
         return NULL;
     }
 }
 
+
 /* Increments the current jump group */
 void incrementJumpGroup() {
+    
     jumpGroupingNum++;
 }
 
+
 /* Gets the jump grouping num, for seeing where the current grouping is at */
 unsigned int getJumpGroupNum() {
+    
     return jumpGroupingNum;
 }
 
+
 /* Deallocates all stacks and related objects */
 void deallocStackStates() {
-    free(origJumpStack), origJumpStack = NULL;
-    free(jumpStartStack), jumpStartStack = NULL;
-    free(jumpUpdateStack), jumpUpdateStack = NULL;
+    
+    free(origJumpStack),    origJumpStack = NULL;
+    free(jumpStartStack),   jumpStartStack = NULL;
+    free(jumpUpdateStack),  jumpUpdateStack = NULL;
 }
 

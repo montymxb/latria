@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Benjamin Wilson Friedman
+Copyright (c) 2016 Benjamin Wilson Friedman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -177,19 +177,9 @@ typedef struct {
 struct LATFunction {
     struct LATFunction *lobj;
     struct LATFunction *robj;
-    struct LATFParameter *coreParam;
     char * key;
     char * content;
     char * eol;
-};
-
-
-/*Linked list for passed in vars to a function as it is being created
- these variables are copied into that function's stack space at the appropriate time
- */
-struct LATFParameter {
-    struct LATFParameter *param;
-    char *valName;
 };
 
 
