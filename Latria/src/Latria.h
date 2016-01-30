@@ -44,11 +44,9 @@ SOFTWARE.
 #endif
 
 void freeLatria();
-char *getTailCall();
-void clearTailCall();
 
 #ifdef INCLUDECOMPILER
-/* Only usuable if the compiler is included */
+/* Only usable if the compiler is included */
 void openDynamicInterpreterFile();
 void closeDynamicInterpreterFile();
 int handleInput(char *input);

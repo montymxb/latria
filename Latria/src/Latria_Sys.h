@@ -34,6 +34,7 @@ SOFTWARE.
 
 #include "Latria_Regex.h"
 
+/* System Status Enum */
 typedef enum {
     FAILED,
     SUCCEEDED,
@@ -41,20 +42,13 @@ typedef enum {
     ASSIGNMENT_SAFE
 } Latria_Sys_Status;
 
-typedef enum {
-    /* Does not strip quotes on the ends */
-    INCLUDE_QUOTES,
-    /* Strips quotes on the ends of raw quoted values, but not from withing functions and other calls */
-    NO_QUOTES,
-    /* Do not attempt to automatically interpolate variable values for the variable itself (for files) */
-    NO_INTERPOLATION
-} Latria_Fetch_Arg_Enum;
-
 void Flush_Batched_Write();
 
-#if defined(LAT_TESTS)
-/* Strictly for testing */
+#ifdef INCLUDECOMPILER
 char * Read_Batched_Write();
+#endif
+
+#ifdef LAT_TESTS
 void Flush_Batched_Write_NO_PRINT();
 #endif
 

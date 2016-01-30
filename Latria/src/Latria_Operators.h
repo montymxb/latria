@@ -37,13 +37,6 @@ SOFTWARE.
 
 LATBool hasRelationalOperators(char *i);
 
-/*
-LATBool hasLogicalOperators(char *i);
-LATBool getLogicalOperatorResult(char *i);
-LATBool getCollectiveOperatorResult(char *i);
-*/
-
-
 /* pre-declared*/
 LATBool noMathOperatorsPresent(char *input);
 

@@ -69,16 +69,16 @@ SOFTWARE.
 #define LAT_INPUT       "input"
 
 /* file io related stuff */
-#define LAT_OPEN    "open"
-#define LAT_READ    "read"
-#define LAT_WRITE   "write"
-#define LAT_CLOSE   "close"
-#define LAT_REMOVE  "remove"
+#define LAT_OPEN        "open"
+#define LAT_READ        "read"
+#define LAT_WRITE       "write"
+#define LAT_CLOSE       "close"
+#define LAT_REMOVE      "remove"
 
 /*** INSTRUCTION SEQUENCE SIZES ***/
-#define HEADER_SEQUENCE_SIZE 1
-#define ADDRESS_SEQUENCE_SIZE 1
-#define COMMAND_SEQUENCE_SIZE 1
+#define HEADER_SEQUENCE_SIZE    1
+#define ADDRESS_SEQUENCE_SIZE   1
+#define COMMAND_SEQUENCE_SIZE   1
 #define INDICATOR_SEQUENCE_SIZE 1 /* part of each sub sequence */
 
 /* Terminates a line of instructions that are chained together (such as assignment with functions and such) */

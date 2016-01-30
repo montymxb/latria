@@ -48,7 +48,6 @@ void utest_noMathOpsPresent();
 void utest_findUnquotedCharacter();
 void utest_findUncontainedCharacter();
 void utest_getRelationalOperatorResult();
-/*void utest_fetchArg();*/
 void utest_stripUnwantedSymbols();
 void utest_stripWhitespace();
 void utest_random();
@@ -422,8 +421,10 @@ void utest_findUncontainedCharacter() {
 
 /* Unit tests for getRelationalOperatorResult */
 void utest_getRelationalOperatorResult() {
+    /*
     int localFailCount = failCount;
     strcpy(testName, "getRelationalOperatorResult unit test");
+     */
     
     /*
     strcpy(testLineHolder, "1==1");
@@ -551,160 +552,12 @@ void utest_getRelationalOperatorResult() {
      
      */
     
+    /*
     if(localFailCount == failCount) {
         testPassed(testName);
     }
+     */
 }
-
-/* Unit test for fetchArg function */
-/*
-void utest_fetchArg() {
-    int localFailCount = failCount;
-    char *arg;
-    strcpy(testName, "fetchArg unit test");
-    
-    strcpy(testLineHolder, "x=24");
-    handleInput(testLineHolder);
-    strcpy(testLineHolder, "y=\"jackrabbit\"");
-    handleInput(testLineHolder);
-    
-    strcpy(testLineHolder, "_B(\"simple arg\")");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "simple arg") != 0) {
-        utestFailedWithError(testName, "Failed to fetch simple arg");
-    }
-    
-    strcpy(testLineHolder, "_B(\"simple arg\",\"another arg\")");
-    arg = fetchArg(testLineHolder, 1, NO_QUOTES);
-    if(strcmp(arg, "another arg") != 0) {
-        utestFailedWithError(testName, "Failed to fetch secondary arg");
-    }
-    
-    strcpy(testLineHolder, "_B(\"simple arg\",\"another arg\",\"tertiary arg\")");
-    arg = fetchArg(testLineHolder, 2, NO_QUOTES);
-    if(strcmp(arg, "tertiary arg") != 0) {
-        utestFailedWithError(testName, "Failed to fetch tertiary arg");
-    }
-    
-    strcpy(testLineHolder, "_B(52.2,8)");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "52.2") != 0) {
-        utestFailedWithError(testName, "Failed to fetch primary num arg");
-    }
-    
-    strcpy(testLineHolder, "_B(52,8)");
-    arg = fetchArg(testLineHolder, 1, NO_QUOTES);
-    if(strcmp(arg, "8") != 0) {
-        utestFailedWithError(testName, "Failed to fetch secondary num arg");
-    }
-    
-    strcpy(testLineHolder, "_B(jacksack)");
-    arg = fetchArg(testLineHolder, 0, NO_INTERPOLATION);
-    if(strcmp(arg, "jacksack") != 0) {
-        utestFailedWithError(testName, "Failed to fetch non-interpolated arg");
-    }
-    
-    strcpy(testLineHolder, "_B(x)");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "24") != 0) {
-        utestFailedWithError(testName, "Failed to fetch interpolated num arg");
-    }
-    
-    strcpy(testLineHolder, "_B(y)");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "jackrabbit") != 0) {
-        utestFailedWithError(testName, "Failed to fetch interpolated string arg");
-    }
-    
-    strcpy(testLineHolder, "_B(x,y)");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "24") != 0) {
-        utestFailedWithError(testName, "Failed to fetch double interpolated num arg");
-    }
-    
-    strcpy(testLineHolder, "_B(x,y)");
-    arg = fetchArg(testLineHolder, 1, NO_QUOTES);
-    if(strcmp(arg, "jackrabbit") != 0) {
-        utestFailedWithError(testName, "Failed to fetch double interpolated string arg");
-    }
-    
-    strcpy(testLineHolder, "_B(x,\"little bacon\")");
-    arg = fetchArg(testLineHolder, 1, NO_QUOTES);
-    if(strcmp(arg, "little bacon") != 0) {
-        utestFailedWithError(testName, "Failed to fetch string arg ahead of interpolated arg");
-    }
-    
-    strcpy(testLineHolder, "_B(x,24)");
-    arg = fetchArg(testLineHolder, 1, NO_QUOTES);
-    if(strcmp(arg, "24") != 0) {
-        utestFailedWithError(testName, "Failed to fetch num arg ahead of interpolated arg");
-    }
-    
-    strcpy(testLineHolder, "_B(\"little bacon\",y)");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "little bacon") != 0) {
-        utestFailedWithError(testName, "Failed to fetch string arg behind interpolated arg");
-    }
-    
-    strcpy(testLineHolder, "_B(1984,y)");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "1984") != 0) {
-        utestFailedWithError(testName, "Failed to fetch num arg behind interpolated arg");
-    }
-    
-    strcpy(testLineHolder, "_B(1984,y,x)");
-    arg = fetchArg(testLineHolder, 2, NO_QUOTES);
-    if(strcmp(arg, "24") != 0) {
-        utestFailedWithError(testName, "Failed to third interpolated arg");
-    }
-    
-    strcpy(testLineHolder, "_B(y,x,1984)");
-    arg = fetchArg(testLineHolder, 2, NO_QUOTES);
-    if(strcmp(arg, "1984") != 0) {
-        utestFailedWithError(testName, "Failed to third num arg");
-    }
-    
-    strcpy(testLineHolder, "_B(y,x,\"little people\")");
-    arg = fetchArg(testLineHolder, 2, NO_QUOTES);
-    if(strcmp(arg, "little people") != 0) {
-        utestFailedWithError(testName, "Failed to third string arg");
-    }
-    
-    strcpy(testLineHolder, "_B(\"little people\",y,x)");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "little people") != 0) {
-        utestFailedWithError(testName, "Failed on first string arg of three args");
-    }
-    
-    strcpy(testLineHolder, "_B(2015,y,x)");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "2015") != 0) {
-        utestFailedWithError(testName, "Failed on first num arg of three args");
-    }
-    
-    strcpy(testLineHolder, "_I(\"latria-test-file-for-functional-testing.txt\",\"w\")");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "latria-test-file-for-functional-testing.txt") != 0) {
-        utestFailedWithError(testName, "Failed to fetch argument with dashes");
-    }
-    
-    strcpy(testLineHolder, "_I(\"latria-test-file-for-functional-testing.txt\",\"w\")");
-    arg = fetchArg(testLineHolder, 1, NO_QUOTES);
-    if(strcmp(arg, "w") != 0) {
-        utestFailedWithError(testName, "Failed to fetch second argument when first contains dashes");
-    }
-    
-    strcpy(testLineHolder, "_I(\"latria+test+file+for-functional/testing.txt\",\"w\")");
-    arg = fetchArg(testLineHolder, 0, NO_QUOTES);
-    if(strcmp(arg, "latria+test+file+for-functional/testing.txt") != 0) {
-        utestFailedWithError(testName, "Failed to fetch argument with mixed mathematical symbols");
-    }
-    
-    if(localFailCount == failCount) {
-        testPassed(testName);
-    }
-}
- */
 
 /* Unit test for stripping unwanted symbols from input (\n, \r, \t, etc) */
 void utest_stripUnwantedSymbols() {

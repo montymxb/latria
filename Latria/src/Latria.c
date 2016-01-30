@@ -30,19 +30,27 @@ SOFTWARE.
 
 #include "Latria.h"
 
-#define LATRIA_VERSION_NUMBER "0.1.0"
+/* Current latria version */
+#define LATRIA_VERSION_NUMBER "0.1.1"
 
-/* recognized exit string (for dynamic interpreter) */
-char exitVal[] = "exit";
-char *sysTC = NULL;
-FILE *runFile = NULL;
-FILE *fileStack[10] = {NULL};
-unsigned char fileStackIndex = 0;
+/* Fixed lenght of data we can read at a time in */
 #define LAT_INPUT_SIZE 1024
+
+/* exit char array (for dynamic interpreter) */
+char exitVal[]      = "exit";
+
+/* The current file we are executing */
+FILE *runFile       = NULL;
+
+/* The stack of files we are executing (each call to load("file.lrac") pushes an additional file onto this stack) */
+FILE *fileStack[20] = {NULL};
+
+/* The current index of the file we are reading from the file stack above */
+unsigned char fileStackIndex = 0;
 
 #pragma message("we have an issue passing functions to other functions (rather than assigning to a var and passing that) does NOT work at the moment. Need to make sure functions can be properly recognized as inputs to other functions (most likely will end up in requiring extra registers)")
 
-
+/* If LATRIA_EMBEDDED is defined main will be omitted, for embedded implementations */
 #ifndef LATRIA_EMBEDDED
 int main( int argc, char* argv[]) {
     
@@ -50,9 +58,9 @@ int main( int argc, char* argv[]) {
     char input[LAT_INPUT_SIZE];
     char shouldCompile = 0;
     
-    /* Set callback for exit */
+    /* Set free callback on exit for mac & linux */
     #if defined(MACOSX) || defined(LINUXOS)
-        atexit(freeLatria);
+    atexit(freeLatria);
     #endif
     
     /* Builds LATRIA VM */
@@ -70,42 +78,58 @@ int main( int argc, char* argv[]) {
             /* Extract this arg */
             char *arg = argv[argI];
             
+            /* Check for the type of this arg */
             if(*arg == '-') {
                 
-                /* It's a command line arg, parse it */
-                if(strlen(arg)) {
+                /* A potential command line arg, check to see if there is more to it */
+                if(strlen(arg+1) > 0) {
                     
+                    /* iterate over the argument character */
                     switch(*(arg+1)) {
                             
                         #ifdef INCLUDECOMPILER
+                        /* Compile only option */
                         case 'c':
-                            /* Compile option, we're compiling all files passed in */
+                            
+                            /* Verify we have additional input to handle */
                             if(argI == argc-1) {
+                                
+                                /* Nothing passed, this must be an error, exit */
                                 printf("\n\nNothing passed to compile!\n\n");
+                                exit(1);
+                                
                             }
+                            
+                            /* indicate we should compile only */
                             shouldCompile = 1;
                             break;
                         #endif
                             
+                        /* Run in Optimized Mode */
                         case 'o':
-                            /* Option to run this vm in an optimized mode (considerably faster) */
+                            
+                            /* Indicates that latria should batch return output, which can significantly improve performance */
                             setPrintCacheMode(1);
                             break;
                             
+                        /* Print Version */
                         case 'v':
-                            /* Print Version option */
+                            
                             printf("\nLatria v%s\n\n", LATRIA_VERSION_NUMBER);
                             break;
                             
+                        /* Print help */
                         case 'h':
-                            /* Print help */
+                            
                             printf("\n:: Help ::\n\n");
                             printf("usage:\n");
                             printf("latria [-cohtv] test.lra\n");
                             printf("\n");
                             printf("Calling 'latria' by itself will invoke a dynamic interpreter\n");
                             printf("\n");
-                            /* printf("-c    Only compiles the passed in files to .lrac files\n"); */
+                            #ifdef INCLUDECOMPILER
+                            printf("-c    Only compiles the passed in files\n");
+                            #endif
                             printf("-o    Runs the VM in an optimized mode, printing is cached and so output may not show up until the queue is filled or the program has finished\n");
                             printf("-v    Prints out the version number\n");
                             printf("-h    Prints out the help (this)\n");
@@ -119,16 +143,19 @@ int main( int argc, char* argv[]) {
                             break;
                             
                         #if defined(LAT_TESTS)
+                        /* Runs internal unit/functional tests to verify integrity of build */
                         case 't':
+                            
                             /*Turn print caching on, required for testing */
                             setPrintCacheMode(1);
-                            /* Run Test Cases (If compiled in) */
+                            /* Run all Test Cases */
                             runAllTests();
                             break;
                         #endif
                             
+                        /* Unrecognized command argument */
                         default:
-                            /* Unrecognized command line arg */
+                            
                             printf("\n:>> Unrecognized command line arg passed: %s\n\n",arg);
                             break;
                             
@@ -144,6 +171,7 @@ int main( int argc, char* argv[]) {
                 
                 /* Potential File Name passed */
                 if(shouldCompile == 1) {
+                    
                     #ifdef INCLUDECOMPILER
                     /* Just compile */
                     compileLatria(arg);
@@ -152,6 +180,7 @@ int main( int argc, char* argv[]) {
                     #endif
                     
                 } else {
+                    
                     /* Run the file (compiles if capable and necessary as well) */
                     executeLatriaFile(arg);
                     
@@ -164,7 +193,7 @@ int main( int argc, char* argv[]) {
         
         /* No args passed, run interactive prompt */
         
-        /* set to optimized mode (print all lines as they appear) */
+        /* Set to optimized mode to batch output, we will be reading it manually */
         setPrintCacheMode(1);
         
         /* Copyright symbol not available in the windows command prompt, check to define as empty */
@@ -174,68 +203,83 @@ int main( int argc, char* argv[]) {
         #define COPYRIGHT_SYMBOL ""
         #endif
         
+        /* Print copyright statement */
         printf("\nLatria (Lang Atria) \nv%s\nCopyright %s Benjamin Wilson Friedman - 2016\n\n\n", LATRIA_VERSION_NUMBER, COPYRIGHT_SYMBOL);
         
+        /* Open up a temporary file for handling our interpreter input */
         openDynamicInterpreterFile();
         
-        /* No file name passed, interactive prompt */
+        /* Loop over user input */
         while(true) {
             
             char *p = NULL;
             int rez = 0;
             
             printf("~~{");
+            
             /* Using multiple scan f's (to compile on ARM specifically) */
-            /* Specifically using an anti-class to take everything UP to \n */
+            /* Specifically using a negating character to take everything UP to \n into our 'input' */
             rez = scanf(" %[^\n]", input);
             
+            /* Check for EOF */
             if(rez == EOF) {
+                
+                /* Break our loop */
                 break;
             }
             
+            /* Eat up any leftovers */
             rez = scanf("%*c");
             
+            /* Check for EOF */
             if(rez == EOF) {
+                
+                /* break */
                 break;
             }
             
+            /* Assign our array to our pointer */
             p = input;
             
-            /* either no comment or all comment, nothing to run here though */
+            /* Check if we have an empty input, skip if we do */
             if(!*input) {
                 continue;
             }
             
-            /* Handle the input with replaced opcodes */
+            /* Compile and run our input */
             rez = handleInput(p);
             
-            /* Always flush to output for prompt mode */
+            /* Flush to output for prompt mode */
             Flush_Batched_Write();
             
-            /* Check if we are done executing */
+            /* Check if we got a signal to finish executing */
             if(rez == 1) {
                 
-                /* We have finished, break */
+                /* We have finished, break out */
                 break;
             }
         }
         
+        /* Close our dynamic interpreter file now that we are done */
         closeDynamicInterpreterFile();
     }
     
     #else
     else {
+        
+        /* Dynamic interpreter not available without the compiler, print a generic message */
         printf("\n\nNothing provided, try latria -h for help\n\n");
     }
     #endif
     
-    /* Always flush at end, just in case */
+    /* Always flush output at end */
     Flush_Batched_Write();
     
     /* Free only when NOT defined, as atexit() is set to call this automatically for Mac & Linux */
     #if !defined(MACOSX) && !defined(LINUXOS)
     freeLatria();
     #else
+    /* free our regex cache preemptively */
     freeRegexCache();
     #endif
     
@@ -243,17 +287,21 @@ int main( int argc, char* argv[]) {
 }
 #endif
 
+
 /* Runs a passed in latria file, and if need be attempts to compile it beforehand */
 void executeLatriaFile(char *fileName) {
+    
     /* Get file name */
     char *newFileName = NULL;
     
     #ifdef INCLUDECOMPILER
-    /* Check if this is a compiled or NON-compiled file */
+    /* Check if this is a compiled or non-compiled file */
     if(*(fileName + strlen(fileName)-1) != 'c') {
+        
         /* File name is NOT compiled, compile it first */
         size_t len = strlen(fileName);
         
+        /* Compile the provided file */
         compileLatria(fileName);
         
         /* Create our output file name */
@@ -262,18 +310,22 @@ void executeLatriaFile(char *fileName) {
         /* Copy the file name we were given */
         strncpy( newFileName, fileName, len);
         
-        /* Append 'c' to the end and \0 */
-        newFileName[len] = 'c';
-        newFileName[len+1] = '\0';
+        /* Append 'c' to the end and \0 (compiled files end in .lrac) */
+        newFileName[len]    = 'c';
+        newFileName[len+1]  = '\0';
         
+        /* Swap our fileName with our newly compiled file name */
         fileName = newFileName;
     }
     #endif
     
-    /* Check to push existing file on the stack */
+    /* Check if we are already executing a file */
     if(runFile != NULL) {
-        /* Already have an open file, push it on the run stack and continue */
+        
+        /* Already have an open file, push this one on the run stack and continue */
         fileStack[fileStackIndex] = runFile;
+        
+        /* Increment our file stack location */
         fileStackIndex++;
         
     }
@@ -281,20 +333,23 @@ void executeLatriaFile(char *fileName) {
     /* Open file in Read mode */
     runFile = fopen( fileName, "r");
     
+    /* Check if we created a compiled file */
     if(newFileName != NULL) {
-        /* Free our allocated new file name */
+        
+        /* We did, free the name we generated */
         free(newFileName);
     }
     
     /* Validate the file was opened */
     if(runFile == NULL) {
-        /* Invalid filename */
+        
+        /* Invalid filename, error out */
         printf("\nThe file you provided, %s, could not be opened!\n\n", fileName);
         exit(1);
         
     }
     
-    /* Calls the VM to run over the given instruction set */
+    /* Call the VM to run over the given instruction set */
     runInstructions();
     
     /* Close the file */
@@ -302,7 +357,8 @@ void executeLatriaFile(char *fileName) {
     
     /* Check to pop existing file from the stack */
     if(fileStackIndex > 0) {
-        /* Pop existing file from the stack and continue */
+        
+        /* Pop current file from the stack and continue */
         fileStackIndex--;
         runFile = fileStack[fileStackIndex];
         
@@ -310,36 +366,40 @@ void executeLatriaFile(char *fileName) {
     
 }
 
+
 #ifdef INCLUDECOMPILER
+
 
 /* Opens up a file to work with dynamic interpretation */
 void openDynamicInterpreterFile() {
-    /* Check to push existing file on the stack */
+    
+    /* Check if we are already executing a file */
     if(runFile != NULL) {
-        /* Already have an open file, push it on the run stack and continue */
+        
+        /* Already have an open file, push this on the run stack and continue */
         fileStack[fileStackIndex] = runFile;
         fileStackIndex++;
         
     }
     
-    /*
-    if(runFile != NULL) {
-        fclose(runFile);
-    }
-    */
-    
+    /* Open up a temporary file as our run file */
     runFile = tmpfile();
-    /* runFile = fopen("lastsession.lrac", "wb+"); */
 }
+
 
 /* Closes a file opened up for dynamic interpretation */
 void closeDynamicInterpreterFile() {
+    
+    /* Check if we have an open file */
     if(runFile != NULL) {
+        
+        /* Close our file */
         fclose(runFile), runFile = NULL;
     }
     
-    /* Check to pop existing file from the stack */
+    /* Check to pop an existing file from the stack */
     if(fileStackIndex > 0) {
+        
         /* Pop existing file from the stack and continue */
         fileStackIndex--;
         runFile = fileStack[fileStackIndex];
@@ -347,108 +407,119 @@ void closeDynamicInterpreterFile() {
     }
 }
 
+/* Locked reference to where we last executed bytecodes in the current file */
 long frozenInterpreterIndex = 0;
 
-/* Handles a LINE of non-compiled latria code */
+
+/* Handles a line of non-compiled latria code */
 int handleInput(char *input) {
     
-    unsigned char *returned,didPopJumpUpdates=0;
+    unsigned char didPopJumpUpdates=0;
     short retSize;
     JumpUpdate *ju;
-    /* Mark prior index to write */
+    
+    /* Mark our current position in the current file, before we start advancing */
     long priorFileIndex = ftell(runFile);
     
     /* Compile this line */
     compileLine(input);
     
-    /* See if we read anything */
+    /* Check if we read anything */
     if((retSize = getByteCodeCount()) > 0) {
-        /* Read bytecodes */
-        returned = readByteCodes();
         
-        /* Write out */
-        fwrite(returned, sizeof(unsigned char), (size_t)retSize, runFile);
+        /* We have bytecodes, read them out and into our current runFile */
+        fwrite(readByteCodes(), sizeof(unsigned char), (size_t)retSize, runFile);
         
     }
     
+    /* Iterate over all pending jump updates */
     while((ju = popJumpUpdate()) != NULL) {
+        
+        /* Create an array to hold our new jump instruction address */
         char jumpCode[LAT_ADDRESS_SIZE+1] = {0};
+        
+        /* Seek to the indicated address to update */
         fseek( runFile, ju->bytecodeAddr, SEEK_SET);
         
-        /* Extract new jump address into a hex */
+        /* Convert our new jump address into a hexcode */
         sprintf(jumpCode, LAT_ADDRESS_FORMAT_STRING, ju->jumpAddr);
+        
+        /* Update the address we are currently at with our new hex one */
         fwrite(jumpCode, sizeof(unsigned char), LAT_ADDRESS_SIZE, runFile);
         
+        /* Indicate we have handled at least 1 jump update */
         didPopJumpUpdates = 1;
         
     }
     
+    /* Check if we handled any jump updates */
     if(didPopJumpUpdates == 1) {
-        /* Reset back (protects else,elseif from dying) */
+        
+        /* We have recently updated jumps, reset to the end of this file (protects else,elseif from dying) */
         fseek( runFile, 0, SEEK_END);
         
     }
     
+    /* Check if have not set our frozenIndex and no jump updates */
     if(frozenInterpreterIndex == 0 && getJumpType() == NULL && getJumpStartTop() == NULL) {
-        /* Reset to prior index for reading */
+        
+        /* Reset to prior index for reading our */
         fseek(runFile, priorFileIndex, SEEK_SET);
         
     }
     
+    /* Check if we have no jump updates */
     if(getJumpType() == NULL && getJumpStartTop() == NULL) {
+        
+        /* Check if our frozen index is set */
         if(frozenInterpreterIndex != 0) {
-            /* Reset file to frozen interpreter index and release it from stasis (aka catch up to the compiler's position) */
+            
+            /* Reset file to frozen interpreter index, this allows us to execute all the code that was recently modified and to catch up to the compiler */
             fseek(runFile, frozenInterpreterIndex, SEEK_SET);
-            /* reset frozen index (while the interpreter is in statis) */
+            
+            /* reset frozen index to inactive */
             frozenInterpreterIndex = 0;
             
         }
         
-        /* OK to run, no active control flows yet */
+        /* Run our bytecodes */
         runInstructions();
         
+    /* Check if our frozen index is not set */
     } else if(frozenInterpreterIndex == 0) {
-        /* Reset for freeze */
+        
+        /* Reset to our priorFileIndex from earlier */
         fseek(runFile, priorFileIndex, SEEK_SET);
-        /* Set the frozen instructions to our current index */
+        
+        /* Set the frozen instructions to our current index in this file */
         frozenInterpreterIndex = ftell(runFile);
-        /* And back to the end to continue working */
+        
+        /* Seek back to the end so we may continue adding bytecodes, but our interpreter is now frozen/waiting to be unlocked again */
         fseek( runFile, 0, SEEK_END);
         
     }
     
+    /* indicate no errors occurred */
     return 0;
 }
 #endif
 
-/* Sets a new tail call */
-void setTailCall(char *tc) {
-    sysTC = setCharTablePointer(5, tc);
-}
 
-/* Returns the currently set tail call */
-char *getTailCall() {
-    return sysTC;
-}
-
-/* Clears any lingering tail calls */
-void clearTailCall() {
-    sysTC = NULL;
-}
-
-/*** FILE READING FUNCS ***/
-
-/* Returns the current character */
+/* Returns the current character in our runFile */
 int getCurrentChar() {
+    
     return fgetc(runFile);
 }
 
-/* Returns a character relative to the current character */
+
+/* Returns a character relative to the current character in our runFile */
 int getCharByOffsetFromCurrent(int offset) {
+    
     if(fseek(runFile, offset, SEEK_CUR) == 0) {
         return getCurrentChar();
         
     } else {
+        /* Something went wrong, exit out */
         printf("Invalid seek!\n");
         exit(4091);
         return EOF;
@@ -456,36 +527,48 @@ int getCharByOffsetFromCurrent(int offset) {
     }
 }
 
-/* Moves to the next character */
+
+/* Moves to the next character in our file */
 void moveToNextChar() {
+    
     fgetc(runFile);
 }
 
+
 /* Returns the index of where we are in the current file */
 long int getCurrentFileIndex() {
+    
     return ftell(runFile);
 }
 
+
 /* Resets the file index to the provided index */
 void resetCurrentFileIndex(long int newIndex) {
+    
     if(fseek(runFile, newIndex, SEEK_SET) != 0) {
-        /* Error */
+        /* Error out */
         printf("Invalid seek to set new current index!\n");
         exit(4091);
         
     }
 }
 
+
 /* Frees the latria vm and associated objects */
 void freeLatria() {
-    /* free all labels */
+    
+    /* free all labels (jumps) */
     freeAllLabels();
+    
     /* Free regex cache */
     freeRegexCache();
+    
     /* Free all objects in memory */
     freeObjects();
+    
     /* Free heap and stack for memory */
     stack_freeHeapAndStack();
+    
     /* Deconstruct the virtual machine */
     deconstructLATVM();
     

@@ -32,48 +32,50 @@ SOFTWARE.
 #include "Latria_Regex.h"
 
 /* match */
-#define CODE_MATCH '0'
+#define CODE_MATCH                  '0'
 /* wildcard . */
-#define CODE_MATCH_ANY_CHAR 'd'
+#define CODE_MATCH_ANY_CHAR         'd'
 /* don't match */
-#define CODE_NO_MATCH '1'
+#define CODE_NO_MATCH               '1'
 /* Loop until we don't match */
-#define CODE_MATCH_LOOP '2'
+#define CODE_MATCH_LOOP             '2'
 /* Loop until we match */
-#define CODE_NO_MATCH_LOOP '3'
+#define CODE_NO_MATCH_LOOP          '3'
 
 /* used for match_loop and no_match_loop codes, basically says go until we can't go anymore, but continually bridge off as we go
  This code goes in payload slot #2, right after where our char is usually dumped */
-#define CODE_LOOP_ANY '1'
+#define CODE_LOOP_ANY               '1'
 
 /* Jump line of execution */
-#define CODE_JUMP 'e'
+#define CODE_JUMP                   'e'
 /* Spawn concurrent process from jump */
-#define CODE_JUMP_SPLIT '4'
+#define CODE_JUMP_SPLIT             '4'
 
 /* pseudo 'switch', where default is fail */
-#define CODE_ANY '5'
+#define CODE_ANY                    '5'
 /* Loop until fail */
-#define CODE_ANY_LOOP '6'
+#define CODE_ANY_LOOP               '6'
 
 /* (?: */
-#define CODE_NO_CAPTURE_START 'c'
+#define CODE_NO_CAPTURE_START       'c'
 /* ( */
-#define CODE_CAPTURE_START '7'
+#define CODE_CAPTURE_START          '7'
 /* ) */
-#define CODE_CAPTURE_END '8'
+#define CODE_CAPTURE_END            '8'
 
 /* ^ */
-#define CODE_START '9'
+#define CODE_START                  '9'
 /* $ */
-#define CODE_END 'a'
+#define CODE_END                    'a'
 
 /* finisher */
-#define CODE_DONE 'b'
+#define CODE_DONE                   'b'
 
 /* empty code */
-#define CODE_NONE '0'
+#define CODE_NONE                   '0'
 
+
+/* length of instruction chunks */
 #define LAT_REGEX_INSTRUCTION_SIZE 5
 
 /*
@@ -132,11 +134,13 @@ SOFTWARE.
  d = Match Any Char
  
  • Match, but for .
+ 
  */
 
 #pragma message("introduce GREEDY quantifier behavior, for + * among others")
 
-/***** START GROUPING STACK *******/
+/***** START GROUPING STACK FUNCS *******/
+
 typedef struct {
     char *lastGroupingIndex;
     unsigned int instructionsSinceLastGrouping;
@@ -153,23 +157,33 @@ GroupingStack *getGroupingFromStack();
 void incrementAllGroupingsOnStack(int incrementAmount);
 
 void freeAllGroupingsAndStack();
-/***** END GROUPING STACK *******/
+
+/***** END GROUPING STACK FUNCS *******/
 
 
 /* Regex struct */
 typedef struct {
+    
+    /* String representation of regex */
     char *stringRep;
+    
     /* Compiled regex / instruction set */
     char *regex;
+    
     /* Regex forward counter */
     char *regexFwd;
+    
     /* # of instruction/steps */
     unsigned int instructionCount;
+    
     /* Size of individual instructions, standard is 6 */
     unsigned char instructionSize;
+    
     /* Maximum amount of instructions (for compiling) */
     unsigned int maxInstructions;
+    
 } LATRegex;
+
 
 LATRegex *compileRegex(char *regexString);
 LATRegex *__compileRegex(LATRegex *regex, char *regexString);
@@ -177,12 +191,15 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input);
 
 void printRegexDebug(char *regex);
 
+/* Successfuly capturing struct */
 struct SuccessfulCapture {
     char *capture;
     struct SuccessfulCapture *next;
 };
 
 struct SuccessfulCapture *captureList = NULL;
+
+
 
 /***** REGEX CACHE START ******/
 
@@ -206,9 +223,13 @@ unsigned char regex(char *input, char *regexString) {
     
     /* See if we have compiled this regex already */
     while(counter < regexCacheCount) {
+        
         if(regexCache[counter] != NULL) {
+            
             if(regexCache[counter]->stringRep != NULL) {
+                
                 if(strcmp(regexString, regexCache[counter]->stringRep) == 0) {
+                    
                     /* We have a match! Use this regex */
                     regex = regexCache[counter];
                     didRecycleRegex = 1;
@@ -217,12 +238,14 @@ unsigned char regex(char *input, char *regexString) {
                 }
             }
         } else {
+            
             break;
         }
         counter++;
     }
     
     if(regex == NULL) {
+        
         /* Compile a new regex */
         char *regexStringCPY = LATstrdup(regexString);
         regex = compileRegex(regexStringCPY);
@@ -243,6 +266,7 @@ unsigned char regex(char *input, char *regexString) {
         
         /* See if we should cache this regex */
         if(didRecycleRegex != 1) {
+            
             /* Check to build our cache */
             /*
             if(regexCache == NULL) {
@@ -253,6 +277,7 @@ unsigned char regex(char *input, char *regexString) {
                 
                 // Clear values no newly allocated cache
                 while(cCount < LAT_REGEX_MAX_CACHE) {
+             
                     regexCache[cCount].stringRep = NULL;
                     regexCache[cCount++].regex = NULL;
                 }
@@ -261,6 +286,7 @@ unsigned char regex(char *input, char *regexString) {
             
             /* Check if it can not fit on our stack */
             if(regexCacheCount >= LAT_REGEX_MAX_CACHE) {
+                
                 /* Pop the first element off the stack, shift all of them down and then put our new one on the top */
                 LATRegex *r = regexCache[0];
                 counter = 1;
@@ -271,6 +297,7 @@ unsigned char regex(char *input, char *regexString) {
                 
                 /* Shift all cached regexes down 1 */
                 while(counter < LAT_REGEX_MAX_CACHE) {
+                    
                     regexCache[counter-1] = regexCache[counter];
                     counter++;
                 }
@@ -279,6 +306,7 @@ unsigned char regex(char *input, char *regexString) {
                 regexCache[LAT_REGEX_MAX_CACHE-1] = regex;
                 
             } else {
+                
                 /* Add It */
                 regexCache[regexCacheCount] = regex;
                 regexCacheCount++;
@@ -290,13 +318,16 @@ unsigned char regex(char *input, char *regexString) {
         /* return the result */
         return result;
     } else {
+        
         printf("\n>>: Invalid regex supplied:\n%s\n\n",input);
         exit(1108);
     }
 }
 
+
 /* Compiles and returns a regex from a string representation */
 LATRegex *compileRegex(char *regexString) {
+    
     char *regexInstruct;
     int counter = 0;
     LATRegex *regex = (LATRegex *)LATAlloc(NULL, 0, sizeof(LATRegex));
@@ -306,6 +337,7 @@ LATRegex *compileRegex(char *regexString) {
     
     /* Clear it out */
     while(counter < LAT_REGEX_INSTRUCTION_SIZE * 100) {
+        
         regexInstruct[counter++] = '\0';
     }
     
@@ -320,6 +352,7 @@ LATRegex *compileRegex(char *regexString) {
     return regex;
 }
 
+
 struct JumpObject {
     /* Number of instructions to jump for this */
     unsigned int jumpSize;
@@ -333,11 +366,13 @@ struct JumpObject {
     struct JumpObject *next;
 };
 
+
 /* Prints the regex in a human readable format */
 void printRegexDebug(char *regex) {
     char carrier[LAT_REGEX_INSTRUCTION_SIZE+1] = {0};
     char *cP = carrier;
     while(*regex) {
+        
         int x = 0;
         carrier[x++] = *regex++;
         carrier[x++] = *regex++;
@@ -354,6 +389,7 @@ void pushGroupingToGroupingStack(char *groupingIndex, unsigned int lastInstructs
     
     /* Check for a null stack */
     if(groupingStack == NULL) {
+        
         /* malloc */
         groupingStack = LATAlloc(NULL, 0, sizeof(GroupingStack) * 5);
         groupingStackSize = 5;
@@ -364,6 +400,7 @@ void pushGroupingToGroupingStack(char *groupingIndex, unsigned int lastInstructs
     groupingStackIndex++;
     
     if(groupingStackIndex > groupingStackSize-1) {
+        
         /* realloc */
         groupingStackSize+=5;
         groupingStack = LATAlloc(groupingStack, sizeof(GroupingStack) * (size_t)(groupingStackSize - 5), sizeof(GroupingStack) * (size_t)groupingStackSize);
@@ -377,30 +414,39 @@ void pushGroupingToGroupingStack(char *groupingIndex, unsigned int lastInstructs
     
 }
 
+
 /* Pops the last group from the stack */
 void popGroupingFromStack() {
     
     if(groupingStackIndex > 0) {
+        
         groupingStackIndex--;
     }
     
 }
 
+
 /* Fetches to top most grouping on the stack */
 GroupingStack *getGroupingFromStack() {
+    
     return &groupingStack[groupingStackIndex];
 }
 
+
 /* Increments all counters on all groupings */
 void incrementAllGroupingsOnStack(int incrementAmount) {
+    
     int counter = 0;
     while(counter < groupingStackSize) {
+        
         groupingStack[counter++].instructionsSinceLastGrouping+=(unsigned int)incrementAmount;
     }
 }
 
+
 /* Frees all groupings and the current stack */
 void freeAllGroupingsAndStack() {
+    
     LATDealloc(groupingStack);
     groupingStackIndex = 0;
     groupingStackSize = 0;
@@ -442,6 +488,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
             
             
             if(*regexString == ' ') {
+                
                 /* Ignore whitespace */
                 regexString++;
                 continue;
@@ -451,6 +498,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
             
             /* Check for special characters to work with */
             if(*regexString == 's' && isCharEscaped == 1) {
+                
                 /* Whitespace character! */
                 didReplace = 's';
                 replaceIndex = regexString;
@@ -459,6 +507,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
             }
             
             if(*regexString == '\\' && isCharEscaped == 0) {
+                
                 /* ESCAPED, Continue, mark special for next character */
                 isCharEscaped = 1;
                 regexString++;
@@ -466,6 +515,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 
                 
             } else if(*regexString == '^' && isCharEscaped == 0) {
+                
                 /* (^) Starting sequence, write out a starting instruction */
                 instruction[0] = CODE_START;
                 instruction[1] = CODE_NONE;
@@ -479,6 +529,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 
                 
             } else if(*regexString == '$' && isCharEscaped == 0) {
+                
                 /* ($) Ending sequence, write out an ending instruction (just match to \0) */
                 instruction[0] = CODE_END;
                 instruction[1] = CODE_NONE;
@@ -504,7 +555,18 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                         /* False loop to the next passable char */
                         loopType = CODE_NO_MATCH_LOOP;
                         check = *(regexString+3);
-                    } else if(*(regexString+1) != '$' && *(regexString+1) != '.' && *(regexString+1) != '[' && *(regexString+1) != '+' && *(regexString+1) != '*' && *(regexString+1) != '?' && *(regexString+1) != '(' && *(regexString+1) != ')' && *(regexString+1) != '|') {
+                        
+                    } else if(*(regexString+1) != '$' &&
+                              *(regexString+1) != '.' &&
+                              *(regexString+1) != '[' &&
+                              *(regexString+1) != '+' &&
+                              *(regexString+1) != '*' &&
+                              *(regexString+1) != '?' &&
+                              *(regexString+1) != '(' &&
+                              *(regexString+1) != ')' &&
+                              *(regexString+1) != '|')
+                    {
+                        
                         /* Next char is NOT special, use it */
                         loopType = CODE_NO_MATCH_LOOP;
                         check = *(regexString+1);
@@ -513,14 +575,28 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 
                 /* Match any character */
                 if(*(regexString+1)) {
+                    
                     /* Check following characters */
                     if(*(regexString+1) == '*') {
                         
                         /* Make sure NOT followed by a special char */
-                        if(*(regexString+2) && (*(regexString+2) != '$' && *(regexString+2) != '.' && *(regexString+2) != '[' && *(regexString+2) != '+' && *(regexString+2) != '*' && *(regexString+2) != '?' && *(regexString+2) != '(' && *(regexString+2) != ')' && *(regexString+2) != '|') && *(regexString+2) != '\\') {
+                        if(*(regexString+2) &&
+                           (*(regexString+2) != '$' &&
+                            *(regexString+2) != '.' &&
+                            *(regexString+2) != '[' &&
+                            *(regexString+2) != '+' &&
+                            *(regexString+2) != '*' &&
+                            *(regexString+2) != '?' &&
+                            *(regexString+2) != '(' &&
+                            *(regexString+2) != ')' &&
+                            *(regexString+2) != '|') &&
+                           *(regexString+2) != '\\')
+                        {
+                            
                             /* Next char is NOT special, use it */
                             loopType = CODE_NO_MATCH_LOOP;
                             check = *(regexString+2);
+                            
                         }
                         
                         /* Match the preceding element 0 or more times (push loop) */
@@ -541,7 +617,19 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                         
                         /* Match the preceding element 1 or more times (push match) */
                         
-                        if(*(regexString+2) && (*(regexString+2) != '$' && *(regexString+2) != '.' && *(regexString+2) != '[' && *(regexString+2) != '+' && *(regexString+2) != '*' && *(regexString+2) != '?' && *(regexString+2) != '(' && *(regexString+2) != ')' && *(regexString+2) != '|') && *(regexString+2) != '\\') {
+                        if(*(regexString+2) &&
+                           (*(regexString+2) != '$' &&
+                            *(regexString+2) != '.' &&
+                            *(regexString+2) != '[' &&
+                            *(regexString+2) != '+' &&
+                            *(regexString+2) != '*' &&
+                            *(regexString+2) != '?' &&
+                            *(regexString+2) != '(' &&
+                            *(regexString+2) != ')' &&
+                            *(regexString+2) != '|') &&
+                           *(regexString+2) != '\\')
+                        {
+                            
                             /* Next char is NOT special, use it */
                             loopType = CODE_NO_MATCH_LOOP;
                             check = *(regexString+2);
@@ -654,6 +742,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 while(*regexString++) {
                     
                     if(*regexString == ' ') {
+                        
                         /* Ignore whitespace */
                         continue;
                         
@@ -661,17 +750,20 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                     
                     /* Check for special characters to work with */
                     if(*regexString == 's' && isCharEscaped == 1) {
+                        
                         /* Whitespace character! */
                         *regexString = ' ';
                         
                     }
                     
                     if(*regexString == '\\') {
+                        
                         /* Escape the next character */
                         classEscapedChar = 1;
                         
                         
                     } else if(*regexString == ']' && classEscapedChar == 0) {
+                        
                         /* Break out */
                         break;
                         
@@ -681,21 +773,30 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                         if(strchr(origListP, *regexString) == 0) {
                             
                             /* Not a duplicate, check for RANGE */
-                            if(isalnum(*regexString) && *(regexString+1) && *(regexString+2) && *(regexString+1) == '-' && isalnum(*(regexString+2))) {
+                            if(isalnum(*regexString) &&
+                               *(regexString+1) &&
+                               *(regexString+2) &&
+                               *(regexString+1) == '-' &&
+                               isalnum(*(regexString+2)))
+                            {
+                                
                                 char start = *regexString;
                                 char tgt = *(regexString+2);
                                 
                                 
                                 /* Loop through and add all the values between THIS and what follows... */
                                 for(;;) {
+                                    
                                     /* avoid duplicates as we go */
                                     if(strchr(origListP, start) == 0) {
+                                        
                                         /* add this item */
                                         *listPointer++ = start++;
                                         
                                     }
                                     
                                     if(start == tgt) {
+                                        
                                         /* add last item */
                                         *listPointer++ = start;
                                         /* increment by 2 */
@@ -707,11 +808,13 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                                 }
                                 
                             } else if(*regexString != '[' || classEscapedChar == 1) {
+                                
                                 /* regular 1 item */
                                 *listPointer++ = *regexString;
                                 
                                 
                             } else {
+                                
                                 printf("\n>>: Malformed regex at '%s', found unescaped opening [ inside of character class\n\n",debugRegexString);
                                 exit(9100);
                                 
@@ -726,11 +829,14 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 listPointer = list;
                 
                 adventurer = regexString+1;
+                
                 while(*adventurer == ' ') {
+                    
                     adventurer++;
                 }
                 
                 if(*adventurer) {
+                    
                     if(*adventurer == '*') {
                         
                         /* Creates one list of ANY LOOP containing all possible outcomes */
@@ -856,6 +962,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                             instructionsAdded++;
                             
                             while(*listPointer) {
+                                
                                 /* Push our items in */
                                 instruction[x++] = classType;
                                 instruction[x++] = *listPointer;
@@ -969,6 +1076,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                             instructionsAdded++;
                             
                             while(*listPointer) {
+                                
                                 /* Push our items in */
                                 instruction[x++] = classType;
                                 instruction[x++] = *listPointer;
@@ -1001,11 +1109,16 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                     }
                     
                     /* depending if we ended up matching (+,?,* after [] we need to bump up one */
-                    if(classModifier == '+' || classModifier == '?' || classModifier == '*') {
+                    if(classModifier == '+' ||
+                       classModifier == '?' ||
+                       classModifier == '*')
+                    {
+                        
                         regexString+=(adventurer-regexString);
                     }
                     
                 } else {
+                    
                     /* This is a malformed regex! */
                     printf("\n>>: Malformed regex at '%s', missing closing ] for character class\n\n",debugRegexString);
                     exit(9100);
@@ -1024,6 +1137,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 
                 /* Check to realloc regex size to fit our injected jump */
                 if(lastGrouping->instructionsSinceLastGrouping+1 >= regex->maxInstructions-1) {
+                    
                     regex->maxInstructions+=100;
                     regex->regex = LATAlloc(regex->regex, LAT_REGEX_INSTRUCTION_SIZE*(regex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*regex->maxInstructions*sizeof(char));
                     regex->regexFwd = regex->regex+strlen(regex->regex);
@@ -1069,7 +1183,9 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 
                 /* Try and find the next balancing closing paren */
                 shiftCopy = getNextUnescapedClosingParen(regexString);
+                
                 if(shiftCopy == NULL) {
+                    
                     /* Just set to end of regexString */
                     shiftCopy=(regexString+strlen(regexString));
                     
@@ -1096,6 +1212,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 
                 /* Push a paren capture instruction */
                 if(*(regexString+1) && *(regexString+2) && *(regexString+1) == '?' && *(regexString+2) == ':') {
+                    
                     /* Non-Capturing */
                     instruction[0] = CODE_NO_CAPTURE_START;
                     
@@ -1103,6 +1220,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                     regexString+=2;
                     
                 } else {
+                    
                     /* Capturing */
                     instruction[0] = CODE_CAPTURE_START;
                     
@@ -1141,8 +1259,10 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 /* Everything else... */
                 
                 if(*(regexString+1)) {
+                    
                     /* Check following characters */
                     if(*(regexString+1) == '*') {
+                        
                         
                         /* Match the preceding element 0 or more times (push loop) */
                         instruction[0] = CODE_MATCH_LOOP;
@@ -1248,6 +1368,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
             
             /* Check to realloc regex size */
             if(instructionsAdded >= regex->maxInstructions-1) {
+                
                 regex->maxInstructions+=100;
                 regex->regex = LATAlloc(regex->regex, LAT_REGEX_INSTRUCTION_SIZE*(regex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*regex->maxInstructions*sizeof(char));
                 regex->regexFwd = regex->regex+strlen(regex->regex);
@@ -1263,6 +1384,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
             
             /* Replace anything we escaped */
             if(didReplace != '\0') {
+                
                 *replaceIndex = didReplace;
                 didReplace = '\0';
             }
@@ -1272,7 +1394,9 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 
                 /* Increment jumpSize for each jump sequence */
                 struct JumpObject *jo = jumpStack;
+                
                 while(jo) {
+                    
                     jo->jumpSize+=(unsigned int)(instructionsAdded-lastCountOfInstruction);
                     jo = jo->next;
                 }
@@ -1296,6 +1420,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
         
         /* Check to realloc regex size */
         if(instructionsAdded >= regex->maxInstructions-1) {
+            
             regex->maxInstructions+=100;
             regex->regex = LATAlloc(regex->regex, LAT_REGEX_INSTRUCTION_SIZE*(regex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*regex->maxInstructions*sizeof(char));
             regex->regexFwd = regex->regex+strlen(regex->regex);
@@ -1307,6 +1432,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
         regex->regexFwd+=instructionSize;
         
         if(jumpStack != NULL && !*regexString) {
+            
             char jumpCode[5] = {0};
             char *jumpCodePointer = jumpCode;
             unsigned int instructionCount = 0;
@@ -1335,6 +1461,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 
                 /* Check to realloc regex size */
                 if(instructionsAdded >= regex->maxInstructions-1) {
+                    
                     regex->maxInstructions+=100;
                     regex->regex = LATAlloc(regex->regex, LAT_REGEX_INSTRUCTION_SIZE*(regex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*regex->maxInstructions*sizeof(char));
                     regex->regexFwd = regex->regex+strlen(regex->regex);
@@ -1352,8 +1479,11 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
             
             /* Update the other jump sequences we still have waiting with the distance this recent set of commands added added */
             if(instructionCount > 0) {
+                
                 tob = jumpStack;
+                
                 while(tob) {
+                    
                     tob->jumpSize+=instructionCount;
                     tob = tob->next;
                 }
@@ -1372,8 +1502,10 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
     return regex;
 }
 
+
 /* For capturing parens */
 struct RegexCapture {
+    
     unsigned char isComplete;
     char *capture;
     struct RegexCapture *next;
@@ -1385,6 +1517,7 @@ short stateIDNum = 0;
 
 /* For the state machine, automata */
 struct RegexState {
+    
     short stateID;
     unsigned char isActive;
     unsigned char mustCaptureAtBeginning;
@@ -1398,6 +1531,7 @@ struct RegexState {
 };
 
 typedef enum {
+    
     JUMP_INSTRUCTION,
     JUMP_FORWARD_ONE,
     JUMP_INSTRUCTION_NO_SPLIT
@@ -1418,6 +1552,7 @@ void saveCapturesFromState(struct RegexState *state);
 
 void printRegexStateDebugInfo(struct RegexState *regex);
 
+
 /* Prints informative info about a regex state */
 void printRegexStateDebugInfo(struct RegexState *regex) {
     
@@ -1429,11 +1564,14 @@ void printRegexStateDebugInfo(struct RegexState *regex) {
     printf("#%d\n",regex->stateID);
     
     while(cap != NULL) {
+        
         if(cap->isComplete == 1) {
+            
             printf("#%d(%s)\n",capture,cap->capture);
             
             
         } else {
+            
             printf("#%d~~%s\n",capture,cap->capture);
             
             
@@ -1447,6 +1585,7 @@ void printRegexStateDebugInfo(struct RegexState *regex) {
     printf("\n");
     
 }
+
 
 /* Runs a given regex we previously generated, generating a result */
 unsigned char __runRegexOnString(LATRegex *regex, char *input) {
@@ -1480,6 +1619,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
         
         /* Bump the input (but not on first time, allowing us to handle ^ and other starters) */
         if(isAtBeginning != 0x01) {
+            
             input++;
         }
         
@@ -1500,12 +1640,16 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
             #endif
             
             if(state->isActive == 0) {
+                
                 /* Skip inactive state */
                 state = state->next;
                 
                 while(state != NULL) {
+                    
                     state = state->next;
+                    
                     if(state->isActive == 1) {
+                        
                         break;
                     }
                 }
@@ -1513,6 +1657,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
             }
             
             switch(state->currentState) {
+                    
                 case CODE_MATCH:
                     
                     if(state->overlyingState == CODE_ANY_LOOP) {
@@ -1520,6 +1665,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                         /* Loop until we have success or failure */
                         char *startingRegexIndex = state->regexIndex;
                         unsigned char shouldContinue = 0;
+                        
                         for(;;) {
                             
                             if(*(state->regexIndex+1) == *input) {
@@ -1554,6 +1700,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                         }
                         
                         if(shouldContinue == 1) {
+                            
                             continue;
                         }
                         
@@ -1586,6 +1733,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                             }
                         }
                     } else {
+                        
                         /* default */
                         *(state->regexIndex+1) == *input ? incrementStateMachine(state) : disableState(state);
                         
@@ -1609,6 +1757,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                         /* Loop until we have success or failure */
                         char *startingRegexIndex = state->regexIndex;
                         unsigned char shouldContinue = 0;
+                        
                         for(;;) {
                             
                             if(*(state->regexIndex+1) != *input) {
@@ -1635,6 +1784,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                                 incrementStateMachine(state);
                                 
                                 if(*state->regexIndex == CODE_ANY_LOOP) {
+                                    
                                     shouldContinue = 1;
                                     /* Failed to match, exit and let the state machine attempt to match immediately afterwards */
                                     break;
@@ -1644,6 +1794,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                         
                         /* Execute next line now */
                         if(shouldContinue == 1) {
+                            
                             continue;
                         }
                         
@@ -1653,6 +1804,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                         for(;;) {
                             
                             if(*(state->regexIndex+1) != *input) {
+                                
                                 /* No Match (continue) */
                                 
                                 /* Try the next instruction */
@@ -1665,6 +1817,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                                 }
                                 
                             } else {
+                                
                                 /* Match (Failure) */
                                 disableState(state);
                                 break;
@@ -1782,6 +1935,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                     } else {
                         
                         if(*(state->regexIndex+1) == *input) {
+                            
                             /* default, and run again */
                             incrementStateMachine(state);
                             continue;
@@ -1794,11 +1948,13 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                     
                     /* Checks if we've reached the end of our input yet */
                     if(!*input) {
+                        
                         /* Increment state and continue execution */
                         incrementStateMachine(state);
                         continue;
                         
                     } else {
+                        
                         /* Disable State */
                         disableState(state);
                         
@@ -1829,7 +1985,9 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
             state = state->next;
             
             while(state != NULL) {
+                
                 if(state->isActive == 1) {
+                    
                     break;
                 }
                 state = state->next;
@@ -1839,7 +1997,9 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
         /* No more active states. Reset to first active state from root */
         state = rootStateList;
         while(state != NULL) {
+            
             if(state->isActive == 1) {
+                
                 break;
                 
             }
@@ -1850,10 +2010,12 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
         if(state == NULL) {
             
             if(rootStateList->mustCaptureAtBeginning == 1) {
+                
                 /* No way jose! We're done now running regexes, now check if we got a result */
                 break;
                 
             } else {
+                
                 /* No more states, turn on our original, reset and try again */
                 state = rootStateList;
                 state->regexIndex = regex->regex;
@@ -1861,6 +2023,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                 
                 /* Check if we went ahead at all */
                 if(strcmp(input, originalInputTracker) != 0) {
+                    
                     /* reset our input to our original input tracker, incremented by 1 */
                     input = ++originalInputTracker;
                 }
@@ -1873,6 +2036,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
         
         /* Break out on end */
         if(!*input) {
+            
             break;
         }
         
@@ -1929,10 +2093,13 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
     return captureList != NULL ? 1 : 0;
 }
 
+
 /* Takes a given state and bumps up the command list, as well as handles anything that needs to be handled */
 void incrementStateMachine(struct RegexState *state) {
+    
     state->regexIndex+=LAT_REGEX_INSTRUCTION_SIZE;
 }
+
 
 /* Handles Jumps, Any, Any Loop, Start, and captures, things that aren't directly compared to input */
 void updateStateMachine(struct RegexState *state, unsigned char isAtBeginning, char *input) {
@@ -1974,14 +2141,18 @@ void updateStateMachine(struct RegexState *state, unsigned char isAtBeginning, c
             captureBlock->isComplete = 0;
             
             if(state->captureBlock == NULL) {
+                
                 /* New capture block */
                 state->captureBlock = captureBlock;
                 
                 
             } else {
+                
                 /* Loop and append */
                 stepCapture = state->captureBlock;
+                
                 while(stepCapture->next != NULL) {
+                    
                     /* Step in */
                     stepCapture = stepCapture->next;
                     captureIndex++;
@@ -2002,12 +2173,15 @@ void updateStateMachine(struct RegexState *state, unsigned char isAtBeginning, c
             
             /* capture end */
             if(state->isCapturing >= 1) {
+                
                 /* We are capturing, find our lowest captureBlock, and copy the contents into a newly allocated space */
                 struct RegexCapture *stepCapture;
                 int captureLen;
                 char *captureAllocHolder;
                 stepCapture = state->captureBlock;
+                
                 while(stepCapture->next) {
+                    
                     /* Step in */
                     stepCapture = stepCapture->next;
                 }
@@ -2031,7 +2205,9 @@ void updateStateMachine(struct RegexState *state, unsigned char isAtBeginning, c
             
             /* start ^ */
             state->mustCaptureAtBeginning = 1;
+            
             if(isAtBeginning != 1) {
+                
                 disableState(state);
             }
             
@@ -2050,6 +2226,7 @@ void updateStateMachine(struct RegexState *state, unsigned char isAtBeginning, c
     }
 }
 
+
 /* Generates a new state machine and sets it a given instruction, denoted indirectly JumpType */
 void performJumpOnStateMatchine(struct RegexState *state, JumpType jumpType) {
     
@@ -2059,11 +2236,14 @@ void performJumpOnStateMatchine(struct RegexState *state, JumpType jumpType) {
     
     /* Look to use a recycled and existing state from root (only if NOT jumping normally) */
     if(jumpType != JUMP_INSTRUCTION_NO_SPLIT) {
+        
         struct RegexState *stepState;
         newState = rootStateList;
+        
         while(newState != NULL) {
             
             if(newState->isActive == 0) {
+                
                 /* Use this state instead */
                 break;
             }
@@ -2080,7 +2260,9 @@ void performJumpOnStateMatchine(struct RegexState *state, JumpType jumpType) {
             
             /* Add it on the end of our list as well */
             stepState = state;
+            
             while(stepState->next != NULL) {
+                
                 stepState = stepState->next;
                 
                 
@@ -2136,6 +2318,7 @@ void performJumpOnStateMatchine(struct RegexState *state, JumpType jumpType) {
             struct RegexCapture *newCapture = NULL;
             
             while(srcCapture != NULL) {
+                
                 /* Allocate a new capture */
                 newCapture = LATAlloc(NULL, 0, sizeof(struct RegexCapture));
                 
@@ -2145,6 +2328,7 @@ void performJumpOnStateMatchine(struct RegexState *state, JumpType jumpType) {
                 
                 /* Check if this is complete, if so, we need to copy the bytes, else we can just reference it */
                 if(srcCapture->isComplete == 1) {
+                    
                     /* Copy the bytes */
                     newCapture->capture = LATstrdup(srcCapture->capture);
                     
@@ -2156,12 +2340,14 @@ void performJumpOnStateMatchine(struct RegexState *state, JumpType jumpType) {
                 
                 /* Set it to our root or to our last item */
                 if(rootNewCapture == NULL) {
+                    
                     /* Set the root */
                     rootNewCapture = newCapture;
                     lastCapture = rootNewCapture;
                     
                     
                 } else {
+                    
                     /* Chain this on */
                     lastCapture->next = newCapture;
                     lastCapture = newCapture;
@@ -2181,6 +2367,7 @@ void performJumpOnStateMatchine(struct RegexState *state, JumpType jumpType) {
             newState->totalCaptures = state->totalCaptures;
             
         } else {
+            
             /* no prior captures */
             newState->captureBlock = NULL;
             newState->isCapturing = 0;
@@ -2198,6 +2385,7 @@ void performJumpOnStateMatchine(struct RegexState *state, JumpType jumpType) {
     
 }
 
+
 /* Disables a given state, and frees anything underneath it in terms of capture */
 void disableState(struct RegexState *state) {
     
@@ -2211,6 +2399,7 @@ void disableState(struct RegexState *state) {
     while(stepCapture) {
         
         if(stepCapture->isComplete == 1) {
+            
             LATDealloc(stepCapture->capture);
         }
         
@@ -2222,8 +2411,10 @@ void disableState(struct RegexState *state) {
     state->captureBlock = NULL;
 }
 
+
 /* Deallocs all states from given root */
 void freeAllRegexStates() {
+    
     struct RegexState *stepState = rootStateList, *tmpState;
     
     while(stepState != NULL) {
@@ -2237,6 +2428,7 @@ void freeAllRegexStates() {
     
     freeAllGroupingsAndStack();
 }
+
 
 /* Returns the next non-escaped and outermost closing parenthese */
 char *getNextUnescapedClosingParen(char *input) {
@@ -2258,6 +2450,7 @@ char *getNextUnescapedClosingParen(char *input) {
             pCount--;
             
             if(pCount == 0) {
+                
                 /* Return the index of this closing parenthese */
                 return input;
             }
@@ -2270,6 +2463,7 @@ char *getNextUnescapedClosingParen(char *input) {
     /* Failed, return NULL to indicate no valid closing paren was found */
     return NULL;
 }
+
 
 /* Saves captures from the passed in state to a linked list, while also removing them from the state */
 void saveCapturesFromState(struct RegexState *state) {
@@ -2329,6 +2523,7 @@ void saveCapturesFromState(struct RegexState *state) {
     }
 }
 
+
 /* Deletes any existing captures */
 void deleteExistingCaptures() {
     
@@ -2339,6 +2534,7 @@ void deleteExistingCaptures() {
     while(curCapture != NULL) {
         
         if(curCapture->capture != NULL) {
+            
             LATDealloc(curCapture->capture), curCapture->capture = NULL;
         }
         
@@ -2349,6 +2545,7 @@ void deleteExistingCaptures() {
     
     captureList = NULL;
 }
+
 
 /* Returns the capture at the given index in our linked list or NULL */
 char *getCaptureByIndex(unsigned char captureIndex) {
@@ -2362,8 +2559,10 @@ char *getCaptureByIndex(unsigned char captureIndex) {
             
             /* Match! */
             if(counter == captureIndex) {
+                
                 return curCapture->capture;
             } else {
+                
                 counter++;
             }
             
@@ -2378,15 +2577,21 @@ char *getCaptureByIndex(unsigned char captureIndex) {
     
 }
 
+
 int getCaptureCount() {
+    
     struct SuccessfulCapture *cc = captureList;
     int count = 0;
+    
     while(cc != NULL) {
+        
         count++;
         cc = cc->next;
     }
+    
     return count;
 }
+
 
 /* Frees anything that is cached by our regex engine */
 void freeRegexCache() {
@@ -2397,6 +2602,7 @@ void freeRegexCache() {
     struct SuccessfulCapture *tmpCapture;
     
     while(nxtCapture != NULL) {
+        
         LATDealloc(nxtCapture->capture);
         tmpCapture = nxtCapture;
         nxtCapture = nxtCapture->next;
@@ -2406,12 +2612,16 @@ void freeRegexCache() {
     /* Free precompiled Regexes */
     
     while(counter < regexCacheCount) {
+        
         LATRegex *r = regexCache[counter];
+        
         if(r != NULL) {
+            
             LATDealloc(r->regex);
             LATDealloc(r->stringRep);
             LATDealloc(r);
         }
+        
         counter++;
     }
 }

@@ -38,12 +38,6 @@ void stripOutUnwantedSymbols(char *input);
 void setVarFromRegister(char *varName, unsigned char registerNum);
 void setArrayVarFromRegister(char *varName, char *key, unsigned char registerNum);
 
-void setTailCall(char *tc);
-
-char didAllocatePrePerform();
-
-/* void fastForwardToLabel(); */
-
 /*** NEW VM FUNCTIONS ****/
 
 void runInstructions();

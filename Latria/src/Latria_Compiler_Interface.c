@@ -41,6 +41,7 @@ SOFTWARE.
 
 char input[INPUT_SIZE];
 
+
 /* Takes given latria code & compiles it for increased efficiency (removes whitespace, tabs, comments, etc)
  * Takes latria code from a provided file to compile
  */
@@ -110,11 +111,11 @@ void compileLatria(char *fn) {
     /* Dispatch up any pending conditional jumps */
     dispatchIfAndElseIf();
     
-    /* Create an array to hold our new jump instruction address (if we have any below) */
-    char jumpCode[LAT_ADDRESS_SIZE+1] = {0};
-    
     /* Loop over any jump updates we need to process */
     while((ju = popJumpUpdate()) != NULL) {
+        
+        /* Create an array to hold our new jump instruction address */
+        char jumpCode[LAT_ADDRESS_SIZE+1] = {0};
         
         /* Seek to the indicated address to update */
         fseek( out, ju->bytecodeAddr, SEEK_SET);
@@ -144,14 +145,16 @@ void compileLatria(char *fn) {
     free(nf);
 }
 
+
 /* Holds a reference to bytecodes */
 unsigned char *byteCodes = NULL;
 
-/* maximum length of bytecodes */
+/* maximum length of bytecodes we can store in the above pointer currently */
 short maxByteCodeLength = 0;
 
 /* current length of bytecodes */
 short currentByteCodeLength = 0;
+
 
 /* Compiles a given line into latria bytecodes, and stores it */
 void compileLine(char *line) {
@@ -159,56 +162,82 @@ void compileLine(char *line) {
     unsigned char *retVal;
     short size = 0;
     short count = 0;
+    
+    /* send this line into our IO module to be compiled */
     lat_io_writeInput(line);
-    /* Get what came back */
+    
+    /* Read the results from our output module */
     retVal = lat_io_compiler_readOutput();
     
+    /* Check if we got any bytecodes back */
     if(retVal == NULL) {
+        
+        /* No bytecodes read, return */
         return;
     }
     
+    /* Check if we need to allocate to fit these bytecodes */
     if(maxByteCodeLength == 0) {
-        /* Read the len */
+        
+        /* The first 2 bytes of our returned bytecodes are a hex representation of the length of data to read, extract them */
         maxByteCodeLength = (short)(*retVal++ * 256);
         maxByteCodeLength = (short)(maxByteCodeLength + *retVal++);
+        
+        /* Indicate our current length is our max (what we read) */
         currentByteCodeLength = maxByteCodeLength;
+        
+        /* Mark the size of the bytes we just read */
         size = currentByteCodeLength;
         
+        /* allocate room for our bytecodes */
         byteCodes = malloc(sizeof(unsigned char *) * (size_t)maxByteCodeLength);
         
     } else {
-        /* Read new byte code size and see what we have to do */
+        
+        /* We have already allocated room, extract the first 2 bytes to get the hex representation of the bytecode length */
         size = (short)(*retVal++ * 256);
         size = (short)(size +*retVal++);
+        
+        /* Indicate our current length is increase by the size of the codes we just read */
         currentByteCodeLength = (short)(currentByteCodeLength + size);
         
+        /* Check if we need to realloc up */
         if(currentByteCodeLength > maxByteCodeLength) {
-            /* realloc */
+            
+            /* We need more room for these bytes, up our max to the current count and realloc */
             maxByteCodeLength = currentByteCodeLength;
             byteCodes = realloc(byteCodes, sizeof(unsigned char *) * (size_t)maxByteCodeLength);
             
         }
     }
     
-    /* Copy our bytes in */
+    /* Copy our bytes into our byte pointer from our current offest */
     while(count <= size) {
+        
         byteCodes[count+(currentByteCodeLength-size)] = *retVal++;
         count++;
-        
     }
 }
 
-/* Returns the bytecodes */
+
+/* Returns currently stored bytecodes, and resets the current length to 0 */
 unsigned char *readByteCodes() {
+    
     currentByteCodeLength = 0;
     return byteCodes;
 }
 
+
+/* Returns the current length of stored bytecodes */
 short getByteCodeCount() {
+    
     return currentByteCodeLength;
 }
 
+
+/* frees stored bytecodes and resets related variables */
 void freeByteCodes() {
+    
     maxByteCodeLength = 0;
     currentByteCodeLength = 0;
     free(byteCodes),byteCodes=NULL;

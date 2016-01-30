@@ -40,7 +40,7 @@ SOFTWARE.
 #ifndef _WIN32
 #include <unistd.h>
 #else 
-/* _Win32 is usually defined by compilers targeting Windows. 32 is provided even when compiling on a 64 bit machine for backwards compatibility */
+/* _Win32 is usually defined by compilers targeting Windows. _Win32 is generally provided even when compiling on a 64 bit machine for backwards compatibility */
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -68,19 +68,21 @@ SOFTWARE.
 #endif
 
 /* string comparison macro */
-
 #define LAT_STRCMP(a, b)  (*(a) != *(b) ? \
 (int) ((unsigned char) *(a) - \
        (unsigned char) *(b)) : \
 strcmp((a), (b)))
+
 
 /* string duplication */
 char *LATstrdup(char *s);
 /* string concatenation */
 char *LATstrcat(char *d, char *s);
 
+
 /* bool is not defined on some systems without including the proper header, this is the substitute bool */
 typedef enum { false, true } LATBool;
+
 
 /*** REGISTER ENUM ***/
 
@@ -97,34 +99,42 @@ typedef enum {
     RegisterNull        /* null                 */
 }RegisterType;
 
+
 /*** END REGISTER ENUM ***/
 
 
 /*Stores all core data types, numeric (float) & string for now*/
 struct CoreObject {
+    
     /* left object (when an array ONLY the left object is used) */
     /* NOTE, array type is a linked list in it's simplest form */
     struct CoreObject *lobj;
+    
     /* right object (when an array this is always null) */
     struct CoreObject *robj;
     
     /* Shared memory for values */
     union {
+        
         /* FILE * */
         FILE *_file;
+        
         /* Number */
         double _fvalue;
+        
         /* String */
         char *_svalue;
+        
         /* Bool */
         LATBool _bvalue;
+        
     } data;
     
     /* Key to fetch this value by */
     char *key;
     
     unsigned char _state; /*
-                           0=float
+                           0=double
                            1=string
                            2=bool
                            3=array
@@ -133,15 +143,25 @@ struct CoreObject {
                            */
 };
 
+
 /*** REGISTER STRUCT START ***/
 
 typedef struct {
     /* Value */
     union {
+        
+        /* Num or Connection */
         double dvalue;
+        
+        /* String */
         char *cvalue;
+        
+        /* File */
         FILE *file;
+        
+        /* Array */
         struct CoreObject *array;
+        
     }value;
     
     /* Type */
@@ -149,7 +169,9 @@ typedef struct {
     
 }Register;
 
+
 /*** REGISTER STRUCT END ***/
+
 
 /*Basic Latria Function object*/
 struct LATFunction {
@@ -161,6 +183,7 @@ struct LATFunction {
     char * eol;
 };
 
+
 /*Linked list for passed in vars to a function as it is being created
  these variables are copied into that function's stack space at the appropriate time
  */
@@ -169,23 +192,37 @@ struct LATFParameter {
     char *valName;
 };
 
+
 struct LATReference_Stack{
-    struct CoreObject *cop; /* CoreObject Primary */
-    struct LATFunction *latfp; /* LATFunction Primary */
-    struct LATReference_Stack *cs; /*Child Stack*/
     
-    char *returnValue; /*Stack return value*/
+    /* CoreObject Primary */
+    struct CoreObject *cop;
     
-    char *_tailCallAssociatedName; /* Tail call return name (if applicable) for the current reference stack*/
+    /* LATFunction Primary */
+    struct LATFunction *latfp;
     
-    char *curLATFuncList; /* Used for building up functions */
-    unsigned int latfBrackCount; /* Used to avoid confusion with brackets which may otherwise terminate a function too soon */
+    /* Child Stack */
+    struct LATReference_Stack *cs;
+    
+    /* Stack return value */
+    char *returnValue;
+    
+    /* Tail call return name (if applicable) for the current reference stack */
+    char *_tailCallAssociatedName;
+    
+    /* Used for building up functions */
+    char *curLATFuncList;
+    
+    /* Used to avoid confusion with brackets which may otherwise terminate a function too soon */
+    unsigned int latfBrackCount;
 };
+
 
 char *str_replace(char *orig, char *rep, char *with, char removeAll);
 char *str_replaceNCPY(char *orig, char*rep, char*with);
 LATBool isNumeric(char *val);
 char * stripWhitespace(char *input);
+
 
 /* forwardly declared from Latria_GC */
 void *LATAlloc(void *ptr, size_t so, size_t sn);
@@ -193,6 +230,7 @@ void LATDealloc(void *ptr);
 void *lmalloc(size_t sn);
 void *lrealloc(void *ptr, size_t sn);
 void lfree(void *ptr);
+
 
 /* Forwardly Declared from Latria_Lexical */
 void stripComments(char *input);

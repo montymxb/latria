@@ -35,50 +35,62 @@ void setValue(char *name, char *val);
 void unsetValue(char *name);
 void unsetArrayKeyValue(char *varName, char *key);
 
-/* BOOL val SETTERS*/
+/* Bool setting */
 void setBoolValue(char *name, LATBool val);
 void setBoolValueForKey(char *key, LATBool value, struct CoreObject **_node);
 
+/* Array Bool setting */
 void setArrayBoolValue(char *varName, char *key, LATBool val);
 void setBoolValueForArrayKey(char *varName, char *key, LATBool value, struct CoreObject **_node);
 
-/* Set a file to a CO */
+/* File setting */
 void setFileValue(char *name, FILE *val);
 void setFileValueForKey(char *key, FILE *value, struct CoreObject **_node);
 
+/* Array file setting */
 void setArrayFileValue(char *varName, char *key, FILE *val);
 void setFileValueForArrayKey(char *varName, char *key, FILE *value, struct CoreObject **_node);
 
-/* Connection val setters */
+/* Connection setting */
 void setConnectionValue(char *name, int val);
 void setConnectionValueForKey(char *name, int val, struct CoreObject **_node);
 
+/* Array connection setting */
 void setArrayConnectionValue(char *varName, char *key, int val);
 void setConnectionValueForArrayKey(char *varName, char *key, int val, struct CoreObject **_node);
 
-
+/* Generic array setting */
 void setArrayValue(char *varName, char *key, char *value);
 void setArrayValueForKey(char *varName, char *key, char *value, struct CoreObject **node);
 
+/* Array to array setting */
 void setArrayObject(char *name, struct CoreObject *array);
 void _setArrayObjectForKey(char *key, struct CoreObject *array, struct CoreObject **_node);
 
+/* Internal object getting */
 struct CoreObject * _getValue(char *name, struct LATReference_Stack *stack);
 struct CoreObject * _getArrayValue(char *varName, char *key, struct LATReference_Stack *stack);
 
-void _buildArrayFromInitializer(struct CoreObject **node, char *input);
-
+/* Array object getting */
 struct CoreObject * findObjectWithKey(char *key, struct CoreObject **node);
 struct CoreObject * findArrayObjectWithVarKey(char *varName, char *key, struct CoreObject **node);
-/*//struct CoreObject * findArrayObjectWithKey(char *key, int openingBracket, int closingBracket, struct CoreObject **node);*/
 
+/* Generic value setting */
 char setValueForKey(char *key, char *value, struct CoreObject **_node);
 
+/* CoreObject construction */
 char _constructCoreObjectWithKeyVal(struct CoreObject **node, char *key, char *value);
+
+/* Internal core object updating */
 void _updateCoreObjectWithVal(struct CoreObject **node, char *value);
 
+/* CoreObject replacement */
 struct CoreObject * generateReplacement(struct CoreObject *node);
+
+/* Array Value freeing */
 struct CoreObject * freeObjectWithKey(char *key, struct CoreObject *node);
+
+/* Internal array value freeing */
 struct CoreObject * freeArrayObjectWithNameKey(char *varName, char *key, struct CoreObject *node);
 
 /* For Copying CoreObjects that act as arrays */
@@ -87,11 +99,8 @@ struct CoreObject *__copyArrayCoreObject(struct CoreObject *co);
 void freeObjects();
 void freeAllHeapObjects();
 
-/* Get & Set EOF Flags (forwarded from Latria_Sys.h */
+/* Get & Set EOF Flags (forwarded from Latria_Sys.h) */
 char didReadSafeNull();
 void setSafeNull(char c);
-
-/*void pushCoreObjectOnHeap(struct CoreObject *node); DEPRECATED*/
-/*struct CoreObject *popCoreObjectOnHeap(); DEPRECATED*/
 
 #endif /* defined(__Latria_Vars__) */

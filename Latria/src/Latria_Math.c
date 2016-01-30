@@ -32,20 +32,27 @@ unsigned char didDetectStringOperands;
 
 /* Checks to see if the next 'compressable' parenthese block is not a function, and thus can be compressed*/
 LATBool currentBlockIsCompressable(char *i) {
+    
     char *iT = i;
     int c=-1,ce=-1,counter=0;
+    
     while(*iT) {
-        if(*iT == '(')
+        
+        if(*iT == '(') {
+            
             c=counter;
-        else if(*iT == ')') {
+        } else if(*iT == ')') {
+            
             ce=counter;
             break;
         }
+        
         iT++;
         counter++;
     }
     
     if(c >= 0 && ce >= 0) {
+        
         char lastChar;
         char *s = LATstrdup(i);
         char *si = s;
@@ -53,33 +60,51 @@ LATBool currentBlockIsCompressable(char *i) {
         s+=c;
         lastChar=*s;
         *s='\0';
+        
         /* if we have something let's show for it */
         if(--c > 1) {
+            
             while(*--s) {
-                if(--c < 1)
+                
+                if(--c < 1) {
+                    
                     break;
+                }
+                
                 if(isCharacterOperator(*s)) {
+                    
                     s++;
                     break;
                 }
             }
-            if(LATF_findObject(s) == NULL)
+            
+            if(LATF_findObject(s) == NULL) {
+                
                 isCompressable = true;
+            }
+            
             LATDealloc(si), si = NULL;
+            
         } else {
+            
             /* nothing to do,free what we allocated and go on */
             *s=lastChar;
             LATDealloc(si), si = NULL;
             return true;
         }
+        
         return isCompressable;
     }
+    
     return false;
 }
 
+
 LATBool isCharacterOperator(char c) {
+    
     return (c=='+' || c=='-' || c=='*' || c=='/' || c=='^' || c=='%');
 }
+
 
 /*
  * centerSpot - location of current operator we are working around (+,-,* etc)
@@ -95,19 +120,26 @@ char * replaceSectionMatchingExpressionWithValue(char *centerSpot, char *leader,
     LATBool isValid = true;
     char *llc = leader, *eec = ender, *vvc = value;
     char *tmp, *replacementString;
+    
     while(isValid) {
+        
         isValid = false;
         if(*llc) {
+            
             leaderLen++;
             llc++;
             isValid = true;
         }
+        
         if(*eec) {
+            
             enderLen++;
             eec++;
             isValid = true;
         }
+        
         if(*vvc) {
+            
             valueLen++;
             vvc++;
             isValid = true;
@@ -129,44 +161,63 @@ char * replaceSectionMatchingExpressionWithValue(char *centerSpot, char *leader,
     return str_replace(input, replacementString, value, 0);
 }
 
+
 float performOperationBetweenInputs(float lval, float rval, char opSymbol) {
+    
     switch (opSymbol) {
+            
         case '^':
             return local_pow((double)lval,(int)rval);
+            
         case '%':
             return (float)((int)lval%(int)rval);
+            
         case '*':
             return lval*rval;
+            
         case '/':
             return lval/rval;
+            
         case '+':
             return lval+rval;
+            
         case '-':
             return lval-rval;
+            
         default:
             return 0;
+            
     }
 }
+
 
 /* Simple pow*/
 float local_pow(double base, int exp) {
+    
     double result = 1;
+    
     while (exp) {
+        
         if (exp & 1)
             result *= base;
+        
         exp >>= 1;
         base *= base;
     }
+    
     return (float)result;
 }
 
-/* C implementation of substring*/
+
+/* Substring Implementation*/
 char * LATsubstring(char *input, int start, int end) {
+    
     unsigned int y=0;
     int iLen = (int)strlen(input), x;
     char *rez;
     
     if(end < 0) {
+        
         end = iLen;
     }
     
@@ -174,48 +225,69 @@ char * LATsubstring(char *input, int start, int end) {
     
     /* Fix from valgrind, NOT safe to move above the alloc above */
     if(end > iLen) {
+        
         end = iLen;
     }
     
     for(x = start; x < end; x++) {
+        
         rez[y++] = input[x];
     }
+    
     rez[y]='\0';
     return rez;
 }
 
+
 /* Determines whether or not the plus sign is the only operator in the given input*/
 LATBool plusIsOnlyOperatorBetween(char *i) {
+    
     unsigned int cc = 0;
+    
     if(*i == '"') {
+        
         cc++;
         i++;
     }
+    
     while(*i) {
-        if(*i == '"' && *(i-1) != '\\')
+        
+        if(*i == '"' && *(i-1) != '\\') {
             cc++;
-        else if(cc%2==0) {
+        
+        } else if(cc%2==0) {
+            
             switch (*i) {
+                    
                 case '-':
                     return false;
+                    
                 case '*':
                     return false;
+                    
                 case '/':
                     return false;
+                    
                 case '^':
                     return false;
+                    
                 case '%':
                     return false;
+                    
             }
         }
+        
         i++;
     }
     return true;
 }
 
+
 LATBool didFailWithStringOperands() {
+    
     return didDetectStringOperands;
 }
+
 
 /* Checks to see if ANY math operators are present, NOT quoted */
 LATBool noMathOperatorsPresent(char *input) {
@@ -225,26 +297,35 @@ LATBool noMathOperatorsPresent(char *input) {
     
     /* While loop over our input */
     while(*s) {
+        
         /* If tgt string found */
         if(*s == '+' || *s == '-' || *s == '*' || *s == '/' || *s == '^' || *s == '%') {
+            
             /* Found an unquoted mathematical expression, return true */
             return false;
             
         } else if(*s == '"') {
+            
             /* Double Quote */
             if((passedFirst == 1 && *(s-1) != '\\') || passedFirst == 0) {
+                
                 /* Not escaped or first pass */
                 while(true) {
+                    
                     /* Loop until we escape double quotes */
                     char *yc=strchr(s+1, '"');
+                    
                     if(yc) {
+                        
                         /* We found double quotes */
                         if(*(yc-1) != '\\') {
+                            
                             /* Valid closing Double Quote, set out pointer to it and move along */
                             s = yc;
                             break;
                         }
                     } else {
+                        
                         /* No closing single quote found, it is possible this is embedded, ignore it */
                         break;
                     }
@@ -252,15 +333,21 @@ LATBool noMathOperatorsPresent(char *input) {
             }
             
         } else if(*s == '\'') {
+            
             /* Single Quote */
             if((passedFirst == 1 && *(s-1) != '\\') || passedFirst == 0) {
+                
                 /* Not escaped or first pass */
                 while(true) {
+                    
                     /* Loop until we escape single quotes */
                     char *yc=strchr(s+1, '\'');
+                    
                     if(yc) {
+                        
                         /* We found single quotes */
                         if(*(yc-1) != '\\') {
+                            
                             /* Valid closing Single Quote, set out pointer to it and move along */
                             s = yc;
                             break;
@@ -272,6 +359,7 @@ LATBool noMathOperatorsPresent(char *input) {
                 }
             }
         }
+        
         passedFirst = 1;
         s++;
     }
@@ -279,31 +367,42 @@ LATBool noMathOperatorsPresent(char *input) {
     return true;
 }
 
+
 void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
+    
     if((getRegisterType(i1) == RegisterString || getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
        (getRegisterType(i2) == RegisterString || getRegisterType(i2) == RegisterNum) &&
-       (getRegisterType(i3) == RegisterString || getRegisterType(i3) == RegisterNum)) {
+       (getRegisterType(i3) == RegisterString || getRegisterType(i3) == RegisterNum))
+    {
         
         if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
            getRegisterType(i2) == RegisterNum &&
-           getRegisterType(i3) == RegisterNum) {
+           getRegisterType(i3) == RegisterNum)
+        {
+            
             /* All Num */
             setNumRegister(i1, getRegisterNum(i3) + getRegisterNum(i2), RegisterNum);
             
         } else {
+            
             /* One or more strings, add as string */
             char numString[20];
             char *nsPointer = numString;
             char *s1 = NULL;
+            
             if(getRegisterType(i3) == RegisterString) {
+                
                 /* Set string */
                 char *tmp = getRegisterString(i3);
+                
                 if(*tmp) {
+                    
                     /* We have something to copy over */
                     s1 = LATstrdup(tmp);
                 }
                 
             } else {
+                
                 /* Convert number to string and set */
                 sprintf(numString, "%g", getRegisterNum(i3));
                 s1 = LATstrdup(nsPointer);
@@ -311,23 +410,30 @@ void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
             }
             
             if(getRegisterType(i2) == RegisterString) {
+                
                 /* Append to existing value */
                 size_t len1,len2;
                 char *tmp = getRegisterString(i2);
                 len1 = strlen(tmp);
+                
                 if(s1 != NULL) {
+                    
                     len2 = strlen(s1);
                 } else {
+                    
                     len2 = 0;
                 }
                 
                 s1 = LATAlloc(s1, len2*sizeof(char), (len1+len2+1)*sizeof(char));
+                
                 if(len2 == 0) {
+                    
                     *s1 = 0;
                 }
                 LATstrcat(s1, tmp);
                 
             } else {
+                
                 /* Convert number to string and append */
                 size_t len1,len2;
                 sprintf(numString, "%g", getRegisterNum(i2));
@@ -336,9 +442,12 @@ void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
                 len2 = strlen(s1);
                 
                 s1 = LATAlloc(s1, len2*sizeof(char), (len1+len2+1)*sizeof(char));
+                
                 if(len2 == 0) {
+                    
                     *s1 = 0;
                 }
+                
                 LATstrcat(s1, nsPointer);
                 
             }
@@ -351,6 +460,7 @@ void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
         }
         
     } else {
+        
         /* One is invalid */
         printf("One of the provided registers to 'add' is of an invalid type\n");
         exit(2452);
@@ -358,66 +468,91 @@ void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
     }
 }
 
+
 void performSubOp(unsigned char i1, unsigned char i2, unsigned char i3) {
+    
     if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
        getRegisterType(i2) == RegisterNum &&
-       getRegisterType(i3) == RegisterNum) {
+       getRegisterType(i3) == RegisterNum)
+    {
+        
         /* All Num */
         setNumRegister(i1, getRegisterNum(i3) - getRegisterNum(i2), RegisterNum);
         
     } else {
+        
         printf("One of the provided registers to 'subtract' is of an invalid type\n");
         exit(2452);
     }
 }
 
+
 void performMultiOp(unsigned char i1, unsigned char i2, unsigned char i3) {
+    
     if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
        getRegisterType(i2) == RegisterNum &&
-       getRegisterType(i3) == RegisterNum) {
+       getRegisterType(i3) == RegisterNum)
+    {
+        
         /* All Num */
         setNumRegister(i1, getRegisterNum(i3) * getRegisterNum(i2), RegisterNum);
         
     } else {
+        
         printf("One of the provided registers to 'multiply' is of an invalid type\n");
         exit(2452);
     }
 }
 
+
 void performDiviOp(unsigned char i1, unsigned char i2, unsigned char i3) {
+    
     if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
        getRegisterType(i2) == RegisterNum &&
-       getRegisterType(i3) == RegisterNum) {
+       getRegisterType(i3) == RegisterNum)
+    {
         /* All Num */
+        
         setNumRegister(i1, getRegisterNum(i3) / getRegisterNum(i2), RegisterNum);
         
     } else {
+        
         printf("One of the provided registers to 'divide' is of an invalid type\n");
         exit(2452);
     }
 }
 
+
 void performModOp(unsigned char i1, unsigned char i2, unsigned char i3) {
+    
     if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
        getRegisterType(i2) == RegisterNum &&
-       getRegisterType(i3) == RegisterNum) {
+       getRegisterType(i3) == RegisterNum)
+    {
+        
         /* All Num */
         setNumRegister(i1, (int)getRegisterNum(i3) % (int)getRegisterNum(i2), RegisterNum);
         
     } else {
+        
         printf("One of the provided registers to 'modulus' is of an invalid type\n");
         exit(2452);
     }
 }
 
+
 void performExpOp(unsigned char i1, unsigned char i2, unsigned char i3) {
+    
     if((getRegisterType(i1) == RegisterNum || getRegisterType(i1) == RegisterNone) &&
        getRegisterType(i2) == RegisterNum &&
-       getRegisterType(i3) == RegisterNum) {
+       getRegisterType(i3) == RegisterNum)
+    {
+        
         /* All Num */
         setNumRegister(i1, local_pow(getRegisterNum(i3), (int)getRegisterNum(i2)), RegisterNum);
         
     } else {
+        
         printf("One of the provided registers to 'exponent' is of an invalid type\n");
         exit(2452);
     }

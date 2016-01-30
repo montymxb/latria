@@ -31,90 +31,46 @@ SOFTWARE.
 
 #include "Latria_Sys.h"
 
+/* Holds the current system function status */
 static Latria_Sys_Status SysStatus;
 
+/* Carries output */
 char carrier[200];
+/* Holds output to write to the screen */
 char batched_writer[1000];
 char *batched_index = batched_writer;
-char findResult[20];
 
+/* Stores results of find */
+char findResult[100];
+
+/* Null EOF reference */
 char *nullEOF = "null";
+
+/* Safe Null reference */
 char safeNull = 0;
 
+
+/* Returns the safe null reference (null vs. "null") */
 char didReadSafeNull() {
+    
     return safeNull;
 }
 
+
+/* Sets safe null reference */
 void setSafeNull(char c) {
     safeNull = c;
 }
 
+
+/* Returns the current system status */
 Latria_Sys_Status getSysStatus() {
     return SysStatus;
 }
 
-/*
-LATBool checkForSystemCommand(char *input, char *orig) {
-    switch(*(input+1)) {
-        case 'B':
-             Print
-             return Sys_Print(input);
-        case 'A':
-            PrintMem
-             return Sys_PrintMem(); 
-        case 'C':
-             Sleep 
-             return Sys_Sleep(input); 
-        case 'D':
-             Purge 
-            return Sys_Purge();
-        case 'E':
-             GC Rate 
-            return Sys_GC(input);
-        case 'F':
-             Find 
-             return Sys_Find(input); 
-        case 'G':
-             Replace 
-             return Sys_Replace(input); 
-        case 'H':
-             Substr 
-             return Sys_Substr(input); 
-        case 'I':
-             Open 
-             return Sys_Open(input, orig); 
-        case 'J':
-             Read 
-             return Sys_Read(input); 
-        case 'K':
-             Write 
-             return Sys_Write(input); 
-        case 'L':
-             Close 
-             return Sys_Close(input); 
-        case 'M':
-             Remove 
-             return Sys_Remove(input); 
-        case 'N':
-             Random 
-             return Sys_Random(input); 
-        case 'O':
-             Seed Random 
-             return Sys_RandomSeed(input); 
-        case 'P':
-             Read user line of input 
-             return Sys_Input(input); 
-        default:
-             Fail on default 
-            SysStatus = FAILED;
-            return false;
-    }
-}
-*/
 
 /* Replace a portion of a string with another string */
 void Sys_Replace(char *arg1, char *arg2, char *arg3, char arg4) {
-    /*int argCount = fetchNumArgs(input);*/
     
     /* Call substr & set value */
     char *result, *charTBRef;
@@ -127,6 +83,7 @@ void Sys_Replace(char *arg1, char *arg2, char *arg3, char arg4) {
     
 }
 
+
 /* Extract a substring out */
 void Sys_Substr(char *arg1, int arg2, int arg3) {
     
@@ -137,29 +94,35 @@ void Sys_Substr(char *arg1, int arg2, int arg3) {
     setSysResult(charTBRef);
     LATDealloc(result);
     SysStatus = HAS_RESULT;
-    
 }
+
 
 /* Alter the VM GC Rate */
 void Sys_GC(float input) {
+    
     adjustGCRate(input);
     SysStatus = SUCCEEDED;
 }
 
+
 /* Flushes all memory */
 void Sys_Purge() {
+    
     freeObjects();
     SysStatus = SUCCEEDED;
 }
 
+
 /* Prints out our memory structure (debugging feature mostly) */
 void Sys_PrintMem() {
+    
     /* Flush existing writes first */
     Flush_Batched_Write();
     printMem();
     SysStatus = SUCCEEDED;
     
 }
+
 
 /* String find, returns true/false on result */
 void Sys_Find(char *arg1, char *arg2) {
@@ -179,13 +142,20 @@ void Sys_Find(char *arg1, char *arg2) {
     
 }
 
+
 /* Prints out to the console */
 void Sys_Print(char *input) {
-    /* print the contents of the function call out to the screen */
+    
+    /* Print the contents of the function call out to the screen */
+    
     /* Write to batched out */
     batched_index = LATstrcat(batched_index, input); /* used to be 'arg' */
     batched_index = LATstrcat(batched_index, "\n");
+    
+    /* Check if adding our new contents would go over our limit, or we are in NO batch mode */
     if(strlen(batched_writer)+strlen(carrier) >= 999 || getPrintCacheMode() == 0) {
+        
+        /* Flush contents to the screen */
         Flush_Batched_Write();
     }
     
@@ -193,9 +163,13 @@ void Sys_Print(char *input) {
     
 }
 
+
+/* Holds a reference for printing numbers on the screen instead of strings */
 char holder[20];
 
+
 void Sys_PrintNum(double num) {
+    
     /* Write to batched out */
     sprintf(holder, "%g", num);
     batched_index = LATstrcat(batched_index, holder); /* used to be 'arg' */
@@ -207,8 +181,10 @@ void Sys_PrintNum(double num) {
     SysStatus = SUCCEEDED;
 }
 
-/* Returns the architecture we are currently compiled for */
+
+/* Returns the system we are currently compiled for */
 void Sys_Platform() {
+    
     char *platform = "undefined";
     #if defined(MACOSX)
     platform = "mac";
@@ -217,9 +193,11 @@ void Sys_Platform() {
     #elif defined(WINDOWOS)
     platform = "windows";
     #endif
+    
     setSysResult(platform);
     SysStatus = HAS_RESULT;
 }
+
 
 /* Returns a random number */
 int Sys_Random(int input) {
@@ -227,12 +205,14 @@ int Sys_Random(int input) {
     
 }
 
+
 /* Seeds the RNG */
 void Sys_RandomSeed(unsigned int input) {
     srand(input);
     SysStatus = SUCCEEDED;
     
 }
+
 
 /* Reads a line of user input */
 void Sys_Input() {
@@ -256,6 +236,7 @@ void Sys_Input() {
     
 }
 
+
 /* Opens a file to read */
 FILE *Sys_Open(char *fileName, char *mode) {
     
@@ -272,8 +253,10 @@ FILE *Sys_Open(char *fileName, char *mode) {
     return file;
 }
 
-/* For sys Read */
+
+/* Holds lines read from Sys_Read */
 char line[1024];
+
 
 /* Reads a given file */
 void Sys_Read(FILE *file) {
@@ -290,18 +273,25 @@ void Sys_Read(FILE *file) {
     SysStatus = HAS_RESULT;
     
     /* Get our line */
-    /* *lip++='"'; */
     if(fgets( lip, 1024, file)) {
+        
         /* Strip off the line break on the end, or not */
         if(*(lip+strlen(lip)-1) == '\n') {
+            
             *(lip+strlen(lip)-1) = 0;
+            
         } else {
+            
             *(lip+strlen(lip)) = 0;
+            
         }
+        
+        /* Decrement our lip */
         lip--;
         
         /* Check if we read a SAFE null */
         if(strcmp(line, "null")==0) {
+            
             /* We read a safe null, set it */
             safeNull = 1;
         }
@@ -310,20 +300,26 @@ void Sys_Read(FILE *file) {
         setSysResult(line);
         
     } else {
+        
         /* No more */
         *--lip = '\0';
+        
         /* NOT a safe null */
         safeNull = 0;
+        
         /* Indicate EOF */
         setSysResult((char *)nullEOF);
         
     }
 }
 
+
 /* Closes a given file */
 void Sys_Close(FILE *file) {
+    
     if(file == NULL) {
-        /* Somehow an invalid file pointer */
+        
+        /* An invalid file pointer */
         printf("\n\nCannot close. The associated file has either already been closed or is otherwise inaccesible\n\n");
         exit(591);
     }
@@ -334,6 +330,7 @@ void Sys_Close(FILE *file) {
     SysStatus = SUCCEEDED;
     
 }
+
 
 /* Removes a given a file from the file system */
 void Sys_Remove(char *fileName) {
@@ -349,37 +346,50 @@ void Sys_Remove(char *fileName) {
     
 }
 
+
 /* Writes the batched write calls we have to the screen & resets all that good stuff */
 void Flush_Batched_Write() {
+    
     printf("%s", batched_writer);
     batched_writer[0] = '\0';
     batched_index = batched_writer;
 }
 
-#if defined(LAT_TESTS)
+
+#ifdef INCLUDECOMPILER
 /* Strictly for testing our print functionality */
 char * Read_Batched_Write() {
+    
     return batched_writer;
 }
+#endif
+
+
+#ifdef LAT_TESTS
 /* Just empties the batched writer */
 void Flush_Batched_Write_NO_PRINT() {
+    
     batched_writer[0] = '\0';
     batched_index = batched_writer;
 }
 #endif
 
+
 /* Returns whether or not an unquoted character 'c' exists in given char pointer 's' */
 int findUnquotedCharacter(char c, char *s) {
-    char *orig = s;
+    
+    char *orig                = s;
     unsigned char passedFirst = 0;
-    char *yc = strchr(s, c);
+    char *yc                  = strchr(s, c);
     
     if(yc == NULL) {
+        
         /* NO target character found in this string, return -1 */
         return -1;
     }
     
     if(strchr(s,'"') == NULL && strchr(s, '\'') == NULL) {
+        
         /* NO double or single quotes, return the first index of this character */
         int index = (int)(yc-s);
         return index;
@@ -387,27 +397,36 @@ int findUnquotedCharacter(char c, char *s) {
     
     /* While loop over our input */
     while(*s) {
+        
         /* If tgt string found */
         if(*s == c) {
+            
             /* The index of what we found */
             int index = (int)(s-orig);
             return index;
             
         } else if(*s == '"') {
+            
             /* Double Quote */
             if((passedFirst == 1 && *(s-1) != '\\') || passedFirst == 0) {
+                
                 /* Not escaped or first pass */
                 while(true) {
+                    
                     /* Loop until we escape double quotes */
                     yc=strchr(s+1, '"');
+                    
                     if(yc) {
+                        
                         /* We found double quotes */
                         if(*(yc-1) != '\\') {
+                            
                             /* Valid closing Double Quote, set out pointer to it and move along */
                             s = yc;
                             break;
                         }
                     } else {
+                        
                         /* Error, no closing double quote! */
                         printf("No closing double quote found :>> %s\n", orig);
                         exit(6918);
@@ -416,20 +435,27 @@ int findUnquotedCharacter(char c, char *s) {
             }
             
         } else if(*s == '\'') {
+            
             /* Single Quote */
             if((passedFirst == 1 && *(s-1) != '\\') || passedFirst == 0) {
+                
                 /* Not escaped or first pass */
                 while(true) {
+                    
                     /* Loop until we escape single quotes */
                     yc=strchr(s+1, '\'');
+                    
                     if(yc) {
+                        
                         /* We found single quotes */
                         if(*(yc-1) != '\\') {
+                            
                             /* Valid closing Single Quote, set out pointer to it and move along */
                             s = yc;
                             break;
                         }
                     } else {
+                        
                         /* Error, no closing single quote! */
                         printf("No closing single quote found :>> %s\n", s);
                         exit(6918);
@@ -443,18 +469,22 @@ int findUnquotedCharacter(char c, char *s) {
     return -1;
 }
 
+
 /* Finds a character that is unquoted & unparenthesized, completely on it's own */
 int findUncontainedChar(char c, char *s) {
+    
     char *orig = s;
     unsigned char passedFirst = 0;
     char *yc = strchr(s, c);
     
     if(yc == NULL) {
+        
         /* NO target character found in this string, return -1 */
         return -1;
     }
     
     if(strchr(s,'"') == NULL && strchr(s, '\'') == NULL && strchr(s, '(') == NULL && strchr(s, ')') == NULL) {
+        
         /* NO double or single quotes & no opening or closing parentheses, return the first index of this character */
         int index = (int)(yc-s);
         return index;
@@ -462,26 +492,35 @@ int findUncontainedChar(char c, char *s) {
     
     /* While loop over our input */
     while(*s) {
+        
         /* If tgt string found */
         if(*s == c) {
+            
             /* The index of what we found */
             int index = (int)(s-orig);
             return index;
             
         } else if(*s == '"') {
+            
             /* Double Quote found */
             if((passedFirst == 1 && *(s-1) != '\\') || passedFirst == 0) {
+                
                 /* Not escaped or first pass */
                 while(true) {
+                    
                     yc=strchr(s+1, '"');
+                    
                     if(yc) {
+                        
                         /* We found double quotes */
                         if(*(yc-1) != '\\') {
+                            
                             /* Valid closing Double Quote, set out pointer to it and move along */
                             s = yc;
                             break;
                         }
                     } else {
+                        
                         /* Error, no closing double quote! */
                         printf("No closing double quote found :>> %s\n", orig);
                         exit(6918);
@@ -490,41 +529,54 @@ int findUncontainedChar(char c, char *s) {
             }
             
         } else if(*s == '(') {
+            
             /* Opening Parenthese found */
             if((passedFirst == 1 && *(s-1) != '\\') || passedFirst == 0) {
+                
                 /* Not escaped or first pass */
                 while(true) {
+                    
                     int indexFound;
                     yc=s+1;
                     indexFound=findUnquotedCharacter(')', s+1);
+                    
                     if(indexFound != -1) {
+                        
                         /* We found a closing parenthese */
                         yc+=indexFound;
                         /* Valid closing paren, set out pointer to it and move along */
                         s = yc;
                         break;
+                        
                     } else {
                         /* Error, no closing double quote! */
                         printf("No closing double quote found :>> %s\n", orig);
                         exit(6918);
+                        
                     }
                 }
             }
             
         } else if(*s == '\'') {
+            
             /* Single Quote found */
             if((passedFirst == 1 && *(s-1) != '\\') || passedFirst == 0) {
+                
                 /* Not escaped or first pass */
                 while(true) {
+                    
                     yc=strchr(s+1, '\'');
                     if(yc) {
+                        
                         /* We found single quotes */
                         if(*(yc-1) != '\\') {
+                            
                             /* Valid closing Single Quote, set out pointer to it and move along */
                             s = yc;
                             break;
                         }
                     } else {
+                        
                         /* Error, no closing single quote! */
                         printf("No closing single quote found :>> %s\n", s);
                         exit(6918);
@@ -533,14 +585,18 @@ int findUncontainedChar(char c, char *s) {
             }
             
         }
+        
         passedFirst = 1;
         s++;
     }
+    
     return -1;
 }
 
+
 /* Sleep Call in Latria */
 void Sys_Sleep(unsigned int sleepVal) {
+    
     #ifdef _WIN32
     Sleep(sleepVal);
     #else
@@ -548,13 +604,17 @@ void Sys_Sleep(unsigned int sleepVal) {
     #endif
 }
 
+
 /* Time in latria */
 unsigned long Sys_Time() {
+    
     return (unsigned long)time(0);
 }
 
+
 /* Starts a server */
 int Sys_StartServer(int port) {
+    
     #ifdef _WIN32
     /* Windows Server (far back as Vista) */
     
@@ -562,6 +622,7 @@ int Sys_StartServer(int port) {
     WSADATA wsaData;
     int iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
     if(iResult != NO_ERROR) {
+        
         /* failed init */
         printf("\n\nWSAStartup failed with err: %ld\n\n", iResult);
         return -1;
@@ -573,6 +634,7 @@ int Sys_StartServer(int port) {
     listenSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     
     if(listenSock == INVALID_SOCKET) {
+        
         /* Invalid socket */
         printf("\n\nSocket failed with err: %ld\n\n", WSAGetLastError());
         WSACleanup();
@@ -587,6 +649,7 @@ int Sys_StartServer(int port) {
     serv_addr.sin_port = htons(port);
     
     if(bind(listenSock, (SOCKADDR *) &serv_addr, sizeof(serv_addr)) == SOCKET_ERROR) {
+        
         /* Failed to bind socket */
         printf("\n\nBind failed with err: %ld\n\n", WSAGetLastError());
         WSACleanup();
@@ -596,6 +659,7 @@ int Sys_StartServer(int port) {
     
     /* Listen for incoming connection requests */
     if(listen(listenSock, 1) == SOCKET_ERROR) {
+        
         printf("\n\nlisten failed with err: %ld\n\n", WSAGetLastError());
         closesocket(listenSock);
         WSACleanup();
@@ -610,6 +674,7 @@ int Sys_StartServer(int port) {
     acceptSock = accept(listenSock, NULL, NULL);
     
     if(acceptSock == INVALID_SOCKET) {
+        
         /* accept failed */
         printf("\n\naccept failed with error: %ld\n\n", WSAGetLastError());
         closesocket(listenSock);
@@ -650,6 +715,7 @@ int Sys_StartServer(int port) {
     /* bind it to our address */
     err = bind( sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
     if(err == -1) {
+        
         printf("Error attempting to bind server to address\n");
         exit(1);
         
@@ -658,6 +724,7 @@ int Sys_StartServer(int port) {
     /* listen for connections to this socket */
     err = listen(sock, 1);
     if(err == -1) {
+        
         /* error */
         printf("Error attempting to listen for connections on a socket\n");
         exit(1);
@@ -675,7 +742,10 @@ int Sys_StartServer(int port) {
     #endif
 }
 
+
+/* Buffer for communication over sockets */
 char commBuff[1024];
+
 
 /* Sends data over an established connection */
 int Sys_SendData(int connId, char *message) {
@@ -687,6 +757,7 @@ int Sys_SendData(int connId, char *message) {
     sprintf(commBuff, "%s", message);
     result = send(connId, commBuff, strlen(commBuff), 0);
     if(result == SOCKET_ERROR) {
+        
         /* Failed to send! */
         return 0;
         
@@ -704,12 +775,15 @@ int Sys_SendData(int connId, char *message) {
     sprintf(commBuff, "%s", message);
     result = write( connId, commBuff, strlen(commBuff));
     if(result == -1) {
+        
         /* Error, failed to write! */
         return 0;
     }
+    
     return (int)result;
     #endif
 }
+
 
 /* Reads data from an established connection */
 void Sys_ReadData(int connId) {
@@ -728,6 +802,7 @@ void Sys_ReadData(int connId) {
     while(( n = recv(connId, commBuff, sizeof(commBuff)-1, 0)) > 0) {
         
         if((size_t)n <= (size_t)sizeof(commBuff)-1 && data == NULL) {
+            
             /* Fits in one run, simply set the result and leave */
             commBuff[n] = 0;
             setSysResult(commBuff);
@@ -735,12 +810,14 @@ void Sys_ReadData(int connId) {
             return;
             
         } else if(data != NULL) {
+            
             /* Append */
             commBuff[n] = 0;
             origData = LATAlloc(origData, sizeof(char) * strlen(origData), (size_t)(n+1) + strlen(origData));
             data = LATstrcat(data, commBuff);
             
             if(n < 1024) {
+                
                 /* Done, return */
                 setSysResult(origData);
                 SysStatus = HAS_RESULT;
@@ -750,6 +827,7 @@ void Sys_ReadData(int connId) {
             }
             
         } else if(data == NULL) {
+            
             /* Allocate, first run */
             data = origData = LATAlloc(NULL, 0, (size_t)(n+1));
             data = LATstrcat(data, commBuff);
@@ -758,6 +836,7 @@ void Sys_ReadData(int connId) {
     }
     
     if(origData != NULL) {
+        
         /* Indicate we have a result to return */
         SysStatus = HAS_RESULT;
         setSysResult(commBuff);
@@ -765,6 +844,7 @@ void Sys_ReadData(int connId) {
         
     }
 }
+
 
 /* Closes an established connection */
 void Sys_CloseConnection(int connId) {
@@ -774,6 +854,7 @@ void Sys_CloseConnection(int connId) {
     
     int result = shutdown(connId, SD_SEND);
     if(result == SOCKET_ERROR) {
+        
         printf("\n\nShutdown failed with err: %d\n\n", WSAGetLastError());
         
     }
@@ -789,6 +870,7 @@ void Sys_CloseConnection(int connId) {
     #endif
 }
 
+
 /* Attempts to create an established connection */
 int Sys_Connect(char *address, int port) {
     
@@ -800,6 +882,7 @@ int Sys_Connect(char *address, int port) {
     int result = WSAStartup(MAKEWORD(2,2), &wsaData);
     
     if(result != NO_ERROR) {
+        
         /* failed to init */
         printf("\n\nWSAStartup function failed with err: %d\n\n", result);
         return -1;
@@ -811,6 +894,7 @@ int Sys_Connect(char *address, int port) {
     connSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     
     if(connSock == INVALID_SOCKET) {
+        
         /* failed to create socket */
         printf("\n\nsocket failed with err: %ld\n\n", WSAGetLastError());
         WSACleanup();
@@ -828,11 +912,13 @@ int Sys_Connect(char *address, int port) {
     result = connect(connSock, (SOCKADDR *) &sock_addr, sizeof(sock_addr));
     
     if(result == SOCKET_ERROR) {
+        
         /* failed to connect */
         printf("\n\nconnect failed with err: %ld\n\n", WSAGetLastError());
         result = closesocket(connSock);
         
         if(result == SOCKET_ERROR) {
+            
             /* failed to close the socket */
             printf("\n\nclosesocket failed with err: %ld\n\n", WSAGetLastError());
             
@@ -862,6 +948,7 @@ int Sys_Connect(char *address, int port) {
     sock = socket(AF_INET, SOCK_STREAM, 0);
     
     if(sock < 0) {
+        
         printf("An error occurred creating a socket for latria to connect via\n");
         exit(1);
         
@@ -871,11 +958,13 @@ int Sys_Connect(char *address, int port) {
     err = inet_pton(AF_INET, address, &serv_addr.sin_addr);
     
     if(err == 0) {
+        
         /* Invalid address provided */
         printf("Invalid address provided to connect to, %s:%d\n", address,port);
         exit(1);
         
     } else if(err == -1) {
+        
         /* Error converting address to binary format*/
         printf("Error occurred converting provided address to a binary form, %s:%d\n",address,port);
         exit(1);
@@ -887,10 +976,12 @@ int Sys_Connect(char *address, int port) {
     
     
     if(err == 0) {
+        
         /* return our connected socket */
         return sock;
         
     } else {
+        
         /* return failure */
         return -1;
         
@@ -898,30 +989,37 @@ int Sys_Connect(char *address, int port) {
     #endif
 }
 
+
 #pragma message("Set up coroutines in latria")
+
 
 /* not */
 int Sys_bit_not(int i1) {
+    
     return ~i1;
 }
 
 /* and */
 int Sys_bit_and(int i1, int i2) {
+    
     return i1 & i2;
 }
 
 /* or */
 int Sys_bit_or(int i1, int i2) {
+    
     return i1 | i2;
 }
 
 /* xor */
 int Sys_bit_xor(int i1, int i2) {
+    
     return i1 ^ i2;
 }
 
 /* square root */
 double Sys_SquareRoot(double i) {
+    
     return sqrt(i);
 }
 
