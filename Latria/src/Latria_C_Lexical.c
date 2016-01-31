@@ -1250,15 +1250,16 @@ char *analyzeFunctionCall(char *in) {
         *in = '\0';
         /* Closing paren, dispatch everything we have into a PUSH */
         
-        /* Validate we actually had any args */
-        if(*(in-1) != '(') {
-            /* Capture our last arg */
+        /* Validate we actually had any args (check if we are not preceded by parentheses of any type) */
+        if(*(in-1) != '(' && *(in-1) != ')') {
+            /* Capture our last arg, which is what most likely preceeds us */
             in = analyzeFunctionCallArg(in);
             *in = holder;
             resetCapturedInput(++in);
         }
         
-        if(getPriorCompilerState() != LATC_RPOST) {
+        /* The the state before this one is NOt a right side post AND we are not looking at another paren, add more rpost and done stuff */
+        if(getPriorCompilerState() != LATC_RPOST && *in != ')') {
             popCompilerState();
             
             /* Check if we have a closing bracket tagging along */
@@ -1266,6 +1267,7 @@ char *analyzeFunctionCall(char *in) {
                 /* Push Done */
                 pushCompilerState(LATC_DONE);
             }
+            
             pushCompilerState(LATC_RPOST);
             
         } else {
