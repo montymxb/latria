@@ -134,7 +134,7 @@ void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
                     len2 = 0;
                 }
                 
-                s1 = LATAlloc(s1, len2*sizeof(char), (len1+len2+1)*sizeof(char));
+                s1 = LATAlloc(s1, len2*sizeof(char), (len1+len2+2)*sizeof(char));
                 
                 if(len2 == 0) {
                     

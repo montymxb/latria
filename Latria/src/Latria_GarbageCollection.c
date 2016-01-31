@@ -33,11 +33,13 @@ SOFTWARE.
 
 #define LATRIA_ARG_REGISTER_STACK_INCREMENT  100
 
-#define LATRIA_CURRENT_MAX_MEM_SIZE_BASELINE 1024
+#define LATRIA_CURRENT_MAX_MEM_SIZE_BASELINE 655360
 
 #define LATRIA_START_STACK                   50000
 
 #define LATRIA_CHAR_TABLE_SIZE               35
+
+#define LATRIA_FREE_BLOCK_CHAIN_SIZE         10
 
 
 /* Latria's Block Chain */
@@ -60,9 +62,14 @@ struct MemoryBlock {
 /* Latria VM space */
 typedef struct {
     
+    /* Primary chain of memory blocks */
     struct MemoryBlock *memoryChain;
-    struct MemoryBlock *lowFreeChain;
+    
+    /* The last item on our primary chain, for adding new blocks */
     struct MemoryBlock *lastMemoryChain;
+    
+    /* Last block we freed */
+    struct MemoryBlock *freeBlockChain[LATRIA_FREE_BLOCK_CHAIN_SIZE];
     
     char *charTable[LATRIA_CHAR_TABLE_SIZE];
     
@@ -100,9 +107,18 @@ LATVM* constructNewVM() {
     latVM->latriaCurrentMaxMemSize = LATRIA_CURRENT_MAX_MEM_SIZE_BASELINE;
     latVM->currentMemSize          = 0;
     latVM->isCommentedOut          = 0;
+    
+    /* Null out the free block chain */
+    for(; x < LATRIA_FREE_BLOCK_CHAIN_SIZE; x++) {
+        
+        latVM->freeBlockChain[x] = NULL;
+    }
+    
     latVM->SYS_LastResult          = NULL;
     latVM->memoryChain             = NULL;
-    latVM->lowFreeChain            = NULL;
+    
+    x = 0;
+    
     latVM->isOptimizedPrintMode    = 0;
     
     /* Set 3 registers */
@@ -122,9 +138,10 @@ LATVM* constructNewVM() {
     latVM->maxArgRegisterIndex = LATRIA_ARG_REGISTER_STACK_INCREMENT;
     
     /* set defaults */
-    for(;x<LATRIA_ARG_REGISTER_STACK_INCREMENT;x++) {
+    for(; x < LATRIA_ARG_REGISTER_STACK_INCREMENT; x++) {
         
         latVM->argRegisters[x].type = RegisterNone;
+        latVM->argRegisters[x].value.cvalue = NULL;
     }
     
     return latVM;
@@ -133,55 +150,69 @@ LATVM* constructNewVM() {
 /* Current VM Instance */
 LATVM *currentVM = NULL;
 
-
-/* Crawls through our LOCAL stack first, attempts to recycle as much as possible before the VM decides to dump everything */
+/* Latria Malloc. Looks for an already mallocd section of memory in our pool to return, and if it can't it allocates new memory */
 void *lmalloc(size_t sn) {
     
-    /* Crawl our stack FIRST */
     struct MemoryBlock *mb = NULL;
     void *ptr;
     
+    int x = 0;
+    
+    /* Look to check our memory pool first */
     if(currentVM->memoryChain != NULL) {
         
-        /* Crawl down starting at the primary memory chain */
+        /* Crawl down starting at the primary memory chain object (memory pool) */
         struct MemoryBlock *nxtBlock = currentVM->memoryChain;
         
-        /* Loop through out blocks to see if we have any pointers of DECENT size that are available */
-        
-        /* Try the lowFree item */
-        if(currentVM->lowFreeChain != NULL) {
+        /* Check our free block chain for memory first */
+        for(; x < LATRIA_FREE_BLOCK_CHAIN_SIZE; x++) {
             
-            if(currentVM->lowFreeChain->blockPointer != NULL) {
+            /* Check if this block matches our requirements */
+            if(currentVM->freeBlockChain[x] != NULL &&
+               currentVM->freeBlockChain[x]->blockPointer != NULL &&
+               currentVM->freeBlockChain[x]->blockSize >= sn)
+            {
                 
-                if(currentVM->lowFreeChain->blockSize >= sn) {
-                    
-                    /* Bingo! Mark this as allocated again and return it */
-                    nxtBlock = currentVM->lowFreeChain;
-                    nxtBlock->isAllocated = 1;
-                    currentVM->lowFreeChain = NULL;
-                    return nxtBlock->blockPointer;
-                }
+                /* Use this block instead */
+                nxtBlock = currentVM->freeBlockChain[x];
+                
+                /* Null this block */
+                currentVM->freeBlockChain[x] = NULL;
+                
+                /* Indicate this is now allocated */
+                nxtBlock->isAllocated = 1;
+                
+                /* return it */
+                return nxtBlock->blockPointer;
+                
             }
         }
         
+        /* Loop through our blocks to see if we have any pointers of the minimum provided size that are available */
         while(nxtBlock != NULL) {
             
+            /* Check if this block is currently allocated */
             if(nxtBlock->isAllocated == 0) {
                 
-                /* Not allocated, make sure the pointer hasn't already been freed */
+                /* Not allocated, make sure the pointer isn't null */
                 if(nxtBlock->blockPointer != NULL) {
                     
+                    /* Make sure the size of memory this references is at least as large as we need it to be */
                     if(nxtBlock->blockSize >= sn) {
                         
-                        /* Bingo! Mark this as allocated again and return it */
+                        /* Bingo! Mark this as allocated now, we're using it */
                         nxtBlock->isAllocated = 1;
+                        
+                        /* Return it */
                         return nxtBlock->blockPointer;
                     }
                     
                 } else if(mb == NULL) {
                     
-                    /* Store this for working with if we fail here */
-                    mb = nxtBlock->blockPointer;
+                    /* Pointer is null, and our current memory block is null */
+                    
+                    /* Store this memoryless memory block. If we fail we'll reassign it a new pointer below */
+                    mb = nxtBlock;
                 }
             }
             
@@ -248,6 +279,7 @@ void *lrealloc(void *ptr, size_t sn) {
             /* Return our reallocated pointer */
             return ptr;
         }
+        
         mb = mb->nextBlock;
     }
     /* Not found, return NULL */
@@ -266,17 +298,26 @@ void lfree(void *ptr) {
         /* Find the matching block to mark as freed */
         if(mb->blockPointer == ptr) {
             
+            int x = 0;
+            
             /* Found it! Now update it */
             mb->isAllocated = 0;
             
-            if(currentVM->lowFreeChain == NULL) {
+            /* Check to add this to our free block chain */
+            for(; x < LATRIA_FREE_BLOCK_CHAIN_SIZE; x++) {
                 
-                /* Save the last freed item, we can use it */
-                currentVM->lowFreeChain = mb;
+                /* Check if this slot is empty */
+                if(currentVM->freeBlockChain[x] == NULL) {
+                    
+                    /* Add our block to this slot and return */
+                    currentVM->freeBlockChain[x] = mb;
+                    return;
+                }
             }
-            break;
+            return;
         }
         
+        /* Try our next block */
         mb = mb->nextBlock;
     }
 }
@@ -313,12 +354,13 @@ void *LATAlloc(void *ptr, size_t so, size_t sn) {
 /* Latria Dealloc function NOTE:: This can trigger a system wide GC Operation, which can stall up things as the garbage collector is concurrent*/
 void LATDealloc(void *ptr) {
     
-    /* 'Free' our pointer*/
+    /* put our pointer into our memory pool */
     lfree(ptr);
     
+    /* Determine if we need to perform freeing of memory back to the system */
     if(currentVM->currentMemSize >= currentVM->latriaCurrentMaxMemSize) {
         
-        /* Free all available memory blocks */
+        /* Free all non-allocated memory */
         forceMemoryFree();
     }
 }
@@ -327,7 +369,16 @@ void LATDealloc(void *ptr) {
 /* Flushes pointers lined up for release, but does NOT free the linked list blocks*/
 void forceMemoryFree() {
     
+    int x = 0;
+    
     struct MemoryBlock *mb = currentVM->memoryChain;
+    
+    /* Null everything that's in our free list (as it will be removed shortly) */
+    for(; x < LATRIA_FREE_BLOCK_CHAIN_SIZE; x++){
+        
+        currentVM->freeBlockChain[x] = NULL;
+        
+    }
     
     /* Iterate over the entire memory chain */
     while(mb != NULL) {
@@ -557,14 +608,33 @@ void setStringRegister(unsigned char registerNum, char *string, RegisterType typ
         
         if(currentVM->registers[registerNum].type == RegisterString || currentVM->registers[registerNum].type == RegisterVar) {
             
-            /* Existing string to be freed first */
-            LATDealloc(currentVM->registers[registerNum].value.cvalue);
+            size_t strLen = strlen(string);
             
+            /* Check to recycle existing string value */
+            if(strlen(currentVM->registers[registerNum].value.cvalue) >= strLen) {
+                
+                /* Copy our string into the old one's place */
+                strncpy(currentVM->registers[registerNum].value.cvalue, string, strLen);
+                
+                /* Null terminate it */
+                currentVM->registers[registerNum].value.cvalue[strLen] = 0;
+                
+            } else {
+                /* No good, dealloc and copy */
+                
+                /* Existing string to be freed first */
+                LATDealloc(currentVM->registers[registerNum].value.cvalue);
+                currentVM->registers[registerNum].value.cvalue = LATstrdup(string);
+            }
+            
+        } else {
+            
+            /* Set new value */
+            currentVM->registers[registerNum].value.cvalue = LATstrdup(string);
         }
         
-        /* Set new type & value */
+        /* Set new type */
         currentVM->registers[registerNum].type = type;
-        currentVM->registers[registerNum].value.cvalue = LATstrdup(string);
         
     } else {
         
@@ -585,6 +655,7 @@ void setNumRegister(unsigned char registerNum, double num, RegisterType type) {
             
             /* Existing string to be freed first */
             LATDealloc(currentVM->registers[registerNum].value.cvalue);
+            currentVM->registers[registerNum].value.cvalue = NULL;
             
         }
         
@@ -611,6 +682,7 @@ void setFileRegister(unsigned char registerNum, FILE *file, RegisterType type) {
             
             /* Existing string to be freed first */
             LATDealloc(currentVM->registers[registerNum].value.cvalue);
+            currentVM->registers[registerNum].value.cvalue = NULL;
             
         }
         
@@ -637,6 +709,7 @@ void setArrayRegister(unsigned char registerNum, struct CoreObject *array, Regis
             
             /* Existing string to be freed first */
             LATDealloc(currentVM->registers[registerNum].value.cvalue);
+            currentVM->registers[registerNum].value.cvalue = NULL;
             
         }
         
@@ -663,6 +736,7 @@ void setNullRegister(unsigned char registerNum) {
             
             /* Existing string to be freed first */
             LATDealloc(currentVM->registers[registerNum].value.cvalue);
+            currentVM->registers[registerNum].value.cvalue = NULL;
             
         }
         
@@ -688,6 +762,7 @@ void setConnectionRegister(unsigned char registerNum, int connId) {
             
             /* Existing string to be freed first */
             LATDealloc(currentVM->registers[registerNum].value.cvalue);
+            currentVM->registers[registerNum].value.cvalue = NULL;
             
         }
         
@@ -876,13 +951,35 @@ void pushStringStackRegister(char *string, RegisterType type) {
        currentVM->argRegisters[currentVM->argRegisterIndex].type == RegisterVar)
     {
         
-        /* Existing string to be freed first */
-        LATDealloc(currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue);
+        size_t strLen = strlen(string);
+        
+        /* Check to recycle existing string value */
+        if(strlen(currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue) >= strLen) {
+            
+            /* Copy our string into the old one's place */
+            strncpy(currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue, string, strLen);
+            
+            /* Null terminate it */
+            currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue[strLen] = 0;
+            
+        } else {
+            /* No good, dealloc and copy */
+            
+            /* Existing string to be freed first */
+            LATDealloc(currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue);
+            currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue = LATstrdup(string);
+        }
+        
+    } else {
+        
+        /* Just set our string */
+        currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue = LATstrdup(string);
         
     }
     
+    /* Set the type */
     currentVM->argRegisters[currentVM->argRegisterIndex].type = type;
-    currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue = LATstrdup(string);
+    
 }
 
 
@@ -895,6 +992,7 @@ void pushNumStackRegister(double num, RegisterType type) {
         
         /* Existing string to be freed first */
         LATDealloc(currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue);
+        currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue = NULL;
         
     }
     
@@ -912,6 +1010,7 @@ void pushFileStackRegister(FILE *file, RegisterType type) {
         
         /* Existing string to be freed first */
         LATDealloc(currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue);
+        currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue = NULL;
         
     }
     
@@ -929,6 +1028,7 @@ void pushArrayStackRegister(struct CoreObject *array, RegisterType type) {
         
         /* Existing string to be freed first */
         LATDealloc(currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue);
+        currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue = NULL;
         
     }
     
@@ -946,6 +1046,7 @@ void pushNullStackRegister(RegisterType type) {
         
         /* Existing string to be freed first */
         LATDealloc(currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue);
+        currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue = NULL;
         
     }
     
@@ -962,6 +1063,7 @@ void pushConnectionStackRegister(int connId) {
         
         /* Existing string to be freed first */
         LATDealloc(currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue);
+        currentVM->argRegisters[currentVM->argRegisterIndex].value.cvalue = NULL;
         
     }
     
@@ -1046,6 +1148,8 @@ void __freeAllRegisterValues() {
         if(currentVM->registers[x].type == RegisterVar || currentVM->registers[x].type == RegisterString) {
             
             LATDealloc(currentVM->registers[x].value.cvalue);
+            currentVM->registers[x].value.cvalue = NULL;
+            
         }
         
         if(x >= 2) {
@@ -1063,6 +1167,7 @@ void __freeAllRegisterValues() {
         if(currentVM->argRegisters[x].type == RegisterVar || currentVM->argRegisters[x].type == RegisterString) {
             
             LATDealloc(currentVM->argRegisters[x].value.cvalue);
+            currentVM->argRegisters[x].value.cvalue = NULL;
         }
         
         if(x >= currentVM->maxArgRegisterIndex-1) {

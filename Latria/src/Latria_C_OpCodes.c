@@ -368,6 +368,9 @@ void dispatchInstructions() {
     if(instructions != NULL && instructionCount > 0) {
         
         lat_io_compiler_writeOutput(instructions, instructionCount);
+    }
+    
+    if(instructions != NULL) {
         
         free(instructions), instructions = NULL;
     }

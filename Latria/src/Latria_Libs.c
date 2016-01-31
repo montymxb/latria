@@ -259,7 +259,7 @@ char *LATstrdup(char *s) {
     
     char *retVal;
     size_t len = strlen(s);
-    retVal = LATAlloc(NULL, 0, len+1);
+    retVal = LATAlloc(NULL, 0, len+1);    
     strncpy( retVal, s, len);
     retVal[len] = '\0';
     return retVal;

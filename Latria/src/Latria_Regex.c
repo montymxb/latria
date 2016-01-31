@@ -2417,14 +2417,19 @@ void freeAllRegexStates() {
     
     struct RegexState *stepState = rootStateList, *tmpState;
     
+    /* Free all our internal states */
     while(stepState != NULL) {
         
         disableState(stepState);
         
         tmpState = stepState;
         stepState = stepState->next;
+        tmpState->next = NULL;
         LATDealloc(tmpState);
     }
+    
+    /* Set our root list to null */
+    rootStateList = NULL;
     
     freeAllGroupingsAndStack();
 }

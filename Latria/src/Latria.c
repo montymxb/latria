@@ -557,6 +557,11 @@ void resetCurrentFileIndex(long int newIndex) {
 /* Frees the latria vm and associated objects */
 void freeLatria() {
     
+    /* Free any files */
+    while(fileStackIndex > 0) {
+        closeDynamicInterpreterFile();
+    }
+    
     /* free all labels (jumps) */
     freeAllLabels();
     

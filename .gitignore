@@ -31,8 +31,11 @@
 # Debug files
 *.dSYM/
 
-# mac files
+# general files
 .DS_Store
+*.log
+*.lra
+*.lrac
 
 #compiled executables
 latria

@@ -72,6 +72,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "mini.lrac"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "server.lrac"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

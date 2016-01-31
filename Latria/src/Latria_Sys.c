@@ -525,7 +525,8 @@ int Sys_StartServer(int port) {
 
 
 /* Buffer for communication over sockets */
-char commBuff[1024];
+char commOutBuff[1024];
+char commInBuff[1024];
 
 
 /* Sends data over an established connection */
@@ -535,8 +536,9 @@ int Sys_SendData(int connId, char *message) {
     /* Windows implementation */
     
     int result = 0;
-    sprintf(commBuff, "%s", message);
-    result = send(connId, commBuff, strlen(commBuff), 0);
+    sprintf(commOutBuff, "%s", message);
+    commOutBuff[strlen(message)] = '\0';
+    result = send(connId, commOutBuff, strlen(commOutBuff), 0);
     if(result == SOCKET_ERROR) {
         
         /* Failed to send! */
@@ -552,9 +554,12 @@ int Sys_SendData(int connId, char *message) {
     
     
     ssize_t result = 0;
+    size_t msgLen = strlen(message);
         
-    sprintf(commBuff, "%s", message);
-    result = write( connId, commBuff, strlen(commBuff));
+    sprintf(commOutBuff, "%s", message);
+    commOutBuff[msgLen] = '\0';
+    
+    result = write( connId, commOutBuff, msgLen);
     if(result == -1) {
         
         /* Error, failed to write! */
@@ -580,22 +585,22 @@ void Sys_ReadData(int connId) {
     ssize_t n;
     #endif
     
-    while(( n = recv(connId, commBuff, sizeof(commBuff)-1, 0)) > 0) {
+    while(( n = recv(connId, commInBuff, sizeof(commInBuff)-1, 0)) > 0) {
         
-        if((size_t)n <= (size_t)sizeof(commBuff)-1 && data == NULL) {
+        if((size_t)n <= (size_t)sizeof(commInBuff)-1 && data == NULL) {
             
-            /* Fits in one run, simply set the result and leave */
-            commBuff[n] = 0;
-            setSysResult(commBuff);
+            /* Fits in one run, cap our end, simply set the result and leave */
+            commInBuff[n] = 0;
+            setSysResult(commInBuff);
             SysStatus = HAS_RESULT;
             return;
             
         } else if(data != NULL) {
             
             /* Append */
-            commBuff[n] = 0;
+            commInBuff[n] = 0;
             origData = LATAlloc(origData, sizeof(char) * strlen(origData), (size_t)(n+1) + strlen(origData));
-            data = LATstrcat(data, commBuff);
+            data = LATstrcat(data, commInBuff);
             
             if(n < 1024) {
                 
@@ -611,7 +616,7 @@ void Sys_ReadData(int connId) {
             
             /* Allocate, first run */
             data = origData = LATAlloc(NULL, 0, (size_t)(n+1));
-            data = LATstrcat(data, commBuff);
+            data = LATstrcat(data, commInBuff);
             
         }
     }
@@ -620,7 +625,7 @@ void Sys_ReadData(int connId) {
         
         /* Indicate we have a result to return */
         SysStatus = HAS_RESULT;
-        setSysResult(commBuff);
+        setSysResult(commInBuff);
         LATDealloc(origData);
         
     }

@@ -64,6 +64,14 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-t"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "client.lra"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "server.lra"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -83,7 +91,7 @@
          <EnvironmentVariable
             key = "__unix__=1"
             value = ""
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
