@@ -2171,6 +2171,8 @@ void ftest_FileIO() {
     
     if(LAT_STRCMP(rez, ">line1\n>null\n>line3\n>line4\n>final line, goodbye\n") != 0) {
         testFailedWithError(testName, "Did not read expected file contents");
+        printf("%s\n", rez);
+        
     }
     
     /* Flush the queue */

@@ -33,8 +33,11 @@ SOFTWARE.
 /* Current latria version */
 #define LATRIA_VERSION_NUMBER "0.1.1"
 
-/* Fixed lenght of data we can read at a time in */
+/* Fixed length of data we can read at a time in */
 #define LAT_INPUT_SIZE 1024
+
+/* Fixed file cache, latria reads files in chunks of this size */
+#define LAT_FILE_CACHE_SIZE 2048
 
 /* exit char array (for dynamic interpreter) */
 char exitVal[]      = "exit";
@@ -367,6 +370,17 @@ void executeLatriaFile(char *fileName) {
 }
 
 
+/*** FILE READING CHUNKS AT A TIME ***/
+char currentCharList [LAT_FILE_CACHE_SIZE];
+
+int  currentReadLowerBound = 0;
+int  currentReadUpperBound = 0;
+int  currentFileIndex      = 0;
+
+size_t currentReadCharsLength;
+
+
+
 #ifdef INCLUDECOMPILER
 
 
@@ -482,6 +496,9 @@ int handleInput(char *input) {
             
         }
         
+        /* Update our current index to that of our file */
+        currentFileIndex = (int)ftell(runFile);
+        
         /* Run our bytecodes */
         runInstructions();
         
@@ -508,48 +525,135 @@ int handleInput(char *input) {
 /* Returns the current character in our runFile */
 int getCurrentChar() {
     
-    return fgetc(runFile);
+    /* Check if our bounds are the same */
+    if(currentReadLowerBound == currentReadUpperBound) {
+        
+        /* Bounds are the same. We have nothing to read, try and read some more bytecodes */
+        
+        /* Read the file in */
+        currentReadCharsLength = fread(currentCharList, sizeof(char), LAT_FILE_CACHE_SIZE, runFile);
+        
+        /* Increase our upper bound */
+        currentReadUpperBound  +=currentReadCharsLength;
+        
+        /* Check if we read anything */
+        if(currentReadCharsLength == 0) {
+            
+            /* Return eof */
+            return EOF;
+            
+        }
+    }
+    
+    /* Check if our currentFileIndex lies in a range we can read */
+    if(currentFileIndex >= currentReadLowerBound && currentFileIndex < currentReadUpperBound) {
+        
+        /* Return what we have here! */
+        char chr = currentCharList[currentFileIndex - currentReadLowerBound];
+        currentFileIndex++;
+        return chr;
+        
+    } else {
+        
+        /* Outside our bounds, check if we are below or above */
+        if(currentFileIndex >= currentReadUpperBound) {
+            
+            /* Set our lower bound to our upper */
+            currentReadLowerBound  = currentReadUpperBound;
+            
+            /* Above, read forward */
+            currentReadCharsLength = fread(currentCharList, sizeof(char), LAT_FILE_CACHE_SIZE, runFile);
+            
+            /* Increase our upper bound */
+            currentReadUpperBound  +=currentReadCharsLength;
+            
+            /* Check if we read anything */
+            if(currentReadCharsLength == 0) {
+                
+                /* return eof */
+                return EOF;
+                
+            } else {
+                
+                /* Call ourselves again */
+                return getCurrentChar();
+                
+            }
+            
+            
+        } else {
+        
+            /* Below, seek to our current index */
+            if(fseek(runFile, currentFileIndex, SEEK_SET) == 0) {
+                
+                /* Good seek, set our upper and lower bounds to our currentIndex and call ourselves again */
+                currentReadLowerBound = currentReadUpperBound = currentFileIndex;
+                
+                return getCurrentChar();
+                
+            } else {
+                
+                /* Bad Seek! */
+                printf("Attempted to read a non-existant portion of the current file!\n");
+                exit(1409);
+                
+            }
+            
+        }
+    }
+    
+    /* eof on default */
+    return EOF;
 }
 
 
 /* Returns a character relative to the current character in our runFile */
 int getCharByOffsetFromCurrent(int offset) {
     
-    if(fseek(runFile, offset, SEEK_CUR) == 0) {
-        return getCurrentChar();
-        
-    } else {
-        /* Something went wrong, exit out */
-        printf("Invalid seek!\n");
-        exit(4091);
-        return EOF;
-        
-    }
+    /* increment our current file index */
+    currentFileIndex+=offset;
+    
+    /* attempt to get a character */
+    return getCurrentChar();
 }
 
 
 /* Moves to the next character in our file */
 void moveToNextChar() {
     
-    fgetc(runFile);
+    currentFileIndex++;
 }
 
 
 /* Returns the index of where we are in the current file */
 long int getCurrentFileIndex() {
     
-    return ftell(runFile);
+    return currentFileIndex;
 }
 
 
 /* Resets the file index to the provided index */
 void resetCurrentFileIndex(long int newIndex) {
     
-    if(fseek(runFile, newIndex, SEEK_SET) != 0) {
-        /* Error out */
-        printf("Invalid seek to set new current index!\n");
-        exit(4091);
+    /* Change our index */
+    currentFileIndex = newIndex;
+    
+    /* Check if we need need to seek to reach this portion of our file */
+    if(currentFileIndex < currentReadLowerBound || currentFileIndex >= currentReadUpperBound) {
         
+        /* Seek to this new index */
+        if(fseek(runFile, currentFileIndex, SEEK_SET) == 0) {
+            
+            /* Good seek, set our upper and lower bounds to our currentIndex and call ourselves again */
+            currentReadLowerBound = currentReadUpperBound = currentFileIndex;
+            
+        } else {
+            
+            /* Bad Seek! */
+            printf("Attempted to read a non-existant portion of the current file!\n");
+            exit(1409);
+            
+        }
     }
 }
 

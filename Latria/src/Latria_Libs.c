@@ -128,11 +128,10 @@ char *str_replace(char *orig, char *rep, char *with, char removeAll) {
 /* Checks to see if a string is compatible for math operations */
 LATBool isNumeric (char * s) {
     
-    if (s == NULL || *s == '\0')
-        return false;
-    
-    if(*s == '-' || *s == '+')
-        s++; /* advance if negative/positive start*/
+    if(*s == '-' || *s == '+') {
+        /* advance if negative/positive start*/
+        s++;
+    }
     
     while(*s) {
         
@@ -267,10 +266,12 @@ char *LATstrdup(char *s) {
 
 
 /* Latria String concatenate */
+/*
 char *LATstrcat(char *d, char *s) {
-    
+ 
     size_t slen = strlen(s);
     char *nv = strncpy( d+strlen(d), s, slen) + slen;
     *nv = '\0';
     return nv;
 }
+*/

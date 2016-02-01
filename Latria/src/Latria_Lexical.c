@@ -87,6 +87,7 @@ int funcCounter = 0;
 void runInstructions() {
     
     int hc;
+    char offset[5] = {0};
     
     while((hc = getCurrentChar()) != EOF) {
         
@@ -105,35 +106,40 @@ void runInstructions() {
         unsigned int registerNum;
         int incrementCounter;
         long int priorFileIndex;
-        char offset[5] = {0};
         unsigned char h1,h2,h3;
         
         instructionCounter++;
         
-        if(interpreterState[interpreterIndex] == ISTATE_XLANG) {
+        /* Check to handle an interpreter state */
+        if(interpreterState[interpreterIndex] != ISTATE_NONE) {
+        
+            /* Handle one of our interpreter states */
             
-            /* Continue to exec and reset the last char read back into the stream */
-            hc = OP_EXEC;
-            getCharByOffsetFromCurrent(-2);
-            
-        } else if(interpreterState[interpreterIndex] == ISTATE_FUNC) {
-            
-            /* Continue to read to end of function definition */
-            hc = OP_FUNC;
-            getCharByOffsetFromCurrent(-2);
-            
-        } else if(interpreterState[interpreterIndex] == ISTATE_CONTINUE) {
-            
-            /* Continue */
-            hc = OP_CONTINUE;
-            getCharByOffsetFromCurrent(-2);
-            
-        } else if(interpreterState[interpreterIndex] == ISTATE_BREAK) {
-            
-            /* Continue */
-            hc = OP_BREAK;
-            getCharByOffsetFromCurrent(-2);
-            
+            if(interpreterState[interpreterIndex] == ISTATE_XLANG) {
+                
+                /* Continue to exec and reset the last char read back into the stream */
+                hc = OP_EXEC;
+                getCharByOffsetFromCurrent(-2);
+                
+            } else if(interpreterState[interpreterIndex] == ISTATE_FUNC) {
+                
+                /* Continue to read to end of function definition */
+                hc = OP_FUNC;
+                getCharByOffsetFromCurrent(-2);
+                
+            } else if(interpreterState[interpreterIndex] == ISTATE_CONTINUE) {
+                
+                /* Continue */
+                hc = OP_CONTINUE;
+                getCharByOffsetFromCurrent(-2);
+                
+            } else if(interpreterState[interpreterIndex] == ISTATE_BREAK) {
+                
+                /* Continue */
+                hc = OP_BREAK;
+                getCharByOffsetFromCurrent(-2);
+                
+            }
         }
         
         /* Sequence Location is beginning or at a read code */
@@ -1099,7 +1105,11 @@ void runInstructions() {
             case OP_PRINT:
                 
                 /* Print our last pushed arg to the screen */
-                if(getStackRegisterType() == RegisterString || getStackRegisterType() == RegisterVar) {
+                if(getStackRegisterType() == RegisterConnection || getStackRegisterType() == RegisterNum) {
+                    
+                    Sys_PrintNum(popStackRegisterNum());
+                    
+                } else if(getStackRegisterType() == RegisterString || getStackRegisterType() == RegisterVar) {
                     
                     Sys_Print(popStackRegisterString());
                     
@@ -1107,10 +1117,6 @@ void runInstructions() {
                     
                     Sys_Print("null");
                     popStackRegisterNull();
-                    
-                } else if(getStackRegisterType() == RegisterConnection || getStackRegisterType() == RegisterNum) {
-                    
-                    Sys_PrintNum(popStackRegisterNum());
                     
                 } else if(getStackRegisterType() == RegisterArray) {
                     

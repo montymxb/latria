@@ -76,8 +76,6 @@ strcmp((a), (b)))
 
 /* string duplication */
 char *LATstrdup(char *s);
-/* string concatenation */
-char *LATstrcat(char *d, char *s);
 
 
 /* bool is not defined on some systems without including the proper header, this is the substitute bool */

@@ -140,7 +140,7 @@ void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
                     
                     *s1 = 0;
                 }
-                LATstrcat(s1, tmp);
+                strcat(s1, tmp);
                 
             } else {
                 
@@ -165,7 +165,7 @@ void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
                     *s1 = 0;
                 }
                 
-                LATstrcat(s1, nsPointer);
+                strcat(s1, nsPointer);
                 
             }
             

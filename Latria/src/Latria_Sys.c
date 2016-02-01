@@ -149,8 +149,8 @@ void Sys_Print(char *input) {
     /* Print the contents of the function call out to the screen */
     
     /* Write to batched out */
-    batched_index = LATstrcat(batched_index, input); /* used to be 'arg' */
-    batched_index = LATstrcat(batched_index, "\n");
+    batched_index = strcat(batched_index, input); /* used to be 'arg' */
+    batched_index = strcat(batched_index, "\n");
     
     /* Check if adding our new contents would go over our limit, or we are in NO batch mode */
     if(strlen(batched_writer)+strlen(carrier) >= 999 || getPrintCacheMode() == 0) {
@@ -172,8 +172,8 @@ void Sys_PrintNum(double num) {
     
     /* Write to batched out */
     sprintf(holder, "%g", num);
-    batched_index = LATstrcat(batched_index, holder); /* used to be 'arg' */
-    batched_index = LATstrcat(batched_index, "\n");
+    batched_index = strcat(batched_index, holder); /* used to be 'arg' */
+    batched_index = strcat(batched_index, "\n");
     if(strlen(batched_writer)+strlen(carrier) >= 999 || getPrintCacheMode() == 0) {
         Flush_Batched_Write();
     }
@@ -600,7 +600,7 @@ void Sys_ReadData(int connId) {
             /* Append */
             commInBuff[n] = 0;
             origData = LATAlloc(origData, sizeof(char) * strlen(origData), (size_t)(n+1) + strlen(origData));
-            data = LATstrcat(data, commInBuff);
+            data = strcat(data, commInBuff);
             
             if(n < 1024) {
                 
@@ -616,7 +616,7 @@ void Sys_ReadData(int connId) {
             
             /* Allocate, first run */
             data = origData = LATAlloc(NULL, 0, (size_t)(n+1));
-            data = LATstrcat(data, commInBuff);
+            data = strcat(data, commInBuff);
             
         }
     }

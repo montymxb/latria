@@ -947,8 +947,10 @@ void pushRegister(unsigned char registerNum) {
 /* Adds a string stack register item */
 void pushStringStackRegister(char *string, RegisterType type) {
     
-    if(currentVM->argRegisters[currentVM->argRegisterIndex].type == RegisterString ||
-       currentVM->argRegisters[currentVM->argRegisterIndex].type == RegisterVar)
+    RegisterType curType = currentVM->argRegisters[currentVM->argRegisterIndex].type;
+    
+    if(curType == RegisterString ||
+       curType == RegisterVar)
     {
         
         size_t strLen = strlen(string);
@@ -986,8 +988,10 @@ void pushStringStackRegister(char *string, RegisterType type) {
 /* Adds a num stack register item */
 void pushNumStackRegister(double num, RegisterType type) {
     
-    if(currentVM->argRegisters[currentVM->argRegisterIndex].type == RegisterString ||
-       currentVM->argRegisters[currentVM->argRegisterIndex].type == RegisterVar)
+    RegisterType curType = currentVM->argRegisters[currentVM->argRegisterIndex].type;
+    
+    if(curType == RegisterString ||
+       curType == RegisterVar)
     {
         
         /* Existing string to be freed first */
