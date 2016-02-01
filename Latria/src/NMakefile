@@ -58,13 +58,17 @@ all: latria disassembler
 .c.obj:
 	$(CC) /c $(CDEBUG) $(COMP_FLAGS) $(CL_EXTRA_FLAGS) $(CFLAGS) $(CVARS) $*.c
 	
-#interpreter-compiler
-latria: $(I_OBJS) $(C_E_OBJS)
+#basic build for interpreter-compiler
+interpreter-compiler: $(I_OBJS) $(C_E_OBJS)
 	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
+	
+#interpreter-compiler
+latria:
+	$(NMAKE_INVOCATION) interpreter-compiler COMP_FLAGS="$(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS)"
 	
 #interpreter-compiler debug
 latria-debug:
-	$(NMAKE_INVOCATION) latria COMP_FLAGS="$(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS)"
+	$(NMAKE_INVOCATION) interpreter-compiler COMP_FLAGS="$(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS)"
 	
 #only interpreter
 interpreter: $(I_OBJS)
@@ -72,7 +76,7 @@ interpreter: $(I_OBJS)
 	
 #only interpreter debug
 interpreter-debug:
-	$(NMAKE_INVOCATION) interpreter COMP_FLAGS=$(DEBUG_FLAGS)
+	$(NMAKE_INVOCATION) interpreter COMP_FLAGS="$(DEBUG_FLAGS)"
 
 #only compiler
 compiler: $(C_OBJS)

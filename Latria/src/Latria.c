@@ -661,10 +661,12 @@ void resetCurrentFileIndex(long int newIndex) {
 /* Frees the latria vm and associated objects */
 void freeLatria() {
     
+    #ifdef INCLUDECOMPILER
     /* Free any files */
     while(fileStackIndex > 0) {
         closeDynamicInterpreterFile();
     }
+    #endif
     
     /* free all labels (jumps) */
     freeAllLabels();
