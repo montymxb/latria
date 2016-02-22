@@ -41,6 +41,9 @@ In the meantime feel free to reach out to me at friedman.benjamin@gmail.com
 
 Latria is capable of being built on linux, mac and windows from the same source. The methods vary however, but for all of them you'll need to navigate to latria/Latria/src/ to start.
 
+<i>To note</i> latria does not use a standard ./configure, make, make install approach. Instead you run ```make [platform]``` and ```make install```.
+Note that if you're not sure you can always run ```make help```
+
 For building on mac you can invoke make as follows.
 ```
 make mac
