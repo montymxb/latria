@@ -54,7 +54,7 @@ For linux you can invoke make the same way, but for linux.
 make linux
 ```
 
-Now for windows there is an alternate Makefile provided specially for nmake. You can invoke it and build for windows as follows (Note you will need to install VS and have access to a Developer Command Prompt to build from)
+Now for windows there is an alternate Makefile provided specially for nmake. You can invoke it and build for windows as follows (Note you will need to install Visual Studio and have access to a Developer Command Prompt to build from)
 ```
 nmake /F NMakeFile latria
 ```
