@@ -82,12 +82,12 @@ latria -t
 
 windows
 ```
-# clean if needed
+:: clean if needed
 nmake /F NMakefile clean
 
 nmake /F NMakeFile latria-debug
 
-# run tests
+:: run tests
 latria.exe -t
 ```
 
