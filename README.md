@@ -59,4 +59,39 @@ Now for windows there is an alternate Makefile provided specially for nmake. You
 nmake /F NMakeFile latria
 ```
 
-For building on the 'big 3' that's essentially all you have to do! If you have issues or questions regarding those platforms or any other platforms you can let me know or open an issue.
+For building on the 'big 3' that's essentially all you have to do! If you have issues or questions regarding those platforms or any others let me know or open an issue.
+
+<h2>Testing.</h2>
+
+Testing on Latria is currently run by an embedded suite of tests. You can build them into a binary as follows:
+
+mac & linux
+```
+# clean if needed
+make clean
+
+make mac-debug
+## OR ##
+make linux-debug
+
+make install
+
+# run tests
+latria -t
+```
+
+windows
+```
+# clean if needed
+nmake /F NMakefile clean
+
+nmake /F NMakeFile latria-debug
+
+# run tests
+latria.exe -t
+```
+
+If you plan to contribute please checkout <a href='CONTRIBUTING.md'>Contributing</a> first.
+
+
+
