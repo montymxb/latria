@@ -31,7 +31,7 @@ SOFTWARE.
 
 #include "Latria_Decompiler.h"
 
-#define LATRIA_VERSION_NUMBER "0.1.1"
+#define LATRIA_VERSION_NUMBER "0.1.2"
 
 #ifndef LATRIA_EMBEDDED
 int main( int argc, char* argv[]) {
@@ -156,7 +156,7 @@ void decompileLatria(char *fn) {
     while((hc = (char)getCurrentChar()) != EOF) {
         
         /* Print out the address of this line (one less than max) */
-        fprintf(out, "0x%04lx  ", ftell(in)-1);
+        fprintf(out, "0x%08lx  ", ftell(in)-1);
         
         instructionCounter++;
 
@@ -221,6 +221,10 @@ void decompileLatria(char *fn) {
                 fprintf(out, "JUMP 0x%c",(char)getCurrentChar());
                 fprintf(out, "%c",(char)getCurrentChar());
                 fprintf(out, "%c",(char)getCurrentChar());
+                fprintf(out, "%c",(char)getCurrentChar());
+                fprintf(out, "%c",(char)getCurrentChar());
+                fprintf(out, "%c",(char)getCurrentChar());
+                fprintf(out, "%c",(char)getCurrentChar());
                 fprintf(out, "%c\n",(char)getCurrentChar());
                 break;
                 
@@ -280,7 +284,7 @@ void decompileLatria(char *fn) {
                 break;
                 
             case OP_COND_JUMP:
-                fprintf(out, "COND_JUMP 0x%02x %d, 0x%c%c%c%c\n",(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar());
+                fprintf(out, "COND_JUMP 0x%02x %d, 0x%c%c%c%c%c%c%c%c\n",(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar());
                 break;
                 
             case OP_INPUT:

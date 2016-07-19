@@ -29,6 +29,9 @@ SOFTWARE.
 #ifndef __Latria_Libs__
 #define __Latria_Libs__
 
+/* The size of instructions for the interpreter */
+#define LAT_I_ADDRESS_SIZE 8
+
 /* (Hacky) Prevents a popen warning in linux, one of many approaches to address this */
 #define _POSIX_C_SOURCE 2
 

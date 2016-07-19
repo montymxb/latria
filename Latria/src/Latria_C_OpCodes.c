@@ -332,8 +332,8 @@ long int getProgramByteCount() {
 }
 
 
-/* Writes out a 4 byte address from an unsigned int */
-void writeOut4ByteAddress(unsigned int address) {
+/* Writes out an LAT_ADDRESS_SIZE sized byte address (probably 8 bytes) from an unsigned int */
+void writeOutByteAddress(unsigned int address) {
     
     char hex[LAT_ADDRESS_SIZE+1];
     int size = LAT_ADDRESS_SIZE;
@@ -341,14 +341,13 @@ void writeOut4ByteAddress(unsigned int address) {
     
     /* Check if too large */
     if(instructionCount+size >= instructionSize-1) {
-        
         /* realloc up to whichever is largest */
         instructionSize+=(INSTRUCTION_STEP < size ? size : INSTRUCTION_STEP+size+1);
         instructions = realloc(instructions, (size_t)instructionSize);
         
     }
     
-    /* Generate 4 byte hex from unsigned int */
+    /* Generate LAT_ADDRESS_FORMAT_STRING byte hex from unsigned int */
     sprintf(hex, LAT_ADDRESS_FORMAT_STRING, address);
     
     /* Copy in this instruction and bump */

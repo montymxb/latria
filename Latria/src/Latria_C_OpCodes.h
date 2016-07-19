@@ -243,7 +243,7 @@ void nullifyBatchedData();
 
 long int getProgramByteCount();
 
-void writeOut4ByteAddress(unsigned int address);
+void writeOutByteAddress(unsigned int address);
 
 /* forwardly declared from io */
 void lat_io_compiler_writeOutput(unsigned char *output, int size);

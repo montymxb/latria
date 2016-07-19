@@ -87,7 +87,8 @@ int funcCounter = 0;
 void runInstructions() {
     
     int hc;
-    char offset[5] = {0};
+    short offsetCounter;
+    char offset[LAT_I_ADDRESS_SIZE] = {0};
     
     while((hc = getCurrentChar()) != EOF) {
         
@@ -336,7 +337,6 @@ void runInstructions() {
                         incrementCounter = 0;
                         
                         while((hc = (unsigned char)getCurrentChar())) {
-                            
                             variable[incrementCounter++] = (char)hc;
                         }
                         
@@ -633,10 +633,10 @@ void runInstructions() {
             case OP_JUMP:
                 
                 /* get address */
-                offset[0] = (char)getCurrentChar();
-                offset[1] = (char)getCurrentChar();
-                offset[2] = (char)getCurrentChar();
-                offset[3] = (char)getCurrentChar();
+                for(offsetCounter = 0; offsetCounter < LAT_I_ADDRESS_SIZE; offsetCounter++) {
+                    offset[offsetCounter] = (char)getCurrentChar();
+                    
+                }
                 
                 /* Convert to unsigned int, address (base 16) */
                 address = (int)strtol(offset, NULL, 16);
@@ -946,10 +946,10 @@ void runInstructions() {
                     
                     /* Perform GOTO */
                     /* get address */
-                    offset[0] = (char)getCurrentChar();
-                    offset[1] = (char)getCurrentChar();
-                    offset[2] = (char)getCurrentChar();
-                    offset[3] = (char)getCurrentChar();
+                    for(offsetCounter = 0; offsetCounter < LAT_I_ADDRESS_SIZE; offsetCounter++) {
+                        offset[offsetCounter] = (char)getCurrentChar();
+                        
+                    }
                     
                     /* Convert to unsigned int, address (base 16) */
                     address = (int)strtol(offset, NULL, 16);
@@ -960,7 +960,7 @@ void runInstructions() {
                 } else {
                     
                     /* Consume address chars and continue */
-                    getCharByOffsetFromCurrent(3);
+                    getCharByOffsetFromCurrent(LAT_I_ADDRESS_SIZE - 1);
                     
                 }
                 break;
@@ -1031,10 +1031,10 @@ void runInstructions() {
                     } else if(incrementCounter == OP_JUMP) {
                         
                         /* get & check address */
-                        offset[0] = (char)getCurrentChar();
-                        offset[1] = (char)getCurrentChar();
-                        offset[2] = (char)getCurrentChar();
-                        offset[3] = (char)getCurrentChar();
+                        for(offsetCounter = 0; offsetCounter < LAT_I_ADDRESS_SIZE; offsetCounter++) {
+                            offset[offsetCounter] = (char)getCurrentChar();
+                            
+                        }
                         
                         /* Convert to unsigned int, address (base 16) */
                         address = (int)strtol(offset, NULL, 16);
@@ -1052,7 +1052,7 @@ void runInstructions() {
                 
                 if(incrementCounter == OP_JUMP) {
                     
-                    getCharByOffsetFromCurrent(-6);
+                    getCharByOffsetFromCurrent((LAT_I_ADDRESS_SIZE + 2) * -1);
                     /* set back to normal state */
                     interpreterState[interpreterIndex] = ISTATE_NONE;
                     
@@ -1076,10 +1076,10 @@ void runInstructions() {
                     } else if(incrementCounter == OP_JUMP) {
                         
                         /* get & check address */
-                        offset[0] = (char)getCurrentChar();
-                        offset[1] = (char)getCurrentChar();
-                        offset[2] = (char)getCurrentChar();
-                        offset[3] = (char)getCurrentChar();
+                        for(offsetCounter = 0; offsetCounter < LAT_I_ADDRESS_SIZE; offsetCounter++) {
+                            offset[offsetCounter] = (char)getCurrentChar();
+                            
+                        }
                         
                         /* Convert to unsigned int, address (base 16) */
                         address = (int)strtol(offset, NULL, 16);

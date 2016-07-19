@@ -639,7 +639,7 @@ void setStringRegister(unsigned char registerNum, char *string, RegisterType typ
     } else {
         
         /* Tried to index a non-existant register */
-        printf("Attempted to access register num at index %c with '%s', beyond the max register stack size\n",registerNum,string);
+        printf("Attempted to access string register at index %c with '%s', beyond the max register stack size\n",registerNum,string);
         exit(1490);
         
     }
@@ -666,7 +666,7 @@ void setNumRegister(unsigned char registerNum, double num, RegisterType type) {
     } else {
         
         /* Tried to index a non-existant register */
-        printf("Attempted to access register num at index %d with %f, beyond the max register stack size\n",registerNum,num);
+        printf("Attempted to access num register at index %d with %f, beyond the max register stack size\n",registerNum,num);
         exit(1490);
         
     }
@@ -693,7 +693,7 @@ void setFileRegister(unsigned char registerNum, FILE *file, RegisterType type) {
     } else {
         
         /* Tried to index a non-existant register */
-        printf("Attempted to access register num at index %d with a file, beyond the max register stack size\n",registerNum);
+        printf("Attempted to access file register at index %d with a file, beyond the max register stack size\n",registerNum);
         exit(1490);
         
     }
@@ -720,7 +720,7 @@ void setArrayRegister(unsigned char registerNum, struct CoreObject *array, Regis
     } else {
         
         /* Tried to index a non-existant register */
-        printf("Attempted to access register num at index %d with an entire array, beyond the max register stack size\n",registerNum);
+        printf("Attempted to access array register at index %d with an entire array, beyond the max register stack size\n",registerNum);
         exit(1490);
         
     }
@@ -746,7 +746,7 @@ void setNullRegister(unsigned char registerNum) {
     } else {
         
         /* Tried to index a non-existant register */
-        printf("Attempted to access register num at index %d with null value, beyond the max register stack size\n",registerNum);
+        printf("Attempted to access null register at index %d with null value, beyond the max register stack size\n",registerNum);
         exit(1490);
         
     }
@@ -773,7 +773,7 @@ void setConnectionRegister(unsigned char registerNum, int connId) {
     } else {
         
         /* Tried to index a non-existant register */
-        printf("Attempted to access register num at index %d with a register value, beyond the max register stack size\n",registerNum);
+        printf("Attempted to access connection register at index %d with a register value, beyond the max register stack size\n",registerNum);
         exit(1490);
         
     }
@@ -789,7 +789,7 @@ RegisterType getRegisterType(unsigned char registerNum) {
         
     } else {
         
-        printf("Attempted to access register num at index %d, beyond the max register stack size\n", registerNum);
+        printf("Attempted to access register type at index %d, beyond the max register stack size\n", registerNum);
         exit(4928);
         
     }
@@ -805,7 +805,7 @@ double getRegisterNum(unsigned char registerNum) {
         
     } else {
         
-        printf("Attempted to access register num at index %d, beyond the max register stack size\n", registerNum);
+        printf("Attempted to get register num at index %d, beyond the max register stack size\n", registerNum);
         exit(4928);
         
     }
@@ -821,7 +821,7 @@ char *getRegisterString(unsigned char registerNum) {
         
     } else {
         
-        printf("Attempted to access register num at index %d, beyond the max register stack size\n", registerNum);
+        printf("Attempted to get register string at index %d, beyond the max register stack size\n", registerNum);
         exit(4928);
         
     }
@@ -837,7 +837,7 @@ FILE *getRegisterFile(unsigned char registerNum) {
         
     } else {
         
-        printf("Attempted to access register num at index %d for a file, beyond the max register stack size\n", registerNum);
+        printf("Attempted to get register file at index %d for a file, beyond the max register stack size\n", registerNum);
         exit(4928);
         
     }
@@ -852,7 +852,7 @@ int getRegisterConnection(unsigned char registerNum) {
         
     } else {
         
-        printf("Attempted to access register num at index %d for a connection, beyond the max register stack size\n", registerNum);
+        printf("Attempted to get register connection at index %d for a connection, beyond the max register stack size\n", registerNum);
         exit(4928);
         
     }
@@ -868,7 +868,7 @@ struct CoreObject *getRegisterArray(unsigned char registerNum) {
         
     } else {
         
-        printf("Attempted to access register num at index %d for an array, beyond the max register stack size\n", registerNum);
+        printf("Attempted to get register array at index %d for an array, beyond the max register stack size\n", registerNum);
         exit(4928);
         
     }
@@ -937,7 +937,7 @@ void pushRegister(unsigned char registerNum) {
         
     } else {
         
-        printf("Attempted to access register num at index %d, beyond the max register stack size\n", registerNum);
+        printf("Attempted to push register at index %d, beyond the max register stack size\n", registerNum);
         exit(4928);
         
     }

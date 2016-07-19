@@ -54,10 +54,13 @@ SOFTWARE.
 
 #endif
 
-#define LAT_ADDRESS_SIZE 4
-#define LAT_ADDRESS_FORMAT_STRING "%04x"
+/* 4 */
+#define LAT_ADDRESS_SIZE 8
+/* %04x */
+#define LAT_ADDRESS_FORMAT_STRING "%08x"
 
-#define JUMP_UPDATE_INCREMENT 5
+/* 5 */
+#define JUMP_UPDATE_INCREMENT 9
 
 #ifdef INCLUDECOMPILER
 #include "Latria_Libs.h"

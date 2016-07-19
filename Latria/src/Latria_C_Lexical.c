@@ -2584,7 +2584,7 @@ char *analyzeForEnd(char *i) {
         
         /* Write out jump (account for op code before and 4 bytes read) */
         writeOutCode((char)OP_JUMP);
-        writeOut4ByteAddress((unsigned int)loopBack->jumpIndex);
+        writeOutByteAddress((unsigned int)loopBack->jumpIndex);
         
         /* Write out the exit label */
         pushJumpUpdate(exitLabel->jumpIndex, (unsigned int)getProgramByteCount());
@@ -2761,15 +2761,12 @@ char *analyzeWhileEnd(char *i) {
         
         /* Yes the addresses are mixed below, get over it */
         
-        /* Write out jump to loop back (account for op code and 4 bytes composing it) */
+        /* Write out jump to loop back (account for op code and 8 bytes composing it) */
         writeOutCode((char)OP_JUMP);
-        /* writeOut4ByteAddress((unsigned int)((getProgramByteCount()-5) - whileEnd->jumpIndex)); */
-        writeOut4ByteAddress((unsigned int)whileEnd->jumpIndex);
+        writeOutByteAddress((unsigned int)whileEnd->jumpIndex);
         
         /* Write out the exit label */
         pushJumpUpdate(exitLabel->jumpIndex, (unsigned int)getProgramByteCount());
-        /* writeOutCode((char)OP_LABEL); */
-        /* writeOut4ByteAddress(exitLabel->jumpIndex); */
         
         /* End of While */
         popCompilerState();
@@ -3153,14 +3150,13 @@ char *analyzeOperator(char *input) {
                 /* Put a success jump here */
                 writeOutCode((char)OP_JUMP);
                 pushIncompleteJump((unsigned int)getProgramByteCount(), JUMP_TYPE_INCOMPLETE_JUMP);
-                writeOut4ByteAddress(0);
+                writeOutByteAddress(0);
                 
                 /* Write out a failure interception here */
                 if(ji != NULL) {
                     pushJumpUpdate(ji->jumpIndex, (unsigned int)getProgramByteCount());
                 }
-                /* writeOutCode((char)OP_LABEL); */
-                /* writeOut4ByteAddress(getJumpNum()); */
+                
             }
             
             input++;
@@ -3942,7 +3938,7 @@ void dispatchRelationalExpression(unsigned short nextRelOPCode) {
             writeOutCode((char)0); /* fail case */
             /* Push a jump FAIL command */
             pushIncompleteJump((unsigned int)getProgramByteCount(), JUMP_TYPE_INCOMPLETE_JUMP);
-            writeOut4ByteAddress(0);
+            writeOutByteAddress(0);
         
         } else if(nextRelOPCode == OP_OR) {
             /* Complete the prior start OR jump */
@@ -3957,7 +3953,7 @@ void dispatchRelationalExpression(unsigned short nextRelOPCode) {
             writeOutCode((char)1); /* success case */
             /* Push a jump START command, separate stack */
             pushJumpStart((unsigned int)getProgramByteCount());
-            writeOut4ByteAddress(0);
+            writeOutByteAddress(0);
             
             /* Complete the prior exit case */
             if(getJumpType() != NULL && getJumpType()->jumpType == JUMP_TYPE_INCOMPLETE_JUMP) {
@@ -4551,7 +4547,7 @@ void handleControlFlowTransfer(unsigned char shouldFetchExitJump) {
     
     /* Exit Jump from prior success, do not execute following chained statements */
     writeOutCode((char)OP_JUMP);
-    writeOut4ByteAddress(0);
+    writeOutByteAddress(0);
     
     /* Continue jump from prior failure, from here we try the following else */
     pushJumpUpdate(ji1->jumpIndex, (unsigned int)getProgramByteCount());

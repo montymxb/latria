@@ -31,7 +31,7 @@ SOFTWARE.
 #include "Latria.h"
 
 /* Current latria version */
-#define LATRIA_VERSION_NUMBER "0.1.1"
+#define LATRIA_VERSION_NUMBER "0.1.2"
 
 /* Fixed length of data we can read at a time in */
 #define LAT_INPUT_SIZE 1024
