@@ -7,7 +7,7 @@
     - May need to incorporate additional files as well, to split it up and make it reasonably understandable
     - Consider moving tests into a TESTS folder
 
-• Unable to function on Android Propely (can't build due to some missing dependencies. Difficult to debug due to GDB server issues.
+• Unable to function on Android Properly (can't build due to some missing dependencies. Difficult to debug due to GDB server issues.
 
 • Include ability to build by the configure, make, make install approach (Automake/Autoconf)
 
