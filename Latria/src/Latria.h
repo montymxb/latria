@@ -34,7 +34,7 @@ SOFTWARE.
 #include "Latria_IO.h"
 
 #ifdef INCLUDECOMPILER
-/* Built int compiler interface */
+/* Built in compiler interface */
 #include "Latria_Compiler_Interface.h"
 #endif
 

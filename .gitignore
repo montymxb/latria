@@ -49,3 +49,9 @@
 latria
 latriad
 latriac
+
+# ignore idea
+.idea/
+
+# ignore xcode
+Latria.xcodeproj

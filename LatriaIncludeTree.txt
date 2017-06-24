@@ -1,0 +1,62 @@
+::Latria Include Paths::
+
+Latria.c
+	Latria.h
+	Latria_IO.h
+		Latria_Lexical.h
+			Latria_Math.h
+				Latria_Sys.h
+					Latria_Regex.h
+						Latria_Vars.h
+							Latria_Function.h
+								Latria_ReferenceStack.h
+									Latria_GarbageCollection.h
+										Latria_Operators.h
+											Latria_OPCodes.h
+												Latria_Jumps.h
+													Latria_Libs.h
+														<stdio.h>
+														<stdlib.h>
+														<ctype.h>
+														<string.h>
+														<unistd.h>     (_WIN32)
+														<windows.h>    (WIN32_LEAN_AND_MEAN)
+														<winsock2.h>   (WIN32_LEAN_AND_MEAN)
+														<ws2tcpip.h>   (WIN32_LEAN_AND_MEAN)
+														<time.h>
+														<math.h>
+														<sys/socket.h> (_WIN32)
+														<netinet/in.h> (_WIN32)
+														<arpa/inet.h>  (_WIN32)
+	Latria_Compiler_Interface.h (INCLUDECOMPILER)
+		Latria_C_IO.h
+			Latria_C_Lexical.h
+				Latria_C_OpCodes.h
+					Latria_C_StateStack.h
+						Latria_C_Libs.h
+							<stdio.h>
+							<stdlib.h>
+							<ctype.h>
+							<string.h>
+							<unistd.h>          (_WIN32)
+							<windows.h>         (WIN32_LEAN_AND_MEAN)
+							<winsock2.h>        (WIN32_LEAN_AND_MEAN)
+							<ws2tcpip.h>        (WIN32_LEAN_AND_MEAN)
+							Latria_Libs.h       (INCLUDECOMPILER)
+								---- NOTED ABOVE ----
+							Latria_C_Dup_Libs.h (!INCLUDECOMPILER)
+								<stdio.h> 	(!INCLUDECOMPILER)
+								<stdlib.h>	(!INCLUDECOMPILER)
+								<ctype.h>	(!INCLUDECOMPILER)
+								<string.h>	(!INCLUDECOMPILER)
+		Latria_C_StateStack.h
+			------ NOTED ABOVE -----
+	Latria_Tests.h (LAT_TESTS)
+		<math.h> (LAT_TESTS)
+
+
+Latria_Tests.c
+	Latria.c
+		-------- NOTED ABOVE --------
+
+

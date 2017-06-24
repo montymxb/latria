@@ -97,7 +97,6 @@ void ftest_StringSubFull();
 void ftest_StringSubShort();
 void ftest_StringFind();
 
-
 /* Array Tests */
 void ftest_OneArrayElement();
 void ftest_TwoArrayElements();
@@ -1206,7 +1205,7 @@ void ftest_BooleanAssign() {
     } else if(co->_state != 2) {
         testFailedWithError(testName,"Not of correct data type");
     } else if(!co->data._bvalue) {
-        testFailedWithError(testName,"Not equal to tgt boolean value");
+        testFailedWithError(testName,"Not equal to target boolean value");
         printf("%d\n\n", co->data._bvalue);
     } else {
         testPassed(testName);
@@ -1225,7 +1224,7 @@ void ftest_RelationalAssign() {
     } else if(co->_state != 2) {
         testFailedWithError(testName,"Not of correct data type");
     } else if(!co->data._bvalue) {
-        testFailedWithError(testName,"Not equal to tgt boolean value");
+        testFailedWithError(testName,"Not equal to target boolean value");
         printf("%d\n\n", co->data._bvalue);
     } else {
         testPassed(testName);
@@ -3129,10 +3128,6 @@ void ftest_recursiveFunction() {
         testPassed(testName);
     }
 }
-
-#pragma message("infinitely recursive functions leak and crash badly still")
-
-#pragma message("returning a function value when there is nothing to be assigned causes a crash/leak/bug (needs to know to discard it's return value when there's nothing to tack it onto)")
 
 /* END FUNCTIONAL TESTS */
 
