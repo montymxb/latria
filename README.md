@@ -66,7 +66,7 @@ For building on the 'big 3' that's essentially all you have to do! If you have i
 Testing on Latria is currently run by an embedded suite of tests. You can build them into a binary as follows:
 
 mac & linux
-```
+```bash
 # clean if needed
 make clean
 
@@ -81,7 +81,7 @@ latria -t
 ```
 
 windows
-```
+```batch
 :: clean if needed
 nmake /F NMakefile clean
 
