@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2017 Benjamin Wilson Friedman
@@ -19,4 +20,29 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+ *  latria_disassembler.h
+ *  Created by Benjamin Friedman on 11/4/15.
+ */
+
+#ifndef latria_disassembler_latria_disassembler_h
+#define latria_disassembler_latria_disassembler_h
+
+#include "core/latria_core.h"
+#include "core/latria_opcodes.h"
+
+/*
+ *  References to all of latria's op codes
+ */
+
+void decompileLatria(char *fn);
+
+/* Functions for reading and writing from the file as we read */
+int getCurrentChar();
+int getCharByOffsetFromCurrent(int offset);
+void moveToNextChar();
+
+
+#endif /* latria_disassembler_latria_disassembler_h */

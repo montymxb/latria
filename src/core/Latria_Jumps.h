@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2017 Benjamin Wilson Friedman
@@ -19,4 +20,34 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+ *  latria_jumps.h
+ *  Created by Benjamin Friedman on 11/8/15.
+ */
+
+#ifndef latria_core_latria_jumps_h
+#define latria_core_latria_jumps_h
+
+#include "latria_core.h"
+
+#define LAT_LABEL_STACK_INCREMENT 10
+
+/* Function 'label' definition */
+typedef struct {
+    
+    /* Instruction index of this label */
+    long int instructionIndex;
+    
+    /* Func handle name */
+    char *funcName;
+    
+}LATFuncLabel;
+
+void pushFuncLabel(long int instructionIndex, char *fname);
+long int getPositionFromFuncLabel(char *fname);
+
+void freeAllLabels();
+
+#endif /* latria_core_latria_jumps_h */

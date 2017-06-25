@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2017 Benjamin Wilson Friedman
@@ -19,4 +20,46 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+ *  latria.h
+ *  Created 12/9/14
+ */
+
+#ifndef latria_core_latria_h
+#define latria_core_latria_h
+
+/* Standard IO Layer of Latria */
+#include "latria_core.h"
+#include "latria_referencestack.h"
+#include "latria_opcodes.h"
+#include "latria_sys.h"
+#include "latria_jumps.h"
+
+#include "memory/latria_gc.h"
+
+#include "regex/latria_regex.h"
+
+#ifdef INCLUDECOMPILER
+/* Built in compiler interface */
+#include "compiler/latria_compiler_interface.h"
+#endif
+
+#ifdef LAT_TESTS
+/* Built in test module */
+#include "tests/latria_tests.h"
+#endif
+
+void freeLatria();
+
+void executeLatriaFile(char *fileName);
+
+#ifdef INCLUDECOMPILER
+/* Only usable if the compiler is included */
+void openDynamicInterpreterFile();
+void closeDynamicInterpreterFile();
+int handleInput(char *input);
+#endif
+
+#endif /* latria_core_latria_h */

@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2017 Benjamin Wilson Friedman
@@ -19,4 +20,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+ *  latria_compiler.h
+ *  Created by Benjamin Friedman on 11/3/15.
+ */
+
+#ifndef latria_compiler_latria_compiler_h
+#define latria_compiler_latria_compiler_h
+
+#include "latria_compiler_interface.h"
+
+#endif /* __latria_compiler__ */

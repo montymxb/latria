@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2017 Benjamin Wilson Friedman
@@ -19,4 +20,27 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+ *  latria_math.h
+ */
+
+#ifndef latria_core_latria_math_h
+#define latria_core_latria_math_h
+
+#include "latria_core.h"
+#include "latria_operators.h"
+
+float local_pow(double base, int exp);
+
+char * LATsubstring(char *input, int start, int end);
+
+void performAddOp  (unsigned char i1, unsigned char i2, unsigned char i3);
+void performSubOp  (unsigned char i1, unsigned char i2, unsigned char i3);
+void performMultiOp(unsigned char i1, unsigned char i2, unsigned char i3);
+void performDiviOp (unsigned char i1, unsigned char i2, unsigned char i3);
+void performModOp  (unsigned char i1, unsigned char i2, unsigned char i3);
+void performExpOp  (unsigned char i1, unsigned char i2, unsigned char i3);
+
+#endif /* latria_core_latria_math_h */
