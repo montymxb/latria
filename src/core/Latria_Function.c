@@ -37,7 +37,6 @@ long int *revertStates  = NULL;
 int revertStatesMax     = 0;
 int revertStatesIndex   = 0;
 
-
 /* Adds a function revert state */
 void pushFunctionRevertState(long int index) {
     

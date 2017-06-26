@@ -26,7 +26,7 @@
  * latria_opcodes.c
  * Created by Benjamin Friedman on 06/24/17.
  */
-#if defined(INCLUDECOMPILER)
+#if defined(INCLUDECOMPILER) || defined(COMPILER_ONLY)
 
 #include "latria_opcodes.h"
 

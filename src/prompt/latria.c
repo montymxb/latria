@@ -132,7 +132,7 @@ int main( int argc, char* argv[]) {
                             printf("-v    Prints out the version number\n");
                             printf("-h    Prints out the help (this)\n");
                             printf("-t    Runs functional and unit tests");
-                            #if defined(LAT_TESTS)
+                            #if defined(LAT_TESTS) && defined(INCLUDECOMPILER)
                             printf(" (%scurrently compiled in debug mode and available%s)\n",KGRN,RESET);
                             #else
                             printf(" (%snot available%s, recompile latria in debug mode to have access to tests)\n",KRED,RESET);
@@ -140,7 +140,7 @@ int main( int argc, char* argv[]) {
                             printf("\n\n");
                             break;
                             
-                        #if defined(LAT_TESTS)
+                        #if defined(LAT_TESTS) && defined(INCLUDECOMPILER)
                         /* Runs internal unit/functional tests to verify integrity of build */
                         case 't':
                             
@@ -170,7 +170,7 @@ int main( int argc, char* argv[]) {
                 /* Potential File Name passed */
                 if(shouldCompile == 1) {
                     
-                    #ifdef INCLUDECOMPILER
+                    #ifndef INCLUDECOMPILER
                     /* Just compile */
                     compileLatria(arg);
                     #else
@@ -178,7 +178,7 @@ int main( int argc, char* argv[]) {
                     #endif
                     
                 } else {
-                    
+                
                     /* Run the file (compiles if capable and necessary as well) */
                     executeLatriaFile(arg);
                     
@@ -630,8 +630,8 @@ long int getCurrentFileIndex() {
 /* Resets the file index to the provided index */
 void resetCurrentFileIndex(long int newIndex) {
     
-    /* Change our index */
-    currentFileIndex = newIndex;
+    /* Change our index, casting down to int */
+    currentFileIndex = (int)newIndex;
     
     /* Check if we need need to seek to reach this portion of our file */
     if(currentFileIndex < currentReadLowerBound || currentFileIndex >= currentReadUpperBound) {

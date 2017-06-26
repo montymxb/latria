@@ -32,6 +32,7 @@ SOFTWARE.
 #include "latria_core.h"
 #include "latria_referencestack.h"
 #include "latria_function.h"
+#include "latria_string.h"
 #include "memory/latria_gc.h"
 
 void setValue(char *name, char *val);

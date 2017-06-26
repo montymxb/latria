@@ -1,8 +1,22 @@
 :: Latria TODO ::
 
+• Fix mac-interpreter, but do so by separating out the compiler components
+
+• Fix mac-compiler target
+
+• Fix mac-compiler-debug target
+
+• Fix mac-disassembler-debug target
+
+• Split up GC to create separate VM from memory allocation/management
+
 • Setup VM?? This is compiler only or are we talking memory as well?
 
-• Patch up NMakeFile as well, make it like the new Makefile
+• Double check linux builds
+
+• Update NMakeFile
+
+• Run a windows build on the old computer
 
 • We have an issue passing functions to other functions (rather than assigning to a var and passing that) does NOT work at the moment. Need to make sure functions can be properly recognized as inputs to other functions (most likely will end up in requiring extra registers)
 

@@ -29,7 +29,8 @@ SOFTWARE.
 #ifndef latria_core_latria_function_h
 #define latria_core_latria_function_h
 
-#include "latria_referencestack.h"
+#include "latria_core.h"
+#include "memory/latria_gc.h"
 
 /* Push & Pop for moving around in our instructions when exiting a function call */
 void pushFunctionRevertState(long int index);

@@ -30,6 +30,17 @@ SOFTWARE.
 #ifndef latria_core_latria_referencestack_h
 #define latria_core_latria_referencestack_h
 
+/* Reference Stack */
+struct LATReference_Stack{
+    
+    /* CoreObject Primary */
+    struct CoreObject *cop;
+    
+    /* Child Stack */
+    struct LATReference_Stack *cs;
+    
+};
+
 #include "latria_core.h"
 #include "latria_vars.h"
 

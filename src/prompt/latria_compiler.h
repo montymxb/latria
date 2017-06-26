@@ -27,9 +27,9 @@ SOFTWARE.
  *  Created by Benjamin Friedman on 11/3/15.
  */
 
-#ifndef latria_compiler_latria_compiler_h
-#define latria_compiler_latria_compiler_h
+#ifndef latria_prompt_latria_compiler_h
+#define latria_prompt_latria_compiler_h
 
-#include "latria_compiler_interface.h"
+#include "compiler/latria_compiler_interface.h"
 
-#endif /* __latria_compiler__ */
+#endif /* latria_prompt_latria_compiler_h */

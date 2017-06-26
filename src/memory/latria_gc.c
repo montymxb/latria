@@ -29,68 +29,6 @@ SOFTWARE.
 
 #include "latria_gc.h"
 
-#define LATRIA_ARG_REGISTER_STACK_INCREMENT  100
-
-#define LATRIA_CURRENT_MAX_MEM_SIZE_BASELINE 655360
-
-#define LATRIA_START_STACK                   50000
-
-#define LATRIA_CHAR_TABLE_SIZE               35
-
-#define LATRIA_FREE_BLOCK_CHAIN_SIZE         10
-
-
-/* Latria's Block Chain */
-struct MemoryBlock {
-    
-    /* The next block in the chain */
-    struct MemoryBlock *nextBlock;
-    
-    /* The start of the memory block this points to */
-    void *blockPointer;
-    
-    /* The size of this block */
-    size_t blockSize;
-    
-    /* Marker for whether this block has been allocated or not */
-    unsigned char isAllocated;
-    
-};
-
-/* Latria VM space */
-typedef struct {
-    
-    /* Primary chain of memory blocks */
-    struct MemoryBlock *memoryChain;
-    
-    /* The last item on our primary chain, for adding new blocks */
-    struct MemoryBlock *lastMemoryChain;
-    
-    /* Last block we freed */
-    struct MemoryBlock *freeBlockChain[LATRIA_FREE_BLOCK_CHAIN_SIZE];
-    
-    char *charTable[LATRIA_CHAR_TABLE_SIZE];
-    
-    /* Last result from the SYS Module */
-    char *SYS_LastResult;
-    
-    unsigned long charTableSize[LATRIA_CHAR_TABLE_SIZE];
-    int latriaCurrentMaxMemSize;
-    int currentMemSize;
-    unsigned char isCommentedOut;
-    unsigned char isOptimizedPrintMode;
-    
-    /* Our 3 operations registers */
-    Register *registers;
-    
-    /* 10 argument registers (to start) */
-    Register *argRegisters;
-    unsigned int argRegisterIndex;
-    unsigned int maxArgRegisterIndex;
-    
-} LATVM;
-
-
 LATVM *constructNewVM();
 
 

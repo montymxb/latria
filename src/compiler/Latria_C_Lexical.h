@@ -31,7 +31,11 @@ SOFTWARE.
 #define latria_compiler_latria_lexical_h
 
 #include "core/latria_opcodes.h"
+#include "core/latria_string.h"
+#include "core/latria_char.h"
+
 #include "interpreter/latria_lexical.h"
+
 #include "compiler/latria_c_statestack.h"
 
 /**** ADDRESSING ****/

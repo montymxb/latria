@@ -31,6 +31,8 @@ SOFTWARE.
 #define latria_core_latria_jumps_h
 
 #include "latria_core.h"
+#include "latria_string.h"
+#include "memory/latria_gc.h"
 
 #define LAT_LABEL_STACK_INCREMENT 10
 

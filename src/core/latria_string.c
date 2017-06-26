@@ -23,14 +23,22 @@
  */
 
 /*
- *  latria_core.c
+ *  latria_string.c
+ *
+ *  Contains various string related utilities
+ *
  */
 
-#include "latria_core.h"
+#include "latria_string.h"
 
-/* Returns whether a character is an operator or not */
-LATBool isCharacterOperator(char c) {
-    return (c=='+' || c=='-' || c=='*' || c=='/' || c=='^' || c=='%');
+/* Latria string duplicatation, allocates memory using LATAlloc */
+char *LATstrdup(char *s) {
+    char *retVal;
+    size_t len = strlen(s);
+    retVal = LATAlloc(NULL, 0, len+1);
+    strncpy( retVal, s, len);
+    retVal[len] = '\0';
+    return retVal;
 }
 
 /*
@@ -127,27 +135,6 @@ char *str_replace(char *orig, char *rep, char *with, char removeAll) {
     /* Return the now modified original, basically tmp */
     return result;
 }
-
-
-/* Checks to see if a string is compatible for math operations */
-LATBool isNumeric (char * s) {
-    
-    if(*s == '-' || *s == '+') {
-        /* advance if negative/positive start*/
-        s++;
-    }
-    
-    while(*s) {
-        
-        if(!isdigit(*s) && *s != '.' && !isspace(*s))
-            return false;
-        
-        s++;
-    }
-    
-    return true;
-}
-
 
 /* Strips whitespace from the input (avoiding that which is in quotes) */
 char * stripWhitespace(char *input) {
@@ -256,27 +243,54 @@ char * stripWhitespace(char *input) {
     return input;
 }
 
-
-/* Latria String Duplicate */
-char *LATstrdup(char *s) {
+/* Strips ALL \n's and \r's away from the end of our input */
+void stripLineEndings(char *input) {
     
-    char *retVal;
-    size_t len = strlen(s);
-    retVal = LATAlloc(NULL, 0, len+1);
-    strncpy( retVal, s, len);
-    retVal[len] = '\0';
-    return retVal;
+    size_t len = strlen(input);
+    input+=len-1;
+    
+    while(*input == '\n' || *input == '\r') {
+        
+        *input-- = '\0';
+    }
+    
 }
 
-
-/* Returns whether this char is an arithmetic op */
-char isArithmeticOperator(char i) {
+/* Returns whether a sequence of chars is empty or not */
+LATBool isSequenceEmpty(char *input) {
     
-    return (i == '+' || i == '-' || i == '/' || i == '(' || i == ')' || i == '*' || i == '^' || i == '%') ? 1 : 0;
+    char *tmp = stripWhitespace(input);
+    
+    while(*tmp) {
+        
+        if(*tmp != '\n' && *tmp != '\r' && *tmp != '\t') {
+            
+            return false;
+        }
+        tmp++;
+    }
+    return true;
 }
 
-/* Returns whether t
- he passed char * is a valid conditional op */
+/* Checks to see if a string is compatible for math operations */
+LATBool isNumeric (char * s) {
+    if(*s == '-' || *s == '+') {
+        /* advance if negative/positive start*/
+        s++;
+    }
+    
+    while(*s) {
+        
+        if(!isdigit(*s) && *s != '.' && !isspace(*s))
+            return false;
+        
+        s++;
+    }
+    
+    return true;
+}
+
+/* Returns whether the passed char * is a valid conditional op */
 char isConditionalOperator(char *i) {
     
     if(!*i) {
@@ -322,44 +336,6 @@ char isConditionalOperator(char *i) {
     
     return 0;
 }
-
-/* Returns whether a sequence of chars is empty or not */
-LATBool isSequenceEmpty(char *input) {
-    
-    char *tmp = stripWhitespace(input);
-    
-    while(*tmp) {
-        
-        if(*tmp != '\n' && *tmp != '\r' && *tmp != '\t') {
-            
-            return false;
-        }
-        tmp++;
-    }
-    return true;
-}
-
-
-/* Strips ALL \n's and \r's away from the end of our input */
-void stripLineEndings(char *input) {
-    
-    size_t len = strlen(input);
-    input+=len-1;
-    
-    while(*input == '\n' || *input == '\r') {
-        
-        *input-- = '\0';
-    }
-    
-}
-
-
-/* Returns if what we read is whitespace */
-char isWhitespace(char c) {
-    
-    return (c == ' ' || c == '\t') ? 1 : 0;
-}
-
 
 /* Latria String concatenate */
 /*

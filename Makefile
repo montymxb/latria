@@ -16,6 +16,9 @@ DEBUG_FLAGS := -DLAT_TESTS=1 -g
 #Generic Include Compiler Flag
 INCLUDE_COMPILER_FLAG := -DINCLUDECOMPILER=1
 
+# Compiler only flag
+COMPILER_ONLY_FLAG := -DCOMPILER_ONLY=1
+
 #Linux Flags
 LINUX_FLAGS := -DLINUXOS=1
 LINUX_INCLUDE_COMPILER_FLAGS := $(LINUX_FLAGS) $(INCLUDE_COMPILER_FLAG)
@@ -76,17 +79,17 @@ LDFLAGS += $(foreach library,$(LATRIA_LIBRARIES),-l$(library))
 #### Object Files ####
 ######################
 
-# 'The' 'Latria Core Object
-LATRIA_CORE_OBJ := src/core/latria_core.o
+# Interpreter Prompt
+INTERPRETER_PROMPT := src/prompt/latria.o
+
+# Compiler Prompt
+COMPILER_PROMPT := src/prompt/latria_compiler.o
 
 # Compiler Core
 COMPILER_CORE := src/compiler/latria_c_io.o src/compiler/latria_c_lexical.o src/compiler/latria_c_statestack.o src/compiler/latria_compiler_interface.o
 
-# Compiler Object
-COMPILER_OBJ := src/compiler/latria_compiler.o
-
 # Core Objects
-CORE_OBJS := src/core/latria_function.o src/core/latria_jumps.o src/core/latria_math.o src/core/latria_opcodes.o src/core/latria_operators.o src/core/latria_referencestack.o src/core/latria_sys.o src/core/latria_vars.o src/core/latria.o
+CORE_OBJS := src/core/latria_char.o src/core/latria_string.o src/core/latria_function.o src/core/latria_jumps.o src/core/latria_math.o src/core/latria_opcodes.o src/core/latria_operators.o src/core/latria_referencestack.o src/core/latria_sys.o src/core/latria_vars.o
 
 # Disassembler Objects
 DISASSEMBLER_OBJS := src/disassembler/latria_disassembler.o
@@ -138,11 +141,11 @@ mac-interpreter-debug: CFLAGS += $(MAC_DEBUG_FLAGS)
 mac-interpreter-debug: interpreter-debug
 
 #mac compiler
-mac-compiler: CFLAGS += $(MAC_FLAGS)
+mac-compiler: CFLAGS += $(MAC_FLAGS) $(COMPILER_ONLY_FLAG)
 mac-compiler: compiler
 
 #mac compiler debug
-mac-compiler-debug: CFLAGS += $(MAC_DEBUG_FLAGS)
+mac-compiler-debug: CFLAGS += $(MAC_DEBUG_FLAGS) $(COMPILER_ONLY_FLAG)
 mac-compiler-debug: compiler-debug
 
 #mac disassembler
@@ -172,11 +175,11 @@ linux-interpreter-debug: CFLAGS += $(LINUX_DEBUG_FLAGS)
 linux-interpreter-debug: interpreter-debug
 
 #linux compiler
-linux-compiler: CFLAGS += $(LINUX_FLAGS)
+linux-compiler: CFLAGS += $(LINUX_FLAGS) $(COMPILER_ONLY_FLAG)
 linux-compiler: compiler
 
 #linux compiler debug
-linux-compiler-debug: CFLAGS += $(LINUX_DEBUG_FLAGS)
+linux-compiler-debug: CFLAGS += $(LINUX_DEBUG_FLAGS) $(COMPILER_ONLY_FLAG)
 linux-compiler-debug: compiler-debug
 
 #linux disassembler
@@ -203,33 +206,36 @@ disassembler-debug: $(NAME_DISASSEMBLER_DEBUG)
 ####################
 ###    Builds    ###
 ####################
-$(NAME_INTERPRETER_COMPILER): $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
-	$(LINK.cc) $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER)
+$(NAME_INTERPRETER_COMPILER): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
+	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER)
 
-$(NAME_INTERPRETER): $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS)
-	$(LINK.cc) $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) -o $(NAME_INTERPRETER)
+$(NAME_INTERPRETER): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS)
+	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) -o $(NAME_INTERPRETER)
 
-$(NAME_COMPILER): $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_OBJ)
-	$(LINK.cc) $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_OBJ) -o $(NAME_COMPILER)
+$(NAME_COMPILER): $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS)
+	$(LINK.cc) $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS) -o $(NAME_COMPILER)
 
-$(NAME_DISASSEMBLER): $(LATRIA_CORE_OBJ) $(DISASSEMBLER_OBJS)
+$(NAME_DISASSEMBLER): $(DISASSEMBLER_OBJS)
 	$(LINK.cc) $(DISASSEMBLER_OBJS) -o $(NAME_DISASSEMBLER)
 
 ####################
 ### Debug Builds ###
 ####################
-$(NAME_INTERPRETER_COMPILER_DEBUG): $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(TEST_OBJS) $(COMPILER_CORE)
-	$(LINK.cc) $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(TEST_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER_DEBUG)
+$(NAME_INTERPRETER_COMPILER_DEBUG): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(TEST_OBJS) $(COMPILER_CORE)
+	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(TEST_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER_DEBUG)
 
-$(NAME_INTERPRETER_DEBUG): $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(TEST_OBJS)
-	$(LINK.cc) $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(TEST_OBJS) -o $(NAME_INTERPRETER_DEBUG)
+$(NAME_INTERPRETER_DEBUG): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS)
+	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) -o $(NAME_INTERPRETER_DEBUG)
 
-$(NAME_COMPILER_DEBUG): $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_OBJ) $(TEST_OBJS)
-	$(LINK.cc) $(LATRIA_CORE_OBJ) $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_OBJ) $(TEST_OBJS) -o $(NAME_COMPILER_DEBUG)
+$(NAME_COMPILER_DEBUG): $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS) $(TEST_OBJS)
+	$(LINK.cc) $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS) $(TEST_OBJS) -o $(NAME_COMPILER_DEBUG)
 
-$(NAME_DISASSEMBLER_DEBUG): $(LATRIA_CORE_OBJ) $(DISASSEMBLER_OBJS) $(TEST_OBJS)
+$(NAME_DISASSEMBLER_DEBUG): $(DISASSEMBLER_OBJS)
 	$(LINK.cc) $(DISASSEMBLER_OBJS) -o $(NAME_DISASSEMBLER_DEBUG)
 
+########
+# Test #
+########
 
 clean: cclean dclean
 	@- $(RM) $(NAME_INTERPRETER_COMPILER)

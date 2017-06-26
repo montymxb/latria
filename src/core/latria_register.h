@@ -23,30 +23,36 @@ SOFTWARE.
 */
 
 /*
- *  latria_regex.h
- *  Created by Benjamin Friedman on 10/27/15.
- */
+*  latria_register.h
+*/
 
-#ifndef latria_regex_latria_regex_h
-#define latria_regex_latria_regex_h
+#ifndef latria_core_latria_register_h
+#define latria_core_latria_register_h
 
-#include "core/latria_core.h"
-#include "memory/latria_gc.h"
+#include "latria_register_type.h"
+#include "latria_core_object.h"
 
-/* #define LAT_REGEX_DEBUG 1 */
+typedef struct {
+    /* Value */
+    union {
+        
+        /* Num or Connection */
+        double dvalue;
 
-/* General regex runner */
-unsigned char regex(char *input, char *regexString);
+        /* String */
+        char *cvalue;
 
-char *getNextUnescapedClosingParen(char *input);
+        /* File */
+        FILE *file;
 
-/* Returns a pointer to a char array holding the capture at given index */
-char *getCaptureByIndex(unsigned char captureIndex);
+        /* Array */
+        struct CoreObject *array;
 
-/* Returns the # of captures we made since the last run */
-int getCaptureCount();
+    }value;
 
-/* Frees the internal regex cache */
-void freeRegexCache();
+    /* Type */
+    RegisterType type;
 
-#endif /* latria_regex_latria_regex_h */
+} Register;
+
+#endif /* latria_core_latria_register_h */

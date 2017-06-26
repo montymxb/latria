@@ -31,7 +31,10 @@ SOFTWARE.
 #define latria_memory_latria_gc_h
 
 #include "core/latria_core.h"
+#include "core/latria_register.h"
 #include "core/latria_vars.h"
+
+#include "vm/latria_vm.h"
 
 void forceMemoryFree();
 void forceALLMemoryFree();

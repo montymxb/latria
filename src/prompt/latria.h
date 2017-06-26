@@ -27,15 +27,15 @@ SOFTWARE.
  *  Created 12/9/14
  */
 
-#ifndef latria_core_latria_h
-#define latria_core_latria_h
+#ifndef latria_prompt_latria_h
+#define latria_prompt_latria_h
 
 /* Standard IO Layer of Latria */
-#include "latria_core.h"
-#include "latria_referencestack.h"
-#include "latria_opcodes.h"
-#include "latria_sys.h"
-#include "latria_jumps.h"
+#include "core/latria_core.h"
+#include "core/latria_referencestack.h"
+#include "core/latria_opcodes.h"
+#include "core/latria_sys.h"
+#include "core/latria_jumps.h"
 
 #include "memory/latria_gc.h"
 
@@ -62,4 +62,4 @@ void closeDynamicInterpreterFile();
 int handleInput(char *input);
 #endif
 
-#endif /* latria_core_latria_h */
+#endif /* latria_prompt_latria_h */

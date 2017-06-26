@@ -53,15 +53,6 @@ SOFTWARE.
 
 #endif
 
-#if defined(INCLUDECOMPILER)
-
-typedef enum {
-    WRITE_MODE_NORMAL, /* normal writing */
-    WRITE_MODE_BATCHED /* writes to an internal buffer and waits for user to interact with it */
-} CompilerWriteMode;
-
-#endif
-
 /* Origin definitions */
 
 #define LAT_PRINT_MEM   "__printMem"
@@ -265,7 +256,9 @@ typedef enum {
 #define OP_CONNECT     0x4d
 
 
-#if defined(INCLUDECOMPILER)
+#if defined(INCLUDECOMPILER) || defined(COMPILER_ONLY)
+
+#include "compiler/latria_compiler_write_mode.h"
 
 void startInstructions();
 void writeOutCode(char code);

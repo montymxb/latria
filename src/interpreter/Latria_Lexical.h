@@ -29,7 +29,7 @@ SOFTWARE.
 #ifndef latria_interpreter_latria_lexical_h
 #define latria_interpreter_latria_lexical_h
 
-#include "core/latria.h"
+#include "prompt/latria.h"
 #include "core/latria_core.h"
 #include "core/latria_opcodes.h"
 #include "core/latria_operators.h"

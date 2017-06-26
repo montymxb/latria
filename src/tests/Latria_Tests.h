@@ -30,6 +30,7 @@ SOFTWARE.
 #ifndef latria_tests_latria_tests_h
 #define latria_tests_latria_tests_h
 
+#include "prompt/latria.h"
 #include "core/latria_core.h"
 #include "core/latria_opcodes.h"
 #include "core/latria_sys.h"

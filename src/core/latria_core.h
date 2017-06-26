@@ -47,6 +47,21 @@
 /* (Hacky) Prevents a popen warning in linux, one of many approaches to address this */
 #define _POSIX_C_SOURCE 2
 
+/* Free block chain size for VM */
+#define LATRIA_FREE_BLOCK_CHAIN_SIZE 10
+
+/* Argument register stack increment for VM */
+#define LATRIA_ARG_REGISTER_STACK_INCREMENT  100
+
+/* Maximum Mem Pressure before GC triggers for VM */
+#define LATRIA_CURRENT_MAX_MEM_SIZE_BASELINE 655360
+
+/* Initial size for VM */
+#define LATRIA_START_STACK                   50000
+
+/* Initial character table size */
+#define LATRIA_CHAR_TABLE_SIZE               35
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -55,7 +70,10 @@
 #ifndef _WIN32
 #include <unistd.h>
 #else
-/* _Win32 is usually defined by compilers targeting Windows. _Win32 is generally provided even when compiling on a 64 bit machine for backwards compatibility */
+/* 
+ _Win32 is usually defined by compilers targeting Windows.
+ _Win32 is generally provided even when compiling on a 64 bit machine
+ for backwards compatibility */
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -82,135 +100,9 @@
 #include <arpa/inet.h>
 #endif
 
-/* string comparison macro */
-#define LAT_STRCMP(a, b)  (*(a) != *(b) ? \
-(int) ((unsigned char) *(a) - \
-(unsigned char) *(b)) : \
-strcmp((a), (b)))
-
-
-/* string duplication */
-char *LATstrdup(char *s);
-
-
-/* bool is not defined on some systems without including the proper header, this is the substitute bool */
-typedef enum { false, true } LATBool;
-
-
-/*** REGISTER ENUM ***/
-
-typedef enum {
-    RegisterVar,        /* var                  */
-    RegisterNum,        /* num                  */
-    RegisterString,     /* str                  */
-    RegisterBool,       /* bool (just a #)      */
-    RegisterNone,       /* empty                */
-    RegisterArray,      /* entire array         */
-    RegisterArrayVar,   /* sets from array key  */
-    RegisterFile,       /* file                 */
-    RegisterConnection, /* connection           */
-    RegisterNull        /* null                 */
-}RegisterType;
-
-
-/*** END REGISTER ENUM ***/
-
-
-/*Stores all core data types, numeric (float) & string for now*/
-struct CoreObject {
-    
-    /* left object (when an array ONLY the left object is used) */
-    /* NOTE, array type is a linked list in it's simplest form */
-    struct CoreObject *lobj;
-    
-    /* right object (when an array this is always null) */
-    struct CoreObject *robj;
-    
-    /* Shared memory for values */
-    union {
-        
-        /* FILE * */
-        FILE *_file;
-        
-        /* Number */
-        double _fvalue;
-        
-        /* String */
-        char *_svalue;
-        
-        /* Bool */
-        LATBool _bvalue;
-        
-    } data;
-    
-    /* Key to fetch this value by */
-    char *key;
-    
-    unsigned char _state; /*
-                           0=double
-                           1=string
-                           2=bool
-                           3=array
-                           4=file
-                           5=connection
-                           */
-};
-
-
-/*** REGISTER STRUCT START ***/
-
-typedef struct {
-    /* Value */
-    union {
-        
-        /* Num or Connection */
-        double dvalue;
-        
-        /* String */
-        char *cvalue;
-        
-        /* File */
-        FILE *file;
-        
-        /* Array */
-        struct CoreObject *array;
-        
-    }value;
-    
-    /* Type */
-    RegisterType type;
-    
-}Register;
-
-
-/*** REGISTER STRUCT END ***/
-
-
-struct LATReference_Stack{
-    
-    /* CoreObject Primary */
-    struct CoreObject *cop;
-    
-    /* Child Stack */
-    struct LATReference_Stack *cs;
-};
-
-LATBool isCharacterOperator(char c);
-
-
-char *str_replace(char *orig, char *rep, char *with, char removeAll);
-LATBool isNumeric(char *val);
-char * stripWhitespace(char *input);
-
-/* Expression Checking Expression */
-char isArithmeticOperator(char i);
-char isConditionalOperator(char *i);
-
-LATBool isSequenceEmpty(char *input);
-char isWhitespace(char c);
-void stripLineEndings(char *input);
-
-/* Include GC related code */
-#include "memory/latria_gc.h"
+#include "latria_bool.h"
+#include "latria_register_type.h"
+#include "latria_register.h"
+#include "latria_core_object.h"
 
 #endif /* latria_core_latria_core_h */
