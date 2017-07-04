@@ -83,7 +83,7 @@ void runInstructions() {
     
     int hc;
     short offsetCounter;
-    char offset[LAT_I_ADDRESS_SIZE] = {0};
+    char offset[8] = {0};
     
     while((hc = getCurrentChar()) != EOF) {
         
