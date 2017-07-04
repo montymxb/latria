@@ -156,12 +156,6 @@ void runAllTests() {
     runUnitTests();
     runFunctionalTests();
     
-    if(failCount == 0) {
-        printf("\nAll Tests Passed\n");
-    } else {
-        printf("\n%d Tests Failed\n\n", failCount);
-    }
-    
     closeDynamicInterpreterFile();
     
     /* free compiler related items */
@@ -173,8 +167,13 @@ void runAllTests() {
     freeLatria();
     #endif
     
-    /* Exit program line execution on test completion */
-    exit(0);
+    if(failCount == 0) {
+        printf("\nAll Tests Passed\n");
+        exit(0);
+    } else {
+        printf("\n%d Tests Failed\n\n", failCount);
+        exit(1);
+    }
 }
 
 /* Runs unit tests */

@@ -1,7 +1,15 @@
 :: Latria TODO ::
 
+• Add make test to makefile & nmakefile
+
 [[MAKE ALL for testing]]
 make clean && make mac && make clean && make mac-debug && make clean && make mac-interpreter && make clean && make mac-interpreter-debug && make clean && make mac-compiler && make clean && make mac-compiler-debug && make clean && make mac-disassembler && make clean && make mac-disassembler-debug
+
+• Verify builds on linux
+
+• Verify builds on windows
+
+• Setup Travis CI and Tea CI for mac/linux/windows build verification
 
 • Split up GC to create separate VM from memory allocation/management
 

@@ -124,6 +124,11 @@ all: build-all
 
 ##### MAC BUILDS #####
 
+#mac test
+mac-test: CFLAGS += $(MAC_DEBUG_INCLUDE_COMPILER_FLAGS)
+mac-test: build-all-debug
+	./build/latria-debug -t
+
 #mac all
 mac: CFLAGS += $(MAC_INCLUDE_COMPILER_FLAGS)
 mac: build-all
@@ -157,6 +162,11 @@ mac-disassembler-debug: CFLAGS += $(MAC_DEBUG_FLAGS)
 mac-disassembler-debug: disassembler-debug
 
 ##### LINUX BUILDS #####
+
+#mac test
+linux-test: CFLAGS += $(LINUX_DEBUG_INCLUDE_COMPILER_FLAGS)
+linux-test: build-all-debug
+	./build/latria-debug -t
 
 #linux all
 linux: CFLAGS += $(LINUX_INCLUDE_COMPILER_FLAGS)
