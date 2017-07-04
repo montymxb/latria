@@ -53,7 +53,6 @@ void runInstructions();
 /* Functions for reading and writing from the file as we read */
 int getCurrentChar();
 int getCharByOffsetFromCurrent(int offset);
-void moveToNextChar();
 void resetCurrentFileIndex(long int newIndex);
 long int getCurrentFileIndex();
 

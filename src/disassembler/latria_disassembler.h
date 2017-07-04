@@ -40,9 +40,8 @@ SOFTWARE.
 void decompileLatria(char *fn);
 
 /* Functions for reading and writing from the file as we read */
-int getCurrentChar();
-int getCharByOffsetFromCurrent(int offset);
-void moveToNextChar();
+int getCurrentCharFromFile();
+int getCharByOffsetFromCurrentFile(int offset);
 
 
 #endif /* latria_disassembler_latria_disassembler_h */

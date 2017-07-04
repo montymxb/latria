@@ -618,13 +618,6 @@ int getCharByOffsetFromCurrent(int offset) {
 }
 
 
-/* Moves to the next character in our file */
-void moveToNextChar() {
-    
-    currentFileIndex++;
-}
-
-
 /* Returns the index of where we are in the current file */
 long int getCurrentFileIndex() {
     

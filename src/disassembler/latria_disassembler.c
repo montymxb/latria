@@ -149,7 +149,7 @@ void decompileLatria(char *fn) {
         
     }
         
-    while((hc = (char)getCurrentChar()) != EOF) {
+    while((hc = (char)getCurrentCharFromFile()) != EOF) {
         
         /* Print out the address of this line (one less than max) */
         fprintf(out, "0x%08lx  ", ftell(in)-1);
@@ -165,12 +165,12 @@ void decompileLatria(char *fn) {
                 /* Next byte is a var */
                 
                 /* Fast forward */
-                while((hc = (char)getCurrentChar())) {
+                while((hc = (char)getCurrentCharFromFile())) {
                     fprintf(out, "%c", hc);
                 }
                 
                 /* Next should be a register and then done */
-                fprintf(out, " 0x%02x\n", (char)getCurrentChar());
+                fprintf(out, " 0x%02x\n", (char)getCurrentCharFromFile());
                 
                 break;
                 
@@ -192,16 +192,16 @@ void decompileLatria(char *fn) {
                 
             case OP_MULTI:
                 fprintf(out, "MULTI ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_UNSET:
                 fprintf(out, "UNSET ");
                 
                 /* Fast forward */
-                while((hc = (char)getCurrentChar())) {
+                while((hc = (char)getCurrentCharFromFile())) {
                     fprintf(out, "%c", hc);
                 }
                 
@@ -214,21 +214,21 @@ void decompileLatria(char *fn) {
                 break;
                 
             case OP_JUMP:
-                fprintf(out, "JUMP 0x%c",(char)getCurrentChar());
-                fprintf(out, "%c",(char)getCurrentChar());
-                fprintf(out, "%c",(char)getCurrentChar());
-                fprintf(out, "%c",(char)getCurrentChar());
-                fprintf(out, "%c",(char)getCurrentChar());
-                fprintf(out, "%c",(char)getCurrentChar());
-                fprintf(out, "%c",(char)getCurrentChar());
-                fprintf(out, "%c\n",(char)getCurrentChar());
+                fprintf(out, "JUMP 0x%c",(char)getCurrentCharFromFile());
+                fprintf(out, "%c",(char)getCurrentCharFromFile());
+                fprintf(out, "%c",(char)getCurrentCharFromFile());
+                fprintf(out, "%c",(char)getCurrentCharFromFile());
+                fprintf(out, "%c",(char)getCurrentCharFromFile());
+                fprintf(out, "%c",(char)getCurrentCharFromFile());
+                fprintf(out, "%c",(char)getCurrentCharFromFile());
+                fprintf(out, "%c\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_CALL:
                 fprintf(out, "CALL ");
                 
                 /* Fast forward */
-                while((hc = (char)getCurrentChar())) {
+                while((hc = (char)getCurrentCharFromFile())) {
                     fprintf(out, "%c", hc);
                 }
                 
@@ -242,14 +242,14 @@ void decompileLatria(char *fn) {
                 
             case OP_DIVI:
                 fprintf(out, "DIVI ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_EXEC:
                 fprintf(out, "EXEC\n");
-                while((hc = (char)getCurrentChar()) != OP_EXEC) {
+                while((hc = (char)getCurrentCharFromFile()) != OP_EXEC) {
                     if(hc == '\0') {
                         fprintf(out, "\n");
                     } else {
@@ -261,9 +261,9 @@ void decompileLatria(char *fn) {
                 
             case OP_EXPONENT:
                 fprintf(out, "EXPONENT ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_FIND:
@@ -273,14 +273,14 @@ void decompileLatria(char *fn) {
             case OP_FUNC:
                 fprintf(out, "FUNC ");
                 /* Fast forward */
-                while((hc = (char)getCurrentChar())) {
+                while((hc = (char)getCurrentCharFromFile())) {
                     fprintf(out, "%c", hc);
                 }
                 fprintf(out, "\n");
                 break;
                 
             case OP_COND_JUMP:
-                fprintf(out, "COND_JUMP 0x%02x %d, 0x%c%c%c%c%c%c%c%c\n",(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar(),(char)getCurrentChar());
+                fprintf(out, "COND_JUMP 0x%02x %d, 0x%c%c%c%c%c%c%c%c\n",(char)getCurrentCharFromFile(),(char)getCurrentCharFromFile(),(char)getCurrentCharFromFile(),(char)getCurrentCharFromFile(),(char)getCurrentCharFromFile(),(char)getCurrentCharFromFile(),(char)getCurrentCharFromFile(),(char)getCurrentCharFromFile(),(char)getCurrentCharFromFile(),(char)getCurrentCharFromFile());
                 break;
                 
             case OP_INPUT:
@@ -289,9 +289,9 @@ void decompileLatria(char *fn) {
                 
             case OP_EQUAL:
                 fprintf(out, "EQUAL ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_AND:
@@ -302,16 +302,16 @@ void decompileLatria(char *fn) {
                 
             case OP_SUB:
                 fprintf(out, "SUB ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_MODULUS:
                 fprintf(out, "MODULUS ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_OPEN:
@@ -332,9 +332,9 @@ void decompileLatria(char *fn) {
                 
             case OP_ADD:
                 fprintf(out, "ADD ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_POP:
@@ -364,7 +364,7 @@ void decompileLatria(char *fn) {
                 break;
                 
             case OP_PUSH:
-                fprintf(out, "PUSH 0x%02x\n", (char)getCurrentChar());
+                fprintf(out, "PUSH 0x%02x\n", (char)getCurrentCharFromFile());
                 break;
                 
             case OP_RAND:
@@ -392,7 +392,7 @@ void decompileLatria(char *fn) {
                 break;
                 
             case OP_RETURN:
-                fprintf(out, "RETURN 0x%02x\n", (char)getCurrentChar());
+                fprintf(out, "RETURN 0x%02x\n", (char)getCurrentCharFromFile());
                 break;
                 
             case OP_SEED_RAND:
@@ -419,37 +419,37 @@ void decompileLatria(char *fn) {
                 
             case OP_LESST:
                 fprintf(out, "LESS-THAN ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_GREATRT:
                 fprintf(out, "GREATER-THAN ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_LESST_EQUAL:
                 fprintf(out, "LESS-THAN-EQUAL ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_GTRTHN_EQL:
                 fprintf(out, "GREATER-THAN-EQUAL ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_NOT_EQUAL:
                 fprintf(out, "NOT-EQUAL ");
-                fprintf(out, "0x%02x, ",(char)getCurrentChar());
-                fprintf(out, "0x%02x ",(char)getCurrentChar());
-                fprintf(out, "0x%02x\n",(char)getCurrentChar());
+                fprintf(out, "0x%02x, ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x ",(char)getCurrentCharFromFile());
+                fprintf(out, "0x%02x\n",(char)getCurrentCharFromFile());
                 break;
                 
             case OP_BITAND:
@@ -473,18 +473,18 @@ void decompileLatria(char *fn) {
                 /* Next byte is a var */
                 
                 /* Fast forward */
-                while((hc = (char)getCurrentChar())) {
+                while((hc = (char)getCurrentCharFromFile())) {
                     fprintf(out, "%c", hc);
                 }
                 
                 fprintf(out, " ");
                 
-                if((hc = (char)getCurrentChar()) > 2) {
+                if((hc = (char)getCurrentCharFromFile()) > 2) {
                     /* normal text value */
                     fprintf(out, "%c", hc);
                     
                     /* Fast forward */
-                    while((hc = (char)getCurrentChar())) {
+                    while((hc = (char)getCurrentCharFromFile())) {
                         fprintf(out, "%c", hc);
                     }
                     
@@ -497,7 +497,7 @@ void decompileLatria(char *fn) {
                 }
                 
                 /* Next should be a register and then done */
-                fprintf(out, " 0x%02x\n", (char)getCurrentChar());
+                fprintf(out, " 0x%02x\n", (char)getCurrentCharFromFile());
                 break;
                 
             case OP_FUNC_END:
@@ -576,10 +576,10 @@ void decompileLatria(char *fn) {
                 /* 1 byte register */
                 fprintf(out, "REGISTER ");
                 /* 1 byte address */
-                fprintf(out,"0x%02x ", (char)getCurrentChar());
+                fprintf(out,"0x%02x ", (char)getCurrentCharFromFile());
                 /* 1 byte type */
                 
-                hc = (char)getCurrentChar();
+                hc = (char)getCurrentCharFromFile();
                 
                 if(hc == OP_VAR) {
                     /* var */
@@ -613,7 +613,7 @@ void decompileLatria(char *fn) {
                     fprintf(out, "ARRAY-VAR ");
                     
                     /* Print out var */
-                    while((hc = (char)getCurrentChar())) {
+                    while((hc = (char)getCurrentCharFromFile())) {
                         fprintf(out, "%c", hc);
                     }
                     
@@ -621,7 +621,7 @@ void decompileLatria(char *fn) {
                     
                     /* Print out key */
                     /* Fast forward */
-                    while((hc = (char)getCurrentChar())) {
+                    while((hc = (char)getCurrentCharFromFile())) {
                         fprintf(out, "%c", hc);
                     }
                     
@@ -642,13 +642,13 @@ void decompileLatria(char *fn) {
                 if(hc != OP_RGI) {
                     /* multi byte value */
                     /* Fast forward */
-                    while((hc = (char)getCurrentChar())) {
+                    while((hc = (char)getCurrentCharFromFile())) {
                         fprintf(out, "%c", hc);
                     }
                     
                 } else {
                     /* print out 2nd register address */
-                    fprintf(out,"0x%02x", (char)getCurrentChar());
+                    fprintf(out,"0x%02x", (char)getCurrentCharFromFile());
                     
                 }
                 
@@ -658,11 +658,11 @@ void decompileLatria(char *fn) {
             default:
                 /* Read something that was not a registered op code! */
                 printf("Instruction # %d\n", instructionCounter);
-                printf("0x%02x\n",getCharByOffsetFromCurrent(-2));
-                printf("0x%02x\n",(char)getCurrentChar());
-                printf("Unrecognized OP Code: 0x%02x\n", (char)getCurrentChar());
-                printf("0x%02x\n",(char)getCurrentChar());
-                printf("0x%02x\n",(char)getCurrentChar());
+                printf("0x%02x\n",getCharByOffsetFromCurrentFile(-2));
+                printf("0x%02x\n",(char)getCurrentCharFromFile());
+                printf("Unrecognized OP Code: 0x%02x\n", (char)getCurrentCharFromFile());
+                printf("0x%02x\n",(char)getCurrentCharFromFile());
+                printf("0x%02x\n",(char)getCurrentCharFromFile());
                 exit(1490);
                 break;
                 
@@ -681,14 +681,14 @@ void decompileLatria(char *fn) {
 }
 
 /* Returns the current character */
-int getCurrentChar() {
+int getCurrentCharFromFile() {
     return fgetc(in);
 }
 
 /* Returns a character relative to the current character */
-int getCharByOffsetFromCurrent(int offset) {
+int getCharByOffsetFromCurrentFile(int offset) {
     if(fseek(in, offset, SEEK_CUR) == 0) {
-        return (char)getCurrentChar();
+        return (char)getCurrentCharFromFile();
         
     } else {
         printf("Invalid seek!\n");
@@ -696,9 +696,4 @@ int getCharByOffsetFromCurrent(int offset) {
         return EOF;
         
     }
-}
-
-/* Moves to the next character */
-void moveToNextChar() {
-    fgetc(in);
 }
