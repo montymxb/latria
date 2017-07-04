@@ -34,6 +34,7 @@ SOFTWARE.
 #include "compiler/latria_c_io.h"
 
 #if defined(MACOSX) || defined(LINUXOS)
+/* Terminal Colors! */
 /*#define KNRM  "\x1B[0m"*/
 #define KRED  "\x1B[31m"
 #define KGRN  "\x1B[32m"
@@ -44,7 +45,7 @@ SOFTWARE.
 /*#define KWHT  "\x1B[37m"*/
 #define RESET "\033[0m"
 #else
-
+/* No colors */
 #define KRED ""
 #define KGRN ""
 #define RESET ""

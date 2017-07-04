@@ -41,6 +41,9 @@
 (unsigned char) *(b)) : \
 strcmp((a), (b)))
 
+/* Strips comments from the pointed characters */
+void stripComments(char *input);
+
 /* string duplication */
 char *LATstrdup(char *s);
 

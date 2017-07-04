@@ -28,7 +28,6 @@ SOFTWARE.
 
 #include "latria_lexical.h"
 
-
 /**** XLANG COMPONENTS ****/
 
 #define INJECT_S    "IN{"
@@ -1951,123 +1950,6 @@ void runInstructions() {
     }
     
 }
-
-
-/* Strips comments from the input if they are present */
-void stripComments(char *input) {
-    
-    if (strstr(input, "//") != 0 || getBlockCommentState() || strstr(input, "/*")) {
-        
-        char *origI = input;
-        LATBool isInSQuotes = false, isInDQuotes = false;
-        LATBool blockedOutThisLine = false;
-        
-        while(*input) {
-            
-            switch(*input) {
-                    
-                case '\'':
-                    
-                    if(!isInDQuotes)
-                        isInSQuotes = !isInSQuotes;
-                    break;
-                    
-                    
-                case '"':
-                    
-                    if(!isInSQuotes)
-                        isInDQuotes = !isInDQuotes;
-                    break;
-                    
-                    
-                case '/':
-                    
-                    if(!isInSQuotes && !isInDQuotes) {
-                        
-                        if(*(input+1) == '/') {
-                            
-                            /* Line  comment */
-                            *input = '\0';
-                            
-                        } else if(*(input+1) == '*') {
-                            
-                            /* Block comment */
-                            blockedOutThisLine = true;
-                            *input = '\0';
-                            setBlockCommentState(1);
-                        }
-                    }
-                    break;
-                    
-                    
-                case '*':
-                    
-                    if(!isInSQuotes && !isInDQuotes) {
-                        
-                        if(getBlockCommentState()) {
-                            
-                            if(*(input+1) == '/') {
-                                
-                                setBlockCommentState(0);
-                                input+=2;
-                                
-                                if(*input) {
-                                    
-                                    if(blockedOutThisLine) {
-                                        
-                                        char *oit = origI+strlen(origI);
-                                        
-                                        while(*input) {
-                                            
-                                            *oit++ = *input;
-                                            input++;
-                                        }
-                                        
-                                        /* cap the end */
-                                        *oit='\0';
-                                        
-                                    } else {
-                                        
-                                        char *oit = origI;
-                                        
-                                        while(*input) {
-                                            
-                                            *oit++ = *input;
-                                            input++;
-                                        }
-                                        
-                                        /* cap the end */
-                                        *oit='\0';
-                                    }
-                                    
-                                    /* reset to the beginning, we may have more we need to go over */
-                                    input = origI;
-                                    stripComments(input);
-                                    
-                                    return;
-                                    
-                                } else {
-                                    
-                                    *origI = '\0';
-                                }
-                            }
-                        }
-                    }
-            }
-            
-            input++;
-        }
-        
-        
-        /* if we did NOT block out in this line, and we ARE blocked out, this line is dead to us, mark it as so*/
-        if(!blockedOutThisLine && getBlockCommentState()) {
-            
-            *origI='\0';
-        }
-    }
-}
-
-
 
 /* Executes the following code under a NEW given language*/
 char * executeLang(char *xlangSource) {

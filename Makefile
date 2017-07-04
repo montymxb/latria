@@ -58,10 +58,10 @@ DEST_DIR += /usr/local/bin
 #################
 
 # c sources
-LATRIA_C_SRCS := $(wildcard src/compiler/*.c) $(wildcard src/core/*.c) $(wildcard src/disassembler/*.c) $(wildcard src/http/*.c) $(wildcard src/interpreter/*.c) $(wildcard src/memory/*.c) $(wildcard src/regex/*.c) $(wildcard src/tests/*.c) $(wildcard src/vm/*.c)
+LATRIA_C_SRCS := $(wildcard src/compiler/*.c) $(wildcard src/core/*.c) $(wildcard src/disassembler/*.c) $(wildcard src/http/*.c) $(wildcard src/interpreter/*.c) $(wildcard src/memory/*.c) $(wildcard src/prompt/*.c) $(wildcard src/regex/*.c) $(wildcard src/tests/*.c) $(wildcard src/vm/*.c)
 
 # c++ sources
-LATRIA_CXX_SRCS := $(wildcard src/compiler/*.cpp) $(wildcard src/core/*.cpp) $(wildcard src/disassembler/*.cpp) $(wildcard src/http/*.cpp) $(wildcard src/interpreter/*.cpp) $(wildcard src/memory/*.cpp) $(wildcard src/regex/*.cpp) $(wildcard src/tests/*.cpp) $(wildcard src/vm/*.cpp)
+LATRIA_CXX_SRCS := $(wildcard src/compiler/*.cpp) $(wildcard src/core/*.cpp) $(wildcard src/disassembler/*.cpp) $(wildcard src/http/*.cpp) $(wildcard src/interpreter/*.cpp) $(wildcard src/memory/*.cpp) $(wildcard src/prompt/*.cpp) $(wildcard src/regex/*.cpp) $(wildcard src/tests/*.cpp) $(wildcard src/vm/*.cpp)
 
 LATRIA_C_OBJS := ${LATRIA_C_SRCS:.c=.o}
 LATRIA_CXX_OBJS := ${LATRIA_CXX_SRCS:.cpp=.o}
@@ -227,8 +227,8 @@ $(NAME_INTERPRETER_COMPILER_DEBUG): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPR
 $(NAME_INTERPRETER_DEBUG): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS)
 	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) -o $(NAME_INTERPRETER_DEBUG)
 
-$(NAME_COMPILER_DEBUG): $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS) $(TEST_OBJS)
-	$(LINK.cc) $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS) $(TEST_OBJS) -o $(NAME_COMPILER_DEBUG)
+$(NAME_COMPILER_DEBUG): $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS)
+	$(LINK.cc) $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS) -o $(NAME_COMPILER_DEBUG)
 
 $(NAME_DISASSEMBLER_DEBUG): $(DISASSEMBLER_OBJS)
 	$(LINK.cc) $(DISASSEMBLER_OBJS) -o $(NAME_DISASSEMBLER_DEBUG)

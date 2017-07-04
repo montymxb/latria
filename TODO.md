@@ -1,12 +1,7 @@
 :: Latria TODO ::
 
-• Fix mac-interpreter, but do so by separating out the compiler components
-
-• Fix mac-compiler target
-
-• Fix mac-compiler-debug target
-
-• Fix mac-disassembler-debug target
+[[MAKE ALL for testing]]
+make clean && make mac && make clean && make mac-debug && make clean && make mac-interpreter && make clean && make mac-interpreter-debug && make clean && make mac-compiler && make clean && make mac-compiler-debug && make clean && make mac-disassembler && make clean && make mac-disassembler-debug
 
 • Split up GC to create separate VM from memory allocation/management
 

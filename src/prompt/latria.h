@@ -41,9 +41,15 @@ SOFTWARE.
 
 #include "regex/latria_regex.h"
 
-#ifdef INCLUDECOMPILER
+#if defined(INCLUDECOMPILER) || defined(COMPILER_ONLY)
 /* Built in compiler interface */
 #include "compiler/latria_compiler_interface.h"
+
+/* Only usable if the compiler is included */
+void openDynamicInterpreterFile();
+void closeDynamicInterpreterFile();
+int handleInput(char *input);
+
 #endif
 
 #ifdef LAT_TESTS
@@ -54,12 +60,5 @@ SOFTWARE.
 void freeLatria();
 
 void executeLatriaFile(char *fileName);
-
-#ifdef INCLUDECOMPILER
-/* Only usable if the compiler is included */
-void openDynamicInterpreterFile();
-void closeDynamicInterpreterFile();
-int handleInput(char *input);
-#endif
 
 #endif /* latria_prompt_latria_h */

@@ -53,7 +53,12 @@ unsigned char fileStackIndex = 0;
 int main( int argc, char* argv[]) {
     
     int argI;
+    
+    #ifdef INCLUDECOMPILER
+    /* Only used for compilation */
     char input[LAT_INPUT_SIZE];
+    #endif
+    
     char shouldCompile = 0;
     
     /* Set free callback on exit for mac & linux */
@@ -170,7 +175,7 @@ int main( int argc, char* argv[]) {
                 /* Potential File Name passed */
                 if(shouldCompile == 1) {
                     
-                    #ifndef INCLUDECOMPILER
+                    #ifdef INCLUDECOMPILER
                     /* Just compile */
                     compileLatria(arg);
                     #else
@@ -376,7 +381,7 @@ size_t currentReadCharsLength;
 
 
 
-#ifdef INCLUDECOMPILER
+#if defined(INCLUDECOMPILER) || defined(COMPILER_ONLY)
 
 
 /* Opens up a file to work with dynamic interpretation */

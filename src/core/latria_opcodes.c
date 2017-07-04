@@ -26,7 +26,6 @@
  * latria_opcodes.c
  * Created by Benjamin Friedman on 06/24/17.
  */
-#if defined(INCLUDECOMPILER) || defined(COMPILER_ONLY)
 
 #include "latria_opcodes.h"
 
@@ -45,9 +44,11 @@ int batchedInstructionCount = 0;
 
 long int programByteCount = 0;
 
+
+#if defined(INCLUDECOMPILER) || defined(COMPILER_ONLY)
+
 /* write mode NORMAL by default */
 CompilerWriteMode writeMode = WRITE_MODE_NORMAL;
-
 
 void startInstructions() {
     
@@ -281,6 +282,20 @@ void writeRAW(unsigned char *string, int size) {
     instructions[instructionCount] = '\0';
 }
 
+/* Dispatches all queued instructions */
+void dispatchInstructions() {
+    
+    if(instructions != NULL && instructionCount > 0) {
+        
+        lat_io_compiler_writeOutput(instructions, instructionCount);
+    }
+    
+    if(instructions != NULL) {
+        
+        free(instructions), instructions = NULL;
+    }
+}
+
 
 /* Changes the write mode */
 void setWriteMode(CompilerWriteMode mode) {
@@ -359,20 +374,6 @@ void writeOutByteAddress(unsigned int address) {
     }
     
     instructions[instructionCount] = '\0';
-}
-
-
-void dispatchInstructions() {
-    
-    if(instructions != NULL && instructionCount > 0) {
-        
-        lat_io_compiler_writeOutput(instructions, instructionCount);
-    }
-    
-    if(instructions != NULL) {
-        
-        free(instructions), instructions = NULL;
-    }
 }
 
 #endif

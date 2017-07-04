@@ -31,6 +31,7 @@ SOFTWARE.
 
 #include "prompt/latria.h"
 #include "core/latria_core.h"
+#include "core/latria_string.h"
 #include "core/latria_opcodes.h"
 #include "core/latria_operators.h"
 #include "core/latria_jumps.h"
@@ -49,19 +50,11 @@ void setArrayVarFromRegister(char *varName, char *key, unsigned char registerNum
 
 void runInstructions();
 
-void stripComments(char *input);
-
 /* Functions for reading and writing from the file as we read */
 int getCurrentChar();
 int getCharByOffsetFromCurrent(int offset);
 void moveToNextChar();
 void resetCurrentFileIndex(long int newIndex);
 long int getCurrentFileIndex();
-
-#ifdef INCLUDECOMPILER
-void openDynamicInterpreterFile();
-void closeDynamicInterpreterFile();
-int handleInput(char *input);
-#endif
 
 #endif /* latria_interpreter_latria_lexical_h */
