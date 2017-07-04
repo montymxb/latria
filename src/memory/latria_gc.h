@@ -41,6 +41,8 @@ void forceALLMemoryFree();
 void adjustGCRate(float rate);
 void deconstructLATVM();
 void createLatriaVM();
+
+char *setCharTablePointer(int index, char *ptr);
 char *setCharTablePointerByLEN(int index, unsigned long len);
 
 void setBlockCommentState(unsigned char ns);
@@ -55,6 +57,25 @@ void setPrintCacheMode(unsigned char c);
 unsigned char getPrintCacheMode();
 
 RegisterType getRegisterType(unsigned char registerNum);
+
+/*** START REGISTERS ***/
+
+/* Settting Registers */
+void setStringRegister(unsigned char registerNum, char *string, RegisterType type);
+void setNumRegister(unsigned char registerNum, double num, RegisterType type);
+void setFileRegister(unsigned char registerNum, FILE *file, RegisterType type);
+void setArrayRegister(unsigned char registerNum, struct CoreObject *array, RegisterType type);
+void setNullRegister(unsigned char registerNum);
+void setConnectionRegister(unsigned char registerNum, int connId);
+
+/* Getting register values */
+double getRegisterNum(unsigned char registerNum);
+char *getRegisterString(unsigned char registerNum);
+FILE *getRegisterFile(unsigned char registerNum);
+struct CoreObject *getRegisterArray(unsigned char registerNum);
+int getRegisterConnection(unsigned char registerNum);
+
+/*** END REGISTERS ***/
 
 /*** START STACK REGISTERS (ARGS) ****/
 void pushRegister(unsigned char registerNum);

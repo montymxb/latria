@@ -34,8 +34,6 @@ SOFTWARE.
 #include "latria_opcodes.h"
 #include "latria_sys.h"
 
-char *setCharTablePointer(int index, char *ptr);
-
 struct CoreObject * getValue(char *name);
 struct CoreObject * getArrayValue(char *varName, char *key);
 
@@ -51,24 +49,5 @@ void performGreaterThanOp(unsigned char i1, unsigned char i2, unsigned char i3);
 void performGreaterThanEqualToOp(unsigned char i1, unsigned char i2, unsigned char i3);
 
 /*** END RELATIONAL OPS ***/
-
-/*** START REGISTERS ***/
-
-/* Settting Registers */
-void setStringRegister(unsigned char registerNum, char *string, RegisterType type);
-void setNumRegister(unsigned char registerNum, double num, RegisterType type);
-void setFileRegister(unsigned char registerNum, FILE *file, RegisterType type);
-void setArrayRegister(unsigned char registerNum, struct CoreObject *array, RegisterType type);
-void setNullRegister(unsigned char registerNum);
-void setConnectionRegister(unsigned char registerNum, int connId);
-
-/* Get register Value */
-double getRegisterNum(unsigned char registerNum);
-char *getRegisterString(unsigned char registerNum);
-FILE *getRegisterFile(unsigned char registerNum);
-struct CoreObject *getRegisterArray(unsigned char registerNum);
-int getRegisterConnection(unsigned char registerNum);
-
-/*** END REGISTERS ***/
 
 #endif /* latria_core_latria_operators_h */
