@@ -2218,6 +2218,7 @@ void ftest_CompoundRelationals() {
     rez = Read_Batched_Write();
     if(LAT_STRCMP(rez, "compound success\nc\n") != 0) {
         testFailedWithError(testName, "Did not execute compound relational op code properly");
+        printf("%s\n\n", rez);
     } else {
         testPassed(testName);
     }
@@ -2396,7 +2397,7 @@ void ftest_BasicFor() {
     rez = Read_Batched_Write();
     
     if(LAT_STRCMP(rez, "K:0\nK:1\nK:2\nK:3\nK:4\nK:5\nK:6\nK:7\nK:8\nK:9\nK:10\ndone with k\n") != 0) {
-        testFailedWithError(testName, "Output did not match as expected");
+        testFailedWithError(testName, "Basic for result did not match as expected");
         printf("%s\n\n", rez);
     } else {
         testPassed(testName);
