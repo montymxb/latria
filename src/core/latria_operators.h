@@ -34,11 +34,6 @@ SOFTWARE.
 #include "latria_opcodes.h"
 #include "latria_sys.h"
 
-struct CoreObject * getValue(char *name);
-struct CoreObject * getArrayValue(char *varName, char *key);
-
-char * convertFloatToString(double value);
-
 /*** RELATIONAL OPS ***/
 
 void performEqualOp(unsigned char i1, unsigned char i2, unsigned char i3);

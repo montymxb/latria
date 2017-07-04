@@ -39,6 +39,10 @@ void setValue(char *name, char *val);
 void unsetValue(char *name);
 void unsetArrayKeyValue(char *varName, char *key);
 
+struct CoreObject * getValue(char *name);
+struct CoreObject * getArrayValue(char *varName, char *key);
+char * convertFloatToString(double value);
+
 /* Bool setting */
 void setBoolValue(char *name, LATBool val);
 void setBoolValueForKey(char *key, LATBool value, struct CoreObject **_node);
