@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2017 Benjamin Wilson Friedman
@@ -19,4 +20,42 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+ *  latria_referencestack.h
+ *  Created by Benjamin Friedman on 2/11/15.
+ */
+
+#ifndef latria_core_latria_referencestack_h
+#define latria_core_latria_referencestack_h
+
+/* Reference Stack */
+struct LATReference_Stack{
+    
+    /* CoreObject Primary */
+    struct CoreObject *cop;
+    
+    /* Child Stack */
+    struct LATReference_Stack *cs;
+    
+};
+
+#include "latria_core.h"
+#include "latria_vars.h"
+
+struct CoreObject *stack_getCoreObject();
+
+void stack_setCoreObject(struct CoreObject *_cop);
+
+struct CoreObject *_stack_getCoreObject(struct LATReference_Stack *stack);
+
+struct LATReference_Stack * getPrimaryStack();
+struct LATReference_Stack * getNextStack(struct LATReference_Stack *stack);
+
+void stack_pushStack();
+void stack_popStack();
+
+void stack_freeHeapAndStack();
+
+#endif /* latria_core_latria_referencestack_h */

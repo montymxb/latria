@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2017 Benjamin Wilson Friedman
@@ -19,4 +20,21 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+ *  latria_tests.h
+ *  Created by Benjamin Friedman on 9/29/15.
+ */
+
+#ifndef latria_tests_latria_tests_h
+#define latria_tests_latria_tests_h
+
+#include "prompt/latria.h"
+#include "core/latria_core.h"
+#include "core/latria_opcodes.h"
+#include "core/latria_sys.h"
+
+void runAllTests();
+
+#endif /* latria_tests_latria_tests_h */

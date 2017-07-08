@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2017 Benjamin Wilson Friedman
@@ -19,4 +20,29 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+ *  latria_operators.h
+ *  Created by Benjamin Friedman on 3/1/15.
+ */
+
+#ifndef latria_core_latria_operators_h
+#define latria_core_latria_operators_h
+
+#include "latria_core.h"
+#include "latria_opcodes.h"
+#include "latria_sys.h"
+
+/*** RELATIONAL OPS ***/
+
+void performEqualOp(unsigned char i1, unsigned char i2, unsigned char i3);
+void performNotEqualOp(unsigned char i1, unsigned char i2, unsigned char i3);
+void performLessThanOp(unsigned char i1, unsigned char i2, unsigned char i3);
+void performLessThanEqualToOp(unsigned char i1, unsigned char i2, unsigned char i3);
+void performGreaterThanOp(unsigned char i1, unsigned char i2, unsigned char i3);
+void performGreaterThanEqualToOp(unsigned char i1, unsigned char i2, unsigned char i3);
+
+/*** END RELATIONAL OPS ***/
+
+#endif /* latria_core_latria_operators_h */

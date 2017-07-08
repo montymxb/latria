@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2017 Benjamin Wilson Friedman
@@ -19,4 +20,39 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+*  latria_register.h
+*/
+
+#ifndef latria_core_latria_register_h
+#define latria_core_latria_register_h
+
+#include "latria_register_type.h"
+#include "latria_core_object.h"
+
+typedef struct {
+    /* Value */
+    union {
+        
+        /* Num or Connection */
+        double dvalue;
+
+        /* String */
+        char *cvalue;
+
+        /* File */
+        FILE *file;
+
+        /* Array */
+        struct CoreObject *array;
+
+    }value;
+
+    /* Type */
+    RegisterType type;
+
+} Register;
+
+#endif /* latria_core_latria_register_h */
