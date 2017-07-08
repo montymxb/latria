@@ -30,16 +30,16 @@ SOFTWARE.
 
 
 /* Simple pow*/
-float local_pow(double base, int exp) {
+float local_pow(double base, int exponent) {
     
     double result = 1;
     
-    while (exp) {
+    while (exponent) {
         
-        if (exp & 1)
+        if (exponent & 1)
             result *= base;
         
-        exp >>= 1;
+        exponent >>= 1;
         base *= base;
     }
     

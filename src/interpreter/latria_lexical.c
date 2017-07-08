@@ -1955,7 +1955,7 @@ void runInstructions() {
 char * executeLang(char *xlangSource) {
     
     char *cmdlist;
-    FILE *pipe;
+    FILE *languagePipe;
     char charBuff[1024] = {0};
     int buffLen = sizeof(charBuff), reallocdCML = 0, curLen = 0, maximumStorageLength=STARTING_MAXIMUM_STORAGE_LENGTH;
     char *tableRef = NULL, *origRef;
@@ -2113,12 +2113,12 @@ char * executeLang(char *xlangSource) {
     
     /* MAC/OSX piping */
     #ifdef _WIN32
-    pipe = _popen(cmdlist, "r");
+    languagePipe = _popen(cmdlist, "r");
     #else
-    pipe = popen(cmdlist, "r");
+    languagePipe = popen(cmdlist, "r");
     #endif
     
-    if(!pipe) {
+    if(!languagePipe) {
         
         printf("Error occured attempting to execute another language!\n");
         
@@ -2138,10 +2138,10 @@ char * executeLang(char *xlangSource) {
     origRef = tableRef = setCharTablePointerByLEN( 33, STARTING_MAXIMUM_STORAGE_LENGTH);
     
     /* While not at end of file */
-    while(!feof(pipe)) {
+    while(!feof(languagePipe)) {
         
         /* Not at end of file */
-        if(fgets( charBuff, buffLen, pipe) != NULL) {
+        if(fgets( charBuff, buffLen, languagePipe) != NULL) {
             /* Handle what we read */
             
             int charbuffLen = (int)strlen(charBuff);
@@ -2167,12 +2167,12 @@ char * executeLang(char *xlangSource) {
         }
     }
     
-    fflush(pipe);
+    fflush(languagePipe);
     
     #ifdef _WIN32
-    if(_pclose(pipe) == -1) {
+    if(_pclose(languagePipe) == -1) {
     #else
-    if(pclose(pipe) == -1) {
+    if(pclose(languagePipe) == -1) {
     #endif
         
         printf(">>: Soft Error closing pipe, '%s', continuing execution~\n", cmdlist);

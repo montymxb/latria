@@ -213,7 +213,7 @@ LATRegex *regexCache[LAT_REGEX_MAX_CACHE] = {NULL};
 /* Called to simulatenously compile and use a regex in an input string, with a string representation of a regex */
 unsigned char regex(char *input, char *regexString) {
     
-    LATRegex *regex = NULL;
+    LATRegex *latRegex = NULL;
     char didRecycleRegex = 0;
     int counter = 0;
     
@@ -227,7 +227,7 @@ unsigned char regex(char *input, char *regexString) {
                 if(strcmp(regexString, regexCache[counter]->stringRep) == 0) {
                     
                     /* We have a match! Use this regex */
-                    regex = regexCache[counter];
+                    latRegex = regexCache[counter];
                     didRecycleRegex = 1;
                     break;
                     
@@ -240,25 +240,25 @@ unsigned char regex(char *input, char *regexString) {
         counter++;
     }
     
-    if(regex == NULL) {
+    if(latRegex == NULL) {
         
         /* Compile a new regex */
         char *regexStringCPY = LATstrdup(regexString);
-        regex = compileRegex(regexStringCPY);
-        regex->stringRep = LATstrdup(regexString);
+        latRegex = compileRegex(regexStringCPY);
+        latRegex->stringRep = LATstrdup(regexString);
         LATDealloc(regexStringCPY);
         
     }
     
-    if(regex) {
+    if(latRegex) {
         
         unsigned char result;
         
         #ifdef LAT_REGEX_DEBUG
-        printRegexDebug(regex->regex);
+        printRegexDebug(latRegex->regex);
         #endif
         
-        result = __runRegexOnString(regex, input);
+        result = __runRegexOnString(latRegex, input);
         
         /* See if we should cache this regex */
         if(didRecycleRegex != 1) {
@@ -299,12 +299,12 @@ unsigned char regex(char *input, char *regexString) {
                 }
                 
                 /* Add it to the end */
-                regexCache[LAT_REGEX_MAX_CACHE-1] = regex;
+                regexCache[LAT_REGEX_MAX_CACHE-1] = latRegex;
                 
             } else {
                 
                 /* Add It */
-                regexCache[regexCacheCount] = regex;
+                regexCache[regexCacheCount] = latRegex;
                 regexCacheCount++;
                 
             }
@@ -326,7 +326,7 @@ LATRegex *compileRegex(char *regexString) {
     
     char *regexInstruct;
     int counter = 0;
-    LATRegex *regex = (LATRegex *)LATAlloc(NULL, 0, sizeof(LATRegex));
+    LATRegex *latRegex = (LATRegex *)LATAlloc(NULL, 0, sizeof(LATRegex));
     
     /* Allocate space for 100 instructions, and initialize vars */
     regexInstruct = LATAlloc(NULL, 0, LAT_REGEX_INSTRUCTION_SIZE*100*sizeof(char));
@@ -337,15 +337,15 @@ LATRegex *compileRegex(char *regexString) {
         regexInstruct[counter++] = '\0';
     }
     
-    regex->regex = regexInstruct;
-    regex->regexFwd = regexInstruct;
-    regex->maxInstructions = 100;
-    regex->instructionSize = LAT_REGEX_INSTRUCTION_SIZE; /* Includes terminator */
-    regex->instructionCount = 0;
+    latRegex->regex = regexInstruct;
+    latRegex->regexFwd = regexInstruct;
+    latRegex->maxInstructions = 100;
+    latRegex->instructionSize = LAT_REGEX_INSTRUCTION_SIZE; /* Includes terminator */
+    latRegex->instructionCount = 0;
     
-    regex = __compileRegex(regex, regexString);
+    latRegex = __compileRegex(latRegex, regexString);
     
-    return regex;
+    return latRegex;
 }
 
 
@@ -364,17 +364,16 @@ struct JumpObject {
 
 
 /* Prints the regex in a human readable format */
-void printRegexDebug(char *regex) {
+void printRegexDebug(char *regexCharacters) {
     char carrier[LAT_REGEX_INSTRUCTION_SIZE+1] = {0};
     char *cP = carrier;
-    while(*regex) {
-        
+    while(*regexCharacters) {
         int x = 0;
-        carrier[x++] = *regex++;
-        carrier[x++] = *regex++;
-        carrier[x++] = *regex++;
-        carrier[x++] = *regex++;
-        carrier[x++] = *regex++;
+        carrier[x++] = *regexCharacters++;
+        carrier[x++] = *regexCharacters++;
+        carrier[x++] = *regexCharacters++;
+        carrier[x++] = *regexCharacters++;
+        carrier[x++] = *regexCharacters++;
         printf("%s\n",cP);
     }
 }
@@ -450,7 +449,7 @@ void freeAllGroupingsAndStack() {
 
 
 /* Called actually build the regex itself */
-LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
+LATRegex *__compileRegex(LATRegex *latRegex, char *regexString) {
     
     /* For debugging when compilation fails */
     char *debugRegexString = regexString;
@@ -598,7 +597,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                         /* Match the preceding element 0 or more times (push loop) */
                         instruction[0] = loopType;
                         instruction[1] = check == -1 ? CODE_NONE : check;
-                        instruction[2] = check == -1 ? CODE_LOOP_ANY : CODE_NONE;
+                        instruction[2] = (int)(check == -1 ? CODE_LOOP_ANY : CODE_NONE);
                         instruction[3] = CODE_NONE;
                         instruction[4] = CODE_NONE;
                         instruction[5] = '\0';
@@ -641,7 +640,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                         /* Push Loop */
                         instruction[5] = loopType;
                         instruction[6] = check == -1 ? CODE_NONE : check;
-                        instruction[7] = check == -1 ? CODE_LOOP_ANY : CODE_NONE;
+                        instruction[7] = (int)(check == -1 ? CODE_LOOP_ANY : CODE_NONE);
                         instruction[8] = CODE_NONE;
                         instruction[9] = CODE_NONE;
                         instruction[10] = '\0';
@@ -661,7 +660,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                         jo->jumpSize = 1;
                         jo->next = jumpStack;
                         jo->regexStringIndex = regexString+2;
-                        jo->regexIndex = regex->regexFwd;
+                        jo->regexIndex = latRegex->regexFwd;
                         jo->firstInstruction[0] = '\0';
                         jumpStack = jo;
                         
@@ -999,7 +998,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                             jo->jumpSize = 1;
                             jo->next = jumpStack;
                             jo->regexStringIndex = regexString+2;
-                            jo->regexIndex = regex->regexFwd;
+                            jo->regexIndex = latRegex->regexFwd;
                             /* No instruction */
                             jo->firstInstruction[0] = '\0';
                             /* set jump stack */
@@ -1132,11 +1131,11 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 GroupingStack *lastGrouping = getGroupingFromStack();
                 
                 /* Check to realloc regex size to fit our injected jump */
-                if(lastGrouping->instructionsSinceLastGrouping+1 >= regex->maxInstructions-1) {
+                if(lastGrouping->instructionsSinceLastGrouping+1 >= latRegex->maxInstructions-1) {
                     
-                    regex->maxInstructions+=100;
-                    regex->regex = LATAlloc(regex->regex, LAT_REGEX_INSTRUCTION_SIZE*(regex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*regex->maxInstructions*sizeof(char));
-                    regex->regexFwd = regex->regex+strlen(regex->regex);
+                    latRegex->maxInstructions+=100;
+                    latRegex->regex = LATAlloc(latRegex->regex, LAT_REGEX_INSTRUCTION_SIZE*(latRegex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*latRegex->maxInstructions*sizeof(char));
+                    latRegex->regexFwd = latRegex->regex+strlen(latRegex->regex);
                     
                     
                 }
@@ -1144,13 +1143,13 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 /* TODO There is some weird stuff going on here...Alternation doesn't work so well when we have a few or more alternating statementss */
                 
                 /* Rewind LAT_REGEX_INSTRUCTION_SIZE * instructionsSinceLastGrouping */
-                regex->regexFwd-=(LAT_REGEX_INSTRUCTION_SIZE*(lastGrouping->instructionsSinceLastGrouping));
+                latRegex->regexFwd-=(LAT_REGEX_INSTRUCTION_SIZE*(lastGrouping->instructionsSinceLastGrouping));
                 
                 /* Create a shift copy */
-                shiftCopy = LATAlloc(NULL, 0, strlen(regex->regexFwd)+LAT_REGEX_INSTRUCTION_SIZE+1);
+                shiftCopy = LATAlloc(NULL, 0, strlen(latRegex->regexFwd)+LAT_REGEX_INSTRUCTION_SIZE+1);
                 /* Copy everything LAT_REGEX_INSTRUCTION_SIZE up, to create space for an instruction */
-                strncpy(shiftCopy+LAT_REGEX_INSTRUCTION_SIZE, regex->regexFwd, strlen(regex->regexFwd));
-                shiftCopy[strlen(regex->regexFwd)+LAT_REGEX_INSTRUCTION_SIZE] = '\0';
+                strncpy(shiftCopy+LAT_REGEX_INSTRUCTION_SIZE, latRegex->regexFwd, strlen(latRegex->regexFwd));
+                shiftCopy[strlen(latRegex->regexFwd)+LAT_REGEX_INSTRUCTION_SIZE] = '\0';
                 
                 /* Build a jump instruction to go behind this last set, signaling to concurrently try this item as well */
                 sprintf(carryOverPointer, "%04x", lastGrouping->instructionsSinceLastGrouping+2);
@@ -1162,13 +1161,13 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 shiftCopy[4] = carryOverPointer[3];
                 
                 /* Copy our modified instruction (with injected jump) set back in  */
-                strncpy(regex->regexFwd, shiftCopy, strlen(shiftCopy));
+                strncpy(latRegex->regexFwd, shiftCopy, strlen(shiftCopy));
                 
                 /* Free shiftCopy */
                 LATDealloc(shiftCopy);
                 
                 /* set regexFwd back forward */
-                regex->regexFwd+=strlen(regex->regexFwd);
+                latRegex->regexFwd+=strlen(latRegex->regexFwd);
                 
                 /* Prepare a NEW jump instruction, telling us where to move on after we reach this point */
                 jo = LATAlloc(NULL, 0, sizeof(struct JumpObject));
@@ -1189,7 +1188,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 }
                 
                 jo->regexStringIndex = shiftCopy;
-                jo->regexIndex = regex->regexFwd;
+                jo->regexIndex = latRegex->regexFwd;
                 jo->firstInstruction[0] = '\0';
                 jumpStack = jo;
                 
@@ -1308,7 +1307,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                         jo->jumpSize = 1;
                         jo->next = jumpStack;
                         jo->regexStringIndex = regexString+2;
-                        jo->regexIndex = regex->regexFwd;
+                        jo->regexIndex = latRegex->regexFwd;
                         jo->firstInstruction[0] = '\0';
                         jumpStack = jo;
                         
@@ -1363,17 +1362,17 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
             }
             
             /* Check to realloc regex size */
-            if(instructionsAdded >= regex->maxInstructions-1) {
+            if(instructionsAdded >= latRegex->maxInstructions-1) {
                 
-                regex->maxInstructions+=100;
-                regex->regex = LATAlloc(regex->regex, LAT_REGEX_INSTRUCTION_SIZE*(regex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*regex->maxInstructions*sizeof(char));
-                regex->regexFwd = regex->regex+strlen(regex->regex);
+                latRegex->maxInstructions+=100;
+                latRegex->regex = LATAlloc(latRegex->regex, LAT_REGEX_INSTRUCTION_SIZE*(latRegex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*latRegex->maxInstructions*sizeof(char));
+                latRegex->regexFwd = latRegex->regex+strlen(latRegex->regex);
             }
             
             /* Write out the completed instruction */
             instructionSize = strlen(instruction);
-            strncpy(regex->regexFwd, instruction, instructionSize);
-            regex->regexFwd+=instructionSize;
+            strncpy(latRegex->regexFwd, instruction, instructionSize);
+            latRegex->regexFwd+=instructionSize;
             
             /* Resets any escaped characters */
             isCharEscaped = 0;
@@ -1415,17 +1414,17 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
         instructionsAdded++;
         
         /* Check to realloc regex size */
-        if(instructionsAdded >= regex->maxInstructions-1) {
+        if(instructionsAdded >= latRegex->maxInstructions-1) {
             
-            regex->maxInstructions+=100;
-            regex->regex = LATAlloc(regex->regex, LAT_REGEX_INSTRUCTION_SIZE*(regex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*regex->maxInstructions*sizeof(char));
-            regex->regexFwd = regex->regex+strlen(regex->regex);
+            latRegex->maxInstructions+=100;
+            latRegex->regex = LATAlloc(latRegex->regex, LAT_REGEX_INSTRUCTION_SIZE*(latRegex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*latRegex->maxInstructions*sizeof(char));
+            latRegex->regexFwd = latRegex->regex+strlen(latRegex->regex);
         }
         
         /* Write out the completed instruction */
         instructionSize = strlen(instruction);
-        strncpy(regex->regexFwd, instruction, instructionSize);
-        regex->regexFwd+=instructionSize;
+        strncpy(latRegex->regexFwd, instruction, instructionSize);
+        latRegex->regexFwd+=instructionSize;
         
         if(jumpStack != NULL && !*regexString) {
             
@@ -1456,14 +1455,14 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
                 instructionsAdded+=instructionCount;
                 
                 /* Check to realloc regex size */
-                if(instructionsAdded >= regex->maxInstructions-1) {
+                if(instructionsAdded >= latRegex->maxInstructions-1) {
                     
-                    regex->maxInstructions+=100;
-                    regex->regex = LATAlloc(regex->regex, LAT_REGEX_INSTRUCTION_SIZE*(regex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*regex->maxInstructions*sizeof(char));
-                    regex->regexFwd = regex->regex+strlen(regex->regex);
+                    latRegex->maxInstructions+=100;
+                    latRegex->regex = LATAlloc(latRegex->regex, LAT_REGEX_INSTRUCTION_SIZE*(latRegex->maxInstructions-100)*sizeof(char), LAT_REGEX_INSTRUCTION_SIZE*latRegex->maxInstructions*sizeof(char));
+                    latRegex->regexFwd = latRegex->regex+strlen(latRegex->regex);
                 }
                 
-                regex->regexFwd = strncpy(regex->regexFwd, jumpStack->firstInstruction, LAT_REGEX_INSTRUCTION_SIZE*2);
+                latRegex->regexFwd = strncpy(latRegex->regexFwd, jumpStack->firstInstruction, LAT_REGEX_INSTRUCTION_SIZE*2);
             }
             
             /* Carry over */
@@ -1495,7 +1494,7 @@ LATRegex *__compileRegex(LATRegex *regex, char *regexString) {
     /* Free instructions */
     LATDealloc(instruction);
     
-    return regex;
+    return latRegex;
 }
 
 
@@ -1550,14 +1549,14 @@ void printRegexStateDebugInfo(struct RegexState *regex);
 
 
 /* Prints informative info about a regex state */
-void printRegexStateDebugInfo(struct RegexState *regex) {
+void printRegexStateDebugInfo(struct RegexState *regexState) {
     
     struct RegexCapture *cap;
     int capture = 1;
     
-    cap = regex->captureBlock;
+    cap = regexState->captureBlock;
     
-    printf("#%d\n",regex->stateID);
+    printf("#%d\n",regexState->stateID);
     
     while(cap != NULL) {
         
@@ -1576,7 +1575,7 @@ void printRegexStateDebugInfo(struct RegexState *regex) {
         cap = cap->next;
     }
     
-    printRegexDebug(regex->regexIndex);
+    printRegexDebug(regexState->regexIndex);
     
     printf("\n");
     
@@ -1584,7 +1583,7 @@ void printRegexStateDebugInfo(struct RegexState *regex) {
 
 
 /* Runs a given regex we previously generated, generating a result */
-unsigned char __runRegexOnString(LATRegex *regex, char *input) {
+unsigned char __runRegexOnString(LATRegex *latRegex, char *input) {
     
     /* Get a regex state ready */
     unsigned long iterations = 0;
@@ -1597,7 +1596,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
     
     state = rootStateList;
     state->stateID = stateIDNum++;
-    state->regexIndex = regex->regex;
+    state->regexIndex = latRegex->regex;
     state->next = NULL;
     state->captureBlock = NULL;
     state->isCapturing = 0;
@@ -2014,7 +2013,7 @@ unsigned char __runRegexOnString(LATRegex *regex, char *input) {
                 
                 /* No more states, turn on our original, reset and try again */
                 state = rootStateList;
-                state->regexIndex = regex->regex;
+                state->regexIndex = latRegex->regex;
                 state->isActive = 1;
                 
                 /* Check if we went ahead at all */
