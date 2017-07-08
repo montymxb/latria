@@ -1,11 +1,9 @@
 language: c
 compiler:
     - gcc
+    - clang
 script:
-    - make mac-test
-matrix:
-    include:
-        # osx
-        os: osx
-        env:
-            - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; make mac-test; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; make linux-test; fi
+os:
+    - osx
