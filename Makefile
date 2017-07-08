@@ -8,7 +8,7 @@
 ################
 
 #General C Flags to compile latria with
-CFLAGS += -Isrc -std=c90 -ansi -O3 -fno-common -fshort-enums -pedantic -W -Wall -fno-common -fshort-enums -Wcast-align -Wcast-qual -Wconversion -Wmissing-declarations -Wredundant-decls -Wnested-externs -Wpointer-arith -Wshadow -Wpedantic
+CFLAGS += -Isrc -std=c90 -ansi -O3 -fno-common -fshort-enums -pedantic -W -Wall -fno-common -fshort-enums -Wcast-align -Wcast-qual -Wconversion -Wmissing-declarations -Wredundant-decls -Wnested-externs -Wpointer-arith -Wshadow
 
 #Generic Debug Flags
 DEBUG_FLAGS := -DLAT_TESTS=1 -g
