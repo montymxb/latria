@@ -534,7 +534,7 @@ int getCurrentChar() {
         currentReadCharsLength = fread(currentCharList, sizeof(char), LAT_FILE_CACHE_SIZE, runFile);
         
         /* Increase our upper bound */
-        currentReadUpperBound  +=currentReadCharsLength;
+        currentReadUpperBound  +=(int)currentReadCharsLength;
         
         /* Check if we read anything */
         if(currentReadCharsLength == 0) {
@@ -565,7 +565,7 @@ int getCurrentChar() {
             currentReadCharsLength = fread(currentCharList, sizeof(char), LAT_FILE_CACHE_SIZE, runFile);
             
             /* Increase our upper bound */
-            currentReadUpperBound  +=currentReadCharsLength;
+            currentReadUpperBound  +=(int)currentReadCharsLength;
             
             /* Check if we read anything */
             if(currentReadCharsLength == 0) {

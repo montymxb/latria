@@ -2,6 +2,7 @@ language: c
 compiler:
     - cc
     - gcc
+    # - clang
 script:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make mac-test; fi
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make linux-test; fi

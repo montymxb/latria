@@ -1751,7 +1751,7 @@ int Core__printMem(struct CoreObject *node, int mem) {
             } else if(node->_state == 4) {
                 
                 /* File (print id) */
-                printf("FILE: %d\n\n", (int)node->data._file);
+                printf("FILE: %d\n\n", node->data._file);
                 
             } else if(node->_state == 5) {
                 
