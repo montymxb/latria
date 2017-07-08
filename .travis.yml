@@ -2,7 +2,7 @@ language: c
 compiler:
     - gcc
 script:
-    - make linux-test
+    - make mac-test
 matrix:
     include:
         # osx
