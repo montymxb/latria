@@ -7,3 +7,4 @@ script:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make linux-test; fi
 os:
     - osx
+    - linux
