@@ -83,7 +83,12 @@ void runInstructions() {
     
     int hc;
     short offsetCounter;
-    char offset[LAT_I_ADDRESS_SIZE] = {0};
+    /* 
+     Pad to one greater than the current address size.
+     This is to allow us to always cap off the end of our offset characters with a \0.
+     In some cases we would bound non-zero memory, and this would run too far off.
+     */
+    char offset[LAT_I_ADDRESS_SIZE+1] = {0};
     
     while((hc = getCurrentChar()) != EOF) {
         
