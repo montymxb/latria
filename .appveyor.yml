@@ -3,14 +3,7 @@ branches:
     only:
         - master
 max_jobs: 1
-image: Visual Studio 2015
 install:
-    - echo Checking dir
-    - echo ...
-    - cd "C:\Program Files\Microsoft SDKs"
-    - dir
-    - cd "C:\Program Files\Microsoft SDKs\Windows"
-    - dir
     - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
     - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
 platform: Any CPU
