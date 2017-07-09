@@ -10,3 +10,13 @@ platform: Any CPU
 build: off
 test_script:
     - nmake /F NMakefile test-all
+before_deploy:
+    - nmake /F NMakefile clean latria
+deploy:
+    provider: GitHub
+    auth_token:
+        secure: VXCmu2vAN8L+rOshz8ayzNeplJ22ClEiL3hJ5RnXEq9N9wyZU2htV5h8NX1i2XJq
+    artifact: build\latria.exe
+    on:
+        branch: master
+        appveyor_repo_tag: true
