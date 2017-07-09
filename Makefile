@@ -31,8 +31,6 @@ MAC_INCLUDE_COMPILER_FLAGS := $(MAC_FLAGS) $(INCLUDE_COMPILER_FLAG)
 MAC_DEBUG_FLAGS := $(MAC_FLAGS) $(DEBUG_FLAGS)
 MAC_DEBUG_INCLUDE_COMPILER_FLAGS := $(MAC_FLAGS) $(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS)
 
-##-fno-common -fshort-enums -O3 -Wcast-align -Wcast-qual -Wconversion -Wmissing-declarations -Wredundant-decls -Wmissing-prototypes -Wnested-externs -Wpointer-arith -Wshadow -Wstrict-prototypes -Wwrite-strings
-
 #PRODUCT NAME & DIR
 NAME_INTERPRETER := build/latria-i
 NAME_COMPILER := build/latria-c
@@ -217,38 +215,38 @@ disassembler-debug: $(NAME_DISASSEMBLER_DEBUG)
 ###    Builds    ###
 ####################
 $(NAME_INTERPRETER_COMPILER): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
-	@- mkdir build
+	if [ ! -d build ]; then mkdir build; fi
 	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER)
 
 $(NAME_INTERPRETER): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS)
-	@- mkdir build
+	if [ ! -d build ]; then mkdir build; fi
 	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) -o $(NAME_INTERPRETER)
 
 $(NAME_COMPILER): $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS)
-	@- mkdir build
+	if [ ! -d build ]; then mkdir build; fi
 	$(LINK.cc) $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS) -o $(NAME_COMPILER)
 
 $(NAME_DISASSEMBLER): $(DISASSEMBLER_OBJS)
-	@- mkdir build
+	if [ ! -d build ]; then mkdir build; fi
 	$(LINK.cc) $(DISASSEMBLER_OBJS) -o $(NAME_DISASSEMBLER)
 
 ####################
 ### Debug Builds ###
 ####################
 $(NAME_INTERPRETER_COMPILER_DEBUG): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(TEST_OBJS) $(COMPILER_CORE)
-	@- mkdir build
+	if [ ! -d build ]; then mkdir build; fi
 	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(TEST_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER_DEBUG)
 
 $(NAME_INTERPRETER_DEBUG): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS)
-	@- mkdir build
+	if [ ! -d build ]; then mkdir build; fi
 	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) -o $(NAME_INTERPRETER_DEBUG)
 
 $(NAME_COMPILER_DEBUG): $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS)
-	@- mkdir build
+	if [ ! -d build ]; then mkdir build; fi
 	$(LINK.cc) $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS) -o $(NAME_COMPILER_DEBUG)
 
 $(NAME_DISASSEMBLER_DEBUG): $(DISASSEMBLER_OBJS)
-	@- mkdir build
+	if [ ! -d build ]; then mkdir build; fi
 	$(LINK.cc) $(DISASSEMBLER_OBJS) -o $(NAME_DISASSEMBLER_DEBUG)
 
 ########
@@ -287,11 +285,17 @@ help:
 	@echo make mac
 	@echo -interpreter-compiler and disassembler for mac
 	@echo
+	@echo make mac-test
+	@echo -builds debuggable mac build and runs tests
+	@echo
 	@echo make mac-debug
 	@echo -interpreter-compiler and disassembler for mac with debug flags and tests
 	@echo
 	@echo make linux
 	@echo -interpreter-compiler and disassembler for linux
+	@echo
+	@echo make linux-test
+	@echo -build debuggable linux build and runs tests
 	@echo
 	@echo make linux-debug
 	@echo -interpreter-compiler and disassembler for linux with debug flags and tests
