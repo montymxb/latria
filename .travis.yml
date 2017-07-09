@@ -5,12 +5,12 @@ compiler:
 script:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make mac-test-all; fi
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make linux-test-all; fi
-after_script:
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make clean mac-release; fi
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make clean linux-release; fi
 os:
     - osx
     - linux
+before_deploy:
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make clean mac-release; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make clean linux-release; fi
 deploy:
   provider: releases
   api_key:
