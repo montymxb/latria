@@ -1,9 +1,5 @@
 :: Latria TODO ::
 
-• Add make test nmakefile
-
-• Verify builds on windows
-
 [[MAKE ALL for testing]]
 - Consider adding this to .travis.yml instead
 make mac
@@ -15,7 +11,12 @@ make mac-compiler-debug
 make mac-disassembler
 make mac-disassembler-debug
 
-• Setup Tea CI for mac/linux/windows build verification
+• Ensure ALL builds are tested when running test
+    - on mac
+    - on linux
+    - on windows
+
+• Setup Tea CI for windows build verification?
 
 • Split up GC to create separate VM from memory allocation/management
 

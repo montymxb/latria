@@ -207,7 +207,7 @@ int main( int argc, char* argv[]) {
         #endif
         
         /* Print copyright statement */
-        printf("\nLatria (Lang Atria) \nv%s\nCopyright %s Benjamin Wilson Friedman - 2016\n\n\n", LATRIA_VERSION_NUMBER, COPYRIGHT_SYMBOL);
+        printf("\nLatria (Lang Atria) \nv%s\nCopyright %s Benjamin Wilson Friedman - 2017\n\n\n", LATRIA_VERSION_NUMBER, COPYRIGHT_SYMBOL);
         
         /* Open up a temporary file for handling our interpreter input */
         openDynamicInterpreterFile();
