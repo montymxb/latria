@@ -1,11 +1,6 @@
 :: Latria TODO ::
 
-• Update binaries stored
-    - update linux binary
-
-• Update to 0.3.0
-    - Push new release for this
-    - 9766dda is the commit we want to push a release on
+• Get Travis CI to publish a release for us?
 
 • Setup Tea CI for windows build verification?
 
