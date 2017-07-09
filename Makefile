@@ -7,35 +7,37 @@
 #### MACROS ####
 ################
 
-#General C Flags to compile latria with
+# General C Flags to compile latria with
 CFLAGS += -Isrc -std=c90 -ansi -O3 -fno-common -fshort-enums -pedantic -W -Wall -fno-common -fshort-enums -Wcast-align -Wcast-qual -Wconversion -Wmissing-declarations -Wredundant-decls -Wnested-externs -Wpointer-arith -Wshadow
 
-#Generic Debug Flags
+# Generic Debug Flags
 DEBUG_FLAGS := -DLAT_TESTS=1 -g
 
-#Generic Include Compiler Flag
+# Generic Include Compiler Flag
 INCLUDE_COMPILER_FLAG := -DINCLUDECOMPILER=1
 
 # Compiler only flag
 COMPILER_ONLY_FLAG := -DCOMPILER_ONLY=1
 
-#Linux Flags
+# Linux Flags
 LINUX_FLAGS := -DLINUXOS=1
 LINUX_INCLUDE_COMPILER_FLAGS := $(LINUX_FLAGS) $(INCLUDE_COMPILER_FLAG)
 LINUX_DEBUG_FLAGS := $(LINUX_FLAGS) $(DEBUG_FLAGS)
 LINUX_DEBUG_INCLUDE_COMPILER_FLAGS := $(DEBUG_FLAGS) $(LINUX_FLAGS) $(INCLUDE_COMPILER_FLAG)
 
-#Mac Flags
+# Mac Flags
 MAC_FLAGS := -DMACOSX=1 -Wstrict-prototypes
 MAC_INCLUDE_COMPILER_FLAGS := $(MAC_FLAGS) $(INCLUDE_COMPILER_FLAG)
 MAC_DEBUG_FLAGS := $(MAC_FLAGS) $(DEBUG_FLAGS)
 MAC_DEBUG_INCLUDE_COMPILER_FLAGS := $(MAC_FLAGS) $(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS)
 
-#PRODUCT NAME & DIR
+# PRODUCT NAME & DIR
 NAME_INTERPRETER := build/latria-i
 NAME_COMPILER := build/latria-c
 NAME_DISASSEMBLER := build/latria-d
 NAME_INTERPRETER_COMPILER := build/latria
+NAME_INTERPRETER_COMPILER_RELEASE_MAC := build/latria-mac
+NAME_INTERPRETER_COMPILER_RELEASE_LINUX := build/latria-linux
 
 # Debug Variants
 NAME_INTERPRETER_DEBUG := build/latria-debug-i
@@ -47,7 +49,7 @@ NAME_INTERPRETER_COMPILER_DEBUG := build/latria-debug
 #### INSTALL DIR ####
 #####################
 
-#install dir
+# install dir
 DEST_DIR += /usr/local/bin
 
 
@@ -116,13 +118,13 @@ VM_OBJS :=
 
 .PHONY: all clean distclean debug help install
 
-#builds interpreter-compiler & disassembler (defaults to mac)
+# builds interpreter-compiler & disassembler (defaults to mac)
 all: CFLAGS += $(MAC_INCLUDE_COMPILER_FLAGS)
 all: build-all
 
 ##### MAC BUILDS #####
 
-#mac test all (runs tests and tries all builds)
+# mac test all (runs tests and tries all builds)
 mac-test-all: CFLAGS += $(MAC_DEBUG_INCLUDE_COMPILER_FLAGS)
 mac-test-all: build-all-debug
 	./build/latria-debug -t
@@ -133,46 +135,46 @@ mac-test-all: build-all-debug
 	make clean mac-compiler-debug
 	make clean mac-disassembler
 
-#mac test
+# mac test
 mac-test: CFLAGS += $(MAC_DEBUG_INCLUDE_COMPILER_FLAGS)
 mac-test: build-all-debug
 	./build/latria-debug -t
 
-#mac all
+# mac all
 mac: CFLAGS += $(MAC_INCLUDE_COMPILER_FLAGS)
 mac: build-all
 
-#mac all debug
+# mac all debug
 mac-debug: CFLAGS += $(MAC_DEBUG_INCLUDE_COMPILER_FLAGS)
 mac-debug: build-all-debug
 
-#mac interpreter
+# mac interpreter
 mac-interpreter: CFLAGS += $(MAC_FLAGS)
 mac-interpreter: interpreter
 
-#mac interpreter debug
+# mac interpreter debug
 mac-interpreter-debug: CFLAGS += $(MAC_DEBUG_FLAGS)
 mac-interpreter-debug: interpreter-debug
 
-#mac compiler
+# mac compiler
 mac-compiler: CFLAGS += $(MAC_FLAGS) $(COMPILER_ONLY_FLAG)
 mac-compiler: compiler
 
-#mac compiler debug
+# mac compiler debug
 mac-compiler-debug: CFLAGS += $(MAC_DEBUG_FLAGS) $(COMPILER_ONLY_FLAG)
 mac-compiler-debug: compiler-debug
 
-#mac disassembler
+# mac disassembler
 mac-disassembler: CFLAGS += $(MAC_FLAGS)
 mac-disassembler: disassembler
 
-#mac-disassembler-debug
+# mac-disassembler-debug
 mac-disassembler-debug: CFLAGS += $(MAC_DEBUG_FLAGS)
 mac-disassembler-debug: disassembler-debug
 
 ##### LINUX BUILDS #####
 
-#linux test all (runs tests and tries all builds)
+# linux test all (runs tests and tries all builds)
 linux-test-all: CFLAGS += $(LINUX_DEBUG_INCLUDE_COMPILER_FLAGS)
 linux-test-all: build-all-debug
 	./build/latria-debug -t
@@ -183,51 +185,59 @@ linux-test-all: build-all-debug
 	make clean linux-compiler-debug
 	make clean linux-disassembler
 
-#linux test
+# linux test
 linux-test: CFLAGS += $(LINUX_DEBUG_INCLUDE_COMPILER_FLAGS)
 linux-test: build-all-debug
 	./build/latria-debug -t
 
-#linux all
+# linux all
 linux: CFLAGS += $(LINUX_INCLUDE_COMPILER_FLAGS)
 linux: build-all
 
-#linux all debug
+# linux all debug
 linux-debug: CFLAGS += $(LINUX_DEBUG_INCLUDE_COMPILER_FLAGS)
 linux-debug: build-all-debug
 
-#linux interpreter
+# linux interpreter
 linux-interpreter: CFLAGS += $(LINUX_FLAGS)
 linux-interpreter: interpreter
 
-#linux interpreter debug
+# linux interpreter debug
 linux-interpreter-debug: CFLAGS += $(LINUX_DEBUG_FLAGS)
 linux-interpreter-debug: interpreter-debug
 
-#linux compiler
+# linux compiler
 linux-compiler: CFLAGS += $(LINUX_FLAGS) $(COMPILER_ONLY_FLAG)
 linux-compiler: compiler
 
-#linux compiler debug
+# linux compiler debug
 linux-compiler-debug: CFLAGS += $(LINUX_DEBUG_FLAGS) $(COMPILER_ONLY_FLAG)
 linux-compiler-debug: compiler-debug
 
-#linux disassembler
+# linux disassembler
 linux-disassembler: CFLAGS += $(LINUX_FLAGS)
 linux-disassembler: disassembler
 
-#linux-disassembler-debug
+# linux-disassembler-debug
 linux-disassembler-debug: CFLAGS += $(LINUX_DEBUG_FLAGS)
 linux-disassembler-debug: disassembler-debug
 
+## release targets ##
 
-# normal targets
+mac-release: CFLAGS += $(MAC_INCLUDE_COMPILER_FLAGS)
+mac-release: build-release-mac
+
+linux-release: CFLAGS += $(LINUX_INCLUDE_COMPILER_FLAGS)
+linux-release: build-release-linux
+
+## normal targets ##
 build-all: $(NAME_INTERPRETER_COMPILER) $(NAME_DISASSEMBLER)
 interpreter: $(NAME_INTERPRETER)
 compiler: $(NAME_COMPILER)
 disassembler: $(NAME_DISASSEMBLER)
 
-# debug targets
+## debug targets ##
+
 build-all-debug: $(NAME_INTERPRETER_COMPILER_DEBUG) $(NAME_DISASSEMBLER_DEBUG)
 interpreter-debug: $(NAME_INTERPRETER_DEBUG)
 compiler-debug: $(NAME_COMPILER_DEBUG)
@@ -236,6 +246,15 @@ disassembler-debug: $(NAME_DISASSEMBLER_DEBUG)
 ####################
 ###    Builds    ###
 ####################
+
+build-release-mac: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
+	if [ ! -d build ]; then mkdir build; fi
+	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER_RELEASE_MAC)
+
+build-release-linux: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
+	if [ ! -d build ]; then mkdir build; fi
+	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER_RELEASE_LINUX)
+
 $(NAME_INTERPRETER_COMPILER): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
 	if [ ! -d build ]; then mkdir build; fi
 	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER)
@@ -271,111 +290,122 @@ $(NAME_DISASSEMBLER_DEBUG): $(DISASSEMBLER_OBJS)
 	if [ ! -d build ]; then mkdir build; fi
 	$(LINK.cc) $(DISASSEMBLER_OBJS) -o $(NAME_DISASSEMBLER_DEBUG)
 
-########
-# Test #
-########
+###########
+## Clean ##
+###########
 
-clean: cclean dclean
+# cleans objects
+clean: iclean cclean dclean
+	@- $(RM) $(LATRIA_ALL_OBJS)
+
+# cleans interpreter builds
+iclean:
 	@- $(RM) $(NAME_INTERPRETER_COMPILER)
 	@- $(RM) $(NAME_INTERPRETER_COMPILER_DEBUG)
 	@- $(RM) $(NAME_INTERPRETER)
 	@- $(RM) $(NAME_INTERPRETER_DEBUG)
-	@- $(RM) $(LATRIA_ALL_OBJS)
-	
+
+# cleans compiler builds
 cclean:
 	@- $(RM) $(NAME_COMPILER)
 	@- $(RM) $(NAME_COMPILER_DEBUG)
-	
+
+# cleans disassembler builds
 dclean:
 	@- $(RM) $(NAME_DISASSEMBLER)
 	@- $(RM) $(NAME_DISASSEMBLER_DEBUG)
-	
+
+# same as 'clean'
 distclean: clean
+
+##########
+## Help ##
+##########
 
 help:
 	@echo ::latria::
 	@echo Targets
 	@echo
 	@echo install
+	@echo -installs built binaries
+	@echo
 	@echo clean
+	@echo -removes built objects and binaries
+	@echo
 	@echo help
+	@echo -prints this help info
+	@echo
 	@echo distclean
+	@echo -same as clean
 	@echo
 	@echo all
 	@echo -interpreter-compiler and disassembler for mac
 	@echo
-	@echo make mac
+	@echo mac
 	@echo -interpreter-compiler and disassembler for mac
 	@echo
-	@echo make mac-test
+	@echo mac-test
 	@echo -builds and runs tests
 	@echo
-	@echo make mac-test-all
+	@echo mac-test-all
 	@echo -runs tests and tries all builds
 	@echo
-	@echo make mac-debug
+	@echo mac-debug
 	@echo -interpreter-compiler and disassembler for mac with debug flags and tests
 	@echo
-	@echo make linux
+	@echo linux
 	@echo -interpreter-compiler and disassembler for linux
 	@echo
-	@echo make linux-test
+	@echo linux-test
 	@echo -build debuggable linux build and runs tests
 	@echo
-	@echo make linux-test-all
+	@echo linux-test-all
 	@echo -runs tests and tries all builds
 	@echo
-	@echo make linux-debug
+	@echo linux-debug
 	@echo -interpreter-compiler and disassembler for linux with debug flags and tests
 	@echo
-	@echo make mac-interpreter
+	@echo mac-interpreter
 	@echo -interpreter for mac
 	@echo
-	@echo make mac-interpreter-debug
+	@echo mac-interpreter-debug
 	@echo -interpreter for mac with debug flags
 	@echo
-	@echo make mac-compiler
+	@echo mac-compiler
 	@echo -compiler for mac
 	@echo
-	@echo make mac-compiler-debug
+	@echo mac-compiler-debug
 	@echo -compiler for mac with debug flags
 	@echo
-	@echo make mac-disassembler
+	@echo mac-disassembler
 	@echo -disassembler for mac
 	@echo
-	@echo make mac-disassembler-debug
+	@echo mac-disassembler-debug
 	@echo -disassembler for mac with debug flags
 	@echo
-	@echo make linux-interpreter
+	@echo linux-interpreter
 	@echo -interpreter for linux
 	@echo
-	@echo make linux-interpreter-debug
+	@echo linux-interpreter-debug
 	@echo -interpreter for linux with debug flags
 	@echo
-	@echo make linux-compiler
+	@echo linux-compiler
 	@echo -compiler for linux
 	@echo
-	@echo make linux-compiler-debug
+	@echo linux-compiler-debug
 	@echo -compiler for linux with debug flags
 	@echo
-	@echo make linux-disassembler
+	@echo linux-disassembler
 	@echo -disassembler for linux
 	@echo
-	@echo make linux-disassembler-debug
+	@echo linux-disassembler-debug
 	@echo -disassembler for linux with debug flags
 	@echo
-	
-#install all
-install: iinstall cinstall dinstall
-	
-#interpreter install
-iinstall:
-	@- sudo cp $(NAME_INTERPRETER_COMPILER) $(DEST_DIR)
-	
-#compiler install
-cinstall:
-	@- sudo cp $(NAME_COMPILER) $(DEST_DIR)
-	
-#disassembler install
-dinstall:
-	@- sudo cp $(NAME_DISASSEMBLER) $(DEST_DIR)
+
+#############
+## Install ##
+#############
+
+# installs all binaries present
+install:
+	sudo cp build/* $(DEST_DIR)

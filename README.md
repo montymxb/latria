@@ -2,7 +2,12 @@
 
 [![Build Status](https://travis-ci.org/montymxb/latria.svg?branch=master)](https://travis-ci.org/montymxb/latria)
 
-A compact, cross platform, embeddable language with an emphasis on multi-language communication and lightweight scripting<br/><br/>
+A compact, cross platform, embeddable language with an emphasis on multi-language communication and lightweight scripting.<br/>
+Built following ANSI C, latria can run on mac/linux/windows/android/ios and more.<br/>
+
+<h2>Binaries</h2>
+
+The [latest release](https://github.com/montymxb/latria/releases/latest/) has precompiled binaries for **mac**, **linux** and **windows**.
 
 <h2>about.</h2>
 

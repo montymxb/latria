@@ -1,6 +1,7 @@
 :: Latria TODO ::
 
-• Get Travis CI to publish a release for us?
+• Travis CI build mac/linux release binaries
+    - Verify that CI is OK with the existing ci file
 
 • Setup Tea CI for windows build verification?
 
