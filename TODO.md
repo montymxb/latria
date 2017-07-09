@@ -1,15 +1,21 @@
 :: Latria TODO ::
 
-• Add make test to makefile & nmakefile
-
-[[MAKE ALL for testing]]
-make clean && make mac && make clean && make mac-debug && make clean && make mac-interpreter && make clean && make mac-interpreter-debug && make clean && make mac-compiler && make clean && make mac-compiler-debug && make clean && make mac-disassembler && make clean && make mac-disassembler-debug
-
-• Verify builds on linux
+• Add make test nmakefile
 
 • Verify builds on windows
 
-• Setup Travis CI and Tea CI for mac/linux/windows build verification
+[[MAKE ALL for testing]]
+- Consider adding this to .travis.yml instead
+make mac
+make mac-debug
+make mac-interpreter
+make mac-interpreter-debug
+make mac-compiler
+make mac-compiler-debug
+make mac-disassembler
+make mac-disassembler-debug
+
+• Setup Tea CI for mac/linux/windows build verification
 
 • Split up GC to create separate VM from memory allocation/management
 
