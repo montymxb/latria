@@ -1,8 +1,5 @@
 :: Latria TODO ::
 
-• Travis CI build mac/linux release binaries
-    - Verify that CI is OK with the existing ci file
-
 • Setup Appveyor CI for windows build verificiation
 
 • Split up GC to create separate VM from memory allocation/management
@@ -53,3 +50,7 @@
 
 • REGEX Bug from TODO in latria_regex.h. 
     - There is some wierd stuff going on here...Alternation doesn't work so well when we have a few or more alternating statements
+
+• Additional compilers we could use in .travis.yml
+    - gcc
+    - clang
