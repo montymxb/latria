@@ -1,5 +1,5 @@
 version: '1.0.{build}'
 install:
     - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
-script:
-    - nmake /F NMakefile test-all
+build:
+    - cmd: nmake /F NMakefile test-all
