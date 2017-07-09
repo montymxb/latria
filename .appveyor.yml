@@ -20,3 +20,4 @@ deploy:
     on:
         branch: master
         appveyor_repo_tag: true
+    force_update: true # allows us to add latria.exe to an existing release
