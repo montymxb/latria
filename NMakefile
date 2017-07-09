@@ -6,103 +6,183 @@
 #### MACROS ####
 ################
 
+# Debug flags, for testing
 DEBUG_FLAGS = -DLAT_TESTS=1 /DEBUG
 
-#Generic Include Compiler Flag
+# Generic Include Compiler Flag
 INCLUDE_COMPILER_FLAG = -DINCLUDECOMPILER=1
 
-#Extra flags for cl, suppresses copyright and optimizes for speed
-CL_EXTRA_FLAGS = /nologo /O2
+# Compiler only flag
+COMPILER_ONLY_FLAG = -DCOMPILER_ONLY=1
 
-#Extra flags for the linker
+# Extra flags for cl, suppresses copyright and optimizes for speed
+CL_EXTRA_FLAGS = /nologo /O2 /Isrc
+
+# Extra flags for the linker
 LINK_EXTRA_FLAGS = /NOLOGO
+
+# linker
+LINK = link
+
+# NMake Invocation
+NMAKE_INVOCATION = nmake /F NMakeFile
 
 ######################
 #### Object Files ####
 ######################
 
-#Interpreter Debug Object Files (Includes Tests)
-I_OBJS = Latria_Function.obj Latria_GarbageCollection.obj Latria_Lexical.obj Latria_Libs.obj Latria_Math.obj Latria_Operators.obj Latria_ReferenceStack.obj Latria_Sys.obj Latria_Vars.obj Latria.obj Latria_OPCodes.obj Latria_Regex.obj Latria_Jumps.obj Latria_IO.obj Latria_Tests.obj
+### New objects ###
 
-#Compiler Object Files
-C_OBJS = Latria_C_IO.obj Latria_C_Lexical.obj Latria_C_Libs.obj Latria_C_OpCodes.obj Latria_C_StateStack.obj Latria_Compiler.obj Latria_Compiler_Interface.obj Latria_C_Dup_Libs.obj
+# Interpreter Prompt
+INTERPRETER_PROMPT = src/prompt/latria.obj
 
-#Embedded Compiler Object Files
-C_E_OBJS = Latria_C_IO.obj Latria_C_Lexical.obj Latria_C_Libs.obj Latria_C_OpCodes.obj Latria_C_StateStack.obj Latria_Compiler_Interface.obj
+# Compiler Prompt
+COMPILER_PROMPT = src/prompt/latria_compiler.obj
 
-#disassembler objs
-DIS_OBJ = Latria_Decompiler.obj
+# Compiler Core
+COMPILER_CORE = src/compiler/latria_c_io.obj src/compiler/latria_c_lexical.obj src/compiler/latria_c_statestack.obj src/compiler/latria_compiler_interface.obj
 
-#disassembler name
-D_NAME = latriad.exe
+# Core Objects
+CORE_OBJS = src/core/latria_char.obj src/core/latria_string.obj src/core/latria_function.obj src/core/latria_jumps.obj src/core/latria_math.obj src/core/latria_opcodes.obj src/core/latria_operators.obj src/core/latria_referencestack.obj src/core/latria_sys.obj src/core/latria_vars.obj
 
-#interpreter name
-I_NAME = latria.exe
+# Disassembler Objects
+DISASSEMBLER_OBJS = src/disassembler/latria_disassembler.obj
 
-#compiler name
-C_NAME = latriac.exe
+# HTTP Objects
+HTTP_OBJS = src/http/latria_client.obj src/http/latria_server.obj src/http/latria_connection.obj
 
-#linker
-LINK = link
+# Iterpreter Objects
+INTERPRETER_OBJS = src/interpreter/latria_io.obj src/interpreter/latria_lexical.obj
 
-#NMake Invocation
-NMAKE_INVOCATION = nmake /F NMakeFile
+# Memory Objects
+MEMORY_OBJS = src/memory/latria_gc.obj
+
+# Regex Objects
+REGEX_OBJS = src/regex/latria_regex.obj
+
+# Test Objects
+TEST_OBJS = src/tests/latria_tests.obj
+
+# Virtual Machine Objects
+VM_OBJS =
+
+###################
+## Product Names ##
+###################
+
+# interpreter-compiler name
+LATRIA_INTERPRETER_COMPILER_NAME = build/latria.exe
+LATRIA_INTERPRETER_COMPILER_DEBUG = build/latria-debug.exe
+
+# interpreter name
+LATRIA_INTERPRETER_NAME = build/latria-i.exe
+LATRIA_INTERPRETER_DEBUG = build/latria-debug-i.exe
+
+# compiler name
+LATRIA_COMPILER_NAME = build/latria-c.exe
+LATRIA_COMPILER_DEBUG = build/latria-debug-c.exe
+
+# disassembler name
+LATRIA_DISASSEMBER_NAME = build/latria-d.exe
+LATRIA_DISASSEMBER_DEBUG = build/latria-debug-d.exe
 
 #################
 #### TARGETS ####
 #################
 
-#build interpreter-compiler & disassembler
+# build interpreter-compiler & disassembler
 all: latria disassembler
 
 .c.obj:
-	$(CC) /c $(CDEBUG) $(COMP_FLAGS) $(CL_EXTRA_FLAGS) $(CFLAGS) $(CVARS) $*.c
+	$(CC) /c $(CDEBUG) $(COMP_FLAGS) $(CL_EXTRA_FLAGS) $(CFLAGS) $(CVARS) $*.c /Fo$*.obj
+
+# test	
+test: latria-debug
+	build\latria-debug.exe -t
 	
-#basic build for interpreter-compiler
-interpreter-compiler: $(I_OBJS) $(C_E_OBJS)
-	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
+# latria
+_latria: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_INTERPRETER_COMPILER_NAME)
 	
-#interpreter-compiler
 latria:
-	$(NMAKE_INVOCATION) interpreter-compiler COMP_FLAGS="$(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS)"
+	$(NMAKE_INVOCATION) _latria COMP_FLAGS="$(INCLUDE_COMPILER_FLAG)"
 	
-#interpreter-compiler debug
+# latria-debug
+_latria-debug: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(TEST_OBJS) $(COMPILER_CORE)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_INTERPRETER_COMPILER_DEBUG)
+
 latria-debug:
-	$(NMAKE_INVOCATION) interpreter-compiler COMP_FLAGS="$(INCLUDE_COMPILER_FLAG) $(DEBUG_FLAGS)"
+	$(NMAKE_INVOCATION) _latria-debug COMP_FLAGS="$(DEBUG_FLAGS) $(INCLUDE_COMPILER_FLAG)"
 	
-#only interpreter
-interpreter: $(I_OBJS)
-	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(I_NAME)
+# interpreter 
+_interpreter: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_INTERPRETER_NAME)
 	
-#only interpreter debug
+interpreter:
+	$(NMAKE_INVOCATION) _interpreter
+	
+# interpreter debug
+_interpreter-debug: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_INTERPRETER_DEBUG)
+
 interpreter-debug:
-	$(NMAKE_INVOCATION) interpreter COMP_FLAGS="$(DEBUG_FLAGS)"
-
-#only compiler
-compiler: $(C_OBJS)
-	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(C_NAME)
+	$(NMAKE_INVOCATION) _interpreter-debug COMP_FLAGS="$(DEBUG_FLAGS)"
 	
-#only compiler debug
+# compiler
+_compiler: $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_COMPILER_NAME)
+	
+compiler:
+	$(NMAKE_INVOCATION) _compiler COMP_FLAGS="$(COMPILER_ONLY_FLAG)"
+	
+# compiler debug
+_compiler-debug: $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_COMPILER_DEBUG)
+	
 compiler-debug:
-	$(NMAKE_INVOCATION) compiler COMP_FLAGS=$(DEBUG_FLAGS)
+	$(NMAKE_INVOCATION) _compiler-debug COMP_FLAGS="$(COMPILER_ONLY_FLAG) $(DEBUG_FLAGS)"
 	
-#disassembler
-disassembler: $(DIS_OBJ)
-	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(D_NAME)
+# disassembler
+_disassembler: $(DISASSEMBLER_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_DISASSEMBER_NAME)
 	
-#disassembler debug
-disassembler-debug:
-	$(NMAKE_INVOCATION) disassembler COMP_FLAGS=$(DEBUG_FLAGS)
+disassembler:
+	$(NMAKE_INVOCATION) _disassembler
+	
+# disassembler debug
+_disassembler-debug: $(DISASSEMBLER_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_DISASSEMBER_DEBUG)
 
-#clean
-clean: 
-	del *.obj
-	del *.exe
+disassembler-debug:
+	$(NMAKE_INVOCATION) _disassembler-debug COMP_FLAGS="$(DEBUG_FLAGS)"
 	
-#help
+# clean
+clean: 
+	del src\compiler\*.obj
+	del src\core\*.obj
+	del src\disassembler\*.obj
+	del src\http\*.obj
+	del src\interpreter\*.obj
+	del src\memory\*.obj
+	del src\prompt\*.obj
+	del src\regex\*.obj
+	del src\tests\*.obj
+	del src\vm\*.obj
+	del build\*.exe
+	
+# help
 help:
 	@echo ::Supported Targets::
 	@echo all
+	@echo test
 	@echo latria
 	@echo latria-debug
 	@echo interpreter
