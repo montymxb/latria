@@ -1,8 +1,6 @@
 :: Latria TODO ::
 
 • Update binaries stored
-    - update mac binary
-    - update windows binary
     - update linux binary
 
 • Update to 0.3.0
