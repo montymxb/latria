@@ -16,9 +16,9 @@ deploy:
   api_key:
     secure: BDvKdrm0h+IEi1CeP9sHeZSXsNgruwLCy8bgaO6dUH+Pn0Zdf2uKo87KevZE1LTC7+A8gvETvvdpQ54yTQ/J25VFYXM+14F7d9g9MNjm4gmjf2IHVV+cwJfKSItxKBwHyWsNYyTanKEPma3hMAqoH+9r/f/WA5ixkbjoAEqRHqcqBxY6uSm42VsDUe36g8ulLDbyXtlONNSMt9uTTTDm1bHiWBq5lvhebbmEgiR8Jt88DMEofW9W9f2OXdPlpPF8tIRprEggwPEZWvPT8lR/8rQ9inAHGMXkOwvIY7unOFMV5UYxBdpJ3rrKnTF8oIiz/hAXSiTxRFwjCjpAzGzQq8z3grsZLt3nSWW/Yu91gK4T39Y7AAUCog2EKO3NbXdsjBMgewcduFeOJArIU1lKvKoTr6/sWmGwpGME+2d7QZjstpM/L228AmHxXZLHNnREsqlrNnjPS6XVTNtGItfxnLets2EwNp+0JuUEqSUHIfofQbSOlAWqXUhiiB8yM0BKDhIoSGR3CmmpIvGLKCI0pomqgCNrtdcXEVOgMRc+cHWEI69V85sakFLiwWibxv/QfYSXYSDaCXR6d19i/cF6PkcKIFp/DLy74lwUmK7VShxA5px9HvhXak1iolAXs1LSlDNNutTYUWTBPJ/WMKybGI6Owu829bTDvbXUc4tevg4=
   skip_cleanup: true
+  file_glob: true
   file:
-    - build/latria-mac
-    - build/latria-linux
+    - "build/*"
   on:
     tags: true
     repo: montymxb/latria

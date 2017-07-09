@@ -36,7 +36,7 @@ NAME_INTERPRETER := build/latria-i
 NAME_COMPILER := build/latria-c
 NAME_DISASSEMBLER := build/latria-d
 NAME_INTERPRETER_COMPILER := build/latria
-NAME_INTERPRETER_COMPILER_RELEASE_MAC := build/latria-mac
+NAME_INTERPRETER_COMPILER_RELEASE_MAC := build/latria-osx
 NAME_INTERPRETER_COMPILER_RELEASE_LINUX := build/latria-linux
 
 # Debug Variants
