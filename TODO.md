@@ -1,12 +1,9 @@
 :: Latria TODO ::
 
-• Update website with the build status as well
-
 • Update binaries stored
-    - Move binary links to the first part of the page
-    - Linking directly to github of course...
-
-• Update build notes on the site (built on...)
+    - update mac binary
+    - update windows binary
+    - update linux binary
 
 • Update to 0.3.0
     - Push new release for this
