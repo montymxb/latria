@@ -20,7 +20,6 @@ Generally this leads to a desire for shorter, more succinct statements that conv
 
 Latria leverages a high level programming design to maximize verbosity without increasing workload. 
 
-
 <h2>cross lang.</h2>
 
 Bridge the language barrier, use all your &lt;code/&gt;
