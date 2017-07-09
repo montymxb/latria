@@ -1,32 +1,10 @@
 :: Latria TODO ::
 
-[[MAKE ALL for testing]]
-- Consider adding this to .travis.yml instead
-make mac
-make mac-debug
-make mac-interpreter
-make mac-interpreter-debug
-make mac-compiler
-make mac-compiler-debug
-make mac-disassembler
-make mac-disassembler-debug
-
-• Ensure ALL builds are tested when running test
-    - on mac
-    - on linux
-    - on windows
-
 • Setup Tea CI for windows build verification?
 
 • Split up GC to create separate VM from memory allocation/management
 
 • Setup VM?? This is compiler only or are we talking memory as well?
-
-• Double check linux builds
-
-• Update NMakeFile
-
-• Run a windows build on the old computer
 
 • We have an issue passing functions to other functions (rather than assigning to a var and passing that) does NOT work at the moment. Need to make sure functions can be properly recognized as inputs to other functions (most likely will end up in requiring extra registers)
 
