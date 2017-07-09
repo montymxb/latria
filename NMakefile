@@ -1,0 +1,212 @@
+################################
+## Latria NMakefile (Windows) ##
+################################
+
+################
+#### MACROS ####
+################
+
+# Debug flags, for testing
+DEBUG_FLAGS = -DLAT_TESTS=1 /DEBUG
+
+# Generic Include Compiler Flag
+INCLUDE_COMPILER_FLAG = -DINCLUDECOMPILER=1
+
+# Compiler only flag
+COMPILER_ONLY_FLAG = -DCOMPILER_ONLY=1
+
+# Extra flags for cl, suppresses copyright and optimizes for speed
+CL_EXTRA_FLAGS = /nologo /O2 /Isrc
+
+# Extra flags for the linker
+LINK_EXTRA_FLAGS = /NOLOGO
+
+# linker
+LINK = link
+
+# NMake Invocation
+NMAKE_INVOCATION = nmake /F NMakefile
+
+######################
+#### Object Files ####
+######################
+
+### New objects ###
+
+# Interpreter Prompt
+INTERPRETER_PROMPT = src/prompt/latria.obj
+
+# Compiler Prompt
+COMPILER_PROMPT = src/prompt/latria_compiler.obj
+
+# Compiler Core
+COMPILER_CORE = src/compiler/latria_c_io.obj src/compiler/latria_c_lexical.obj src/compiler/latria_c_statestack.obj src/compiler/latria_compiler_interface.obj
+
+# Core Objects
+CORE_OBJS = src/core/latria_char.obj src/core/latria_string.obj src/core/latria_function.obj src/core/latria_jumps.obj src/core/latria_math.obj src/core/latria_opcodes.obj src/core/latria_operators.obj src/core/latria_referencestack.obj src/core/latria_sys.obj src/core/latria_vars.obj
+
+# Disassembler Objects
+DISASSEMBLER_OBJS = src/disassembler/latria_disassembler.obj
+
+# HTTP Objects
+HTTP_OBJS = src/http/latria_client.obj src/http/latria_server.obj src/http/latria_connection.obj
+
+# Iterpreter Objects
+INTERPRETER_OBJS = src/interpreter/latria_io.obj src/interpreter/latria_lexical.obj
+
+# Memory Objects
+MEMORY_OBJS = src/memory/latria_gc.obj
+
+# Regex Objects
+REGEX_OBJS = src/regex/latria_regex.obj
+
+# Test Objects
+TEST_OBJS = src/tests/latria_tests.obj
+
+# Virtual Machine Objects
+VM_OBJS =
+
+###################
+## Product Names ##
+###################
+
+# interpreter-compiler name
+LATRIA_INTERPRETER_COMPILER_NAME = build/latria.exe
+LATRIA_INTERPRETER_COMPILER_DEBUG = build/latria-debug.exe
+
+# interpreter name
+LATRIA_INTERPRETER_NAME = build/latria-i.exe
+LATRIA_INTERPRETER_DEBUG = build/latria-debug-i.exe
+
+# compiler name
+LATRIA_COMPILER_NAME = build/latria-c.exe
+LATRIA_COMPILER_DEBUG = build/latria-debug-c.exe
+
+# disassembler name
+LATRIA_DISASSEMBER_NAME = build/latria-d.exe
+LATRIA_DISASSEMBER_DEBUG = build/latria-debug-d.exe
+
+#################
+#### TARGETS ####
+#################
+
+# build interpreter-compiler & disassembler
+all: latria disassembler
+
+.c.obj:
+	$(CC) /c $(CDEBUG) $(COMP_FLAGS) $(CL_EXTRA_FLAGS) $(CFLAGS) $(CVARS) $*.c /Fo$*.obj
+
+# test all (runs tests and tries all builds)
+test-all: latria-debug
+	build\latria-debug.exe -t
+    $(NMAKE_INVOCATION) clean latria
+    $(NMAKE_INVOCATION) clean interpreter
+    $(NMAKE_INVOCATION) clean interpreter-debug
+    $(NMAKE_INVOCATION) clean compiler
+    $(NMAKE_INVOCATION) clean compiler-debug
+    $(NMAKE_INVOCATION) clean disassembler
+    $(NMAKE_INVOCATION) clean disassembler-debug
+
+# test
+test: latria-debug
+    build\latria-debug.exe -t
+
+# latria
+_latria: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_INTERPRETER_COMPILER_NAME)
+	
+latria:
+	$(NMAKE_INVOCATION) _latria COMP_FLAGS="$(INCLUDE_COMPILER_FLAG)"
+	
+# latria-debug
+_latria-debug: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(TEST_OBJS) $(COMPILER_CORE)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_INTERPRETER_COMPILER_DEBUG)
+
+latria-debug:
+	$(NMAKE_INVOCATION) _latria-debug COMP_FLAGS="$(DEBUG_FLAGS) $(INCLUDE_COMPILER_FLAG)"
+	
+# interpreter 
+_interpreter: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_INTERPRETER_NAME)
+	
+interpreter:
+	$(NMAKE_INVOCATION) _interpreter
+	
+# interpreter debug
+_interpreter-debug: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_INTERPRETER_DEBUG)
+
+interpreter-debug:
+	$(NMAKE_INVOCATION) _interpreter-debug COMP_FLAGS="$(DEBUG_FLAGS)"
+	
+# compiler
+_compiler: $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_COMPILER_NAME)
+	
+compiler:
+	$(NMAKE_INVOCATION) _compiler COMP_FLAGS="$(COMPILER_ONLY_FLAG)"
+	
+# compiler debug
+_compiler-debug: $(CORE_OBJS) $(COMPILER_CORE) $(COMPILER_PROMPT) $(MEMORY_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_COMPILER_DEBUG)
+	
+compiler-debug:
+	$(NMAKE_INVOCATION) _compiler-debug COMP_FLAGS="$(COMPILER_ONLY_FLAG) $(DEBUG_FLAGS)"
+	
+# disassembler
+_disassembler: $(DISASSEMBLER_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_DISASSEMBER_NAME)
+	
+disassembler:
+	$(NMAKE_INVOCATION) _disassembler
+	
+# disassembler debug
+_disassembler-debug: $(DISASSEMBLER_OBJS)
+	if not exist build mkdir build
+	$(LINK) $(LINK_EXTRA_FLAGS) $(LDEBUG) $(CONFLAGS) $** $(CONLIBS) -out:$(LATRIA_DISASSEMBER_DEBUG)
+
+disassembler-debug:
+	$(NMAKE_INVOCATION) _disassembler-debug COMP_FLAGS="$(DEBUG_FLAGS)"
+	
+# clean
+clean: 
+	del src\compiler\*.obj
+	del src\core\*.obj
+	del src\disassembler\*.obj
+	del src\http\*.obj
+	del src\interpreter\*.obj
+	del src\memory\*.obj
+	del src\prompt\*.obj
+	del src\regex\*.obj
+	del src\tests\*.obj
+	del src\vm\*.obj
+	del build\*.exe
+	
+# help
+help:
+	@echo ::Supported Targets::
+    @echo
+	@echo all (builds standalone latria and disassembler)
+    @echo
+	@echo test (run tests)
+    @echo test-all (run tests and try all builds)
+    @echo
+	@echo latria (standalone compiler and interpreter)
+	@echo latria-debug (debuggable standalone compiler and interpreter)
+    @echo
+	@echo interpreter (interpreter only)
+	@echo interpreter-debug (debuggable interpreter)
+    @echo
+	@echo compiler (compiler only)
+	@echo compiler-debug (debuggable compiler)
+    @echo
+	@echo disassembler (disassembler for examing compiled latria instructions)
+	@echo disassembler-debug (debuggable disassembler)
+    @echo

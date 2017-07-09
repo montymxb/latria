@@ -55,3 +55,6 @@ latriac
 
 # ignore xcode
 Latria.xcodeproj
+
+# ignore contents of build folder
+build/*

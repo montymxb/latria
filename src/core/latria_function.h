@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2017 Benjamin Wilson Friedman
@@ -19,4 +20,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
 
+/*
+ *  latria_function.h
+ */
+
+#ifndef latria_core_latria_function_h
+#define latria_core_latria_function_h
+
+#include "latria_core.h"
+#include "memory/latria_gc.h"
+
+/* Push & Pop for moving around in our instructions when exiting a function call */
+void pushFunctionRevertState(long int index);
+long int popFunctionRevertState();
+
+void LATF_freeObjects();
+
+#endif /* latria_core_latria_function_h */
