@@ -3,7 +3,7 @@
 • Travis CI build mac/linux release binaries
     - Verify that CI is OK with the existing ci file
 
-• Setup Tea CI for windows build verification?
+• Setup Appveyor CI for windows build verificiation
 
 • Split up GC to create separate VM from memory allocation/management
 
