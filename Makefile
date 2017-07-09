@@ -125,7 +125,14 @@ all: build-all
 #mac test
 mac-test: CFLAGS += $(MAC_DEBUG_INCLUDE_COMPILER_FLAGS)
 mac-test: build-all-debug
+	echo "* running tests"
 	./build/latria-debug -t
+	make clean mac
+	make clean mac-interpreter
+	make clean mac-interpreter-debug
+	make clean mac-compiler
+	make clean mac-compiler-debug
+	make clean mac-disassembler
 
 #mac all
 mac: CFLAGS += $(MAC_INCLUDE_COMPILER_FLAGS)
@@ -165,6 +172,12 @@ mac-disassembler-debug: disassembler-debug
 linux-test: CFLAGS += $(LINUX_DEBUG_INCLUDE_COMPILER_FLAGS)
 linux-test: build-all-debug
 	./build/latria-debug -t
+	make clean linux
+	make clean linux-interpreter
+	make clean linux-interpreter-debug
+	make clean linux-compiler
+	make clean linux-compiler-debug
+	make clean linux-disassembler
 
 #linux all
 linux: CFLAGS += $(LINUX_INCLUDE_COMPILER_FLAGS)

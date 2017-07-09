@@ -25,7 +25,7 @@ LINK_EXTRA_FLAGS = /NOLOGO
 LINK = link
 
 # NMake Invocation
-NMAKE_INVOCATION = nmake /F NMakeFile
+NMAKE_INVOCATION = nmake /F NMakefile
 
 ######################
 #### Object Files ####
@@ -99,6 +99,13 @@ all: latria disassembler
 # test	
 test: latria-debug
 	build\latria-debug.exe -t
+    $(NMAKE_INVOCATION) clean latria
+    $(NMAKE_INVOCATION) clean interpreter
+    $(NMAKE_INVOCATION) clean interpreter-debug
+    $(NMAKE_INVOCATION) clean compiler
+    $(NMAKE_INVOCATION) clean compiler-debug
+    $(NMAKE_INVOCATION) clean disassembler
+    $(NMAKE_INVOCATION) clean disassembler-debug
 	
 # latria
 _latria: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
