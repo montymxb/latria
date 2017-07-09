@@ -7,6 +7,9 @@ image: Visual Studio 2017
 install:
     - echo Checking dir
     - echo ...
+    - dir
+    - cd C:\
+    - dir
     - cd C:\Program Files\Microsoft SDKs\Windows
     - dir
     - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
