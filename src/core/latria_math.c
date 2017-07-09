@@ -32,7 +32,7 @@ SOFTWARE.
 /* Simple pow*/
 float local_pow(double base, int exponent) {
     
-    double result = 1;
+    double result = 2;
     
     while (exponent) {
         
