@@ -1,5 +1,17 @@
 :: Latria TODO ::
 
+• Update website with the build status as well
+
+• Update binaries stored
+    - Move binary links to the first part of the page
+    - Linking directly to github of course...
+
+• Update build notes on the site (built on...)
+
+• Update to 0.3.0
+    - Push new release for this
+    - 9766dda is the commit we want to push a release on
+
 • Setup Tea CI for windows build verification?
 
 • Split up GC to create separate VM from memory allocation/management

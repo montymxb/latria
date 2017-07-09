@@ -1,4 +1,7 @@
 # latria
+
+[![Build Status](https://travis-ci.org/montymxb/latria.svg?branch=master)](https://travis-ci.org/montymxb/latria)
+
 A compact, cross platform, embeddable language with an emphasis on multi-language communication and lightweight scripting<br/><br/>
 
 <h2>about.</h2>
