@@ -96,8 +96,8 @@ all: latria disassembler
 .c.obj:
 	$(CC) /c $(CDEBUG) $(COMP_FLAGS) $(CL_EXTRA_FLAGS) $(CFLAGS) $(CVARS) $*.c /Fo$*.obj
 
-# test	
-test: latria-debug
+# test all (runs tests and tries all builds)
+test-all: latria-debug
 	build\latria-debug.exe -t
     $(NMAKE_INVOCATION) clean latria
     $(NMAKE_INVOCATION) clean interpreter
@@ -106,7 +106,11 @@ test: latria-debug
     $(NMAKE_INVOCATION) clean compiler-debug
     $(NMAKE_INVOCATION) clean disassembler
     $(NMAKE_INVOCATION) clean disassembler-debug
-	
+
+# test
+test: latria-debug
+    build\latria-debug.exe -t
+
 # latria
 _latria: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
 	if not exist build mkdir build
@@ -188,13 +192,21 @@ clean:
 # help
 help:
 	@echo ::Supported Targets::
-	@echo all
-	@echo test
-	@echo latria
-	@echo latria-debug
-	@echo interpreter
-	@echo interpreter-debug
-	@echo compiler
-	@echo compiler-debug
-	@echo disassembler
-	@echo disassembler-debug
+    @echo
+	@echo all (builds standalone latria and disassembler)
+    @echo
+	@echo test (run tests)
+    @echo test-all (run tests and try all builds)
+    @echo
+	@echo latria (standalone compiler and interpreter)
+	@echo latria-debug (debuggable standalone compiler and interpreter)
+    @echo
+	@echo interpreter (interpreter only)
+	@echo interpreter-debug (debuggable interpreter)
+    @echo
+	@echo compiler (compiler only)
+	@echo compiler-debug (debuggable compiler)
+    @echo
+	@echo disassembler (disassembler for examing compiled latria instructions)
+	@echo disassembler-debug (debuggable disassembler)
+    @echo

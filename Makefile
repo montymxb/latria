@@ -122,10 +122,9 @@ all: build-all
 
 ##### MAC BUILDS #####
 
-#mac test
-mac-test: CFLAGS += $(MAC_DEBUG_INCLUDE_COMPILER_FLAGS)
-mac-test: build-all-debug
-	echo "* running tests"
+#mac test all (runs tests and tries all builds)
+mac-test-all: CFLAGS += $(MAC_DEBUG_INCLUDE_COMPILER_FLAGS)
+mac-test-all: build-all-debug
 	./build/latria-debug -t
 	make clean mac
 	make clean mac-interpreter
@@ -133,6 +132,11 @@ mac-test: build-all-debug
 	make clean mac-compiler
 	make clean mac-compiler-debug
 	make clean mac-disassembler
+
+#mac test
+mac-test: CFLAGS += $(MAC_DEBUG_INCLUDE_COMPILER_FLAGS)
+mac-test: build-all-debug
+	./build/latria-debug -t
 
 #mac all
 mac: CFLAGS += $(MAC_INCLUDE_COMPILER_FLAGS)
@@ -168,9 +172,9 @@ mac-disassembler-debug: disassembler-debug
 
 ##### LINUX BUILDS #####
 
-#mac test
-linux-test: CFLAGS += $(LINUX_DEBUG_INCLUDE_COMPILER_FLAGS)
-linux-test: build-all-debug
+#linux test all (runs tests and tries all builds)
+linux-test-all: CFLAGS += $(LINUX_DEBUG_INCLUDE_COMPILER_FLAGS)
+linux-test-all: build-all-debug
 	./build/latria-debug -t
 	make clean linux
 	make clean linux-interpreter
@@ -178,6 +182,11 @@ linux-test: build-all-debug
 	make clean linux-compiler
 	make clean linux-compiler-debug
 	make clean linux-disassembler
+
+#linux test
+linux-test: CFLAGS += $(LINUX_DEBUG_INCLUDE_COMPILER_FLAGS)
+linux-test: build-all-debug
+	./build/latria-debug -t
 
 #linux all
 linux: CFLAGS += $(LINUX_INCLUDE_COMPILER_FLAGS)
@@ -299,7 +308,10 @@ help:
 	@echo -interpreter-compiler and disassembler for mac
 	@echo
 	@echo make mac-test
-	@echo -builds debuggable mac build and runs tests
+	@echo -builds and runs tests
+	@echo
+	@echo make mac-test-all
+	@echo -runs tests and tries all builds
 	@echo
 	@echo make mac-debug
 	@echo -interpreter-compiler and disassembler for mac with debug flags and tests
@@ -309,6 +321,9 @@ help:
 	@echo
 	@echo make linux-test
 	@echo -build debuggable linux build and runs tests
+	@echo
+	@echo make linux-test-all
+	@echo -runs tests and tries all builds
 	@echo
 	@echo make linux-debug
 	@echo -interpreter-compiler and disassembler for linux with debug flags and tests

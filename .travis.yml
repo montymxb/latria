@@ -4,8 +4,8 @@ compiler:
     - gcc
     # - clang
 script:
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make mac-test; fi
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make linux-test; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make mac-test-all; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make linux-test-all; fi
 os:
     - osx
     - linux
