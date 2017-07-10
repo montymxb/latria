@@ -122,7 +122,7 @@ release:
     move build\latria-c.exe latria-windows
     if not exist release mkdir release
     powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::CreateFromDirectory('latria-windows', 'release/latria-windows.zip'); }"
-    rmdir /S /Q latria-windows
+    rmdir latria-windows /s /q
 
 # latria
 _latria: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
