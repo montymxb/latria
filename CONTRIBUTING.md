@@ -1,12 +1,12 @@
 ### Contributing to Latria.
 
-Contributions are more than welcome, but please make sure to follow a few rules.
+Contributions are always welcome. Please make sure to follow a few rules however.
 
 ### Rules
 
 * Your code must be cross platform compatible
-* Your code must be compact
-* Your code must pass all tests
+* Your code must be reasonably compact
+* Your code must pass all tests (the current CI tests will check mac, linux and windows builds of your code)
 
 ### Guidelines
  
