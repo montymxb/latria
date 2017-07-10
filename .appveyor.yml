@@ -10,11 +10,11 @@ platform: Any CPU
 build: off
 test_script:
     - nmake /F NMakefile test-all
+    - echo "* building release"
+    - nmake /F NMakefile clean latria
 artifacts:
     path: build\latria.exe
     name: latria.exe
-before_deploy:
-    - nmake /F NMakefile clean latria
 deploy:
     provider: GitHub
     auth_token:
