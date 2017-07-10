@@ -1,58 +1,33 @@
-# latria
+# The latria language
 
 [![Build Status](https://travis-ci.org/montymxb/latria.svg?branch=master)](https://travis-ci.org/montymxb/latria)
 [![Build status](https://ci.appveyor.com/api/projects/status/g6mo13n1405xks1u?svg=true)](https://ci.appveyor.com/project/montymxb/latria)
 
 A compact, cross platform, embeddable language with an emphasis on multi-language communication and lightweight scripting.
-<br/><br/>
-Built following ANSI C, latria can run on mac/linux/windows/android/ios and more.<br/>
 
-<h2>Binaries</h2>
+## What's neat about latria?
 
-The [latest release](https://github.com/montymxb/latria/releases/latest/) has binaries for **mac**, **linux** and **windows**.
+- can run on **mac**/**linux**/**windows**/**android**/**ios** and more (almost anything since 1990, give or take). 
+- a *very* tiny footprint. The compiler and interpreter combined weighs in at ~150kb on unix systems, and about ~250kb on windows.
+- it's *fast*, in some cases even faster than [lua](https://www.lua.org/about.html). And it can be optimized to go even faster.
+- scripts can be compiled in advance and are system agnostic. A script built by latria on windows can be run by latria on mac, linux, ios, etc.
+- very few dependencies, making it easy to build from scratch for your systems specifically.
+- can capture the results of another language, allowing you to 'glue' together individual programs/scripts/etc. written in multiple different languages with ease.
+- embedding it won't bloat your existing project.
+- it's licensed under the MIT open source license
 
-<h2>about.</h2>
+## Getting Started
 
-latria was born out a desire to understand language.
+The [latest release](https://github.com/montymxb/latria/releases/latest/) has binaries for **mac**, **linux** and **windows**. These precombiled versions will work in most cases, provided you have a recent version of either of the aforementioned operation systems. If you need something a little more custom you can always build latria from source by following the [building](#user-content-building) instructions below.
 
-As scripters or programmers we wrestle everyday to communicate with machines all around us. Our ability to harness a computer is directly linked to how well we can communicate with it.
+Be sure to read the [guide](https://latria.uphouseworks.com/Guide/) to familiarize yourself with the latria language.
 
-Generally this leads to a desire for shorter, more succinct statements that convey intention with unmistakable clarity.
+## Building
 
-Latria leverages a high level programming design to maximize verbosity without increasing workload. 
+Latria is capable of being built on linux, mac and windows from the same source. The methods vary however, as will be explained in a moment.
 
-
-<h2>cross lang.</h2>
-
-Bridge the language barrier, use all your &lt;code/&gt;
-
-Traditionally, one would pick a particular language and stay with it, exclusively.
-
-Over time our preferences change and we learn which languages may be best suited for certain tasks in our mind.
-
-Like any developer you most likely have various scripts and programs written for various tasks, in various languages.
-
-Latria can mediate quite nicely, allowing you to now only run various system level commands and collect their results in one fell swoop.
-
-Bring back your code! Latria can handle the output itself or pipe it into another program, bringing your various libraries new purpose in your projects, no need to rewrite your old code base for a small project.
-
-<h2>open source goodness.</h2>
-
-Latria is written in ANSI C, and is licensed under the MIT open source license. Feel free to part it out, improve on it, or implement it in your systems. This is an early build, and is still being actively built.
-
-If you have suggestions or improvements you may submit a pull request to have a feature or bug fix integrated into the language.
-
-Additionally documentation in the form of a guide is available at <a href="http://latria.uphouseworks.com">latria.uphouseworks.com</a>, allowing anyone to get started with latria scripting.
-
-In the meantime feel free to reach out to me at friedman.benjamin@gmail.com
-
-
-<h2>Building.</h2>
-
-Latria is capable of being built on linux, mac and windows from the same source. The methods vary however, but for all of them you'll need to navigate to latria/Latria/src/ to start.
-
-<i>To note</i> latria does not use a standard ./configure, make, make install approach. Instead you run ```make [platform]``` and ```make install```.
-Note that if you're not sure you can always run ```make help```
+*To note* latria does not use the standard `./configure`, `make`, `make install` approach. Instead you run `make [platform]` and `make install`.
+Note that if you're not sure what's available to 'make' you can always run ```make help```
 
 For building on mac you can invoke make as follows.
 ```
@@ -64,14 +39,14 @@ For linux you can invoke make the same way, but for linux.
 make linux
 ```
 
-Now for windows there is an alternate Makefile provided specially for nmake. You can invoke it and build for windows as follows (Note you will need to install [Visual Studio](https://www.visualstudio.com/) and have access to a [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) to build from)
+Now for windows there is an alternate Makefile provided specially for `nmake`. You can invoke it and build for windows as follows. Note that you will need to install [Visual Studio](https://www.visualstudio.com/) and have access to a [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) to have access to `nmake` from a developer command prompt.
 ```
 nmake /F NMakefile latria
 ```
 
-For building on the 'big 3' that's essentially all you have to do! If you have issues or questions regarding those platforms or any others let me know or open an issue.
+For building on the 'big 3' that's essentially all you have to do! If you have issues or questions regarding those platforms or any others please open an issue.
 
-<h2>Testing.</h2>
+## Testing
 
 Testing on Latria is currently run by an embedded suite of tests. You can run them using make as follows:
 
@@ -116,7 +91,30 @@ nmake /F NMakefile clean
 nmake /F NMakefile test-all
 ```
 
-If you plan to contribute please checkout <a href='CONTRIBUTING.md'>Contributing</a> first.
+If you're having issues with latria consider using [valgrind](http://valgrind.org/) to profile a debuggable build. I highly recommend it, and this will often quickly point you in the right direction. You can make a debuggable build on mac/linux as follows:
+```bash
+make mac-debug
+### OR ###
+make linux-debug
 
+# note that a debuggable build with the compiler and interpreter 
+# can run it's own tests by passing -t
+# it's how 'make test' runs the tests as well
+./build/latria-debug -t
+```
+And for windows:
+```batch
+nmake /F NMakefile latria-debug
 
+:: note that this deggable build with the compiler and interpreter
+:: can also run it's own tests by passing -t
+build\latria-debug.exe -t
+```
 
+## Contributing
+
+Latria is written in ANSI C, and is licensed under the MIT open source license. Feel free to part it out, improve on it, or implement it in your systems.
+
+If you have suggestions or improvements you may submit a pull request to have a feature or bug fix integrated into the language.
+
+If you plan to contribute please read [Contributing](CONTRIBUTING.md) first.
