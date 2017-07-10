@@ -10,6 +10,9 @@ platform: Any CPU
 build: off
 test_script:
     - nmake /F NMakefile test-all
+artifacts:
+    path: build\latria.exe
+    name: latria.exe
 before_deploy:
     - nmake /F NMakefile clean latria
 deploy:
@@ -20,4 +23,3 @@ deploy:
     on:
         branch: master
         appveyor_repo_tag: true
-    force_update: true # allows us to add latria.exe to an existing release
