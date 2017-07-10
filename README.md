@@ -14,11 +14,11 @@ A compact, cross platform, embeddable language with an emphasis on multi-languag
 - very few dependencies, making it easy to build from scratch for your systems specifically.
 - can capture the results of another language, allowing you to 'glue' together individual programs/scripts/etc. written in multiple different languages with ease.
 - embedding it won't bloat your existing project.
-- it's licensed under the MIT open source license
+- licensed under the MIT open source license
 
 ## Getting Started
 
-The [latest release](https://github.com/montymxb/latria/releases/latest/) has binaries for **mac**, **linux** and **windows**. These precombiled versions will work in most cases, provided you have a recent version of either of the aforementioned operation systems. If you need something a little more custom you can always build latria from source by following the [building](#user-content-building) instructions below.
+The [latest release](https://github.com/montymxb/latria/releases/latest/) has binaries for **mac**, **linux** and **windows**. These precombiled versions will work in most cases, provided you have a compatible operating system. If you need something a little more custom you can always build latria from source by following the [building](#user-content-building) instructions below.
 
 Be sure to read the [guide](https://latria.uphouseworks.com/Guide/) to familiarize yourself with the latria language.
 
@@ -39,12 +39,12 @@ For linux you can invoke make the same way, but for linux.
 make linux
 ```
 
-Now for windows there is an alternate Makefile provided specially for `nmake`. You can invoke it and build for windows as follows. Note that you will need to install [Visual Studio](https://www.visualstudio.com/) and have access to a [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) to have access to `nmake` from a developer command prompt.
+Now for windows there is an alternate Makefile provided specially for `nmake`. You can invoke it and build for windows as follows. Note that you will need to install [Visual Studio](https://www.visualstudio.com/) and have access to a [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) to use `nmake`.
 ```
 nmake /F NMakefile latria
 ```
 
-For building on the 'big 3' that's essentially all you have to do! If you have issues or questions regarding those platforms or any others please open an issue.
+For building on the 'big 3' that's essentially all you have to do! For issues or questions regarding those platforms, or any others, feel free to open an issue or submit a PR.
 
 ## Testing
 
@@ -113,8 +113,6 @@ build\latria-debug.exe -t
 
 ## Contributing
 
-Latria is written in ANSI C, and is licensed under the MIT open source license. Feel free to part it out, improve on it, or implement it in your systems.
+If you plan to contribute please read [Contributing](CONTRIBUTING.md) first.
 
 If you have suggestions or improvements you may submit a pull request to have a feature or bug fix integrated into the language.
-
-If you plan to contribute please read [Contributing](CONTRIBUTING.md) first.
