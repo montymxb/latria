@@ -64,7 +64,7 @@ For linux you can invoke make the same way, but for linux.
 make linux
 ```
 
-Now for windows there is an alternate Makefile provided specially for nmake. You can invoke it and build for windows as follows (Note you will need to install Visual Studio and have access to a Developer Command Prompt to build from)
+Now for windows there is an alternate Makefile provided specially for nmake. You can invoke it and build for windows as follows (Note you will need to install [Visual Studio](https://www.visualstudio.com/) and have access to a [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) to build from)
 ```
 nmake /F NMakefile latria
 ```
@@ -73,32 +73,47 @@ For building on the 'big 3' that's essentially all you have to do! If you have i
 
 <h2>Testing.</h2>
 
-Testing on Latria is currently run by an embedded suite of tests. You can build them into a binary as follows:
+Testing on Latria is currently run by an embedded suite of tests. You can run them using make as follows:
 
 mac & linux
 ```bash
 # clean if needed
 make clean
 
-make mac-debug
+# build and run just the tests
+make mac-test
 ## OR ##
-make linux-debug
-
-make install
-
-# run tests
-latria -t
+make linux-test
 ```
+
+You can run a more comprehensive test on mac/linux as follows:
+```bash
+# clean if you built before
+make clean
+
+# build and run the tests, as well as try all builds
+make mac-test-all
+### OR ###
+make linux-test-all
+```
+
 
 windows
 ```batch
 :: clean if needed
 nmake /F NMakefile clean
 
-nmake /F NMakeFile latria-debug
-
 :: run tests
-latria.exe -t
+nmake /F NMakefile test
+```
+
+You can run a more comprehensive test on windows as follows:
+```batch
+:: clean if needed
+nmake /F NMakefile clean
+
+:: run tests and try all builds
+nmake /F NMakefile test-all
 ```
 
 If you plan to contribute please checkout <a href='CONTRIBUTING.md'>Contributing</a> first.
