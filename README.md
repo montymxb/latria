@@ -9,7 +9,7 @@ Built following ANSI C, latria can run on mac/linux/windows/android/ios and more
 
 <h2>Binaries</h2>
 
-The [latest release](https://github.com/montymxb/latria/releases/latest/) has binaries for **mac** and **linux**. **windows** is currently being worked into the automatic deployment flow, but may be present if uploaded by hand.
+The [latest release](https://github.com/montymxb/latria/releases/latest/) has binaries for **mac**, **linux** and **windows**.
 
 <h2>about.</h2>
 

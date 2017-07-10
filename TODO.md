@@ -1,7 +1,5 @@
 :: Latria TODO ::
 
-• Setup Appveyor CI for windows build verificiation
-
 • Split up GC to create separate VM from memory allocation/management
 
 • Setup VM?? This is compiler only or are we talking memory as well?
