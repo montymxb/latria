@@ -247,13 +247,33 @@ disassembler-debug: $(NAME_DISASSEMBLER_DEBUG)
 ###    Builds    ###
 ####################
 
-build-release-mac: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
-	if [ ! -d build ]; then mkdir build; fi
-	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER_RELEASE_MAC)
+# build and zips releases for mac
+build-release-mac:
+	if [ ! -d latria-mac ]; then mkdir latria-mac; fi
+	make clean mac
+	mv build/latria latria-mac/latria
+	make clean mac-interpreter
+	mv build/latria-i latria-mac/latria-i
+	make clean mac-compiler
+	mv build/latria-c latria-mac/latria-c
+	chmod u+x latria-mac/*
+	if [ ! -d releases ]; then mkdir releases; fi
+	zip -r releases/latria-mac latria-mac
+	rm -r latria-mac
 
-build-release-linux: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
-	if [ ! -d build ]; then mkdir build; fi
-	$(LINK.cc) $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE) -o $(NAME_INTERPRETER_COMPILER_RELEASE_LINUX)
+# builds and zips releases for linux
+build-release-linux:
+	if [ ! -d latria-linux ]; then mkdir latria-linux; fi
+	make clean linux
+	mv build/latria latria-linux/latria
+	make clean linux-interpreter
+	mv build/latria-i latria-linux/latria-i
+	make clean linux-compiler
+	mv build/latria-c latria-linux/latria-c
+	chmod u+x latria-linux/*
+	if [ ! -d releases ]; then mkdir releases; fi
+	zip -r releases/latria-linux latria-linux
+	rm -r latria-linux
 
 $(NAME_INTERPRETER_COMPILER): $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
 	if [ ! -d build ]; then mkdir build; fi

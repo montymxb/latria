@@ -17,7 +17,7 @@ deploy:
   skip_cleanup: true
   file_glob: true
   file:
-    - "build/*"
+    - "releases/*"
   on:
     tags: true
     repo: montymxb/latria

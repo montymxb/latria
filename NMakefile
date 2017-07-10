@@ -111,6 +111,19 @@ test-all: latria-debug
 test: latria-debug
     build\latria-debug.exe -t
 
+# release
+release:
+    if not exist latria-windows mkdir latria-windows
+    $(NMAKE_INVOCATION) clean latria
+    move build\latria.exe latria-windows
+    $(NMAKE_INVOCATION) clean interpreter
+    move build\latria-i.exe latria-windows
+    $(NMAKE_INVOCATION) clean compiler
+    move build\latria-c.exe latria-windows
+    if not exist release mkdir release
+    powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('release\latria-windows.zip', 'latria-windows'); }"
+    rmdir latria-windows
+
 # latria
 _latria: $(INTERPRETER_PROMPT) $(CORE_OBJS) $(INTERPRETER_OBJS) $(HTTP_OBJS) $(MEMORY_OBJS) $(REGEX_OBJS) $(COMPILER_CORE)
 	if not exist build mkdir build

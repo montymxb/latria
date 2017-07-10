@@ -11,15 +11,15 @@ build: off
 test_script:
     - nmake /F NMakefile test-all
     - echo "* building release"
-    - nmake /F NMakefile clean latria
+    - nmake /F NMakefile clean release
 artifacts:
-    path: build\latria.exe
-    name: latria.exe
+    path: release\latria-windows.zip
+    name: latria-windows.zip
 deploy:
     provider: GitHub
     auth_token:
         secure: VXCmu2vAN8L+rOshz8ayzNeplJ22ClEiL3hJ5RnXEq9N9wyZU2htV5h8NX1i2XJq
-    artifact: build\latria.exe
+    artifact: release\latria-windows.zip
     on:
         branch: master
         appveyor_repo_tag: true

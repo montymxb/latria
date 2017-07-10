@@ -58,3 +58,7 @@ Latria.xcodeproj
 
 # ignore contents of build folder
 build/*
+
+# ignore releases
+releases/
+release/
