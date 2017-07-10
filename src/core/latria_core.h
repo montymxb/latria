@@ -30,7 +30,7 @@
 #define latria_core_latria_core_h
 
 /* Current latria version */
-#define LATRIA_VERSION_NUMBER "0.3.1"
+#define LATRIA_VERSION_NUMBER "0.3.6"
 
 /* 4 */
 #define LAT_ADDRESS_SIZE 8
