@@ -11,6 +11,7 @@
 CFLAGS += -Isrc -std=c90 -ansi -O3 -fno-common -fshort-enums -pedantic -W -Wall -fno-common -fshort-enums -Wcast-align -Wcast-qual -Wconversion -Wmissing-declarations -Wredundant-decls -Wnested-externs -Wpointer-arith -Wshadow
 
 # Generic Debug Flags
+# FULL Debug Mode Can use -DLAT_DEBUG=1
 DEBUG_FLAGS := -DLAT_TESTS=1 -g
 
 # Generic Include Compiler Flag
@@ -107,7 +108,7 @@ MEMORY_OBJS := src/memory/latria_gc.o
 REGEX_OBJS := src/regex/latria_regex.o
 
 # Test Objects
-TEST_OBJS := src/tests/latria_tests.o
+TEST_OBJS := src/tests/latria_ctest.o src/tests/latria_testframework.o src/tests/latria_tests.o src/tests/latria_whitespace_tests.o src/tests/latria_random_tests.o src/tests/latria_regex_tests.o src/tests/latria_integer_tests.o src/tests/latria_float_tests.o src/tests/latria_string_tests.o src/tests/latria_assignment_tests.o src/tests/latria_print_tests.o src/tests/latria_math_tests.o src/tests/latria_array_tests.o src/tests/latria_fileio_tests.o src/tests/latria_relational_tests.o src/tests/latria_controlflow_tests.o src/tests/latria_xlang_tests.o src/tests/latria_function_tests.o
 
 # Virtual Machine Objects
 VM_OBJS :=

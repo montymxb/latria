@@ -357,13 +357,13 @@ char * stripWhitespace(char *input) {
     return input;
 }
 
-/* Strips ALL \n's and \r's away from the end of our input */
+/* Strips ALL \n, \r & ; chars away from the end of our input */
 void stripLineEndings(char *input) {
     
     size_t len = strlen(input);
     input+=len-1;
     
-    while(*input == '\n' || *input == '\r') {
+    while(*input == '\n' || *input == '\r' || *input == ';') {
         
         *input-- = '\0';
     }
@@ -449,6 +449,35 @@ char isConditionalOperator(char *i) {
     }
     
     return 0;
+}
+
+/* Substring Implementation*/
+char * LATsubstring(char *input, int start, int end) {
+    
+    unsigned int y=0;
+    int iLen = (int)strlen(input), x;
+    char *rez;
+    
+    if(end < 0) {
+        
+        end = iLen;
+    }
+    
+    rez = LATAlloc(NULL, 0, (size_t)(end-start+1)*sizeof(char));
+    
+    /* Fix from valgrind, NOT safe to move above the alloc above */
+    if(end > iLen) {
+        
+        end = iLen;
+    }
+    
+    for(x = start; x < end; x++) {
+        
+        rez[y++] = input[x];
+    }
+    
+    rez[y]='\0';
+    return rez;
 }
 
 /* Latria String concatenate */

@@ -61,7 +61,7 @@ MEMORY_OBJS = src/memory/latria_gc.obj
 REGEX_OBJS = src/regex/latria_regex.obj
 
 # Test Objects
-TEST_OBJS = src/tests/latria_tests.obj
+TEST_OBJS = src/tests/latria_ctest.obj src/tests/latria_testframework.obj src/tests/latria_tests.obj src/tests/latria_whitespace_tests.obj src/tests/latria_random_tests.obj src/tests/latria_regex_tests.obj src/tests/latria_integer_tests.obj src/tests/latria_float_tests.obj src/tests/latria_string_tests.obj src/tests/latria_assignment_tests.obj src/tests/latria_print_tests.obj src/tests/latria_math_tests.obj src/tests/latria_array_tests.obj src/tests/latria_fileio_tests.obj src/tests/latria_relational_tests.obj src/tests/latria_controlflow_tests.obj src/tests/latria_xlang_tests.obj src/tests/latria_function_tests.obj
 
 # Virtual Machine Objects
 VM_OBJS =

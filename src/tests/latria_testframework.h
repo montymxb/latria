@@ -30,13 +30,24 @@
 #ifndef latria_tests_latria_testframework_h
 #define latria_tests_latria_testframework_h
 
-#if defined(LAT_TESTS)
+#include "prompt/latria.h"
+#include "core/latria_core.h"
+#include "core/latria_opcodes.h"
+#include "core/latria_sys.h"
 
-int LAT_TEST_FAIL_COUNT = 0;
+/**
+ * Sets the test line holder
+ */
+void setTestLineHolder(char *line);
 
-char LAT_TEST_LINE_HOLDER[512];
-char LAT_TEST_NAME[256];
+/**
+ * Runs the provided line as latria code
+ */
+void runLatriaCode(char *line);
 
-#endif
+/**
+ * Gets the current test line holder
+ */
+char* getTestLineHolder();
 
 #endif /* latria_tests_latria_testframework_h */

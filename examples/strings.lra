@@ -1,0 +1,12 @@
+// Strings in latria
+
+//x="some string"
+//print(x)
+
+// add strings together using +
+//print("part 1" + " and part 2")
+
+// substring
+x = "i want just 'this part'"
+x = substr(x, 12)
+print(x)

@@ -30,10 +30,29 @@ SOFTWARE.
 #ifndef latria_tests_latria_tests_h
 #define latria_tests_latria_tests_h
 
+#include "latria_ctest.h"
+#include "latria_testframework.h"
 #include "prompt/latria.h"
 #include "core/latria_core.h"
 #include "core/latria_opcodes.h"
 #include "core/latria_sys.h"
+
+/* Test Groups */
+#include "latria_whitespace_tests.h"
+#include "latria_random_tests.h"
+#include "latria_regex_tests.h"
+#include "latria_integer_tests.h"
+#include "latria_float_tests.h"
+#include "latria_string_tests.h"
+#include "latria_assignment_tests.h"
+#include "latria_print_tests.h"
+#include "latria_math_tests.h"
+#include "latria_array_tests.h"
+#include "latria_fileio_tests.h"
+#include "latria_relational_tests.h"
+#include "latria_controlflow_tests.h"
+#include "latria_xlang_tests.h"
+#include "latria_function_tests.h"
 
 void runAllTests();
 

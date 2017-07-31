@@ -23,36 +23,16 @@
  */
 
 /*
- *  latria_testframework.c
- *  Created by Benjamin Friedman on 2/23/17.
- *
- *  Framework for writing and running tests in Latria on Latria
- *
+ *  latria_print_tests.h
+ *  Created by Benjamin Friedman on 9/29/15.
  */
 
+#ifndef latria_tests_latria_print_tests_h
+#define latria_tests_latria_print_tests_h
+
+#include "latria_ctest.h"
 #include "latria_testframework.h"
 
-/* small 512 character array for copying and running code via */
-char LAT_TEST_LINE_HOLDER[512];
+void latria_print_tests();
 
-/**
- * Sets the test line holder
- */
-void setTestLineHolder(char *line) {
-    strcpy(LAT_TEST_LINE_HOLDER, line);
-}
-
-/**
- * Runs the provided line as latria code
- */
-void runLatriaCode(char *line) {
-    setTestLineHolder(line);
-    handleInput(LAT_TEST_LINE_HOLDER);
-}
-
-/**
- * Gets the current test line holder
- */
-char* getTestLineHolder() {
-    return LAT_TEST_LINE_HOLDER;
-}
+#endif /* latria_tests_latria_print_tests_h */

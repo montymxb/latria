@@ -801,11 +801,9 @@ char *analyzeRValueStart(char *in) {
       
     } else if(*in == '"') {
         /* Double quote rval */
+        popCompilerState();
         if(getPriorCompilerState() != LATC_RETURN) {
-            popCompilerState();
             pushCompilerState(ASSIGN_STR);
-        } else {
-            popCompilerState();
         }
         pushCompilerState(LATC_RPOST);
         pushCompilerState(LATC_DQUOTE);
@@ -814,11 +812,9 @@ char *analyzeRValueStart(char *in) {
         
     } else if(*in == '\'') {
         /* Single quote rval */
+        popCompilerState();
         if(getPriorCompilerState() != LATC_RETURN) {
-            popCompilerState();
             pushCompilerState(ASSIGN_STR);
-        } else {
-            popCompilerState();
         }
         pushCompilerState(LATC_RPOST);
         pushCompilerState(LATC_SQUOTE);
@@ -827,11 +823,9 @@ char *analyzeRValueStart(char *in) {
         
     } else if(*in == '(') {
         /* Starting paren (for compound expressions) */
+        popCompilerState();
         if(getPriorCompilerState() != LATC_RETURN) {
-            popCompilerState();
             pushCompilerState(ASSIGN_GENERIC);
-        } else {
-            popCompilerState();
         }
         pushCompilerState(LATC_RPOST);
         pushCompilerState(LATC_OPERATOR);
@@ -3426,6 +3420,10 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
             
         }
         
+        #ifdef LAT_DEBUG
+        printf("Update reg -> %d\n", currentRegisterNum);
+        #endif
+        
         /* Assign result to our current register # */
         writeOutCharacter((char)currentRegisterNum);
         
@@ -3433,7 +3431,16 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
             if(*poppedOperand1->element != '(') {
                 /* Operand 1 */
                 writeOutCharacter((char)currentRegisterNum);
+                
+                #ifdef LAT_DEBUG
+                printf("Operand 1 (current) -> %d\n", currentRegisterNum);
+                #endif
+                
             } else {
+                #ifdef LAT_DEBUG
+                printf("Operand 1 (last register) -> %d\n", (char)getLastRegisterUsedAtIndex((unsigned char)rgiIndex));
+                #endif
+                
                 /* O/PEN, defer to current address */
                 writeOutCode((char)getLastRegisterUsedAtIndex((unsigned char)rgiIndex++));
             }
@@ -3455,11 +3462,40 @@ void dispatchInstructionsFromExpression(unsigned char mode) {
             if(*poppedOperand2->element != '(') {
                 /* Operand 2, always register 2 */
                 writeOutCharacter((char)2);
+                
+                #ifdef LAT_DEBUG
+                printf("Operand 2 (default 2) -> %d\n", (char)2);
+                #endif
+                
             } else {
                 /* O/PEN, defer to current address INVERTED */
                 if(getLastRegisterUsedAtIndex((unsigned char)rgiIndex) == getLastRegisterUsedAtIndex(0) && rgiIndex == 1) {
-                    writeOutCode((char)currentRegisterNum);
+                    if(currentRegisterNum == 1 && (char)getLastRegisterUsedAtIndex((unsigned char)rgiIndex)) {
+                        /* shift to 0 instead
+                           * This is a fix for compound expressions not evaluating properly, such as in ((2^2)+(3^3))
+                           * The final inner set of parens is added to itself, rather than to the result of the prior
+                           */
+                        
+                        #ifdef LAT_DEBUG
+                        printf("Operand 2 (0 default) -> %d\n", 0);
+                        #endif
+                        
+                        writeOutCode((char)0);
+                        
+                    } else {
+                        #ifdef LAT_DEBUG
+                        printf("Operand 2 (from current) -> %d\n", (char)currentRegisterNum);
+                        #endif
+                        
+                        writeOutCode((char)currentRegisterNum);
+                        
+                    }
+                    
                 } else {
+                    #ifdef LAT_DEBUG
+                    printf("Operand 2 (last register) -> %d\n", (char)getLastRegisterUsedAtIndex((unsigned char)rgiIndex));
+                    #endif
+                    
                     writeOutCode((char)getLastRegisterUsedAtIndex((unsigned char)rgiIndex));
                 }
             }

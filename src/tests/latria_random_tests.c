@@ -23,36 +23,52 @@
  */
 
 /*
- *  latria_testframework.c
- *  Created by Benjamin Friedman on 2/23/17.
- *
- *  Framework for writing and running tests in Latria on Latria
- *
+ *  latria_random_tests.c
+ *  Created by Benjamin Friedman on 9/29/15.
  */
 
-#include "latria_testframework.h"
+#include "latria_random_tests.h"
 
-/* small 512 character array for copying and running code via */
-char LAT_TEST_LINE_HOLDER[512];
+void test_random();
 
 /**
- * Sets the test line holder
+ * Run these tests
  */
-void setTestLineHolder(char *line) {
-    strcpy(LAT_TEST_LINE_HOLDER, line);
+void latria_random_tests() {
+    test_random();
 }
 
 /**
- * Runs the provided line as latria code
+ * Unit tests for random 
  */
-void runLatriaCode(char *line) {
-    setTestLineHolder(line);
-    handleInput(LAT_TEST_LINE_HOLDER);
-}
-
-/**
- * Gets the current test line holder
- */
-char* getTestLineHolder() {
-    return LAT_TEST_LINE_HOLDER;
+void test_random() {
+    int origValue;
+    int rez;
+    
+    ctest_begin("random unit test");
+    
+    /* Test for 0 only */
+    rez = Sys_Random(1);
+    ctest_assert_int_equalto(0, rez, "Failed with random being greater than 1.");
+    
+    /* Test between 100 */
+    rez = Sys_Random(100);
+    ctest_assert_int_lessthanequalto(100, rez, "Failed with random being greater than 100.");
+    
+    /* Reseed */
+    Sys_RandomSeed(12345);
+    
+    /* Test Value */
+    rez = Sys_Random(100);
+    /* store original value */
+    origValue = rez;
+    ctest_assert_int_lessthanequalto(100, rez, "Failed with random being greater than 100.");
+    
+    /* Reseed, again */
+    Sys_RandomSeed(12345);
+    
+    /* Test Value to MATCH origValue */
+    rez = Sys_Random(100);
+    ctest_assert_int_equalto(origValue, rez, "Failed with seeding not generating same results.");
+    
 }
