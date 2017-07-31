@@ -69,7 +69,7 @@ void ctest_assertion_passed();
 /**
  * Indicates an assertion failed
  */
-void ctest_assertion_failed(char *message);
+void ctest_assertion_failed();
 
 /**
  * Sets up for running tests
@@ -116,7 +116,7 @@ void ctest_assert_null(void *check, char *message) {
         } else {
             printf("    %s-%s Failed asserting value was NULL", COLOR_RED, COLOR_RESET);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
@@ -136,7 +136,7 @@ void ctest_assert_notnull(void *check, char *message) {
         } else {
             printf("    %s-%s Failed asserting value was not NULL", COLOR_RED, COLOR_RESET);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
@@ -156,7 +156,7 @@ void ctest_assert_false(int check, char *message) {
         } else {
             printf("    %s-%s Failed asserting %d was false", COLOR_RED, COLOR_RESET, check);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
@@ -176,7 +176,7 @@ void ctest_assert_true(int check, char *message) {
         } else {
             printf("    %s-%s Failed asserting %d was true", COLOR_RED, COLOR_RESET, check);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
@@ -196,7 +196,7 @@ void ctest_assert_int_equalto(int expected, int check, char *message) {
         } else {
             printf("    %s-%s Int failed asserting %d was equal to %d", COLOR_RED, COLOR_RESET, check, expected);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
@@ -216,7 +216,7 @@ void ctest_assert_int_notequalto(int expected, int check, char *message) {
         } else {
             printf("    %s-%s Int failed asserting %d was not equal to %d", COLOR_RED, COLOR_RESET, check, expected);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
@@ -236,7 +236,7 @@ void ctest_assert_int_greaterthanequalto(int expected, int check, char *message)
         } else {
             printf("    %s-%s Int failed asserting %d was greater than or equal to %d", COLOR_RED, COLOR_RESET, check, expected);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
@@ -256,7 +256,7 @@ void ctest_assert_int_lessthanequalto(int expected, int check, char *message) {
         } else {
             printf("    %s-%s Int failed asserting %d was less than or equal to %d", COLOR_RED, COLOR_RESET, check, expected);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
@@ -276,7 +276,7 @@ void ctest_assert_float_equalto(float expected, float check, char *message) {
         } else {
             printf("    %s-%s Chars Float failed asserting %f was equal to %f", COLOR_RED, COLOR_RESET, check, expected);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
@@ -296,7 +296,7 @@ void ctest_assert_float_lessthan(float expected, float check, char *message) {
         } else {
             printf("    %s-%s Chars Float failed asserting %f was less than %f", COLOR_RED, COLOR_RESET, check, expected);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
@@ -316,7 +316,7 @@ void ctest_assert_char_equalto(char *expected, char *check, char *message) {
         } else {
             printf("    %s-%s Chars failed asserting %s was equal to %s", COLOR_RED, COLOR_RESET, check, expected);
         }
-        ctest_assertion_failed(message);
+        ctest_assertion_failed();
     }
 }
 
