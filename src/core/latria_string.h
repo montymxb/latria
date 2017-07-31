@@ -65,4 +65,7 @@ LATBool isNumeric(char *val);
 /* Indicates whether this string is a recognized conditional operator */
 char isConditionalOperator(char *i);
 
+/* Substring implementation */
+char * LATsubstring(char *input, int start, int end);
+
 #endif /* latria_core_latria_string_h */

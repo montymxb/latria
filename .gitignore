@@ -38,9 +38,14 @@
 # log files
 *.log
 
-# plain and compiled latria scripts
-*.lra
+# used to ignore regular latria scripts, but now they are examples
+# *.lra
+
+# ignore compiled latria scripts
 *.lrac
+
+# ignore diassembled descriptive latria vm instructions
+*.lrac.txt
 
 # temporary files
 ~*

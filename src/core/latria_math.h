@@ -34,8 +34,6 @@ SOFTWARE.
 
 float local_pow(double base, int exp);
 
-char * LATsubstring(char *input, int start, int end);
-
 void performAddOp  (unsigned char i1, unsigned char i2, unsigned char i3);
 void performSubOp  (unsigned char i1, unsigned char i2, unsigned char i3);
 void performMultiOp(unsigned char i1, unsigned char i2, unsigned char i3);

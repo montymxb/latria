@@ -1,0 +1,10 @@
+// This is a valid comment
+
+/* So is this! */
+
+/**
+ * And this!
+ *
+ */
+
+print("latria uses c-style comments!")

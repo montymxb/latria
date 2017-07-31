@@ -22,6 +22,8 @@ The [latest release](https://github.com/montymxb/latria/releases/latest/) has bi
 
 Be sure to read the [guide](https://latria.uphouseworks.com/Guide/) to familiarize yourself with the latria language.
 
+If you want to see runnable examples checkouts the **examples** folder included in this repo. It contains scripts various scripts that you can play around with to learn how latria works.
+
 ## Building
 
 Latria is capable of being built on linux, mac and windows from the same source. The methods vary however, as will be explained in a moment.

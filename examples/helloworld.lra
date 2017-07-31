@@ -1,0 +1,5 @@
+// Prints 'hello world' to the console
+
+var = "hello world!"
+
+print(var)

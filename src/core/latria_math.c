@@ -46,37 +46,6 @@ float local_pow(double base, int exponent) {
     return (float)result;
 }
 
-
-/* Substring Implementation*/
-char * LATsubstring(char *input, int start, int end) {
-    
-    unsigned int y=0;
-    int iLen = (int)strlen(input), x;
-    char *rez;
-    
-    if(end < 0) {
-        
-        end = iLen;
-    }
-    
-    rez = LATAlloc(NULL, 0, (size_t)(end-start+1)*sizeof(char));
-    
-    /* Fix from valgrind, NOT safe to move above the alloc above */
-    if(end > iLen) {
-        
-        end = iLen;
-    }
-    
-    for(x = start; x < end; x++) {
-        
-        rez[y++] = input[x];
-    }
-    
-    rez[y]='\0';
-    return rez;
-}
-
-
 /* Performs an add operation with registers into another register */
 void performAddOp(unsigned char i1, unsigned char i2, unsigned char i3) {
     

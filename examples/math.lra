@@ -1,0 +1,23 @@
+// Basic arithmetic in latria
+
+// addition
+print(2.8 + 2)
+
+// subtraction
+print(52 - 4.4)
+
+// multiplication
+print(9 * 3)
+
+// division
+print(9 / 3)
+
+// modulus
+print(9 % 4)
+
+// exponentiation
+print(5 ^ 2)
+
+// pemdas
+x = ((5 ^ 2) + (10 / 2)) / 5
+print(x)

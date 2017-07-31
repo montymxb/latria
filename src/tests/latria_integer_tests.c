@@ -23,36 +23,49 @@
  */
 
 /*
- *  latria_testframework.c
- *  Created by Benjamin Friedman on 2/23/17.
- *
- *  Framework for writing and running tests in Latria on Latria
- *
+ *  latria_integer_tests.c
+ *  Created by Benjamin Friedman on 9/29/15.
  */
 
-#include "latria_testframework.h"
+#include "latria_integer_tests.h"
 
-/* small 512 character array for copying and running code via */
-char LAT_TEST_LINE_HOLDER[512];
+void test_IntegerAssign();
+void test_IntegerReassign();
 
 /**
- * Sets the test line holder
+ * Run these tests
  */
-void setTestLineHolder(char *line) {
-    strcpy(LAT_TEST_LINE_HOLDER, line);
+void latria_integer_tests() {
+    test_IntegerAssign();
+    test_IntegerReassign();
 }
 
 /**
- * Runs the provided line as latria code
+ * Test Assigning an integer value 
  */
-void runLatriaCode(char *line) {
-    setTestLineHolder(line);
-    handleInput(LAT_TEST_LINE_HOLDER);
+void test_IntegerAssign() {
+    struct CoreObject *co;
+    ctest_begin("integer assign test");
+    setTestLineHolder("x=2");
+    handleInput((getTestLineHolder()));
+    co = getValue("x");
+    
+    ctest_assert_notnull(co, "No CoreObject created");
+    ctest_assert_int_equalto(0, co->_state, "Not of correct data type");
+    ctest_assert_int_equalto(2, co->data._fvalue, NULL);
 }
 
 /**
- * Gets the current test line holder
+ * Test reassigning an integer value 
  */
-char* getTestLineHolder() {
-    return LAT_TEST_LINE_HOLDER;
+void test_IntegerReassign() {
+    struct CoreObject *co;
+    ctest_begin("integer reassign");
+    setTestLineHolder("x=24");
+    handleInput((getTestLineHolder()));
+    co = getValue("x");
+    
+    ctest_assert_notnull(co, "No CoreObject created");
+    ctest_assert_int_equalto(0, co->_state, "Not of correct data type");
+    ctest_assert_int_equalto(24, co->data._fvalue, NULL);
 }
