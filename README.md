@@ -9,7 +9,7 @@ A compact, cross platform, embeddable language with an emphasis on multi-languag
 
 - can run on **mac**/**linux**/**windows**/**android**/**ios** and more (almost anything since 1990, give or take). 
 - a *very* tiny footprint. The compiler and interpreter combined weighs in at ~150kb on unix systems, and about ~250kb on windows.
-- it's *fast*, in some cases even faster than [lua](https://www.lua.org/about.html). And it can be optimized to go even faster.
+- it's *fast*. And it can be optimized to go even faster.
 - scripts can be compiled in advance and are system agnostic. A script built by latria on windows can be run by latria on mac, linux, ios, etc.
 - very few dependencies, making it easy to build from scratch for your systems specifically.
 - can capture the results of another language, allowing you to 'glue' together individual programs/scripts/etc. written in multiple different languages with ease.
