@@ -18,9 +18,9 @@ A compact, cross platform, embeddable language with an emphasis on multi-languag
 
 ## Getting Started
 
-The [latest release](https://github.com/montymxb/latria/releases/latest/) has binaries for **mac**, **linux** and **windows**. These precombiled versions will work in most cases, provided you have a compatible operating system. If you need something a little more custom you can always build latria from source by following the [building](#user-content-building) instructions below.
+The [latest release](http://github.com/montymxb/latria/releases/latest/) has binaries for **mac**, **linux** and **windows**. These precombiled versions will work in most cases, provided you have a compatible operating system. If you need something a little more custom you can always build latria from source by following the [building](#user-content-building) instructions below.
 
-Be sure to read the [guide](https://latria.uphouseworks.com/Guide/) to familiarize yourself with the latria language.
+Be sure to read the [guide](http://latria.uphouseworks.com/Guide/) to familiarize yourself with the latria language.
 
 If you want to see runnable examples checkouts the **examples** folder included in this repo. It contains scripts various scripts that you can play around with to learn how latria works.
 
