@@ -3,6 +3,10 @@
 [![Build Status](https://travis-ci.org/montymxb/latria.svg?branch=master)](https://travis-ci.org/montymxb/latria)
 [![Build status](https://ci.appveyor.com/api/projects/status/g6mo13n1405xks1u?svg=true)](https://ci.appveyor.com/project/montymxb/latria)
 
+**Sept. 26th, 2022 - Just a small note.** This project hasn't been worked on recently for some time, as I've been quite busy. While I'm still quite happy with it (and plan to come back to it at a later time) please keep this in mind. I would *not* recommend Latria for projects beyond the educational domain at this time.
+
+...
+
 A compact, cross platform, embeddable language with an emphasis on multi-language communication and lightweight scripting.
 
 ## What's neat about latria?
